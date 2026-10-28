@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://site-g-backend-production.up.railway.app";
 
 export class ApiError extends Error {
   status: number;
