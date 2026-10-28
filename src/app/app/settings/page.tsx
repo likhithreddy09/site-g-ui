@@ -232,7 +232,7 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
-        <CardHeader title="White-label client reports" subtitle={allowed ? "Your brand replaces SiteGuard on shared reports." : "Available on Agency Pro and Enterprise."} />
+        <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces SiteGuard on shared reports." : "Available on Agency Pro and Enterprise."} />
         <div className="space-y-4 p-5">
           <Input label="Company name" value={b.company_name} disabled={!allowed} onChange={(e) => setB({ ...b, company_name: e.target.value })} />
           <Input label="Logo URL" value={b.logo_url} disabled={!allowed} onChange={(e) => setB({ ...b, logo_url: e.target.value })} placeholder="https://agency.com/logo.png" />
@@ -282,7 +282,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
                 <li>{p.browser_tests} journeys · {p.browser_minutes} browser min</li>
                 <li>{p.js_monitoring ? "Browser error monitoring" : "No browser error monitoring"}</li>
                 <li>{p.team_members} team member(s){p.slack ? " · Slack/Teams" : ""}</li>
-                <li>{p.reports ? (p.scheduled_reports ? "Scheduled client reports" : "Client reports") : "No reports"}{p.white_label ? " · white-label" : ""}</li>
+                <li>{p.reports ? (p.scheduled_reports ? "Scheduled reports" : "Reports") : "No reports"}{p.white_label ? " · white-label" : ""}</li>
                 <li>{p.ai_calls} AI analyses / month</li>
               </ul>
               {can("owner") && !current && <Button className="mt-5" variant={id === "agency" ? "primary" : "secondary"} loading={busy === id}

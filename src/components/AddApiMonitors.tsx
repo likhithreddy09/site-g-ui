@@ -14,7 +14,7 @@ import { useApi } from "@/lib/hooks";
 type Mode = "menu" | "discover" | "manual" | "file" | "csv";
 
 const OPTIONS: { id: Mode; icon: any; title: string; body: string; who: string }[] = [
-  { id: "discover", icon: Radar, title: "Find them automatically", body: "We browse the website like a visitor and list the APIs it calls. Tick the ones to watch.", who: "Easiest — no technical knowledge needed" },
+  { id: "discover", icon: Radar, title: "Find them automatically", body: "We browse the site, capture live API traffic, and pull OpenAPI / Swagger specs when present. Recommended endpoints are ready to watch in one click.", who: "Easiest — no technical knowledge needed" },
   { id: "manual", icon: PenLine, title: "Add one by hand", body: "Type the address, or paste a cURL command copied from the browser or terminal.", who: "For a single endpoint" },
   { id: "file", icon: FileJson, title: "Import Postman / OpenAPI", body: "Upload a Postman collection, OpenAPI (Swagger) spec, or a HAR file exported from browser DevTools.", who: "For developers — add many at once" },
   { id: "csv", icon: FileSpreadsheet, title: "Upload a spreadsheet", body: "Fill in our sample sheet in Excel or Google Sheets (one API per row) and upload it as CSV.", who: "For teams handing over a list" },
@@ -61,7 +61,7 @@ export function AddApiMonitors({ onClose, onDone }: { onClose: () => void; onDon
                 <option value="">— choose a website —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </Select>
             </div>
-            {site ? <DiscoveryPanel key={site.id} site={site} /> : <p className="text-sm text-plum/60">Choose a website to scan. You can add websites from the Websites page.</p>}
+            {site ? <DiscoveryPanel key={site.id} site={site} onMonitorsChange={onDone} /> : <p className="text-sm text-plum/60">Choose a website to scan. You can add websites from the Websites page.</p>}
           </div>
         )}
 

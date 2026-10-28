@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { Loader2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, X } from "lucide-react";
 import Link from "next/link";
 import { forwardRef, useEffect } from "react";
 
@@ -54,8 +54,8 @@ export function CardHeader({ title, subtitle, action, className }: { title: Reac
 
 const badgeTones: Record<string, string> = {
   up: "bg-ok/10 text-ok", passing: "bg-ok/10 text-ok", valid: "bg-ok/10 text-ok", resolved: "bg-ok/10 text-ok", ok: "bg-ok/10 text-ok", sent: "bg-ok/10 text-ok", approved: "bg-ok/10 text-ok", active: "bg-teal/10 text-teal",
-  down: "bg-bad/10 text-bad", failing: "bg-bad/10 text-bad", invalid: "bg-bad/10 text-bad", critical: "bg-bad text-white", failure: "bg-bad/10 text-bad", failed: "bg-bad/10 text-bad", open: "bg-bad/10 text-bad", issue: "bg-bad/10 text-bad",
-  degraded: "bg-gold/20 text-[#8a5b00]", flaky: "bg-gold/20 text-[#8a5b00]", expiring: "bg-gold/20 text-[#8a5b00]", major: "bg-rose/20 text-magenta", transient: "bg-gold/20 text-[#8a5b00]", investigating: "bg-gold/20 text-[#8a5b00]", changed: "bg-sky/30 text-teal", pending_review: "bg-sky/30 text-teal", logged: "bg-sky/30 text-teal",
+  down: "bg-bad/10 text-bad", failing: "bg-bad/10 text-bad", invalid: "bg-bad/10 text-bad", expired: "bg-bad/10 text-bad", bad: "bg-bad/10 text-bad", critical: "bg-bad text-white", failure: "bg-bad/10 text-bad", failed: "bg-bad/10 text-bad", open: "bg-bad/10 text-bad", issue: "bg-bad/10 text-bad",
+  degraded: "bg-gold/20 text-[#8a5b00]", flaky: "bg-gold/20 text-[#8a5b00]", expiring: "bg-gold/20 text-[#8a5b00]", warn: "bg-gold/20 text-[#8a5b00]", major: "bg-rose/20 text-magenta", transient: "bg-gold/20 text-[#8a5b00]", investigating: "bg-gold/20 text-[#8a5b00]", changed: "bg-sky/30 text-teal", pending_review: "bg-sky/30 text-teal", logged: "bg-sky/30 text-teal",
   minor: "bg-sky/30 text-teal", info: "bg-plum/5 text-plum/70", unknown: "bg-plum/5 text-plum/60", paused: "bg-plum/5 text-plum/60", ignored: "bg-plum/5 text-plum/60", draft: "bg-plum/5 text-plum/60", pending: "bg-plum/5 text-plum/60", scheduled: "bg-teal/10 text-teal", skipped: "bg-plum/5 text-plum/60", dismissed: "bg-plum/5 text-plum/60", superseded: "bg-plum/5 text-plum/60", quota_exceeded: "bg-gold/20 text-[#8a5b00]", invited: "bg-gold/20 text-[#8a5b00]",
 };
 
@@ -258,13 +258,13 @@ export function ChipInput({ label, values, onChange, placeholder, hint }: { labe
   );
 }
 
-export function Table({ head, children, className }: { head: React.ReactNode[]; children: React.ReactNode; className?: string }) {
+export function Table({ head, children, className, dense }: { head: React.ReactNode[]; children: React.ReactNode; className?: string; dense?: boolean }) {
   return (
     <div className={cn("overflow-x-auto scrollbar-thin", className)}>
       <table className="w-full text-left text-sm">
         <thead>
           <tr className="border-b border-plum/8">
-            {head.map((h, i) => <th key={i} className="whitespace-nowrap px-5 py-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/50">{h}</th>)}
+            {head.map((h, i) => <th key={i} className={cn("whitespace-nowrap py-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/50", dense ? "px-3" : "px-5")}>{h}</th>)}
           </tr>
         </thead>
         <tbody className="divide-y divide-plum/6">{children}</tbody>
@@ -273,6 +273,37 @@ export function Table({ head, children, className }: { head: React.ReactNode[]; 
   );
 }
 
-export function Td({ children, className, ...rest }: React.TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn("px-5 py-3.5 align-middle", className)} {...rest}>{children}</td>;
+export function Td({ children, className, dense, ...rest }: React.TdHTMLAttributes<HTMLTableCellElement> & { dense?: boolean }) {
+  return <td className={cn("align-middle", dense ? "px-3 py-3" : "px-5 py-3.5", className)} {...rest}>{children}</td>;
+}
+
+function pageWindow(page: number, pages: number): (number | "…")[] {
+  if (pages <= 7) return Array.from({ length: pages }, (_, i) => i + 1);
+  const out: (number | "…")[] = [1];
+  const left = Math.max(2, page - 1);
+  const right = Math.min(pages - 1, page + 1);
+  if (left > 2) out.push("…");
+  for (let i = left; i <= right; i++) out.push(i);
+  if (right < pages - 1) out.push("…");
+  out.push(pages);
+  return out;
+}
+
+export function Pager({ page, pages, total, perPage, onPage }: { page: number; pages: number; total: number; perPage: number; onPage: (p: number) => void }) {
+  if (!total) return null;
+  const start = (page - 1) * perPage + 1;
+  const end = Math.min(total, page * perPage);
+  const btn = "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2.5 text-xs font-medium text-plum/70 transition hover:bg-plum/5 disabled:pointer-events-none disabled:opacity-40";
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-plum/8 px-5 py-3">
+      <p className="text-xs text-plum/60">Showing {start}–{end} of {total}</p>
+      <div className="flex items-center gap-1">
+        <button type="button" className={btn} disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="Previous page"><ChevronLeft className="h-4 w-4" /> Previous</button>
+        {pageWindow(page, pages).map((n, i) => n === "…"
+          ? <span key={`gap-${i}`} className="px-1 text-xs text-plum/40">…</span>
+          : <button key={n} type="button" aria-current={n === page ? "page" : undefined} onClick={() => onPage(n)} className={n === page ? "inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-plum px-2.5 text-xs font-medium text-cream" : btn}>{n}</button>)}
+        <button type="button" className={btn} disabled={page >= pages} onClick={() => onPage(page + 1)} aria-label="Next page">Next <ChevronRight className="h-4 w-4" /></button>
+      </div>
+    </div>
+  );
 }

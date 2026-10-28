@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { fmtDate, ms, pct } from "@/lib/format";
+import { expiryLabel, fmtDate, ms, pct } from "@/lib/format";
 import { Badge } from "./ui";
 
 export function ReportView({ data }: { data: any }) {
@@ -74,8 +74,8 @@ export function ReportView({ data }: { data: any }) {
                     <td className="pr-4 font-mono text-xs">{ms(w.avg_response_ms)}</td>
                     <td className="pr-4 font-mono text-xs">{ms(w.p95_response_ms)}</td>
                     <td className="pr-4 font-mono text-xs">{w.incidents}</td>
-                    <td className="pr-4 text-xs">{w.ssl_days_left != null ? `${w.ssl_days_left}d` : "—"}</td>
-                    <td className="text-xs">{w.domain_days_left != null ? `${w.domain_days_left}d` : "unknown"}</td>
+                    <td className="pr-4 text-xs">{w.ssl_days_left != null ? expiryLabel(w.ssl_days_left, "badge") : "—"}</td>
+                    <td className="text-xs">{w.domain_days_left != null ? expiryLabel(w.domain_days_left, "badge") : "No date"}</td>
                   </tr>
                 ))}
               </tbody>

@@ -58,7 +58,7 @@ function ReportsInner() {
 
   return (
     <div>
-      <PageHeader eyebrow="Agency" title="Client reports" subtitle="Generate health reports for one client or the whole portfolio, share a read-only link, or schedule them by email."
+      <PageHeader eyebrow="Agency" title="Reports" subtitle="Generate health reports for one client or the whole portfolio, share a read-only link, or schedule them by email."
         action={can("member") && <>
           <Button variant="secondary" onClick={() => { setError(null); setSched(true); }}><CalendarClock className="h-4 w-4" /> Schedule</Button>
           <Button onClick={() => { setError(null); setGen(true); }}><Plus className="h-4 w-4" /> Generate report</Button>

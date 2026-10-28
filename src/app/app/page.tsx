@@ -5,11 +5,11 @@ import { AlertOctagon, ArrowRight, Bug, CheckCircle2, Circle, Clock, Gauge, Glob
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FailureBars, ResponseChart } from "@/components/charts";
+import { DayShape } from "@/components/charts";
 import { WebsiteForm } from "@/components/WebsiteForm";
-import { Badge, Button, Card, CardHeader, Empty, Loading, Modal, PageHeader, Stat, StatusDot } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, Empty, Loading, Modal, PageHeader, Stat, StatusDot, Table, Td } from "@/components/ui";
 import { useAuth } from "@/lib/auth";
-import { timeAgo, pct, ms } from "@/lib/format";
+import { certTone, expiryLabel, fmtDate, issuerShort, ms, pct, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
 
 export default function Dashboard() {
@@ -77,10 +77,8 @@ export default function Dashboard() {
 
           <div className="mt-6 grid gap-6 lg:grid-cols-3">
             <Card className="lg:col-span-2">
-              <CardHeader title="The day's shape" subtitle="Average response time and failed checks per hour, all sites" action={<Badge tone="ok">● live</Badge>} />
-              <div className="px-3 pt-4">
-                {data.hourly.length ? <><ResponseChart data={data.hourly} height={200} /><FailureBars data={data.hourly} height={56} /></> : <div className="py-16 text-center text-sm text-plum/50">Checks will appear here shortly.</div>}
-              </div>
+              <CardHeader title="The day's shape" subtitle="Average response time and failed checks for every site, one column per hour" action={<Badge tone="ok">● live</Badge>} />
+              <DayShape data={data.hourly || []} />
             </Card>
             <Card>
               <CardHeader title="Needs attention" subtitle="Open incidents, newest first" action={<Link href="/app/incidents" className="text-xs text-magenta">All</Link>} />
@@ -90,8 +88,8 @@ export default function Dashboard() {
                   <Link key={i.id} href={`/app/incidents/${i.id}`} className="flex gap-3 px-5 py-3.5 transition hover:bg-cream/70">
                     <span className={`mt-1 w-1 shrink-0 self-stretch rounded-full ${i.severity === "critical" ? "bg-bad" : i.severity === "major" ? "bg-magenta" : "bg-sky"}`} />
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-medium text-ink">{i.title}</div>
-                      <div className="mt-0.5 flex items-center gap-2 text-[11px] text-plum/55"><Badge>{i.severity}</Badge>{i.website_name} · {timeAgo(i.started_at)}</div>
+                      <div className="line-clamp-2 text-sm font-medium leading-snug text-ink">{i.title}</div>
+                      <div className="mt-1 truncate text-[11px] text-plum/55"><Badge>{i.severity}</Badge> <span className="ml-1.5">{i.website_name} · {timeAgo(i.started_at)}</span></div>
                     </div>
                   </Link>
                 ))}
@@ -101,13 +99,16 @@ export default function Dashboard() {
 
           <div className="mt-6 grid gap-6 lg:grid-cols-3">
             <Card>
-              <CardHeader title="Expiring soon" subtitle="SSL certificates ≤ 30 days, domains ≤ 60 days" />
-              <div className="divide-y divide-plum/6">
-                {data.expiring.length === 0 && <div className="px-5 py-8 text-center text-sm text-plum/55">Nothing expiring soon.</div>}
-                {data.expiring.slice(0, 6).map((e: any, i: number) => (
-                  <Link key={i} href={`/app/websites/${e.website_id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-cream/70">
-                    <span><span className="font-medium text-ink">{e.name}</span> <span className="text-plum/50">· {e.kind}</span></span>
-                    <span className={`font-mono text-xs ${e.days_left <= 7 ? "text-bad" : "text-warn"}`}>{e.days_left}d</span>
+              <CardHeader title="SSL & domains" subtitle="Every certificate and domain. Highlighted when already expired, or due within 30 days (SSL) and 60 days (domains)." />
+              <div className="max-h-[22rem] divide-y divide-plum/6 overflow-y-auto">
+                {data.expiring.length === 0 && <div className="px-5 py-8 text-center text-sm text-plum/55">No certificate or domain dates yet.</div>}
+                {data.expiring.map((e: any, i: number) => (
+                  <Link key={i} href={`/app/websites/${e.website_id}?tab=ssl`} className="flex items-center justify-between gap-3 px-5 py-3 text-sm hover:bg-cream/70">
+                    <span className="min-w-0">
+                      <span className="block truncate"><span className="font-medium text-ink">{e.name}</span> <span className="text-plum/50">· {e.kind}</span></span>
+                      <span className="mt-0.5 block truncate font-mono text-[11px] text-plum/45">{e.expires_at ? `Expires ${fmtDate(e.expires_at, false)}` : "No expiry date"}{issuerShort(e.detail) ? ` · ${issuerShort(e.detail)}` : ""}</span>
+                    </span>
+                    <span className={`shrink-0 font-mono text-xs ${e.days_left < 0 ? "text-bad" : e.soon ? "text-warn" : "text-plum/70"}`}>{e.days_left < 0 ? "expired" : `${e.days_left}d`}</span>
                   </Link>
                 ))}
               </div>
@@ -150,7 +151,7 @@ export default function Dashboard() {
             </Card>
           </div>
 
-          <SitesStrip />
+          <PortfolioHealth rows={data.portfolio || []} />
         </>
       )}
 
@@ -161,23 +162,54 @@ export default function Dashboard() {
   );
 }
 
-function SitesStrip() {
-  const { data } = useApi<any[]>("/api/websites", { poll: 30000 });
-  if (!data?.length) return null;
+function sslTone(s?: any) {
+  if (!s || s.enabled === false) return "ignored";
+  return certTone(s.status, s.days_left);
+}
+
+function PortfolioHealth({ rows }: { rows: any[] }) {
+  if (!rows.length) return null;
   return (
     <Card className="mt-6">
-      <CardHeader title="Portfolio" subtitle="Latest result per website" action={<Link href="/app/websites" className="text-xs text-magenta">Manage</Link>} />
-      <div className="grid gap-px bg-plum/6 sm:grid-cols-2 lg:grid-cols-3">
-        {data.slice(0, 12).map((s) => (
-          <Link key={s.id} href={`/app/websites/${s.id}`} className="flex items-center gap-3 bg-white px-5 py-3.5 transition hover:bg-cream/60">
-            <StatusDot status={s.paused ? "paused" : s.status} />
-            <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-ink">{s.name}</div>
-              <div className="truncate text-[11px] text-plum/50">{s.client_name || "No client"} · {timeAgo(s.last_check_at)}</div>
-            </div>
-            <span className="font-mono text-xs text-plum/60">{ms(s.last_response_ms)}</span>
-          </Link>
-        ))}
+      <CardHeader title="Portfolio health" subtitle="Uptime, SSL and domain for every website — click a row for full detail"
+        action={<Link href="/app/websites" className="text-xs text-magenta">Manage websites</Link>} />
+      <div className="overflow-x-auto">
+        <Table head={["Website", "Status", "Uptime 24h", "Response", "SSL", "Domain"]}>
+          {rows.map((s) => (
+            <tr key={s.id} className="hover:bg-cream/50">
+              <Td>
+                <Link href={`/app/websites/${s.id}`} className="block min-w-[180px]">
+                  <div className="font-medium text-ink hover:text-magenta">{s.name}</div>
+                  <div className="truncate text-[11px] text-plum/50">{s.client_name || "No client"} · {(s.url || "").replace(/^https?:\/\//, "")}</div>
+                </Link>
+              </Td>
+              <Td>
+                <span className="inline-flex items-center gap-2">
+                  <StatusDot status={s.paused ? "paused" : s.status} />
+                  <span className="capitalize text-sm">{s.paused ? "paused" : s.status || "—"}</span>
+                </span>
+              </Td>
+              <Td className="font-mono text-sm">{s.uptime_24h != null ? pct(s.uptime_24h) : "—"}</Td>
+              <Td className="font-mono text-sm">{ms(s.last_response_ms)}</Td>
+              <Td>
+                {s.ssl?.status ? (
+                  <Link href={`/app/websites/${s.id}?tab=ssl`} className="inline-flex flex-col gap-0.5">
+                    <Badge tone={sslTone(s.ssl)}>{typeof s.ssl.days_left === "number" && s.ssl.days_left < 0 ? "expired" : s.ssl.status}</Badge>
+                    <span className="max-w-[200px] truncate font-mono text-[11px] text-plum/60">{expiryLabel(s.ssl.days_left) || "No expiry date"}{issuerShort(s.ssl.issuer) ? ` · ${issuerShort(s.ssl.issuer)}` : ""}</span>
+                  </Link>
+                ) : <span className="text-xs text-plum/40">{s.ssl?.enabled === false ? "Off" : "Pending"}</span>}
+              </Td>
+              <Td>
+                {s.domain?.status ? (
+                  <Link href={`/app/websites/${s.id}?tab=ssl`} className="inline-flex flex-col gap-0.5">
+                    <Badge tone={sslTone(s.domain)}>{typeof s.domain.days_left === "number" && s.domain.days_left < 0 ? "expired" : s.domain.status}</Badge>
+                    <span className="max-w-[220px] truncate font-mono text-[11px] text-plum/60">{s.domain.days_left != null ? expiryLabel(s.domain.days_left) : "No expiry date"}{s.domain.registrar ? ` · ${s.domain.registrar}` : ""}</span>
+                  </Link>
+                ) : <span className="text-xs text-plum/40">{s.domain?.enabled === false ? "Off" : "Pending"}</span>}
+              </Td>
+            </tr>
+          ))}
+        </Table>
       </div>
     </Card>
   );

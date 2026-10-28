@@ -11,7 +11,7 @@ import { WebsiteForm } from "@/components/WebsiteForm";
 import { Badge, Button, Card, CardHeader, ChipInput, Input, KV, Loading, PageHeader, Stat, StatusDot, Table, Tabs, Td, Toggle } from "@/components/ui";
 import { del, patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { fmtDate, ms, pct, timeAgo } from "@/lib/format";
+import { certTone, expiryHeadline, expiryLabel, fmtDate, issuerShort, ms, pct, shortError, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
 import { RecheckPanel } from "@/components/RecheckPanel";
 import { checkStatus } from "@/lib/pageChecks";
@@ -107,12 +107,46 @@ function WebsiteDetailInner() {
         </div>
       )}
 
-      <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
-        <Stat label="Status" value={<span className="capitalize">{site.paused ? "paused" : site.status}</span>} tone={site.status === "up" ? "ok" : site.status === "down" ? "bad" : "warn"} sub={site.last_error || `HTTP ${site.last_status_code ?? "—"}`} />
+      <div className="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <Stat label="Status" value={<span className="capitalize">{site.paused ? "paused" : site.status}</span>} tone={site.status === "up" ? "ok" : site.status === "down" ? "bad" : "warn"} sub={site.last_error ? shortError(site.last_error) : `HTTP ${site.last_status_code ?? "—"}`} />
         <Stat label="Response" value={ms(site.last_response_ms)} sub={`Checked ${timeAgo(site.last_check_at)}`} />
         <Stat label="Uptime 24h" value={pct(site.uptime?.["24h"])} />
         <Stat label="Uptime 7d" value={pct(site.uptime?.["7d"])} />
         <Stat label="Uptime 30d" value={pct(site.uptime?.["30d"])} />
+      </div>
+      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <button type="button" onClick={() => setTab("ssl")} className="rounded-3xl bg-white p-5 text-left shadow-sm ring-1 ring-plum/8 transition hover:-translate-y-0.5 hover:shadow-lg hover:ring-magenta/25">
+          <div className="flex items-center justify-between gap-3">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/55">SSL certificate</span>
+            <Badge tone={site.ssl ? certTone(site.ssl.status, site.ssl.days_left) : "unknown"}>{site.ssl ? (typeof site.ssl.days_left === "number" && site.ssl.days_left < 0 ? "expired" : site.ssl.status) : (site.ssl_enabled ? "pending" : "off")}</Badge>
+          </div>
+          {site.ssl ? (
+            <>
+              <div className="mt-2 font-mono text-2xl font-semibold tracking-tight text-ink">{expiryHeadline(site.ssl.days_left)}</div>
+              <div className="mt-2 text-sm text-plum/70">{issuerShort(site.ssl.issuer) || "Issuer not listed"}{site.ssl.http_redirects_to_https ? " · HTTPS redirect OK" : site.ssl.http_redirects_to_https === false ? " · no HTTPS redirect" : ""}</div>
+              <div className="mt-1 font-mono text-[11px] text-plum/45">{site.ssl.valid_to ? `Expires ${fmtDate(site.ssl.valid_to, false)}` : ""}</div>
+            </>
+          ) : (
+            <div className="mt-2 text-sm text-plum/60">{site.ssl_enabled ? "Waiting for first SSL check." : "SSL monitoring is off for this site."}</div>
+          )}
+          <div className="mt-3 text-xs font-medium text-magenta">Open SSL & domain →</div>
+        </button>
+        <button type="button" onClick={() => setTab("ssl")} className="rounded-3xl bg-white p-5 text-left shadow-sm ring-1 ring-plum/8 transition hover:-translate-y-0.5 hover:shadow-lg hover:ring-magenta/25">
+          <div className="flex items-center justify-between gap-3">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/55">Domain expiry</span>
+            <Badge tone={site.domain ? certTone(site.domain.status, site.domain.days_left) : "unknown"}>{site.domain ? (typeof site.domain.days_left === "number" && site.domain.days_left < 0 ? "expired" : site.domain.status) : (site.domain_enabled ? "pending" : "off")}</Badge>
+          </div>
+          {site.domain ? (
+            <>
+              <div className="mt-2 font-mono text-2xl font-semibold tracking-tight text-ink">{site.domain.days_left != null ? expiryHeadline(site.domain.days_left) : "No expiry date"}</div>
+              <div className="mt-2 text-sm text-plum/70">{site.domain.registrar || "Registrar not published"} · <span className="font-mono">{site.domain.domain}</span></div>
+              <div className="mt-1 font-mono text-[11px] text-plum/45">{site.domain.expires_at ? `Expires ${fmtDate(site.domain.expires_at, false)}` : ""}</div>
+            </>
+          ) : (
+            <div className="mt-2 text-sm text-plum/60">{site.domain_enabled ? "Waiting for first domain check." : "Domain tracking is off for this site."}</div>
+          )}
+          <div className="mt-3 text-xs font-medium text-magenta">Open SSL & domain →</div>
+        </button>
       </div>
 
       <div className="mb-5"><Tabs<Tab> value={tab} onChange={setTab} tabs={[
@@ -225,9 +259,9 @@ function SslTab({ site, run, busy }: { site: any; run: (k: string) => void; busy
           action={<Button size="sm" variant="secondary" loading={busy === "ssl"} onClick={() => run("ssl")}>Check now</Button>} />
         {!site.ssl_enabled ? <p className="p-5 text-sm text-plum/60">SSL monitoring is disabled for this site (or not included in your plan).</p> : s ? (
           <div className="divide-y divide-plum/6 px-5 py-2">
-            <KV k="Status" v={<Badge>{s.status}</Badge>} />
+            <KV k="Status" v={<Badge tone={certTone(s.status, s.days_left)}>{typeof s.days_left === "number" && s.days_left < 0 ? "expired" : s.status}</Badge>} />
             {s.error && <KV k="Error" v={<span className="text-bad">{s.error}</span>} />}
-            <KV k="Days left" v={s.days_left} mono />
+            <KV k={typeof s.days_left === "number" && s.days_left < 0 ? "Expired" : "Days left"} v={s.days_left == null ? "—" : expiryLabel(s.days_left, "full")} mono />
             <KV k="Valid until" v={fmtDate(s.valid_to, false)} />
             <KV k="Issued" v={fmtDate(s.valid_from, false)} />
             <KV k="Subject" v={s.subject} mono />
@@ -245,11 +279,11 @@ function SslTab({ site, run, busy }: { site: any; run: (k: string) => void; busy
         {d ? (
           <div className="divide-y divide-plum/6 px-5 py-2">
             <KV k="Domain" v={d.domain} mono />
-            <KV k="Status" v={<Badge>{d.status}</Badge>} />
-            <KV k="Expires" v={d.expires_at ? fmtDate(d.expires_at, false) : "unknown"} />
-            <KV k="Days left" v={d.days_left ?? "unknown"} mono />
-            <KV k="Registrar" v={d.registrar || "unknown"} />
-            {d.note && <div className="py-2 text-xs text-plum/60">{d.note} Unknown data is never reported as healthy.</div>}
+            <KV k="Status" v={<Badge tone={certTone(d.status, d.days_left)}>{typeof d.days_left === "number" && d.days_left < 0 ? "expired" : d.status}</Badge>} />
+            <KV k="Expires" v={d.expires_at ? fmtDate(d.expires_at, false) : "Not published"} />
+            <KV k={typeof d.days_left === "number" && d.days_left < 0 ? "Expired" : "Days left"} v={d.days_left == null ? "Not published" : expiryLabel(d.days_left, "full")} mono />
+            <KV k="Registrar" v={d.registrar || "Not published"} />
+            {d.note && <div className="py-2 text-xs text-plum/60">{d.note} Missing registration data is not treated as healthy.</div>}
           </div>
         ) : <p className="p-5 text-sm text-plum/60">{site.domain_enabled ? "Pending first check." : "Domain tracking is disabled."}</p>}
       </Card>

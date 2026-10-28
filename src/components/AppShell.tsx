@@ -24,7 +24,7 @@ const NAV = [
   { href: "/app/api-monitors", label: "API monitors", icon: Plug },
   { href: "/app/errors", label: "Browser errors", icon: Bug },
   { section: "Agency" },
-  { href: "/app/reports", label: "Client reports", icon: FileBarChart },
+  { href: "/app/reports", label: "Reports", icon: FileBarChart },
   { href: "/app/settings", label: "Settings", icon: Settings },
 ] as const;
 

@@ -9,7 +9,7 @@ import { WebsiteForm } from "@/components/WebsiteForm";
 import { Badge, Button, Card, Empty, Loading, Modal, PageHeader, Select, StatusDot, Table, Td } from "@/components/ui";
 import { patch } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
-import { intervalLabel, ms, pct, timeAgo } from "@/lib/format";
+import { certTone, expiryLabel, intervalLabel, ms, pct, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
 
 function WebsitesInner() {
@@ -50,27 +50,35 @@ function WebsitesInner() {
           body="Add a client website to start uptime, SSL, and content monitoring." action={can("member") && <Button onClick={() => setAdding(true)}>Add website</Button>} />
       ) : (
         <Card>
-          <Table head={["Website", "Client", "Status", "Response · trend", "Uptime 24h", "SSL", "Interval", "Last check", ""]}>
+          <Table dense head={["Website", "Status", "Response", "Uptime", "SSL · domain", ""]}>
             {data.map((s) => (
               <tr key={s.id} className="cursor-pointer transition hover:bg-cream/50" onClick={() => router.push(`/app/websites/${s.id}`)}>
-                <Td>
+                <Td dense>
                   <div className="flex items-center gap-3">
                     <StatusDot status={s.paused ? "paused" : s.status} />
                     <div className="min-w-0">
                       <div className="font-medium text-ink">{s.name}</div>
                       <div className="max-w-[220px] truncate font-mono text-[11px] text-plum/50">{s.url}</div>
+                      <div className="mt-0.5 text-[11px] text-plum/45">{s.client_name || "No client"} · checked {timeAgo(s.last_check_at)} · every {intervalLabel(s.interval_sec)}</div>
                       {s.labels?.length > 0 && <div className="mt-1 flex gap-1">{s.labels.slice(0, 3).map((l: string) => <span key={l} className="rounded bg-plum/5 px-1.5 text-[10px] text-plum/60">{l}</span>)}</div>}
                     </div>
                   </div>
                 </Td>
-                <Td className="text-plum/70">{s.client_name || "—"}</Td>
-                <Td><Badge>{s.paused ? "paused" : s.status}</Badge>{s.status === "degraded" && s.consecutive_failures > 0 && <div className="mt-1 text-[10px] text-plum/50">{s.consecutive_failures}/{s.failure_threshold} failures</div>}</Td>
-                <Td><div className="flex items-center gap-3"><span className="w-14 font-mono text-xs">{ms(s.last_response_ms)}</span><Sparkline values={s.spark || []} /></div></Td>
-                <Td className="font-mono text-xs">{pct(s.uptime_24h)}</Td>
-                <Td>{s.ssl ? <Badge tone={s.ssl.status}>{s.ssl.days_left != null ? `${s.ssl.days_left}d` : s.ssl.status}</Badge> : <span className="text-plum/40">—</span>}</Td>
-                <Td className="font-mono text-xs text-plum/60">{intervalLabel(s.interval_sec)}</Td>
-                <Td className="whitespace-nowrap text-xs text-plum/60">{timeAgo(s.last_check_at)}</Td>
-                <Td onClick={(e) => e.stopPropagation()}>
+                <Td dense><Badge>{s.paused ? "paused" : s.status || "unknown"}</Badge>{s.status === "degraded" && s.consecutive_failures > 0 && <div className="mt-1 text-[10px] text-plum/50">{s.consecutive_failures}/{s.failure_threshold} failures</div>}</Td>
+                <Td dense>
+                  <div className="flex items-center gap-2">
+                    <span className="w-14 shrink-0 font-mono text-xs">{ms(s.last_response_ms)}</span>
+                    <Sparkline values={s.spark || []} className="hidden 2xl:block" />
+                  </div>
+                </Td>
+                <Td dense className="whitespace-nowrap font-mono text-xs">{pct(s.uptime_24h)}</Td>
+                <Td dense className="whitespace-nowrap">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">SSL</span>{s.ssl ? <Badge tone={certTone(s.ssl.status, s.ssl.days_left)}>{s.ssl.days_left != null ? expiryLabel(s.ssl.days_left, "badge") : s.ssl.status}</Badge> : <span className="text-plum/40">—</span>}</div>
+                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">Domain</span>{s.domain ? <Badge tone={certTone(s.domain.status, s.domain.days_left)}>{s.domain.days_left != null ? expiryLabel(s.domain.days_left, "badge") : s.domain.status}</Badge> : <span className="text-plum/40">—</span>}</div>
+                  </div>
+                </Td>
+                <Td dense onClick={(e) => e.stopPropagation()}>
                   {can("member") && <button onClick={() => togglePause(s)} title={s.paused ? "Resume" : "Pause"} className="rounded-lg p-1.5 text-plum/50 hover:bg-plum/5 hover:text-plum">{s.paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}</button>}
                 </Td>
               </tr>

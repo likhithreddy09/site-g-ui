@@ -1,9 +1,9 @@
 "use client";
 
-import { Bug, Code2, FileWarning, Globe, Plug, RefreshCw, Sparkles, Users } from "lucide-react";
+import { Bug, ChevronLeft, ChevronRight, Code2, FileWarning, Globe, Plug, RefreshCw, Sparkles, Users } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { CountBars } from "@/components/charts";
 import { RecheckPanel } from "@/components/RecheckPanel";
 import { Badge, Card, Empty, Loading, PageHeader, Select, Stat, Tabs } from "@/components/ui";
@@ -14,6 +14,19 @@ import { useApi } from "@/lib/hooks";
 const icon = (e: any) => (e.kind === "api" ? Plug : e.message?.startsWith("Failed to load resource") ? FileWarning : Bug);
 const isNew = (e: any) => Date.now() - new Date(e.first_seen).getTime() < 24 * 3600 * 1000;
 const fileName = (u?: string) => (u || "").split("?")[0].split("/").filter(Boolean).pop() || "";
+const PER_PAGE = 10;
+
+function pageWindow(page: number, pages: number): (number | "…")[] {
+  if (pages <= 7) return Array.from({ length: pages }, (_, i) => i + 1);
+  const out: (number | "…")[] = [1];
+  const left = Math.max(2, page - 1);
+  const right = Math.min(pages - 1, page + 1);
+  if (left > 2) out.push("…");
+  for (let i = left; i <= right; i++) out.push(i);
+  if (right < pages - 1) out.push("…");
+  out.push(pages);
+  return out;
+}
 
 function ErrorsInner() {
   const sp = useSearchParams();
@@ -22,9 +35,13 @@ function ErrorsInner() {
   const [site, setSite] = useState(sp.get("website_id") || "");
   const [hours, setHours] = useState(168);
   const [sort, setSort] = useState("recent");
+  const [page, setPage] = useState(1);
   const { data: sites } = useApi<any[]>("/api/websites");
-  const params = new URLSearchParams({ status, hours: String(hours), sort, ...(kind !== "all" && { kind }), ...(site && { website_id: site }) });
-  const { data, loading, reload } = useApi<any[]>(`/api/errors?${params}`, { poll: 15000 });
+  const params = new URLSearchParams({ status, hours: String(hours), sort, page: String(page), per_page: String(PER_PAGE), ...(kind !== "all" && { kind }), ...(site && { website_id: site }) });
+  const { data, loading, reload } = useApi<{ items: any[]; total: number; page: number; per_page: number; pages: number }>(`/api/errors?${params}`, { poll: 15000 });
+  useEffect(() => {
+    if (data && page > data.pages) setPage(data.pages || 1);
+  }, [data, page]);
   const { data: sum } = useApi<any>(`/api/errors/summary${site ? `?website_id=${site}` : ""}`, { poll: 30000 });
   const current = sites?.find((s) => s.id === site);
 
@@ -49,13 +66,13 @@ function ErrorsInner() {
       )}
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="w-52"><Select value={site} onChange={(e) => setSite(e.target.value)}><option value="">All websites</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</Select></div>
-        <Tabs<"all" | "js" | "api"> value={kind} onChange={setKind} tabs={[{ id: "all", label: "Everything" }, { id: "js", label: "Page errors" }, { id: "api", label: "Failed requests" }]} />
-        <div className="w-36"><Select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <div className="w-52"><Select value={site} onChange={(e) => { setSite(e.target.value); setPage(1); }}><option value="">All websites</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</Select></div>
+        <Tabs<"all" | "js" | "api"> value={kind} onChange={(v) => { setKind(v); setPage(1); }} tabs={[{ id: "all", label: "Everything" }, { id: "js", label: "Page errors" }, { id: "api", label: "Failed requests" }]} />
+        <div className="w-36"><Select value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
           {[["active", "Open"], ["resolved", "Fixed"], ["ignored", "Ignored"], ["all", "All"]].map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </Select></div>
-        <div className="w-36"><Select value={hours} onChange={(e) => setHours(Number(e.target.value))}><option value={24}>Last 24 hours</option><option value={168}>Last 7 days</option><option value={720}>Last 30 days</option></Select></div>
-        <div className="w-44"><Select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Sort by">
+        <div className="w-36"><Select value={hours} onChange={(e) => { setHours(Number(e.target.value)); setPage(1); }}><option value={24}>Last 24 hours</option><option value={168}>Last 7 days</option><option value={720}>Last 30 days</option></Select></div>
+        <div className="w-44"><Select value={sort} onChange={(e) => { setSort(e.target.value); setPage(1); }} aria-label="Sort by">
           <option value="recent">Most recent</option><option value="users">Most visitors affected</option><option value="count">Most frequent</option>
         </Select></div>
       </div>
@@ -73,18 +90,18 @@ function ErrorsInner() {
           <RefreshCw className="h-5 w-5 text-magenta" />
           <div className="flex-1 text-sm"><span className="font-semibold text-ink">Re-check a website now.</span> <span className="text-plum/65">We open it in a real browser and list any errors — no script needed.</span></div>
           <div className="flex flex-wrap gap-2">
-            {sites.slice(0, 6).map((s) => <button key={s.id} onClick={() => setSite(s.id)} className="flex items-center gap-1.5 rounded-full bg-cream-2 px-3 py-1.5 text-xs text-plum hover:bg-magenta hover:text-white"><Globe className="h-3.5 w-3.5" /> {s.name}</button>)}
+            {sites.slice(0, 6).map((s) => <button key={s.id} onClick={() => { setSite(s.id); setPage(1); }} className="flex items-center gap-1.5 rounded-full bg-cream-2 px-3 py-1.5 text-xs text-plum hover:bg-magenta hover:text-white"><Globe className="h-3.5 w-3.5" /> {s.name}</button>)}
           </div>
         </Card>
       )}
 
-      {loading && !data ? <Loading rows={4} /> : !data?.length ? (
+      {loading && !data ? <Loading rows={4} /> : !data?.items.length ? (
         <Empty icon={<Bug className="h-6 w-6" />} title={status === "active" ? "No open errors" : "Nothing here"}
           body={<>Click <b>Re-check now</b> above to test a website right away{current ? <> — or <Link href={`/app/websites/${current.id}?tab=script`} className="text-magenta hover:underline">install the visitor script</Link> to hear about errors real people hit</> : <>, and install the visitor script from a website → <b>Browser errors</b> tab</>}.</>} />
       ) : (
         <Card>
           <ul className="divide-y divide-plum/6">
-            {data.map((e) => {
+            {data.items.map((e) => {
               const ex = explainError(e);
               const Icon = icon(e);
               const pages = Object.keys(e.pages || {}).length;
@@ -120,8 +137,28 @@ function ErrorsInner() {
               );
             })}
           </ul>
+          <ErrorPager page={data.page} pages={data.pages} total={data.total} perPage={data.per_page} onPage={setPage} />
         </Card>
       )}
+    </div>
+  );
+}
+
+function ErrorPager({ page, pages, total, perPage, onPage }: { page: number; pages: number; total: number; perPage: number; onPage: (p: number) => void }) {
+  if (!total) return null;
+  const start = (page - 1) * perPage + 1;
+  const end = Math.min(total, page * perPage);
+  const btn = "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2.5 text-xs font-medium text-plum/70 transition hover:bg-plum/5 disabled:pointer-events-none disabled:opacity-40";
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-plum/8 px-5 py-3">
+      <p className="text-xs text-plum/60">Showing {start}–{end} of {total}</p>
+      <div className="flex items-center gap-1">
+        <button type="button" className={btn} disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="Previous page"><ChevronLeft className="h-4 w-4" /> Previous</button>
+        {pageWindow(page, pages).map((n, i) => n === "…"
+          ? <span key={`gap-${i}`} className="px-1 text-xs text-plum/40">…</span>
+          : <button key={n} type="button" aria-current={n === page ? "page" : undefined} onClick={() => onPage(n)} className={n === page ? "inline-flex h-8 min-w-8 items-center justify-center rounded-full bg-plum px-2.5 text-xs font-medium text-cream" : btn}>{n}</button>)}
+        <button type="button" className={btn} disabled={page >= pages} onClick={() => onPage(page + 1)} aria-label="Next page">Next <ChevronRight className="h-4 w-4" /></button>
+      </div>
     </div>
   );
 }
