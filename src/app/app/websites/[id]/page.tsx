@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowLeft, Copy, Lock, Pause, Play, RefreshCw, ScanSearch, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bug, Copy, Lock, MousePointerClick, Pause, Play, Plug, RefreshCw, ScanEye, ScanSearch, ShieldCheck, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { FailureBars, ResponseChart, UptimeBars } from "@/components/charts";
 import { DiscoveryPanel } from "@/components/DiscoveryPanel";
 import { useToast } from "@/components/toast";
@@ -156,6 +156,7 @@ function WebsiteDetailInner() {
 
       {tab === "overview" && (
         <div className="grid gap-6 lg:grid-cols-3">
+          <SiteInsights site={site} onOpenTab={setTab} />
           <Card className="lg:col-span-2">
             <CardHeader title="Response time" subtitle={stats ? `Averaged per ${stats.bucket_min}-minute bucket` : ""}
               action={<div className="flex gap-1">{[6, 24, 168, 720].map((h) => <button key={h} onClick={() => setHours(h)} className={`rounded-full px-2.5 py-1 font-mono text-[11px] ${hours === h ? "bg-plum text-cream" : "text-plum/60 hover:bg-plum/5"}`}>{h < 24 ? `${h}h` : `${h / 24}d`}</button>)}</div>} />
@@ -221,6 +222,133 @@ function WebsiteDetailInner() {
         </div>
       )}
     </div>
+  );
+}
+
+function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => void }) {
+  const i = site.insights || {};
+  const items = useMemo(() => {
+    const out: { tone: "bad" | "warn" | "ok" | "info"; title: string; meta: string; onClick: () => void }[] = [];
+    if ((site.open_incidents || []).length) {
+      out.push({
+        tone: "bad",
+        title: `${site.open_incidents.length} open incident${site.open_incidents.length === 1 ? "" : "s"}`,
+        meta: site.open_incidents[0]?.title || "Needs investigation",
+        onClick: () => { location.href = `/app/incidents?website_id=${site.id}`; },
+      });
+    }
+    if (i.failures_24h > 0) {
+      out.push({
+        tone: "warn",
+        title: `${i.failures_24h} failed check${i.failures_24h === 1 ? "" : "s"} in 24h`,
+        meta: `${i.checks_24h || 0} total checks · avg ${ms(i.avg_response_ms_24h)}`,
+        onClick: () => onOpenTab("history"),
+      });
+    }
+    if (i.errors_active > 0 || i.errors_24h > 0) {
+      out.push({
+        tone: i.errors_active > 0 ? "bad" : "info",
+        title: `${i.errors_active || 0} active browser error group${(i.errors_active || 0) === 1 ? "" : "s"}`,
+        meta: `${i.errors_24h || 0} seen in last 24h`,
+        onClick: () => onOpenTab("script"),
+      });
+    }
+    if (i.journeys_failing > 0) {
+      out.push({
+        tone: "bad",
+        title: `${i.journeys_failing} journey${i.journeys_failing === 1 ? "" : "s"} failing`,
+        meta: `${i.journeys_total || 0} configured for this site`,
+        onClick: () => onOpenTab("monitoring"),
+      });
+    }
+    if (i.apis_failing > 0) {
+      out.push({
+        tone: "warn",
+        title: `${i.apis_failing} API monitor${i.apis_failing === 1 ? "" : "s"} unhealthy`,
+        meta: `${i.apis_total || 0} monitors linked`,
+        onClick: () => onOpenTab("monitoring"),
+      });
+    }
+    if (i.visual_pending > 0) {
+      out.push({
+        tone: "info",
+        title: `${i.visual_pending} visual change${i.visual_pending === 1 ? "" : "s"} to review`,
+        meta: "Content & visual checks",
+        onClick: () => onOpenTab("monitoring"),
+      });
+    }
+    if (typeof i.ssl_days_left === "number" && i.ssl_days_left <= 30) {
+      out.push({
+        tone: i.ssl_days_left < 0 ? "bad" : "warn",
+        title: i.ssl_days_left < 0 ? "SSL certificate expired" : `SSL expires in ${i.ssl_days_left}d`,
+        meta: "Open SSL & domain",
+        onClick: () => onOpenTab("ssl"),
+      });
+    }
+    if (typeof i.domain_days_left === "number" && i.domain_days_left <= 60) {
+      out.push({
+        tone: i.domain_days_left < 0 ? "bad" : "warn",
+        title: i.domain_days_left < 0 ? "Domain expired" : `Domain expires in ${i.domain_days_left}d`,
+        meta: "Open SSL & domain",
+        onClick: () => onOpenTab("ssl"),
+      });
+    }
+    return out;
+  }, [site, i, onOpenTab]);
+
+  const tiles = [
+    { icon: Bug, label: "Browser errors", value: i.errors_active ?? site.counts?.error_groups ?? 0, bad: (i.errors_active || 0) > 0, tab: "script" as Tab },
+    { icon: MousePointerClick, label: "Journeys", value: `${i.journeys_failing || 0}/${i.journeys_total || 0}`, bad: (i.journeys_failing || 0) > 0, tab: "monitoring" as Tab },
+    { icon: Plug, label: "API monitors", value: `${i.apis_failing || 0}/${i.apis_total || 0}`, bad: (i.apis_failing || 0) > 0, tab: "monitoring" as Tab },
+    { icon: ScanEye, label: "Visual review", value: i.visual_pending || 0, bad: false, tab: "monitoring" as Tab },
+  ];
+
+  return (
+    <Card className="lg:col-span-3">
+      <CardHeader
+        title="Site insights"
+        subtitle="What matters on this website right now — tap through for detail"
+        action={<Link href={`/app/errors?website_id=${site.id}`} className="text-xs text-magenta">All errors →</Link>}
+      />
+      <div className="grid gap-3 px-5 pb-4 sm:grid-cols-2 lg:grid-cols-4">
+        {tiles.map((t) => (
+          <button
+            key={t.label}
+            type="button"
+            onClick={() => onOpenTab(t.tab)}
+            className="flex items-center gap-3 rounded-2xl bg-cream/70 px-4 py-3 text-left transition hover:bg-cream"
+          >
+            <t.icon className="h-4 w-4 shrink-0 text-plum/45" />
+            <span className="min-w-0 flex-1">
+              <span className="block text-[11px] text-plum/55">{t.label}</span>
+              <span className={`font-mono text-lg font-semibold ${t.bad ? "text-bad" : "text-ink"}`}>{t.value}</span>
+            </span>
+            <ArrowRight className="h-3.5 w-3.5 text-plum/30" />
+          </button>
+        ))}
+      </div>
+      <div className="border-t border-plum/6">
+        {items.length === 0 ? (
+          <div className="flex items-center gap-3 px-5 py-8 text-sm text-plum/60">
+            <ShieldCheck className="h-5 w-5 text-ok" />
+            Nothing needs attention on this site right now.
+          </div>
+        ) : (
+          <div className="divide-y divide-plum/6">
+            {items.map((item) => (
+              <button key={item.title} type="button" onClick={item.onClick} className="flex w-full gap-3 px-5 py-3.5 text-left transition hover:bg-cream/70">
+                <span className={`mt-1 w-1 shrink-0 self-stretch rounded-full ${item.tone === "bad" ? "bg-bad" : item.tone === "warn" ? "bg-gold" : item.tone === "info" ? "bg-sky" : "bg-ok"}`} />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium text-ink">{item.title}</span>
+                  <span className="mt-0.5 block truncate text-[11px] text-plum/55">{item.meta}</span>
+                </span>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-plum/30" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </Card>
   );
 }
 

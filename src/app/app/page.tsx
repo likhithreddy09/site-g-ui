@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { AlertOctagon, CheckCircle2, Circle, Clock, Gauge, Globe, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DayShape } from "@/components/charts";
 import { WebsiteForm } from "@/components/WebsiteForm";
 import { Badge, Button, Card, CardHeader, Loading, Modal, PageHeader, Stat, StatusDot } from "@/components/ui";
@@ -15,19 +15,49 @@ import { useApi } from "@/lib/hooks";
 const HEALTHY_CAP = 8;
 const EXPIRY_CAP = 6;
 
+function useLocalClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const tick = () => setNow(new Date());
+    tick();
+    const id = setInterval(tick, 60_000);
+    return () => clearInterval(id);
+  }, []);
+  return now;
+}
+
+function greetingFor(now: Date): string {
+  const h = now.getHours();
+  if (h < 5) return "Working late";
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  if (h < 21) return "Good evening";
+  return "Good night";
+}
+
 export default function Dashboard() {
   const { user, can } = useAuth();
   const router = useRouter();
   const { data, loading, reload } = useApi<any>("/api/dashboard", { poll: 20000 });
   const { data: ws } = useApi<any>("/api/workspace");
   const [adding, setAdding] = useState(false);
+  const now = useLocalClock();
 
   if (loading && !data) return <Loading rows={4} />;
   if (!data) return null;
   const by = data.websites.by_status || {};
   const total = data.websites.total;
-  const hour = new Date().getHours();
-  const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const greet = greetingFor(now);
+  const firstName = user?.name?.split(" ")[0] || "there";
+  const attentionN = (data.needs_attention || []).length;
+  const downN = by.down || 0;
+  const subtitle = !total
+    ? "Let's get your portfolio monitored."
+    : downN
+      ? `${downN} site${downN === 1 ? "" : "s"} down · ${attentionN} item${attentionN === 1 ? "" : "s"} need attention · ${data.checks_24h.toLocaleString()} checks today`
+      : attentionN
+        ? `${attentionN} item${attentionN === 1 ? "" : "s"} need attention · ${total} sites · ${data.checks_24h.toLocaleString()} checks today`
+        : `All clear · ${total} site${total === 1 ? "" : "s"} · ${data.checks_24h.toLocaleString()} checks in the last 24 hours`;
   const onboarding = [
     { done: total > 0, label: "Add your first website", action: () => setAdding(true) },
     { done: (ws?.notifications?.emails?.length || 0) > 0, label: "Configure alert recipients", href: "/app/settings?tab=notifications" },
@@ -42,9 +72,9 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader
-        eyebrow={new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}
-        title={<>{greet}, {user?.name?.split(" ")[0]}.</>}
-        subtitle={total ? `${total} websites monitored · ${data.checks_24h.toLocaleString()} checks in the last 24 hours.` : "Let's get your portfolio monitored."}
+        eyebrow={now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}
+        title={<>{greet}, {firstName}.</>}
+        subtitle={subtitle}
         action={can("member") && <Button onClick={() => setAdding(true)}><Globe className="h-4 w-4" /> Add website</Button>}
       />
 
@@ -214,10 +244,10 @@ function PortfolioHealth({ rows }: { rows: any[] }) {
       />
       <div className="divide-y divide-plum/6">
         {list.map((s) => (
-          <Link key={s.id} href={`/app/websites/${s.id}`} className="flex items-center gap-3 px-5 py-3 transition hover:bg-cream/70">
+          <Link key={s.id} href={`/app/websites/${s.id}`} className="group flex items-center gap-3 px-5 py-3 transition hover:bg-cream/70">
             <StatusDot status={s.paused ? "paused" : s.status} />
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-ink">{s.name}</div>
+              <div className="truncate text-sm font-medium text-ink group-hover:text-magenta">{s.name}</div>
               <div className="truncate text-[11px] text-plum/50">
                 {s.client_name || "No client"}
                 {s.url ? ` · ${String(s.url).replace(/^https?:\/\//, "")}` : ""}
@@ -227,6 +257,9 @@ function PortfolioHealth({ rows }: { rows: any[] }) {
               <div className="font-mono text-xs text-ink">{s.uptime_24h != null ? pct(s.uptime_24h) : "—"}</div>
               <div className="font-mono text-[11px] text-plum/50">{ms(s.last_response_ms)}</div>
             </div>
+            <span className="hidden shrink-0 text-[11px] font-medium text-magenta opacity-0 transition group-hover:opacity-100 sm:inline">
+              Insights →
+            </span>
             <span className="shrink-0 capitalize text-[11px] text-plum/55 sm:w-16 sm:text-right">
               {s.paused ? "paused" : s.status || "—"}
             </span>
