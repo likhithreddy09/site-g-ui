@@ -11,8 +11,14 @@ export default function OgImage() {
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#faf6ed", fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <svg width="64" height="64" viewBox="0 0 32 32">
-            <path d="M16 2.5 4.5 7v8.2c0 7 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7.3 11.5-14.3V7L16 2.5Z" fill="#4b2440" />
-            <path d="M9.5 16.5h3.2l2-4.5 3 8 2-3.5h2.8" fill="none" stroke="#8fd3f4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16 5.5a10.5 10.5 0 0 1 10.5 10.5" fill="none" stroke="#4b2440" strokeWidth="1.75" strokeLinecap="round" />
+            <path d="M16 8.75a7.25 7.25 0 0 1 7.25 7.25" fill="none" stroke="#4b2440" strokeWidth="1.75" strokeLinecap="round" />
+            <path d="M16 12a4 4 0 0 1 4 4" fill="none" stroke="#4b2440" strokeWidth="1.75" strokeLinecap="round" />
+            <path d="M20.5 23.2a10.5 10.5 0 0 1-8.2 2.3" fill="none" stroke="#4b2440" strokeWidth="1.75" strokeLinecap="round" opacity="0.55" />
+            <circle cx="16" cy="5.5" r="1.55" fill="#9b1b67" />
+            <circle cx="26.5" cy="16" r="1.55" fill="#9b1b67" />
+            <circle cx="22.4" cy="24.1" r="1.55" fill="#9b1b67" />
+            <circle cx="16" cy="16" r="2.35" fill="#4b2440" />
           </svg>
           <span style={{ fontSize: 44, fontWeight: 700, color: "#4b2440" }}>Watchfront</span>
         </div>

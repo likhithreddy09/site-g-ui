@@ -1,12 +1,59 @@
 import Link from "next/link";
 
+/** Radar mark — one desk watching many sites. */
+export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boolean; className?: string }) {
+  const ink = light ? "#faf6ed" : "#4b2440";
+  const accent = light ? "#f8e8f1" : "#9b1b67";
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      {/* Outer sweep arcs */}
+      <path
+        d="M16 5.5a10.5 10.5 0 0 1 10.5 10.5"
+        fill="none"
+        stroke={ink}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 8.75a7.25 7.25 0 0 1 7.25 7.25"
+        fill="none"
+        stroke={ink}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 12a4 4 0 0 1 4 4"
+        fill="none"
+        stroke={ink}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+      {/* Lower-right arc (portfolio sweep) */}
+      <path
+        d="M20.5 23.2a10.5 10.5 0 0 1-8.2 2.3"
+        fill="none"
+        stroke={ink}
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+      {/* Monitored site nodes */}
+      <circle cx="16" cy="5.5" r="1.55" fill={accent} />
+      <circle cx="26.5" cy="16" r="1.55" fill={accent} />
+      <circle cx="22.4" cy="24.1" r="1.55" fill={accent} />
+      {/* Core hub */}
+      <circle cx="16" cy="16" r="2.35" fill={ink} />
+    </svg>
+  );
+}
+
 export function Logo({ href = "/", light = false }: { href?: string; light?: boolean }) {
   return (
-    <Link href={href} className={`flex items-center gap-2 text-[26px] font-semibold tracking-tight ${light ? "text-cream" : "text-plum"}`}>
-      <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden>
-        <path d="M16 2.5 4.5 7v8.2c0 7 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7.3 11.5-14.3V7L16 2.5Z" fill={light ? "#faf6ed" : "#4b2440"} />
-        <path d="M9.5 16.5h3.2l2-4.5 3 8 2-3.5h2.8" fill="none" stroke="#8fd3f4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+    <Link
+      href={href}
+      className={`flex items-center gap-2 text-[26px] font-semibold tracking-tight ${light ? "text-cream" : "text-plum"}`}
+    >
+      <LogoMark light={light} />
       Watchfront
     </Link>
   );
