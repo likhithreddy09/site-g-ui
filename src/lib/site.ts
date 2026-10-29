@@ -21,8 +21,8 @@ export const SITE = {
     billing: process.env.NEXT_PUBLIC_EMAIL_BILLING || "billing@watchfront.in",
   },
   /** Support phone — required on Contact Us for Cashfree (use the number registered in KYC). */
-  phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 98765 43210",
-  phoneHref: (process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 98765 43210").replace(/\s+/g, ""),
+  phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415",
+  phoneHref: (process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415").replace(/\s+/g, ""),
   address: {
     line1: process.env.NEXT_PUBLIC_ADDRESS_LINE1 || "India",
     city: process.env.NEXT_PUBLIC_ADDRESS_CITY || "",
