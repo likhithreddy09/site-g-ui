@@ -393,8 +393,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
                 ))}
               </div>
               <p className="mt-2 text-[11px] text-plum/50">
-                Mode: <strong className="text-ink">{billing.mode}</strong>
-                {billing.webhook_url ? <> · Webhook: <code className="text-[10px]">{billing.webhook_url}</code></> : null}
+                Secure checkout via Cashfree · UPI, cards, netbanking &amp; more
               </p>
             </div>
           </div>
@@ -437,8 +436,8 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       </div>
       <p className="mt-4 text-xs text-plum/55">
         {paymentsOn
-          ? <>Payments via Cashfree hosted checkout ({billing.mode}). See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>. Whitelist <code>https://watchfront.in</code> in Cashfree → Developers → Whitelisting.</>
-          : "Cashfree is not configured on the API — plan switches are free until payment keys are set."}
+          ? <>Payments via Cashfree in INR. See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>.</>
+          : "Payments are not configured yet — plan switches are free until billing is enabled."}
       </p>
     </div>
   );
