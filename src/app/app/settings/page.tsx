@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
 import { Badge, Button, Card, CardHeader, ChipInput, ErrorBox, Input, KV, Loading, Modal, PageHeader, Select, Table, Td, Tabs, Toggle } from "@/components/ui";
-import { del, patch, post, put } from "@/lib/api";
+import { api, del, patch, post, put } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
@@ -262,13 +262,77 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   );
 }
 
+declare global {
+  interface Window {
+    Cashfree?: (opts: { mode: string }) => { checkout: (opts: { paymentSessionId: string; redirectTarget?: string }) => Promise<any> };
+  }
+}
+
+async function loadCashfreeSdk() {
+  if (window.Cashfree) return;
+  await new Promise<void>((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("Failed to load Cashfree checkout"));
+    document.body.appendChild(s);
+  });
+}
+
 function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
-  const { data } = useApi<any>("/api/workspace/plans");
+  const { data, reload: reloadPlans } = useApi<any>("/api/workspace/plans");
+  const { data: billing } = useApi<any>("/api/billing/config");
   const { can, refresh } = useAuth();
   const toast = useToast();
   const [busy, setBusy] = useState<string | null>(null);
+  const sp = useSearchParams();
+
+  useEffect(() => {
+    const orderId = sp.get("order_id");
+    if (!orderId || !can("owner")) return;
+    (async () => {
+      try {
+        const st = await api<any>(`/api/billing/orders/${orderId}`);
+        if (st.paid) {
+          toast(`Payment received — plan is now ${st.workspace_plan?.replace("_", " ")}`);
+          await refresh();
+          reloadPlans();
+          onSaved(await api("/api/workspace"));
+        } else {
+          toast("Payment not confirmed yet. If you paid, refresh in a moment.", "error");
+        }
+      } catch {
+        /* ignore return-url noise */
+      }
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (!data) return <Loading />;
   const u = ws.usage;
+  const paymentsOn = !!billing?.enabled;
+
+  const startCheckout = async (planId: string, planName: string) => {
+    setBusy(planId);
+    try {
+      if (!paymentsOn || planId === "free") {
+        onSaved(await post("/api/workspace/plan", { plan: planId }));
+        await refresh();
+        toast(planId === "free" ? "Moved to Free" : `Switched to ${planName}`);
+        return;
+      }
+      const session = await post<any>("/api/billing/checkout", { plan: planId });
+      await loadCashfreeSdk();
+      if (!window.Cashfree) throw new Error("Cashfree SDK missing");
+      const cf = window.Cashfree({ mode: session.mode === "sandbox" ? "sandbox" : "production" });
+      await cf.checkout({ paymentSessionId: session.payment_session_id, redirectTarget: "_self" });
+    } catch (e: any) {
+      toast(e.message, "error");
+    } finally {
+      setBusy(null);
+    }
+  };
+
   return (
     <div>
       <Card className="mb-6 grid gap-6 p-6 md:grid-cols-4">
@@ -279,10 +343,15 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {Object.entries(data.plans).filter(([id]) => id !== "enterprise").map(([id, p]: any) => {
           const current = data.current === id;
+          const inr = p.price_inr ?? 0;
           return (
             <Card key={id} className={`flex flex-col p-6 ${current ? "ring-2 ring-magenta" : ""}`}>
               <div className="flex items-center justify-between"><h3 className="font-semibold text-ink">{p.name}</h3>{current && <Badge tone="active">current{ws.trial ? " · trial" : ""}</Badge>}</div>
-              <div className="mt-3 text-3xl font-semibold text-ink">${p.price}<span className="text-sm font-normal text-plum/50">/mo</span></div>
+              <div className="mt-3 text-3xl font-semibold text-ink">
+                {inr > 0 ? <>₹{inr.toLocaleString("en-IN")}</> : <>Free</>}
+                {inr > 0 && <span className="text-sm font-normal text-plum/50">/mo</span>}
+              </div>
+              {inr > 0 && <div className="mt-1 text-[11px] text-plum/45">≈ ${p.price} USD reference</div>}
               <ul className="mt-4 flex-1 space-y-1.5 text-xs text-plum/75">
                 <li>{p.websites} websites · checks every {p.min_interval_sec >= 60 ? `${p.min_interval_sec / 60} min` : `${p.min_interval_sec}s`}</li>
                 <li>{p.history_days}-day history</li>
@@ -294,14 +363,22 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
                 <li>{p.reports ? (p.scheduled_reports ? "Scheduled reports" : "Reports") : "No reports"}{p.white_label ? " · white-label" : ""}</li>
                 <li>{p.ai_calls} AI analyses / month</li>
               </ul>
-              {can("owner") && !current && <Button className="mt-5" variant={id === "agency" ? "primary" : "secondary"} loading={busy === id}
-                onClick={async () => { setBusy(id); try { onSaved(await post("/api/workspace/plan", { plan: id })); await refresh(); toast(`Switched to ${p.name}`); } catch (e: any) { toast(e.message, "error"); } finally { setBusy(null); } }}>
-                {current ? <Check className="h-4 w-4" /> : null} Switch to {p.name}</Button>}
+              {can("owner") && !current && (
+                <Button className="mt-5" variant={id === "agency" ? "primary" : "secondary"} loading={busy === id}
+                  onClick={() => startCheckout(id, p.name)}>
+                  {id === "free" ? "Switch to Free" : paymentsOn ? `Pay ₹${inr.toLocaleString("en-IN")} & upgrade` : `Switch to ${p.name}`}
+                </Button>
+              )}
+              {current && <div className="mt-5 flex items-center gap-2 text-sm text-ok"><Check className="h-4 w-4" /> Current plan</div>}
             </Card>
           );
         })}
       </div>
-      <p className="mt-4 text-xs text-plum/55">Billing is simulated in this build — plan changes apply instantly. Connect Stripe Billing before launch. Enterprise: contact sales.</p>
+      <p className="mt-4 text-xs text-plum/55">
+        {paymentsOn
+          ? `Payments via Cashfree (${billing.mode}). Webhook: ${typeof window !== "undefined" ? "" : ""}configure notify URL to /api/billing/webhook in Cashfree dashboard. Enterprise: contact sales.`
+          : "Cashfree is not configured on the API — plan switches are free until payment keys are set."}
+      </p>
     </div>
   );
 }
