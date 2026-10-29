@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Poppins, Syne } from "next/font/google";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import { AuthProvider } from "@/lib/auth";
 import { ToastProvider } from "@/components/toast";
 import { SITE } from "@/lib/site";
@@ -7,7 +7,6 @@ import "./globals.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-poppins", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jbmono", display: "swap" });
-const brand = Syne({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-syne", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -31,7 +30,7 @@ export const viewport: Viewport = { themeColor: "#4b2440", width: "device-width"
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${mono.variable} ${brand.variable} antialiased`}>
+      <body className={`${poppins.variable} ${mono.variable} antialiased`}>
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { brandFont } from "@/lib/brandFont";
 
 /** Radar mark — one desk watching many sites. */
 export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boolean; className?: string }) {
@@ -6,7 +7,6 @@ export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boo
   const accent = light ? "#f8e8f1" : "#9b1b67";
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      {/* Outer sweep arcs */}
       <path
         d="M16 5.5a10.5 10.5 0 0 1 10.5 10.5"
         fill="none"
@@ -28,7 +28,6 @@ export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boo
         strokeWidth="1.75"
         strokeLinecap="round"
       />
-      {/* Lower-right arc (portfolio sweep) */}
       <path
         d="M20.5 23.2a10.5 10.5 0 0 1-8.2 2.3"
         fill="none"
@@ -37,11 +36,9 @@ export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boo
         strokeLinecap="round"
         opacity="0.55"
       />
-      {/* Monitored site nodes */}
       <circle cx="16" cy="5.5" r="1.55" fill={accent} />
       <circle cx="26.5" cy="16" r="1.55" fill={accent} />
       <circle cx="22.4" cy="24.1" r="1.55" fill={accent} />
-      {/* Core hub */}
       <circle cx="16" cy="16" r="2.35" fill={ink} />
     </svg>
   );
@@ -54,7 +51,9 @@ export function Logo({ href = "/", light = false }: { href?: string; light?: boo
       className={`flex items-center gap-2.5 ${light ? "text-cream" : "text-plum"}`}
     >
       <LogoMark light={light} />
-      <span className="font-brand text-[25px] font-bold leading-none tracking-[-0.035em]">
+      <span
+        className={`${brandFont.className} text-[25px] font-extrabold leading-none tracking-[-0.04em]`}
+      >
         Watchfront
       </span>
     </Link>
