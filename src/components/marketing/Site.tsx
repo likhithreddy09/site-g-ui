@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronDown, ChevronRight, Menu } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { CtaPrimaryLink, FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
 import { FEATURES, USE_CASES, audience, type Faq } from "@/lib/marketing";
 import { breadcrumbLd } from "@/lib/seo";
 import { SITE } from "@/lib/site";
@@ -44,14 +45,15 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <Link href="/contact" className="hover:text-magenta">Contact</Link>
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link href="/login" className="hidden text-[15px] text-plum hover:text-magenta sm:block">Sign in</Link>
-          <Link href="/register" className="rounded-full bg-plum px-4 py-2 text-sm font-medium text-cream transition hover:bg-ink sm:px-5 sm:py-2.5 sm:text-[15px]">Start free</Link>
+          <HeaderAuthCtas />
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
             <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Features", "/features"], ["Pricing", "/pricing"], ...USE_CASES.map((u) => [`For ${audience(u)}`, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"], ["Sign in", "/login"]].map(([l, h]) => (
+              {[["Features", "/features"], ["Pricing", "/pricing"], ...USE_CASES.map((u) => [`For ${audience(u)}`, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
                 <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
+              <div className="my-1 border-t border-plum/10" />
+              <MobileAuthLinks />
             </nav>
           </details>
         </div>
@@ -69,7 +71,7 @@ export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
     ["Product", [["All features", "/features"], ...FEATURES.slice(0, 6).map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
     ["Use cases", USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])],
-    ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"], ["Sign in", "/login"], ["Start free", "/register"]]],
+    ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [
       ["Privacy policy", "/privacy"],
       ["Terms of service", "/terms"],
@@ -90,6 +92,7 @@ export function SiteFooter() {
           <nav key={title} aria-label={title} className="space-y-2 text-sm text-cream/70">
             <div className="font-medium text-cream">{title}</div>
             {links.map(([l, h]) => <Link key={h} href={h} className="block hover:text-sky">{l}</Link>)}
+            {title === "Company" && <FooterAuthLinks />}
           </nav>
         ))}
       </div>
@@ -174,7 +177,7 @@ export function CtaBand({ title = "Start with one website.", body = "Free for 3 
             <p className="mt-3 text-lg text-cream/75">{body}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/register" className="rounded-full bg-cream px-7 py-3.5 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-sky">Start monitoring free</Link>
+            <CtaPrimaryLink className="rounded-full bg-cream px-7 py-3.5 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-sky" />
             <Link href="/contact#book" className="rounded-full px-7 py-3.5 font-medium text-cream ring-1 ring-cream/30 transition hover:bg-white/10">Book a call</Link>
           </div>
         </div>

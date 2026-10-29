@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Showcase } from "@/components/landing/Showcase";
 import { Reveal } from "@/components/landing/Reveal";
+import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
 import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/Site";
 import { HOME_FAQS, PLANS, USE_CASES, audience } from "@/lib/marketing";
 import { faqLd, organizationLd, websiteLd } from "@/lib/seo";
@@ -59,7 +60,10 @@ export default function Home() {
         </p>
         <p className="mt-3 animate-fade-up text-[15px] text-plum-2 [animation-delay:200ms]">For web agencies, marketing agencies, and WordPress maintenance providers.</p>
         <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-6 [animation-delay:260ms]">
-          <Link href="/register" className="rounded-full bg-plum px-7 py-3.5 text-[17px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg">Start monitoring free</Link>
+          <CtaPrimaryLink
+            className="rounded-full bg-plum px-7 py-3.5 text-[17px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg"
+            guestLabel="Start monitoring free"
+          />
           <a href="#how" className="link-underline text-[17px] text-plum">See an incident workflow <ArrowRight className="inline h-4 w-4" /></a>
         </div>
         <p className="mt-6 max-w-sm animate-fade-up text-sm leading-relaxed text-plum-2 [animation-delay:320ms]">Add a website and get your first useful result within minutes — no code required.</p>

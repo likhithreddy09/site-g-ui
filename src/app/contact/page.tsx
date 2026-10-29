@@ -1,6 +1,7 @@
 import { Calendar, Handshake, LifeBuoy, Lock, Mail, MapPin, Phone, Receipt } from "lucide-react";
 import Link from "next/link";
 import { BookCallForm } from "@/components/BookCallForm";
+import { ContactAuthPrompt } from "@/components/marketing/AuthCtas";
 import { JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
 import { pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
@@ -121,10 +122,7 @@ export default function ContactPage() {
           <Link href="/shipping" className="link-underline font-medium text-plum">Delivery</Link>
           {" · "}
           <Link href="/pricing" className="link-underline font-medium text-plum">Pricing</Link>
-          <p className="mt-3">
-            Rather try it first? <Link href="/register" className="link-underline font-medium text-plum">Create a free account</Link>.
-            Already a customer? <Link href="/login" className="link-underline font-medium text-plum">Sign in</Link>.
-          </p>
+          <ContactAuthPrompt />
         </div>
       </section>
     </MarketingShell>
