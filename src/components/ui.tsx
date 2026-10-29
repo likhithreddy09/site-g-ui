@@ -36,9 +36,11 @@ export function Button({ variant = "primary", size = "md", loading, className, c
   );
 }
 
-export function Card({ className, children, ...rest }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-2xl bg-white ring-1 ring-plum/10 shadow-[0_1px_2px_rgba(28,15,24,0.04)]", className)} {...rest}>{children}</div>;
-}
+export const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  function Card({ className, children, ...rest }, ref) {
+    return <div ref={ref} className={cn("rounded-2xl bg-white ring-1 ring-plum/10 shadow-[0_1px_2px_rgba(28,15,24,0.04)]", className)} {...rest}>{children}</div>;
+  },
+);
 
 export function CardHeader({ title, subtitle, action, className }: { title: React.ReactNode; subtitle?: React.ReactNode; action?: React.ReactNode; className?: string }) {
   return (

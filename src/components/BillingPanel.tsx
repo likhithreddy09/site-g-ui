@@ -2,9 +2,9 @@
 
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Badge, Button, Card, CardHeader, ErrorBox, Input, Loading } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, ErrorBox, Input, Loading, cn } from "@/components/ui";
 import { ApiError, api, formatApiError, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
@@ -34,9 +34,20 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
   const toast = useToast();
   const [busy, setBusy] = useState<string | null>(null);
   const [phone, setPhone] = useState("");
+  const [phoneHighlight, setPhoneHighlight] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [checkoutError, setCheckoutError] = useState<{ message: string; code?: string } | null>(null);
+  const checkoutDetailsRef = useRef<HTMLDivElement>(null);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
   const sp = useSearchParams();
+
+  const flagMissingPhone = () => {
+    setPhoneHighlight(true);
+    requestAnimationFrame(() => {
+      checkoutDetailsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      phoneInputRef.current?.focus();
+    });
+  };
 
   useEffect(() => {
     const saved = (user as any)?.phone || "";
@@ -96,6 +107,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
           "invalid_phone",
         );
         setCheckoutError({ message: err.message, code: err.code });
+        flagMissingPhone();
         toast(err.display(), "error");
         return;
       }
@@ -120,6 +132,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       const message = formatApiError(e, "Payment could not be started");
       const code = e instanceof ApiError ? e.code : "checkout_failed";
       setCheckoutError({ message: e instanceof ApiError ? e.message : message, code });
+      if (code === "invalid_phone") flagMissingPhone();
       toast(message, "error");
     } finally {
       setBusy(null);
@@ -145,16 +158,39 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       </Card>
 
       {paymentsOn && can("owner") && (
-        <Card className="mb-6 p-5 sm:p-6">
-          <CardHeader title="Checkout details" subtitle="Mobile number required by Cashfree" />
+        <Card
+          ref={checkoutDetailsRef}
+          className={cn(
+            "mb-6 scroll-mt-20 p-5 transition sm:p-6",
+            phoneHighlight && "bg-bad/5 !ring-2 !ring-bad shadow-[0_0_0_4px_rgba(220,38,38,0.12)]",
+          )}
+        >
+          <CardHeader
+            className={phoneHighlight ? "border-bad/20" : undefined}
+            title="Checkout details"
+            subtitle={phoneHighlight ? "Enter your mobile number below to continue payment" : "Mobile number required by Cashfree"}
+          />
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <Input
-              label="Mobile number (India)"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-              placeholder="7207027415"
-              inputMode="numeric"
-            />
+            <div>
+              <Input
+                ref={phoneInputRef}
+                label="Mobile number (India)"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                  if (phoneHighlight) setPhoneHighlight(false);
+                }}
+                placeholder="7207027415"
+                inputMode="numeric"
+                aria-invalid={phoneHighlight}
+                className={phoneHighlight ? "bg-white ring-2 ring-bad focus:ring-bad" : undefined}
+              />
+              {phoneHighlight && (
+                <p className="mt-2 text-xs font-medium text-bad">
+                  Required: 10-digit Indian mobile starting with 6–9 (e.g. 7207027415).
+                </p>
+              )}
+            </div>
             <div>
               <div className="text-xs font-medium text-plum/70">Payment methods</div>
               <div className="mt-2 flex flex-wrap gap-2">
