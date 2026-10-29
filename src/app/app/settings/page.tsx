@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
 import { Badge, Button, Card, CardHeader, ChipInput, ErrorBox, Input, KV, Loading, Modal, PageHeader, Select, Table, Td, Tabs, Toggle } from "@/components/ui";
-import { api, del, patch, post, put } from "@/lib/api";
+import { ApiError, api, del, formatApiError, patch, post, put } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
@@ -288,6 +288,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   const [busy, setBusy] = useState<string | null>(null);
   const [phone, setPhone] = useState("");
   const [confirming, setConfirming] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<{ message: string; code?: string } | null>(null);
   const sp = useSearchParams();
 
   useEffect(() => {
@@ -333,6 +334,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
 
   const startCheckout = async (planId: string, planName: string) => {
     setBusy(planId);
+    setCheckoutError(null);
     try {
       if (!paymentsOn || planId === "free") {
         onSaved(await post("/api/workspace/plan", { plan: planId }));
@@ -342,17 +344,38 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       }
       const digits = phone.replace(/\D/g, "").slice(-10);
       if (digits.length !== 10 || !/^[6-9]/.test(digits)) {
-        throw new Error("Enter a valid 10-digit Indian mobile number (required by Cashfree)");
+        const err = new ApiError(
+          "Enter a valid 10-digit Indian mobile number before paying (Cashfree requirement).",
+          422,
+          "invalid_phone",
+        );
+        setCheckoutError({ message: err.message, code: err.code });
+        toast(err.display(), "error");
+        return;
       }
       const session = await post<any>("/api/billing/checkout", { plan: planId, phone: digits });
-      if (!session.payment_session_id) throw new Error("Cashfree did not return a payment session");
+      if (!session.payment_session_id) {
+        throw new ApiError("Cashfree did not return a payment session. Try again or contact support.", 502, "cashfree_missing_session");
+      }
       await loadCashfreeSdk();
-      if (!window.Cashfree) throw new Error("Cashfree SDK missing");
+      if (!window.Cashfree) {
+        throw new ApiError("Could not load Cashfree checkout SDK. Check your connection and retry.", 502, "cashfree_sdk_missing");
+      }
       const cf = window.Cashfree({ mode: session.mode === "sandbox" ? "sandbox" : "production" });
       // Hosted checkout — UPI, cards, netbanking etc. per order_meta.payment_methods
-      await cf.checkout({ paymentSessionId: session.payment_session_id, redirectTarget: "_self" });
-    } catch (e: any) {
-      toast(e.message, "error");
+      const result = await cf.checkout({ paymentSessionId: session.payment_session_id, redirectTarget: "_self" });
+      if (result?.error) {
+        throw new ApiError(
+          result.error.message || result.error.code || "Checkout was closed or failed before payment completed.",
+          400,
+          result.error.code || "cashfree_checkout_cancelled",
+        );
+      }
+    } catch (e: unknown) {
+      const message = formatApiError(e, "Payment could not be started");
+      const code = e instanceof ApiError ? e.code : "checkout_failed";
+      setCheckoutError({ message: e instanceof ApiError ? e.message : message, code });
+      toast(message, "error");
     } finally {
       setBusy(null);
     }
@@ -364,6 +387,11 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
         <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum">
           Confirming your Cashfree payment…
         </Card>
+      )}
+      {checkoutError && (
+        <div className="mb-4">
+          <ErrorBox error={checkoutError.message} code={checkoutError.code} />
+        </div>
       )}
       <Card className="mb-6 grid gap-6 p-6 md:grid-cols-4">
         {[["Browser-test minutes", (u.browser_seconds / 60).toFixed(1), ws.limits.browser_minutes], ["AI analyses", u.ai_calls, ws.limits.ai_calls], ["Browser events ingested", u.ingest_events, ws.limits.ingest_events], ["History retention", ws.limits.history_days, "days"]].map(([k, v, cap]) => (

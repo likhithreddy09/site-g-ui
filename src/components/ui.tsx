@@ -217,10 +217,16 @@ export function Loading({ rows = 3 }: { rows?: number }) {
   );
 }
 
-export function ErrorBox({ error }: { error: string | null }) {
+export function ErrorBox({ error, code }: { error: string | null; code?: string | null }) {
   if (!error) return null;
-  return <div className="rounded-xl bg-bad/8 px-4 py-3 text-sm text-bad ring-1 ring-bad/20">{error}</div>;
+  return (
+    <div className="rounded-xl bg-bad/8 px-4 py-3 text-sm text-bad ring-1 ring-bad/20">
+      <div>{error}</div>
+      {code ? <div className="mt-1 font-mono text-[11px] opacity-80">Error code: {code}</div> : null}
+    </div>
+  );
 }
+
 
 export function KV({ k, v, mono }: { k: string; v: React.ReactNode; mono?: boolean }) {
   return (

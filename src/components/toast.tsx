@@ -12,7 +12,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const push = useCallback((text: string, kind: "ok" | "error" = "ok") => {
     const id = Date.now() + Math.random();
     setItems((x) => [...x, { id, kind, text }]);
-    setTimeout(() => setItems((x) => x.filter((t) => t.id !== id)), 5000);
+    setTimeout(() => setItems((x) => x.filter((t) => t.id !== id)), kind === "error" ? 10000 : 5000);
   }, []);
   return (
     <Ctx.Provider value={push}>
@@ -24,7 +24,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               exit={{ opacity: 0, x: 40 }} transition={{ type: "spring", stiffness: 400, damping: 30 }}
               className="flex items-start gap-3 rounded-2xl bg-ink px-4 py-3 text-sm text-cream shadow-xl">
               {t.kind === "ok" ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky" /> : <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose" />}
-              <span className="flex-1">{t.text}</span>
+              <span className="flex-1 whitespace-pre-wrap break-words">{t.text}</span>
               <button onClick={() => setItems((x) => x.filter((i) => i.id !== t.id))} aria-label="Dismiss"><X className="h-4 w-4 opacity-60" /></button>
             </motion.div>
           ))}

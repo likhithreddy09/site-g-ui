@@ -3,12 +3,26 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://site-g-backen
 export class ApiError extends Error {
   status: number;
   code: string;
-  constructor(message: string, status: number, code: string) {
+  providerCode?: string;
+  details?: Record<string, unknown>;
+  constructor(message: string, status: number, code: string, extra?: Record<string, unknown>) {
     super(message);
     this.status = status;
     this.code = code;
+    this.providerCode = typeof extra?.provider_code === "string" ? extra.provider_code : undefined;
+    this.details = extra;
+  }
+
+  /** Message + error code for toasts / banners. */
+  display() {
+    const bits = [this.message];
+    if (this.code) bits.push(`Error code: ${this.code}`);
+    if (this.providerCode) bits.push(`Provider: ${this.providerCode}`);
+    if (this.status) bits.push(`HTTP ${this.status}`);
+    return bits.join(" · ");
   }
 }
+
 
 const TOKEN_KEY = "sg_token";
 const WS_KEY = "sg_workspace";
@@ -55,10 +69,23 @@ export async function api<T = any>(path: string, opts: Opts = {}): Promise<T> {
       storage.token = null;
       if (!location.pathname.startsWith("/login")) location.href = "/login?expired=1";
     }
-    throw new ApiError(data.error || `Request failed (${res.status})`, res.status, data.code || "error");
+    const { error, code, ...extra } = data || {};
+    throw new ApiError(
+      error || `Request failed (${res.status})`,
+      res.status,
+      code || "error",
+      extra,
+    );
   }
   return data as T;
 }
+
+export function formatApiError(e: unknown, fallback = "Something went wrong") {
+  if (e instanceof ApiError) return e.display();
+  if (e instanceof Error && e.message) return e.message;
+  return fallback;
+}
+
 
 export const get = <T = any>(p: string) => api<T>(p);
 export const post = <T = any>(p: string, body: unknown = {}) => api<T>(p, { method: "POST", body });
