@@ -13,20 +13,26 @@ import { useApi } from "@/lib/hooks";
 import { Logo } from "./Logo";
 import { cn } from "./ui";
 
-const NAV = [
+type NavItem =
+  | { section: string; client?: boolean }
+  | { href: string; label: string; icon: typeof LayoutDashboard; badge?: boolean; minRole?: "client" | "member" | "admin" };
+
+const NAV: NavItem[] = [
   { href: "/app", label: "Overview", icon: LayoutDashboard },
   { href: "/app/websites", label: "Websites", icon: Globe },
-  { href: "/app/clients", label: "Clients", icon: Building2 },
+  { href: "/app/clients", label: "Clients", icon: Building2, minRole: "member" },
   { href: "/app/incidents", label: "Incidents", icon: AlertOctagon, badge: true },
-  { section: "Testing & QA" },
-  { href: "/app/tests", label: "User journeys", icon: MousePointerClick },
-  { href: "/app/checks", label: "Content & visual", icon: ScanEye },
-  { href: "/app/api-monitors", label: "API monitors", icon: Plug },
+  { section: "Testing & QA", client: false },
+  { href: "/app/tests", label: "User journeys", icon: MousePointerClick, minRole: "member" },
+  { href: "/app/checks", label: "Content & visual", icon: ScanEye, minRole: "member" },
+  { href: "/app/api-monitors", label: "API monitors", icon: Plug, minRole: "member" },
   { href: "/app/errors", label: "Browser errors", icon: Bug },
-  { section: "Agency" },
+  { section: "Agency", client: false },
   { href: "/app/reports", label: "Reports", icon: FileBarChart },
-  { href: "/app/settings", label: "Settings", icon: Settings },
-] as const;
+  { href: "/app/settings", label: "Settings", icon: Settings, minRole: "member" },
+];
+
+const ROLE_RANK = { client: 0, member: 1, admin: 2, owner: 3 } as const;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -65,7 +71,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </div>
       <nav className="mt-4 flex-1 space-y-0.5 overflow-y-auto px-3 scrollbar-thin">
         {NAV.map((n, i) => {
-          if ("section" in n) return <div key={i} className="px-3 pb-1.5 pt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-plum/40">{n.section}</div>;
+          const role = workspace?.role || "client";
+          const rank = ROLE_RANK[role] ?? 0;
+          if ("section" in n) {
+            if (n.client === false && rank < ROLE_RANK.member) return null;
+            return <div key={i} className="px-3 pb-1.5 pt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-plum/40">{n.section}</div>;
+          }
+          if (n.minRole && rank < ROLE_RANK[n.minRole]) return null;
           const active = n.href === "/app" ? path === "/app" : path.startsWith(n.href);
           const Icon = n.icon;
           return (
@@ -74,7 +86,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               {active && <motion.span layoutId="nav-active" className="absolute inset-0 rounded-xl bg-plum" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
               <Icon className="relative h-[18px] w-[18px]" />
               <span className="relative flex-1">{n.label}</span>
-              {"badge" in n && openCount > 0 && <span className="relative rounded-full bg-bad px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white">{openCount}</span>}
+              {"badge" in n && n.badge && openCount > 0 && <span className="relative rounded-full bg-bad px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white">{openCount}</span>}
             </Link>
           );
         })}

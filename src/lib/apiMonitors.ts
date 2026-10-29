@@ -46,3 +46,37 @@ Health check,GET,https://api.example.com/health,200,1000,5,,,ok,
 Product list,GET,https://api.example.com/products?page=1,200,2000,15,Accept: application/json,,,example.com
 Create lead (test),POST,https://api.example.com/leads,"200,201",,60,Authorization: Bearer YOUR_TEST_TOKEN; Content-Type: application/json,"{""name"":""SiteGuard test"",""email"":""test@example.com""}",,
 `;
+
+/** Curated startup/agency API monitor presets (fill base URL before saving). */
+export const API_MONITOR_TEMPLATES: {
+  id: string; name: string; description: string;
+  monitors: { name: string; method: string; path: string; expected_statuses: number[]; max_response_ms?: number; assertions?: any[] }[];
+}[] = [
+  {
+    id: "health",
+    name: "Health & readiness",
+    description: "Basic liveness endpoints most startups expose.",
+    monitors: [
+      { name: "Health", method: "GET", path: "/health", expected_statuses: [200], max_response_ms: 1000, assertions: [{ type: "body_contains", value: "ok" }] },
+      { name: "Ready", method: "GET", path: "/ready", expected_statuses: [200], max_response_ms: 2000 },
+    ],
+  },
+  {
+    id: "auth",
+    name: "Auth API",
+    description: "Login/session endpoints for SaaS apps.",
+    monitors: [
+      { name: "Login rejects bad password", method: "POST", path: "/api/auth/login", expected_statuses: [401, 403], max_response_ms: 3000 },
+      { name: "Me requires auth", method: "GET", path: "/api/auth/me", expected_statuses: [401, 403], max_response_ms: 2000 },
+    ],
+  },
+  {
+    id: "public-site",
+    name: "Marketing site APIs",
+    description: "Contact/newsletter endpoints agencies often own for clients.",
+    monitors: [
+      { name: "Contact form endpoint", method: "OPTIONS", path: "/api/contact", expected_statuses: [200, 204, 404], max_response_ms: 2000 },
+      { name: "Sitemap", method: "GET", path: "/sitemap.xml", expected_statuses: [200], max_response_ms: 3000, assertions: [{ type: "body_contains", value: "urlset" }] },
+    ],
+  },
+];

@@ -6,7 +6,7 @@ import { useApi } from "@/lib/hooks";
 import { Button, ChipInput, ErrorBox, Input, Select, Toggle } from "./ui";
 
 export type WebsiteInput = {
-  url: string; name: string; client_id: string; interval_sec: number; timeout_sec: number; retries: number; retry_delay_sec: number;
+  url: string; name: string; client_id: string; environment: string; interval_sec: number; timeout_sec: number; retries: number; retry_delay_sec: number;
   failure_threshold: number; expected_statuses: string[]; keyword_present: string[]; keyword_absent: string[]; labels: string[];
   notes: string; ssl_enabled: boolean; domain_enabled: boolean; slow_threshold_ms: number;
 };
@@ -18,7 +18,8 @@ export function WebsiteForm({ initial, onSaved, onCancel }: { initial?: any; onS
   const { data: ws } = useApi<any>("/api/workspace");
   const minInterval = ws?.limits?.min_interval_sec ?? 60;
   const [f, setF] = useState<WebsiteInput>({
-    url: initial?.url || "", name: initial?.name || "", client_id: initial?.client_id || "", interval_sec: initial?.interval_sec || 300,
+    url: initial?.url || "", name: initial?.name || "", client_id: initial?.client_id || "", environment: initial?.environment || "production",
+    interval_sec: initial?.interval_sec || 300,
     timeout_sec: initial?.timeout_sec || 10, retries: initial?.retries ?? 2, retry_delay_sec: initial?.retry_delay_sec || 5,
     failure_threshold: initial?.failure_threshold || 2, expected_statuses: (initial?.expected_statuses || [200, 201, 202, 203, 204, 301, 302]).map(String),
     keyword_present: initial?.keyword_present || [], keyword_absent: initial?.keyword_absent || [], labels: initial?.labels || [],
@@ -56,10 +57,16 @@ export function WebsiteForm({ initial, onSaved, onCancel }: { initial?: any; onS
           {clients?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </Select>
       </div>
-      <Select label="Check every" value={f.interval_sec} onChange={(e) => set("interval_sec", Number(e.target.value))}
-        hint={`Your plan allows checks as often as every ${minInterval >= 60 ? minInterval / 60 + " min" : minInterval + "s"}.`}>
-        {INTERVALS.filter((i) => i >= minInterval).map((i) => <option key={i} value={i}>{i < 60 ? `${i} seconds` : i === 60 ? "1 minute" : i < 3600 ? `${i / 60} minutes` : "1 hour"}</option>)}
-      </Select>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Select label="Environment" value={f.environment} onChange={(e) => set("environment", e.target.value)}
+          hint="Use staging for pre-prod; production for client/live sites.">
+          {["production", "staging", "development", "preview"].map((e) => <option key={e} value={e}>{e}</option>)}
+        </Select>
+        <Select label="Check every" value={f.interval_sec} onChange={(e) => set("interval_sec", Number(e.target.value))}
+          hint={`Your plan allows checks as often as every ${minInterval >= 60 ? minInterval / 60 + " min" : minInterval + "s"}.`}>
+          {INTERVALS.filter((i) => i >= minInterval).map((i) => <option key={i} value={i}>{i < 60 ? `${i} seconds` : i === 60 ? "1 minute" : i < 3600 ? `${i / 60} minutes` : "1 hour"}</option>)}
+        </Select>
+      </div>
       <button type="button" onClick={() => setAdvanced(!advanced)} className="text-sm font-medium text-magenta">{advanced ? "Hide" : "Show"} failure policy & content checks</button>
       {advanced && (
         <div className="space-y-4 rounded-2xl bg-cream/60 p-4 ring-1 ring-plum/8">

@@ -81,15 +81,18 @@ export default function Dashboard() {
               <DayShape data={data.hourly || []} />
             </Card>
             <Card>
-              <CardHeader title="Needs attention" subtitle="Open incidents, newest first" action={<Link href="/app/incidents" className="text-xs text-magenta">All</Link>} />
+              <CardHeader title="Needs attention" subtitle="Incidents, outages, expiries, failing journeys, and reviews" action={<Link href="/app/incidents" className="text-xs text-magenta">Incidents</Link>} />
               <div className="divide-y divide-plum/6">
-                {data.open_incidents.length === 0 && <div className="flex flex-col items-center px-5 py-10 text-center text-sm text-plum/60"><ShieldCheck className="mb-2 h-8 w-8 text-ok" />No open incidents. Everything we monitor is healthy.</div>}
-                {data.open_incidents.map((i: any) => (
-                  <Link key={i.id} href={`/app/incidents/${i.id}`} className="flex gap-3 px-5 py-3.5 transition hover:bg-cream/70">
-                    <span className={`mt-1 w-1 shrink-0 self-stretch rounded-full ${i.severity === "critical" ? "bg-bad" : i.severity === "major" ? "bg-magenta" : "bg-sky"}`} />
+                {(data.needs_attention || []).length === 0 && <div className="flex flex-col items-center px-5 py-10 text-center text-sm text-plum/60"><ShieldCheck className="mb-2 h-8 w-8 text-ok" />Nothing needs attention. Portfolio looks healthy.</div>}
+                {(data.needs_attention || []).map((i: any, idx: number) => (
+                  <Link key={`${i.kind}-${i.href}-${idx}`} href={i.href} className="flex gap-3 px-5 py-3.5 transition hover:bg-cream/70">
+                    <span className={`mt-1 w-1 shrink-0 self-stretch rounded-full ${i.severity === "critical" ? "bg-bad" : i.severity === "major" ? "bg-magenta" : i.severity === "info" ? "bg-plum/25" : "bg-sky"}`} />
                     <div className="min-w-0 flex-1">
                       <div className="line-clamp-2 text-sm font-medium leading-snug text-ink">{i.title}</div>
-                      <div className="mt-1 truncate text-[11px] text-plum/55"><Badge>{i.severity}</Badge> <span className="ml-1.5">{i.website_name} · {timeAgo(i.started_at)}</span></div>
+                      <div className="mt-1 truncate text-[11px] text-plum/55">
+                        <Badge>{i.kind}</Badge>
+                        <span className="ml-1.5">{i.meta}{i.at ? ` · ${timeAgo(i.at)}` : ""}</span>
+                      </div>
                     </div>
                   </Link>
                 ))}

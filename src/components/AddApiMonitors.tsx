@@ -1,20 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, Download, FileJson, FileSpreadsheet, Lock, PenLine, Plug, Radar, Terminal, Upload, X } from "lucide-react";
+import { ArrowLeft, Check, Download, FileJson, FileSpreadsheet, Lock, PenLine, Plug, Radar, Sparkles, Terminal, Upload, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { ApiMonitorForm } from "./ApiMonitorForm";
 import { DiscoveryPanel } from "./DiscoveryPanel";
 import { useToast } from "./toast";
 import { Button, Input, Select, cn } from "./ui";
 import { post } from "@/lib/api";
-import { SAMPLE_CSV } from "@/lib/apiMonitors";
+import { API_MONITOR_TEMPLATES, SAMPLE_CSV } from "@/lib/apiMonitors";
 import { useApi } from "@/lib/hooks";
 
-type Mode = "menu" | "discover" | "manual" | "file" | "csv";
+type Mode = "menu" | "discover" | "templates" | "manual" | "file" | "csv";
 
 const OPTIONS: { id: Mode; icon: any; title: string; body: string; who: string }[] = [
   { id: "discover", icon: Radar, title: "Find them automatically", body: "We browse the site, capture live API traffic, and pull OpenAPI / Swagger specs when present. Recommended endpoints are ready to watch in one click.", who: "Easiest — no technical knowledge needed" },
+  { id: "templates", icon: Sparkles, title: "Start from a template", body: "Health, auth, and marketing-site API packs for startups and agencies. Paste your base URL and create monitors in one click.", who: "Fastest for common SaaS setups" },
   { id: "manual", icon: PenLine, title: "Add one by hand", body: "Type the address, or paste a cURL command copied from the browser or terminal.", who: "For a single endpoint" },
   { id: "file", icon: FileJson, title: "Import Postman / OpenAPI", body: "Upload a Postman collection, OpenAPI (Swagger) spec, or a HAR file exported from browser DevTools.", who: "For developers — add many at once" },
   { id: "csv", icon: FileSpreadsheet, title: "Upload a spreadsheet", body: "Fill in our sample sheet in Excel or Google Sheets (one API per row) and upload it as CSV.", who: "For teams handing over a list" },
@@ -65,8 +66,65 @@ export function AddApiMonitors({ onClose, onDone }: { onClose: () => void; onDon
           </div>
         )}
 
+        {mode === "templates" && <TemplatePacks sites={sites || []} onDone={() => { onDone(); onClose(); }} />}
         {mode === "manual" && <ManualAdd onSaved={() => { onDone(); onClose(); }} />}
         {(mode === "file" || mode === "csv") && <ImportPanel key={mode} csv={mode === "csv"} sites={sites || []} onDone={onDone} onClose={onClose} />}
+      </div>
+    </div>
+  );
+}
+
+function TemplatePacks({ sites, onDone }: { sites: any[]; onDone: () => void }) {
+  const toast = useToast();
+  const [base, setBase] = useState("https://api.example.com");
+  const [websiteId, setWebsiteId] = useState("");
+  const [busy, setBusy] = useState<string | null>(null);
+  const apply = async (pack: (typeof API_MONITOR_TEMPLATES)[number]) => {
+    setBusy(pack.id);
+    try {
+      const root = base.replace(/\/$/, "");
+      const items = pack.monitors.map((m) => ({
+        name: m.name,
+        method: m.method,
+        url: `${root}${m.path.startsWith("/") ? m.path : `/${m.path}`}`,
+        expected_statuses: m.expected_statuses,
+        max_response_ms: m.max_response_ms,
+        assertions: m.assertions || [],
+        interval_sec: 300,
+      }));
+      const res: any = await post("/api/api-monitors/import", { items, website_id: websiteId || null });
+      toast(`Created ${res.created?.length ?? items.length} monitors from “${pack.name}”`);
+      onDone();
+    } catch (e: any) {
+      toast(e.message, "error");
+    } finally {
+      setBusy(null);
+    }
+  };
+  return (
+    <div className="mx-auto max-w-3xl space-y-5">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Input label="API base URL" value={base} onChange={(e) => setBase(e.target.value)} placeholder="https://api.yourapp.com" />
+        <Select label="Attach to website (optional)" value={websiteId} onChange={(e) => setWebsiteId(e.target.value)}>
+          <option value="">— none —</option>
+          {sites.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </Select>
+      </div>
+      <div className="grid gap-4">
+        {API_MONITOR_TEMPLATES.map((pack) => (
+          <div key={pack.id} className="rounded-3xl bg-white p-5 ring-1 ring-plum/10">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <div className="text-lg font-semibold text-ink">{pack.name}</div>
+                <p className="mt-1 text-sm text-plum/65">{pack.description}</p>
+                <ul className="mt-3 space-y-1 text-xs text-plum/70">
+                  {pack.monitors.map((m) => <li key={m.name} className="font-mono">{m.method} {m.path}</li>)}
+                </ul>
+              </div>
+              <Button size="sm" loading={busy === pack.id} onClick={() => apply(pack)}>Use template</Button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

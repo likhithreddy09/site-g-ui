@@ -168,12 +168,12 @@ const EVENTS: [string, string][] = [
 
 function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
   const n = ws.notifications;
-  const [f, setF] = useState({ ...n, escalation: { ...n.escalation }, events: { ...n.events } });
+  const [f, setF] = useState({ ...n, escalation: { ...n.escalation }, events: { ...n.events }, quiet_hours: { enabled: false, start: "22:00", end: "07:00", ...n.quiet_hours } });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const { can } = useAuth();
   const toast = useToast();
-  useEffect(() => setF({ ...n, escalation: { ...n.escalation }, events: { ...n.events } }), [ws]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => setF({ ...n, escalation: { ...n.escalation }, events: { ...n.events }, quiet_hours: { enabled: false, start: "22:00", end: "07:00", ...n.quiet_hours } }), [ws]); // eslint-disable-line react-hooks/exhaustive-deps
   const save = async () => {
     setSaving(true);
     setError(null);
@@ -212,6 +212,15 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
               <Input label="Escalate after (minutes)" type="number" min={5} value={f.escalation.after_minutes} onChange={(e) => setF({ ...f, escalation: { ...f.escalation, after_minutes: Number(e.target.value) } })} />
               <ChipInput label="Escalation recipients" values={f.escalation.emails} onChange={(v) => setF({ ...f, escalation: { ...f.escalation, emails: v } })} placeholder="founder@agency.com" />
             </>}
+          </div>
+          <div className="rounded-2xl bg-cream/60 p-4 ring-1 ring-plum/8 space-y-3">
+            <Toggle checked={!!f.quiet_hours?.enabled} onChange={(v) => setF({ ...f, quiet_hours: { ...f.quiet_hours, enabled: v } })} label="Quiet hours" hint="Suppress non-critical alerts overnight. Critical severity and escalations still go through." />
+            {f.quiet_hours?.enabled && (
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Input label="Starts" type="time" value={f.quiet_hours.start || "22:00"} onChange={(e) => setF({ ...f, quiet_hours: { ...f.quiet_hours, start: e.target.value } })} />
+                <Input label="Ends" type="time" value={f.quiet_hours.end || "07:00"} onChange={(e) => setF({ ...f, quiet_hours: { ...f.quiet_hours, end: e.target.value } })} />
+              </div>
+            )}
           </div>
         </div>
       </Card>

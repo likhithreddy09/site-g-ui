@@ -28,22 +28,42 @@ type Step = { _k: string; action: string; selector?: string; value?: string; url
 
 const TEMPLATES: Record<string, Omit<Step, "_k">[]> = {
   "Contact form": [
-    { action: "fill", selector: "input[name=name]", value: "SiteGuard Test" },
-    { action: "fill", selector: "input[type=email]", value: "{{email}}" },
-    { action: "fill", selector: "textarea", value: "Automated monitoring test — please ignore." },
-    { action: "click", selector: "button[type=submit]" },
+    { action: "fill", selector: "input[name=name], input[name=full_name], #name", value: "SiteGuard Test" },
+    { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
+    { action: "fill", selector: "textarea, textarea[name=message]", value: "Automated monitoring test — please ignore." },
+    { action: "click", selector: "button[type=submit], input[type=submit]" },
     { action: "assert_text", value: "Thank you" },
   ],
   Login: [
-    { action: "fill", selector: "#username", value: "test-user" },
-    { action: "fill", selector: "#password", value: "", secret: true },
+    { action: "fill", selector: "input[type=email], input[name=email], #email, #username", value: "test-user@example.com" },
+    { action: "fill", selector: "input[type=password], #password", value: "", secret: true },
     { action: "click", selector: "button[type=submit]" },
     { action: "assert_url", value: "/dashboard" },
   ],
-  "Search returns results": [
-    { action: "fill", selector: "input[type=search]", value: "test" },
+  Signup: [
+    { action: "fill", selector: "input[name=name], #name", value: "SiteGuard Tester" },
+    { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
+    { action: "fill", selector: "input[type=password], #password", value: "Test-{{random}}!", secret: true },
+    { action: "click", selector: "button[type=submit]" },
+    { action: "assert_url", value: "/welcome" },
+  ],
+  "Search results": [
+    { action: "fill", selector: "input[type=search], input[name=q], #search", value: "test" },
     { action: "press", value: "Enter" },
-    { action: "assert_visible", selector: ".search-results, .results" },
+    { action: "assert_visible", selector: ".search-results, .results, [data-testid=results]" },
+  ],
+  "Add to cart": [
+    { action: "click", selector: "button:has-text('Add to cart'), [data-add-to-cart], .add-to-cart" },
+    { action: "assert_visible", selector: ".cart, [data-cart], a[href*='cart']" },
+    { action: "click", selector: "a[href*='cart'], button:has-text('Cart')" },
+    { action: "assert_text", value: "Cart" },
+  ],
+  "Booking / demo request": [
+    { action: "fill", selector: "input[name=name], #name", value: "SiteGuard Test" },
+    { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
+    { action: "fill", selector: "input[type=tel], input[name=phone]", value: "+15555550100" },
+    { action: "click", selector: "button[type=submit]" },
+    { action: "assert_text", value: "Thank" },
   ],
 };
 
