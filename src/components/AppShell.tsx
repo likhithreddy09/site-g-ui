@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
 import { Logo } from "./Logo";
-import { TrialBanner, TrialLockOverlay, isTrialLocked } from "./TrialLock";
+import { TrialBanner, TrialLockOverlay, isTrialLocked, lockReason } from "./TrialLock";
 import { cn } from "./ui";
 
 type NavItem =
@@ -46,6 +46,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { data: ws } = useApi<any>("/api/workspace", { poll: 60_000 });
   const openCount = inc ? (inc.counts?.open || 0) + (inc.counts?.investigating || 0) : 0;
   const locked = isTrialLocked(ws);
+  const reason = lockReason(ws);
   const onBilling = path.startsWith("/app/billing");
 
   const sidebar = (
@@ -131,8 +132,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <TrialBanner ws={ws} />
         {locked && !onBilling && (
           <div className="flex flex-col gap-2 bg-bad/15 px-4 py-2.5 text-sm text-bad sm:flex-row sm:items-center sm:gap-3 sm:px-6">
-            <span><b>Trial ended.</b> Dashboard is view-only until you unlock a plan.</span>
-            <Link href="/app/billing" className="link-underline font-medium sm:ml-auto shrink-0">Unlock →</Link>
+            <span>
+              <b>{reason === "subscription_ended" ? "Plan expired." : "Trial ended."}</b>
+              {" "}Dashboard is view-only until payment unlocks another 30 days.
+            </span>
+            <Link href="/app/billing" className="link-underline font-medium sm:ml-auto shrink-0">
+              {reason === "subscription_ended" ? "Renew →" : "Unlock →"}
+            </Link>
           </div>
         )}
         {health?.degraded && (
@@ -145,7 +151,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         )}
         <main className="mx-auto max-w-[1280px] px-4 py-6 md:px-8 md:py-8">
-          {locked && !onBilling ? <TrialLockOverlay>{children}</TrialLockOverlay> : children}
+          {locked && !onBilling ? <TrialLockOverlay reason={reason}>{children}</TrialLockOverlay> : children}
         </main>
         <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 pb-8 text-[11px] text-plum/40 md:px-8">
           <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · Watchfront

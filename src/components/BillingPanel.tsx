@@ -141,20 +141,33 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
 
   const locked = !!(ws?.locked || ws?.access?.locked);
   const trialActive = !!(ws?.trial_active || ws?.access?.trial_active);
+  const billingActive = !!(ws?.billing_active || ws?.access?.billing_active);
+  const lockReason = ws?.lock_reason || ws?.access?.reason;
+  const paidUntil = ws?.paid_until || ws?.access?.paid_until;
 
   return (
     <div>
       {locked && (
         <Card className="mb-4 border border-bad/25 bg-bad/5 p-4 text-sm text-ink sm:p-5">
-          <div className="font-semibold text-bad">Trial ended — unlock to continue</div>
+          <div className="font-semibold text-bad">
+            {lockReason === "subscription_ended" ? "Plan expired — renew to continue" : "Trial ended — unlock to continue"}
+          </div>
           <p className="mt-1 text-plum-2">
-            Your 24-hour free trial is over. Choose a plan below to restore monitoring, alerts, and edits.
+            {lockReason === "subscription_ended"
+              ? "Your 30-day access window ended. Pay again below to restore monitoring for another 30 days."
+              : "Your 24-hour free trial is over. Choose a plan below — each payment unlocks 30 days of access."}
           </p>
         </Card>
       )}
       {trialActive && !locked && (
         <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum sm:p-5">
-          You&apos;re on a <b className="text-ink">24-hour free trial</b> with full Growth features. Pick a plan anytime to keep access after it ends.
+          You&apos;re on a <b className="text-ink">24-hour free trial</b> with full Growth features. Pick a plan anytime — payment unlocks <b className="text-ink">30 days</b> of access.
+        </Card>
+      )}
+      {billingActive && !locked && paidUntil && (
+        <Card className="mb-4 border border-ok/25 bg-ok/5 p-4 text-sm text-plum sm:p-5">
+          Access active until <b className="text-ink">{new Date(paidUntil).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</b>.
+          {" "}Renew before then to keep monitoring without interruption (early renewals add another 30 days).
         </Card>
       )}
       {confirming && (
@@ -249,13 +262,33 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
                 <li>{p.reports ? (p.scheduled_reports ? "Scheduled reports" : "Reports") : "No reports"}{p.white_label ? " · white-label" : ""}</li>
                 <li>{p.ai_calls} AI analyses / month</li>
               </ul>
-              {can("owner") && !current && (
-                <Button className="mt-5 w-full whitespace-normal text-center leading-snug" variant={id === "agency" ? "primary" : "secondary"} loading={busy === id}
+              {can("owner") && id === "free" && !current && (
+                <Button className="mt-5 w-full" variant="secondary" loading={busy === id}
                   onClick={() => startCheckout(id, p.name)}>
-                  {id === "free" ? "Switch to Free" : paymentsOn ? `Pay ₹${inr.toLocaleString("en-IN")} & upgrade` : `Switch to ${p.name}`}
+                  Switch to Free
                 </Button>
               )}
-              {current && <div className="mt-5 flex items-center gap-2 text-sm text-ok"><Check className="h-4 w-4" /> Current plan</div>}
+              {can("owner") && id !== "free" && (!current || locked || paymentsOn) && (
+                <Button
+                  className="mt-5 w-full whitespace-normal text-center leading-snug"
+                  variant={id === "agency" || (current && locked) ? "primary" : "secondary"}
+                  loading={busy === id}
+                  onClick={() => startCheckout(id, p.name)}
+                >
+                  {!paymentsOn
+                    ? `Switch to ${p.name}`
+                    : current && locked
+                      ? `Renew ₹${inr.toLocaleString("en-IN")} · 30 days`
+                      : current
+                        ? `Extend ₹${inr.toLocaleString("en-IN")} · +30 days`
+                        : locked || trialActive
+                          ? `Pay ₹${inr.toLocaleString("en-IN")} · 30 days`
+                          : `Pay ₹${inr.toLocaleString("en-IN")} & unlock`}
+                </Button>
+              )}
+              {current && !locked && !paymentsOn && (
+                <div className="mt-5 flex items-center gap-2 text-sm text-ok"><Check className="h-4 w-4" /> Current plan</div>
+              )}
             </Card>
           );
         })}
