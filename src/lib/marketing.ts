@@ -12,11 +12,11 @@ export const FEATURES: Feature[] = [
   {
     slug: "uptime-monitoring", name: "Uptime & response time", short: "Know within a minute when a client site goes down — without false alarms.",
     title: "Uptime Monitoring for Agencies — 1-Minute Checks, No False Alarms",
-    description: "Monitor every client website's uptime and response time with 1-minute checks, automatic retries and confirmed-outage alerts by email, Slack or Teams.",
+    description: "Monitor every client website's uptime and response time with 1-minute checks, automatic retries and confirmed-outage alerts by email. WhatsApp alerts coming soon.",
     h1: "Uptime monitoring that only wakes you for real outages",
     intro: "Watchfront checks each website from our monitoring workers as often as every minute. A failed check is retried before anyone is alerted, so you hear about real outages — not a single slow request.",
     steps: [["Add a website", "Paste the address. We start checking it straight away — no code or plugin needed."], ["We retry before alerting", "A failure is confirmed with an automatic retry and a failure threshold you control."], ["Get an incident with evidence", "Status code, response time, error and timeline are attached, and recovery closes it automatically."]],
-    benefits: ["Checks every 1–5 minutes depending on your plan", "Retries and failure thresholds prevent false alarms", "Response-time history and 24h / 7d / 30d uptime", "Alerts by email, Slack, Microsoft Teams or webhook", "Uptime figures flow straight into client reports"],
+    benefits: ["Checks every 1–5 minutes depending on your plan", "Retries and failure thresholds prevent false alarms", "Response-time history and 24h / 7d / 30d uptime", "Email alerts today · WhatsApp coming soon", "Uptime figures flow straight into client reports"],
     faqs: [
       { q: "How often does Watchfront check my websites?", a: "Every 5 minutes on the Free plan and as often as every minute on paid plans. You can set a different interval per website." },
       { q: "How do you avoid false alarms?", a: "Every failure is retried, and an incident only opens after the number of consecutive failures you choose. Short blips are recorded as transient instead of paging your team." },
@@ -174,15 +174,15 @@ export type MarketingPlan = {
 export const PLANS: MarketingPlan[] = [
   {
     name: "Starter", price: 12, priceInr: 999, note: "1–3 websites",
-    features: ["Up to 3 websites", "1-minute checks", "SSL & domain monitoring", "Content checks", "Email alerts", "30-day history"],
+    features: ["Up to 3 websites", "1-minute checks", "SSL & domain monitoring", "Content checks", "Email alerts", "WhatsApp alerts — coming soon", "30-day history"],
   },
   {
     name: "Growth", price: 30, priceInr: 2499, note: "4–10 websites", featured: true,
-    features: ["Up to 10 websites", "Client grouping", "API & JS monitoring", "120 browser-test min", "Slack alerts", "Scheduled reports"],
+    features: ["Up to 10 websites", "Client grouping", "API & JS monitoring", "120 browser-test min", "Email alerts", "Scheduled reports", "WhatsApp alerts — coming soon"],
   },
   {
     name: "Agency", price: 60, priceInr: 4999, note: "10+ websites",
-    features: ["Up to 50 websites", "White-label reports", "400 browser-test min", "10 team members", "Priority support", "180-day history"],
+    features: ["Up to 50 websites", "White-label reports", "400 browser-test min", "10 team members", "Email alerts", "WhatsApp alerts — coming soon"],
   },
   {
     name: "Enterprise", price: 0, priceInr: 0, note: "Large portfolios & custom needs",
@@ -201,7 +201,8 @@ export const COMPARISON: [string, string, string, string, string][] = [
   ["Browser-test minutes / month", "30", "120", "400", "Custom"],
   ["JavaScript & API monitoring", "—", "✓", "✓", "✓"],
   ["Client / white-label reports", "—", "✓", "✓ white-label", "✓"],
-  ["Slack, Teams & webhooks", "—", "✓", "✓", "✓"],
+  ["Email alerts", "✓", "✓", "✓", "✓"],
+  ["WhatsApp alerts", "Coming soon", "Coming soon", "Coming soon", "Coming soon"],
   ["Team members", "1", "3", "10", "Custom"],
 ];
 

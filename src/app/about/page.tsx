@@ -21,7 +21,7 @@ const SERVICES = [
   "Content, visual and broken-link checks",
   "Form and user-journey browser tests",
   "API and JavaScript error monitoring",
-  "Incident alerts (email, Slack) and client-ready reports",
+  "Incident alerts by email (WhatsApp coming soon) and client-ready reports",
 ];
 
 export default function AboutPage() {

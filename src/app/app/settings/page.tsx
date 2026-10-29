@@ -312,9 +312,13 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
             <code className="font-mono text-[11px] text-ink">[Watchfront · Major · JS]</code>
             {" "}and set a unique notification sound for that filter. Critical/major also set high-priority headers.
           </div>
-          <Input label={`Slack incoming webhook ${ws.limits.slack ? "" : "(Agency plan)"}`} value={f.slack_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, slack_webhook: e.target.value })} placeholder="https://hooks.slack.com/services/…" />
-          <Input label="Microsoft Teams webhook" value={f.teams_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, teams_webhook: e.target.value })} placeholder="https://…webhook.office.com/…" />
-          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" />
+          <div className="rounded-2xl bg-cream/60 p-4 text-sm text-plum-2 ring-1 ring-plum/8">
+            <div className="font-medium text-ink">WhatsApp alerts — coming soon</div>
+            <p className="mt-1 text-xs leading-relaxed">
+              Today alerts go by email only. WhatsApp notifications are on the roadmap — we&apos;ll announce when they&apos;re ready.
+            </p>
+          </div>
+          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" hint="Optional. For your own systems — not Slack/Teams." />
         </div>
       </Card>
       <Card>

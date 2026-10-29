@@ -15,7 +15,7 @@ export const metadata = pageMeta({
 const EXTRAS = [
   ["Incident management", "Related failures grouped into one incident with severity, owner, notes and a full timeline. Recurring problems reopen automatically."],
   ["AI-assisted diagnosis", "Plain-English summaries grounded in captured evidence, keeping what was observed separate from what is suspected."],
-  ["Alerts where you work", "Email, Slack, Microsoft Teams and webhooks — with quiet hours and per-client routing."],
+  ["Alerts where you work", "Email alerts today, with quiet hours and routing. WhatsApp notifications coming soon."],
   ["Team & client roles", "Owners, admins, developers and read-only client access scoped to their own websites."],
 ];
 

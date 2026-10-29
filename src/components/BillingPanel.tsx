@@ -258,7 +258,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
                 <li>{p.content_checks} content checks · {p.api_monitors} API monitors</li>
                 <li>{p.browser_tests} journeys · {p.browser_minutes} browser min</li>
                 <li>{p.js_monitoring ? "Browser error monitoring" : "No browser error monitoring"}</li>
-                <li>{p.team_members} team member(s){p.slack ? " · Slack/Teams" : ""}</li>
+                <li>{p.team_members} team member(s) · Email alerts</li>
                 <li>{p.reports ? (p.scheduled_reports ? "Scheduled reports" : "Reports") : "No reports"}{p.white_label ? " · white-label" : ""}</li>
                 <li>{p.ai_calls} AI analyses / month</li>
               </ul>
