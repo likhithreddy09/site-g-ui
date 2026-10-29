@@ -4,7 +4,7 @@ import { Send, Trash2, UserPlus } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Badge, Button, Card, CardHeader, ChipInput, ErrorBox, Input, KV, Loading, Modal, PageHeader, Select, Table, Td, Tabs, Toggle } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, ChipInput, ErrorBox, Input, KV, Loading, Modal, PageHeader, Select, SoftBusy, Table, Td, Tabs, Toggle } from "@/components/ui";
 import { api, del, patch, post, put } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, timeAgo } from "@/lib/format";
@@ -51,22 +51,58 @@ function General({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   const { can, user } = useAuth();
   const toast = useToast();
   const [pw, setPw] = useState({ current_password: "", new_password: "" });
+  const [savingWs, setSavingWs] = useState(false);
+  const [savingPw, setSavingPw] = useState(false);
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader title="Workspace" />
         <div className="space-y-4 p-5">
-          <Input label="Workspace name" value={name} onChange={(e) => setName(e.target.value)} disabled={!can("admin")} />
-          <Toggle checked={ai} onChange={setAi} disabled={!can("admin")} label="AI-assisted diagnosis" hint={`Engine: ${ws.ai_engine}. Evidence is redacted (emails, tokens, card numbers) before analysis.`} />
-          {can("admin") && <Button onClick={async () => { onSaved(await patch("/api/workspace", { name, settings: { ai_enabled: ai } })); toast("Saved"); }}>Save</Button>}
+          <Input label="Workspace name" value={name} onChange={(e) => setName(e.target.value)} disabled={!can("admin") || savingWs} />
+          <Toggle checked={ai} onChange={setAi} disabled={!can("admin") || savingWs} label="AI-assisted diagnosis" hint={`Engine: ${ws.ai_engine}. Evidence is redacted (emails, tokens, card numbers) before analysis.`} />
+          {can("admin") && (
+            <Button
+              loading={savingWs}
+              onClick={async () => {
+                setSavingWs(true);
+                try {
+                  onSaved(await patch("/api/workspace", { name, settings: { ai_enabled: ai } }));
+                  toast("Saved");
+                } catch (e: any) {
+                  toast(e.message, "error");
+                } finally {
+                  setSavingWs(false);
+                }
+              }}
+            >
+              Save
+            </Button>
+          )}
         </div>
       </Card>
       <Card>
         <CardHeader title="Your account" subtitle={user?.email} />
         <div className="space-y-4 p-5">
-          <Input label="Current password" type="password" value={pw.current_password} onChange={(e) => setPw({ ...pw, current_password: e.target.value })} />
-          <Input label="New password" type="password" value={pw.new_password} onChange={(e) => setPw({ ...pw, new_password: e.target.value })} hint="At least 8 characters" />
-          <Button variant="secondary" onClick={async () => { try { await patch("/api/auth/me", pw); toast("Password changed"); setPw({ current_password: "", new_password: "" }); } catch (e: any) { toast(e.message, "error"); } }}>Change password</Button>
+          <Input label="Current password" type="password" value={pw.current_password} onChange={(e) => setPw({ ...pw, current_password: e.target.value })} disabled={savingPw} />
+          <Input label="New password" type="password" value={pw.new_password} onChange={(e) => setPw({ ...pw, new_password: e.target.value })} hint="At least 8 characters" disabled={savingPw} />
+          <Button
+            variant="secondary"
+            loading={savingPw}
+            onClick={async () => {
+              setSavingPw(true);
+              try {
+                await patch("/api/auth/me", pw);
+                toast("Password changed");
+                setPw({ current_password: "", new_password: "" });
+              } catch (e: any) {
+                toast(e.message, "error");
+              } finally {
+                setSavingPw(false);
+              }
+            }}
+          >
+            Change password
+          </Button>
         </div>
       </Card>
       <Card className="lg:col-span-2">
@@ -84,6 +120,8 @@ function General({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
 function Workspaces() {
   const { workspaces, switchWorkspace, workspace } = useAuth();
   const [name, setName] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [switching, setSwitching] = useState<string | null>(null);
   const toast = useToast();
   return (
     <div className="grid gap-6 lg:grid-cols-2">
@@ -93,7 +131,26 @@ function Workspaces() {
           {workspaces.map((w) => (
             <div key={w.id} className="flex items-center justify-between px-5 py-3 text-sm">
               <div><div className="font-medium text-ink">{w.name}</div><div className="text-xs capitalize text-plum/55">{w.role} · {w.plan.replace("_", " ")}</div></div>
-              {w.id === workspace?.id ? <Badge tone="active">current</Badge> : <Button size="sm" variant="secondary" onClick={() => switchWorkspace(w.id)}>Switch</Button>}
+              {w.id === workspace?.id ? (
+                <Badge tone="active">current</Badge>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  loading={switching === w.id}
+                  disabled={!!switching}
+                  onClick={async () => {
+                    setSwitching(w.id);
+                    try {
+                      await switchWorkspace(w.id);
+                    } finally {
+                      setSwitching(null);
+                    }
+                  }}
+                >
+                  Switch
+                </Button>
+              )}
             </div>
           ))}
         </div>
@@ -101,8 +158,25 @@ function Workspaces() {
       <Card>
         <CardHeader title="Create workspace" />
         <div className="space-y-4 p-5">
-          <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Second agency brand" />
-          <Button onClick={async () => { try { const w = await post("/api/auth/workspaces", { name }); toast("Workspace created"); switchWorkspace(w.id); } catch (e: any) { toast(e.message, "error"); } }} disabled={!name.trim()}>Create & switch</Button>
+          <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Second agency brand" disabled={creating} />
+          <Button
+            loading={creating}
+            disabled={!name.trim()}
+            onClick={async () => {
+              setCreating(true);
+              try {
+                const w = await post("/api/auth/workspaces", { name });
+                toast("Workspace created");
+                switchWorkspace(w.id);
+              } catch (e: any) {
+                toast(e.message, "error");
+              } finally {
+                setCreating(false);
+              }
+            }}
+          >
+            Create & switch
+          </Button>
         </div>
       </Card>
     </div>
@@ -110,55 +184,79 @@ function Workspaces() {
 }
 
 function Team({ ws }: { ws: any }) {
-  const { data: members, reload } = useApi<any[]>("/api/workspace/members");
+  const { data: members, loading, refreshing, reload } = useApi<any[]>("/api/workspace/members");
   const { data: clients } = useApi<any[]>("/api/clients");
   const { can } = useAuth();
   const toast = useToast();
   const [inv, setInv] = useState<{ email: string; role: string; client_ids: string[] } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [inviting, setInviting] = useState(false);
+  if (loading && !members) return <Loading rows={3} />;
   return (
     <div>
-      <Card>
-        <CardHeader title="Members" subtitle={`${members?.filter((m) => m.role !== "client").length || 0} of ${ws.limits.team_members} team seats used. Client viewers don't use seats.`}
-          action={can("admin") && <Button size="sm" onClick={() => { setError(null); setInv({ email: "", role: "member", client_ids: [] }); }}><UserPlus className="h-4 w-4" /> Invite</Button>} />
-        <Table head={["Member", "Role", "Client access", "Status", ""]}>
-          {members?.map((m) => (
-            <tr key={m.id}>
-              <Td><div className="font-medium text-ink">{m.name || m.email}</div><div className="text-xs text-plum/55">{m.email}</div></Td>
-              <Td>
-                {m.role === "owner" || !can("admin") ? <Badge tone="info">{m.role}</Badge> : (
-                  <select value={m.role} onChange={async (e) => { await patch(`/api/workspace/members/${m.id}`, { role: e.target.value }); reload(); toast("Role updated"); }} className="rounded-lg bg-cream px-2 py-1 text-xs ring-1 ring-plum/10">
-                    <option value="admin">admin</option><option value="member">member</option><option value="client">client viewer</option>
-                  </select>
-                )}
-              </Td>
-              <Td className="text-xs text-plum/65">{m.role === "client" ? (m.client_ids?.map((c: string) => clients?.find((x) => x.id === c)?.name).filter(Boolean).join(", ") || "none") : "All"}</Td>
-              <Td><Badge>{m.status}</Badge></Td>
-              <Td>{can("admin") && m.role !== "owner" && <button onClick={async () => { if (confirm(`Remove ${m.email}?`)) { await del(`/api/workspace/members/${m.id}`); reload(); } }} className="text-plum/40 hover:text-bad"><Trash2 className="h-4 w-4" /></button>}</Td>
-            </tr>
-          ))}
-        </Table>
-      </Card>
+      <SoftBusy busy={refreshing}>
+        <Card>
+          <CardHeader title="Members" subtitle={`${members?.filter((m) => m.role !== "client").length || 0} of ${ws.limits.team_members} team seats used. Client viewers don't use seats.`}
+            action={can("admin") && <Button size="sm" onClick={() => { setError(null); setInv({ email: "", role: "member", client_ids: [] }); }}><UserPlus className="h-4 w-4" /> Invite</Button>} />
+          <Table head={["Member", "Role", "Client access", "Status", ""]}>
+            {members?.map((m) => (
+              <tr key={m.id}>
+                <Td><div className="font-medium text-ink">{m.name || m.email}</div><div className="text-xs text-plum/55">{m.email}</div></Td>
+                <Td>
+                  {m.role === "owner" || !can("admin") ? <Badge tone="info">{m.role}</Badge> : (
+                    <select value={m.role} onChange={async (e) => { await patch(`/api/workspace/members/${m.id}`, { role: e.target.value }); reload(); toast("Role updated"); }} className="rounded-lg bg-cream px-2 py-1 text-xs ring-1 ring-plum/10">
+                      <option value="admin">admin</option><option value="member">member</option><option value="client">client viewer</option>
+                    </select>
+                  )}
+                </Td>
+                <Td className="text-xs text-plum/65">{m.role === "client" ? (m.client_ids?.map((c: string) => clients?.find((x) => x.id === c)?.name).filter(Boolean).join(", ") || "none") : "All"}</Td>
+                <Td><Badge>{m.status}</Badge></Td>
+                <Td>{can("admin") && m.role !== "owner" && <button onClick={async () => { if (confirm(`Remove ${m.email}?`)) { await del(`/api/workspace/members/${m.id}`); reload(); } }} className="text-plum/40 hover:text-bad"><Trash2 className="h-4 w-4" /></button>}</Td>
+              </tr>
+            ))}
+          </Table>
+        </Card>
+      </SoftBusy>
       <Card className="mt-6 p-5 text-sm text-plum/75">
         <b className="text-ink">Roles.</b> <b>Owner</b> — billing & everything. <b>Admin</b> — settings, team, deletes. <b>Member</b> — create & manage monitors, incidents, reports. <b>Client viewer</b> — read-only access limited to their assigned clients&apos; websites, incidents, and reports.
       </Card>
-      <Modal open={!!inv} onClose={() => setInv(null)} title="Invite to workspace" subtitle="If they don't have an account yet, they'll join when they sign up with this email.">
+      <Modal open={!!inv} onClose={() => !inviting && setInv(null)} title="Invite to workspace" subtitle="If they don't have an account yet, they'll join when they sign up with this email.">
         {inv && (
           <div className="space-y-4">
             <ErrorBox error={error} />
-            <Input label="Email" type="email" value={inv.email} onChange={(e) => setInv({ ...inv, email: e.target.value })} />
-            <Select label="Role" value={inv.role} onChange={(e) => setInv({ ...inv, role: e.target.value })}>
+            <Input label="Email" type="email" value={inv.email} onChange={(e) => setInv({ ...inv, email: e.target.value })} disabled={inviting} />
+            <Select label="Role" value={inv.role} onChange={(e) => setInv({ ...inv, role: e.target.value })} disabled={inviting}>
               <option value="member">Member</option><option value="admin">Admin</option><option value="client">Client viewer (read-only)</option>
             </Select>
             {inv.role === "client" && (
               <div>
                 <span className="mb-1.5 block text-xs font-medium text-plum">Can view clients</span>
                 <div className="space-y-1.5">{clients?.map((c) => (
-                  <label key={c.id} className="flex items-center gap-2 text-sm"><input type="checkbox" checked={inv.client_ids.includes(c.id)} onChange={(e) => setInv({ ...inv, client_ids: e.target.checked ? [...inv.client_ids, c.id] : inv.client_ids.filter((x) => x !== c.id) })} />{c.name}</label>
+                  <label key={c.id} className="flex items-center gap-2 text-sm"><input type="checkbox" checked={inv.client_ids.includes(c.id)} disabled={inviting} onChange={(e) => setInv({ ...inv, client_ids: e.target.checked ? [...inv.client_ids, c.id] : inv.client_ids.filter((x) => x !== c.id) })} />{c.name}</label>
                 ))}</div>
               </div>
             )}
-            <div className="flex justify-end"><Button onClick={async () => { try { await post("/api/workspace/members", inv); toast("Invitation sent"); setInv(null); reload(); } catch (e: any) { setError(e.message); } }}>Send invite</Button></div>
+            <div className="flex justify-end">
+              <Button
+                loading={inviting}
+                onClick={async () => {
+                  setInviting(true);
+                  setError(null);
+                  try {
+                    await post("/api/workspace/members", inv);
+                    toast("Invitation sent");
+                    setInv(null);
+                    reload();
+                  } catch (e: any) {
+                    setError(e.message);
+                  } finally {
+                    setInviting(false);
+                  }
+                }}
+              >
+                Send invite
+              </Button>
+            </div>
           </div>
         )}
       </Modal>
@@ -176,6 +274,7 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
   const [f, setF] = useState({ ...n, escalation: { ...n.escalation }, events: { ...n.events }, quiet_hours: { enabled: false, start: "22:00", end: "07:00", ...n.quiet_hours } });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
   const { can } = useAuth();
   const toast = useToast();
   useEffect(() => setF({ ...n, escalation: { ...n.escalation }, events: { ...n.events }, quiet_hours: { enabled: false, start: "22:00", end: "07:00", ...n.quiet_hours } }), [ws]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -246,7 +345,24 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
       {can("admin") && (
         <div className="flex gap-2 lg:col-span-2">
           <Button onClick={save} loading={saving}>Save notification settings</Button>
-          <Button variant="secondary" onClick={async () => { const r = await post("/api/workspace/notifications/test"); toast(`Test sent: ${r.map((x: any) => `${x.channel} ${x.status}`).join(", ")}`); }}><Send className="h-4 w-4" /> Send test alert</Button>
+          <Button
+            variant="secondary"
+            loading={testing}
+            disabled={saving}
+            onClick={async () => {
+              setTesting(true);
+              try {
+                const r = await post("/api/workspace/notifications/test");
+                toast(`Test sent: ${r.map((x: any) => `${x.channel} ${x.status}`).join(", ")}`);
+              } catch (e: any) {
+                toast(e.message, "error");
+              } finally {
+                setTesting(false);
+              }
+            }}
+          >
+            <Send className="h-4 w-4" /> Send test alert
+          </Button>
         </div>
       )}
     </div>
@@ -255,6 +371,7 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
 
 function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   const [b, setB] = useState({ company_name: ws.branding?.company_name || "", logo_url: ws.branding?.logo_url || "", primary_color: ws.branding?.primary_color || "#9b1b67" });
+  const [saving, setSaving] = useState(false);
   const allowed = ws.limits.white_label;
   const toast = useToast();
   return (
@@ -262,12 +379,28 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       <Card>
         <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces Watchfront on shared reports." : "Available on Agency and Enterprise."} />
         <div className="space-y-4 p-5">
-          <Input label="Company name" value={b.company_name} disabled={!allowed} onChange={(e) => setB({ ...b, company_name: e.target.value })} />
-          <Input label="Logo URL" value={b.logo_url} disabled={!allowed} onChange={(e) => setB({ ...b, logo_url: e.target.value })} placeholder="https://agency.com/logo.png" />
+          <Input label="Company name" value={b.company_name} disabled={!allowed || saving} onChange={(e) => setB({ ...b, company_name: e.target.value })} />
+          <Input label="Logo URL" value={b.logo_url} disabled={!allowed || saving} onChange={(e) => setB({ ...b, logo_url: e.target.value })} placeholder="https://agency.com/logo.png" />
           <label className="block"><span className="mb-1.5 block text-xs font-medium text-plum">Brand colour</span>
-            <div className="flex items-center gap-3"><input type="color" value={b.primary_color} disabled={!allowed} onChange={(e) => setB({ ...b, primary_color: e.target.value })} className="h-10 w-16 cursor-pointer rounded-lg" /><span className="font-mono text-sm">{b.primary_color}</span></div>
+            <div className="flex items-center gap-3"><input type="color" value={b.primary_color} disabled={!allowed || saving} onChange={(e) => setB({ ...b, primary_color: e.target.value })} className="h-10 w-16 cursor-pointer rounded-lg" /><span className="font-mono text-sm">{b.primary_color}</span></div>
           </label>
-          <Button disabled={!allowed} onClick={async () => { try { onSaved(await patch("/api/workspace", { branding: b })); toast("Branding saved"); } catch (e: any) { toast(e.message, "error"); } }}>Save branding</Button>
+          <Button
+            disabled={!allowed}
+            loading={saving}
+            onClick={async () => {
+              setSaving(true);
+              try {
+                onSaved(await patch("/api/workspace", { branding: b }));
+                toast("Branding saved");
+              } catch (e: any) {
+                toast(e.message, "error");
+              } finally {
+                setSaving(false);
+              }
+            }}
+          >
+            Save branding
+          </Button>
         </div>
       </Card>
       <Card className="overflow-hidden">
@@ -282,45 +415,51 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
 }
 
 function Audit() {
-  const { data } = useApi<any[]>("/api/workspace/audit");
+  const { data, loading, refreshing } = useApi<any[]>("/api/workspace/audit");
+  if (loading && !data) return <Loading rows={3} />;
   return (
-    <Card>
-      <CardHeader title="Audit log" subtitle="Security and configuration changes" />
-      <Table head={["Time", "Actor", "Action", "Target", "Details", "IP"]}>
-        {data?.map((a) => (
-          <tr key={a.id}>
-            <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(a.at)}</Td>
-            <Td className="text-xs">{a.actor_email}</Td>
-            <Td><code className="rounded bg-cream px-1.5 py-0.5 font-mono text-[11px] text-plum">{a.action}</code></Td>
-            <Td className="text-xs text-plum/65">{a.target_type}</Td>
-            <Td className="max-w-xs truncate font-mono text-[10px] text-plum/55">{JSON.stringify(a.details)}</Td>
-            <Td className="font-mono text-[11px] text-plum/50">{a.ip}</Td>
-          </tr>
-        ))}
-      </Table>
-    </Card>
+    <SoftBusy busy={refreshing}>
+      <Card>
+        <CardHeader title="Audit log" subtitle="Security and configuration changes" />
+        <Table head={["Time", "Actor", "Action", "Target", "Details", "IP"]}>
+          {data?.map((a) => (
+            <tr key={a.id}>
+              <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(a.at)}</Td>
+              <Td className="text-xs">{a.actor_email}</Td>
+              <Td><code className="rounded bg-cream px-1.5 py-0.5 font-mono text-[11px] text-plum">{a.action}</code></Td>
+              <Td className="text-xs text-plum/65">{a.target_type}</Td>
+              <Td className="max-w-xs truncate font-mono text-[10px] text-plum/55">{JSON.stringify(a.details)}</Td>
+              <Td className="font-mono text-[11px] text-plum/50">{a.ip}</Td>
+            </tr>
+          ))}
+        </Table>
+      </Card>
+    </SoftBusy>
   );
 }
 
 function DeliveryLog() {
-  const { data } = useApi<any[]>("/api/workspace/notifications/log", { poll: 20000 });
+  const { data, loading, refreshing } = useApi<any[]>("/api/workspace/notifications/log", { poll: 20000 });
+  if (loading && !data) return <Loading rows={3} />;
   return (
-    <Card>
-      <CardHeader title="Notification delivery" subtitle="Every alert, its channel, and whether delivery succeeded" />
-      <Table head={["Time", "Event", "Channel", "Recipient", "Subject", "Status"]}>
-        {data?.map((n) => (
-          <tr key={n.id}>
-            <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(n.at)}</Td>
-            <Td className="text-xs">{n.event?.replace(/_/g, " ")}</Td>
-            <Td className="text-xs capitalize">{n.channel}</Td>
-            <Td className="max-w-[180px] truncate text-xs text-plum/65">{n.target}</Td>
-            <Td className="max-w-xs truncate text-xs">{n.subject}</Td>
-            <Td><Badge>{n.status}</Badge>{n.error && <div className="text-[10px] text-bad">{n.error}</div>}</Td>
-          </tr>
-        ))}
-        {data && !data.length && <tr><Td colSpan={6} className="py-8 text-center text-plum/50">No notifications sent yet.</Td></tr>}
-      </Table>
-    </Card>
+    <SoftBusy busy={refreshing}>
+      <Card>
+        <CardHeader title="Notification delivery" subtitle="Every alert, its channel, and whether delivery succeeded" />
+        <Table head={["Time", "Event", "Channel", "Recipient", "Subject", "Status"]}>
+          {data?.map((n) => (
+            <tr key={n.id}>
+              <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(n.at)}</Td>
+              <Td className="text-xs">{n.event?.replace(/_/g, " ")}</Td>
+              <Td className="text-xs capitalize">{n.channel}</Td>
+              <Td className="max-w-[180px] truncate text-xs text-plum/65">{n.target}</Td>
+              <Td className="max-w-xs truncate text-xs">{n.subject}</Td>
+              <Td><Badge>{n.status}</Badge>{n.error && <div className="text-[10px] text-bad">{n.error}</div>}</Td>
+            </tr>
+          ))}
+          {data && !data.length && <tr><Td colSpan={6} className="py-8 text-center text-plum/50">No notifications sent yet.</Td></tr>}
+        </Table>
+      </Card>
+    </SoftBusy>
   );
 }
 

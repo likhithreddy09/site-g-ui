@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { CountBars } from "@/components/charts";
 import { RecheckPanel } from "@/components/RecheckPanel";
-import { Badge, Card, Empty, Loading, PageHeader, Select, Stat, Tabs } from "@/components/ui";
+import { Badge, Card, Empty, Loading, PageHeader, Select, SoftBusy, Stat, Tabs } from "@/components/ui";
 import { explainError } from "@/lib/errorExplain";
 import { timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
@@ -38,7 +38,7 @@ function ErrorsInner() {
   const [page, setPage] = useState(1);
   const { data: sites } = useApi<any[]>("/api/websites");
   const params = new URLSearchParams({ status, hours: String(hours), sort, page: String(page), per_page: String(PER_PAGE), ...(kind !== "all" && { kind }), ...(site && { website_id: site }) });
-  const { data, loading, reload } = useApi<{ items: any[]; total: number; page: number; per_page: number; pages: number }>(`/api/errors?${params}`, { poll: 15000 });
+  const { data, loading, refreshing, reload } = useApi<{ items: any[]; total: number; page: number; per_page: number; pages: number }>(`/api/errors?${params}`, { poll: 15000 });
   useEffect(() => {
     if (data && page > data.pages) setPage(data.pages || 1);
   }, [data, page]);
@@ -99,6 +99,7 @@ function ErrorsInner() {
         <Empty icon={<Bug className="h-6 w-6" />} title={status === "active" ? "No open errors" : "Nothing here"}
           body={<>Click <b>Re-check now</b> above to test a website right away{current ? <> — or <Link href={`/app/websites/${current.id}?tab=script`} className="text-magenta hover:underline">install the visitor script</Link> to hear about errors real people hit</> : <>, and install the visitor script from a website → <b>Browser errors</b> tab</>}.</>} />
       ) : (
+        <SoftBusy busy={refreshing}>
         <Card>
           <ul className="divide-y divide-plum/6">
             {data.items.map((e) => {
@@ -139,6 +140,7 @@ function ErrorsInner() {
           </ul>
           <ErrorPager page={data.page} pages={data.pages} total={data.total} perPage={data.per_page} onPage={setPage} />
         </Card>
+        </SoftBusy>
       )}
     </div>
   );

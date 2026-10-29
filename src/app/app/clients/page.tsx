@@ -4,7 +4,7 @@ import { Building2, Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Button, Card, Empty, ErrorBox, Input, Loading, Modal, PageHeader, Textarea } from "@/components/ui";
+import { Button, Card, Empty, ErrorBox, Input, Loading, Modal, PageHeader, SoftBusy, Textarea } from "@/components/ui";
 import { del, patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
@@ -12,7 +12,7 @@ import { useApi } from "@/lib/hooks";
 type SiteRow = { id: string; name?: string; url?: string; client_id?: string | null };
 
 export default function ClientsPage() {
-  const { data, loading, reload } = useApi<any[]>("/api/clients");
+  const { data, loading, refreshing, reload } = useApi<any[]>("/api/clients");
   const { data: sites, reload: reloadSites } = useApi<SiteRow[]>("/api/websites");
   const [edit, setEdit] = useState<any | null>(null);
   const [f, setF] = useState({ name: "", contact_email: "", notes: "" });
@@ -119,6 +119,7 @@ export default function ClientsPage() {
           action={can("member") && <Button onClick={() => open()}>Add client</Button>}
         />
       ) : (
+        <SoftBusy busy={refreshing || saving}>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {data.map((c, i) => (
             <Card
@@ -188,11 +189,12 @@ export default function ClientsPage() {
             </Card>
           ))}
         </div>
+        </SoftBusy>
       )}
 
       <Modal
         open={!!edit}
-        onClose={() => setEdit(null)}
+        onClose={() => !saving && setEdit(null)}
         title={edit?.id ? "Edit client" : "Add client"}
         subtitle="Assign websites now, or leave empty and attach them later."
         wide
@@ -279,8 +281,8 @@ export default function ClientsPage() {
             <Button variant="ghost" onClick={() => setEdit(null)} disabled={saving}>
               Cancel
             </Button>
-            <Button onClick={save} disabled={saving}>
-              {saving ? "Saving…" : "Save"}
+            <Button onClick={save} loading={saving}>
+              Save
             </Button>
           </div>
         </div>

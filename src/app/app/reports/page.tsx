@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Badge, Button, Card, CardHeader, ChipInput, Empty, ErrorBox, Input, Loading, Modal, PageHeader, Select, Table, Td, Toggle } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, ChipInput, Empty, ErrorBox, Input, Loading, Modal, PageHeader, Select, SoftBusy, Table, Td, Toggle } from "@/components/ui";
 import { del, patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, pct, timeAgo } from "@/lib/format";
@@ -14,7 +14,7 @@ import { useApi } from "@/lib/hooks";
 function ReportsInner() {
   const sp = useSearchParams();
   const [clientFilter, setClientFilter] = useState(sp.get("client_id") || "");
-  const { data, loading, reload } = useApi<any[]>(`/api/reports${clientFilter ? `?client_id=${clientFilter}` : ""}`);
+  const { data, loading, refreshing, reload } = useApi<any[]>(`/api/reports${clientFilter ? `?client_id=${clientFilter}` : ""}`);
   const { data: clients } = useApi<any[]>("/api/clients");
   const { can } = useAuth();
   const { data: schedules, reload: reloadSch } = useApi<any[]>(can("member") ? "/api/report-schedules" : null);
@@ -23,6 +23,7 @@ function ReportsInner() {
   const [f, setF] = useState({ client_id: clientFilter, days: 30, start: "", end: "", share_days: 30 });
   const [s, setS] = useState({ client_id: "", frequency: "weekly", recipients: [] as string[], send_now: false });
   const [busy, setBusy] = useState(false);
+  const [sendNowId, setSendNowId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const toast = useToast();
@@ -67,6 +68,7 @@ function ReportsInner() {
       {loading && !data ? <Loading /> : !data?.length ? (
         <Empty icon={<FileBarChart className="h-6 w-6" />} title="No reports yet" body="Reports summarize uptime, incidents, and actions taken — ready to send to a client." action={can("member") && <Button onClick={() => setGen(true)}>Generate a report</Button>} />
       ) : (
+        <SoftBusy busy={refreshing}>
         <Card>
           <Table head={["Report", "Client", "Period", "Uptime", "Incidents", "Share link", "Created", ""]}>
             {data.map((r) => (
@@ -83,6 +85,7 @@ function ReportsInner() {
             ))}
           </Table>
         </Card>
+        </SoftBusy>
       )}
 
       {schedules && schedules.length > 0 && (
@@ -96,7 +99,25 @@ function ReportsInner() {
                 <span className="flex-1 text-xs text-plum/60">→ {x.recipients.join(", ")}</span>
                 <span className="text-xs text-plum/50">next {timeAgo(x.next_run_at)}{x.last_run_at ? ` · last ${timeAgo(x.last_run_at)}` : ""}</span>
                 <Toggle checked={x.active} onChange={async (v) => { await patch(`/api/report-schedules/${x.id}`, { active: v }); reloadSch(); }} />
-                <Button size="sm" variant="ghost" onClick={async () => { await patch(`/api/report-schedules/${x.id}`, { run_now: true }); toast("Will send within 5 minutes"); reloadSch(); }}>Send now</Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  loading={sendNowId === x.id}
+                  onClick={async () => {
+                    setSendNowId(x.id);
+                    try {
+                      await patch(`/api/report-schedules/${x.id}`, { run_now: true });
+                      toast("Will send within 5 minutes");
+                      reloadSch();
+                    } catch (e: any) {
+                      toast(e.message, "error");
+                    } finally {
+                      setSendNowId(null);
+                    }
+                  }}
+                >
+                  Send now
+                </Button>
                 <button onClick={async () => { await del(`/api/report-schedules/${x.id}`); reloadSch(); }} className="text-plum/40 hover:text-bad"><Trash2 className="h-4 w-4" /></button>
               </div>
             ))}

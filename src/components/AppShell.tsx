@@ -7,12 +7,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
 import { Logo } from "./Logo";
 import { TrialBanner, TrialLockOverlay, isTrialLocked, lockReason } from "./TrialLock";
-import { cn } from "./ui";
+import { Spinner, cn } from "./ui";
 
 type NavItem =
   | { section: string; client?: boolean }
@@ -41,6 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { user, workspace, workspaces, switchWorkspace, logout } = useAuth();
   const [wsOpen, setWsOpen] = useState(false);
   const [mobile, setMobile] = useState(false);
+  const [navPending, setNavPending] = useState(false);
   const { data: health } = useApi<any>("/api/system/health", { poll: 30000 });
   const { data: inc } = useApi<any>("/api/incidents?status=active&limit=1", { poll: 30000 });
   const { data: ws } = useApi<any>("/api/workspace", { poll: 60_000 });
@@ -48,6 +49,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const locked = isTrialLocked(ws);
   const reason = lockReason(ws);
   const onBilling = path.startsWith("/app/billing");
+
+  useEffect(() => {
+    setNavPending(false);
+  }, [path]);
+
+  const go = (href: string) => {
+    if (href === "/app" ? path === "/app" : path.startsWith(href)) {
+      setMobile(false);
+      return;
+    }
+    setNavPending(true);
+    setMobile(false);
+    setWsOpen(false);
+  };
 
   const sidebar = (
     <div className="flex h-full flex-col">
@@ -87,8 +102,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           const active = n.href === "/app" ? path === "/app" : path.startsWith(n.href);
           const Icon = n.icon;
           return (
-            <Link key={n.href} href={n.href} onClick={() => setMobile(false)}
-              className={cn("relative flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition", active ? "font-medium text-cream" : "text-plum/75 hover:bg-plum/5 hover:text-plum")}>
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={() => go(n.href)}
+              className={cn("relative flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition", active ? "font-medium text-cream" : "text-plum/75 hover:bg-plum/5 hover:text-plum")}
+            >
               {active && <motion.span layoutId="nav-active" className="absolute inset-0 rounded-xl bg-plum" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
               <Icon className="relative h-[18px] w-[18px]" />
               <span className="relative flex-1">{n.label}</span>
@@ -112,6 +131,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-cream">
+      {navPending && (
+        <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 overflow-hidden bg-plum/10" aria-hidden>
+          <div className="absolute inset-y-0 left-0 w-1/2 animate-pulse bg-gradient-to-r from-magenta via-plum to-transparent" />
+        </div>
+      )}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-[264px] border-r border-plum/8 bg-white lg:block">{sidebar}</aside>
       <AnimatePresence>
         {mobile && (
@@ -150,7 +174,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Link href="/app/settings?tab=system" className="link-underline sm:ml-auto shrink-0">System status</Link>
           </div>
         )}
-        <main className="mx-auto max-w-[1280px] px-4 py-6 md:px-8 md:py-8">
+        <main className={cn("relative mx-auto max-w-[1280px] px-4 py-6 transition-opacity duration-150 md:px-8 md:py-8", navPending && "opacity-55")}>
+          {navPending && (
+            <div className="pointer-events-none absolute inset-x-4 top-6 z-10 flex justify-center md:inset-x-8 md:top-8">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium text-plum shadow-md ring-1 ring-plum/10">
+                <Spinner className="h-3.5 w-3.5" /> Loading…
+              </span>
+            </div>
+          )}
           {locked && !onBilling ? <TrialLockOverlay reason={reason}>{children}</TrialLockOverlay> : children}
         </main>
         <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 pb-8 text-[11px] text-plum/40 md:px-8">

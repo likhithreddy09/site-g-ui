@@ -157,11 +157,17 @@ export function Modal({ open, onClose, title, subtitle, children, wide }: { open
   );
 }
 
-export function Tabs<T extends string>({ tabs, value, onChange }: { tabs: { id: T; label: React.ReactNode }[]; value: T; onChange: (v: T) => void }) {
+export function Tabs<T extends string>({ tabs, value, onChange, disabled }: { tabs: { id: T; label: React.ReactNode }[]; value: T; onChange: (v: T) => void; disabled?: boolean }) {
   return (
-    <div className="flex gap-1 overflow-x-auto rounded-full bg-plum/5 p-1 scrollbar-thin">
+    <div className={cn("flex gap-1 overflow-x-auto rounded-full bg-plum/5 p-1 scrollbar-thin", disabled && "pointer-events-none opacity-60")}>
       {tabs.map((t) => (
-        <button key={t.id} onClick={() => onChange(t.id)} className={cn("relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap", value === t.id ? "text-cream" : "text-plum/70 hover:text-plum")}>
+        <button
+          key={t.id}
+          type="button"
+          disabled={disabled}
+          onClick={() => onChange(t.id)}
+          className={cn("relative rounded-full px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap", value === t.id ? "text-cream" : "text-plum/70 hover:text-plum")}
+        >
           {value === t.id && <motion.span layoutId={`tab-${tabs.map((x) => x.id).join("")}`} className="absolute inset-0 rounded-full bg-plum" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
           <span className="relative">{t.label}</span>
         </button>
@@ -213,8 +219,38 @@ export function Spinner({ className }: { className?: string }) {
 
 export function Loading({ rows = 3 }: { rows?: number }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" role="status" aria-live="polite" aria-label="Loading">
       {Array.from({ length: rows }).map((_, i) => <div key={i} className="skeleton h-16 rounded-2xl" />)}
+    </div>
+  );
+}
+
+/** Dim content and show a small pill while a soft refetch is in flight (filters, reload). */
+export function SoftBusy({ busy, children, label = "Updating…" }: { busy?: boolean; children: React.ReactNode; label?: string }) {
+  return (
+    <div className={cn("relative transition-opacity duration-200", busy && "pointer-events-none opacity-55")}>
+      {children}
+      {busy ? (
+        <div className="pointer-events-none absolute inset-x-0 top-2 z-10 flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 text-xs font-medium text-plum shadow-md ring-1 ring-plum/10">
+            <Spinner className="h-3.5 w-3.5" />
+            {label}
+          </span>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+/** Full-page / section busy overlay for saves that cover a whole card. */
+export function BusyOverlay({ busy, label = "Saving…" }: { busy?: boolean; label?: string }) {
+  if (!busy) return null;
+  return (
+    <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[inherit] bg-white/70 backdrop-blur-[1px]" role="status" aria-live="polite">
+      <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-sm font-medium text-plum shadow-md ring-1 ring-plum/10">
+        <Spinner className="h-4 w-4" />
+        {label}
+      </span>
     </div>
   );
 }

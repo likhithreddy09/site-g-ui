@@ -8,7 +8,7 @@ import { FailureBars, ResponseChart, UptimeBars } from "@/components/charts";
 import { DiscoveryPanel } from "@/components/DiscoveryPanel";
 import { useToast } from "@/components/toast";
 import { WebsiteForm } from "@/components/WebsiteForm";
-import { Badge, Button, Card, CardHeader, ChipInput, Input, KV, Loading, PageHeader, Stat, StatusDot, Table, Tabs, Td, Toggle } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, ChipInput, Input, KV, Loading, PageHeader, SoftBusy, Stat, StatusDot, Table, Tabs, Td, Toggle } from "@/components/ui";
 import { del, patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { certTone, expiryHeadline, expiryLabel, fmtDate, issuerShort, ms, pct, shortError, timeAgo } from "@/lib/format";
@@ -354,27 +354,30 @@ function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => v
 
 function History({ id }: { id: string }) {
   const [failures, setFailures] = useState(false);
-  const { data } = useApi<any[]>(`/api/websites/${id}/results?hours=168&limit=300${failures ? "&failures=1" : ""}`);
+  const { data, loading, refreshing } = useApi<any[]>(`/api/websites/${id}/results?hours=168&limit=300${failures ? "&failures=1" : ""}`);
+  if (loading && !data) return <Loading rows={4} />;
   return (
-    <Card>
-      <CardHeader title="Check results" subtitle="Last 7 days. Transient = failed at first, passed on retry." action={<Toggle checked={failures} onChange={setFailures} label="Failures only" />} />
-      <Table head={["Time", "Result", "HTTP", "Response", "Attempts", "Details"]}>
-        {(data || []).map((r) => (
-          <tr key={r.id} className="hover:bg-cream/50">
-            <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(r.at)}</Td>
-            <Td><Badge tone={r.classification === "ok" ? "ok" : r.classification}>{r.classification}</Badge></Td>
-            <Td className="font-mono text-xs">{r.status_code ?? "—"}</Td>
-            <Td className="font-mono text-xs">{ms(r.response_ms)}</Td>
-            <Td className="font-mono text-xs">{r.attempts?.length || 1}</Td>
-            <Td className="max-w-md text-xs text-plum/70">
-              {r.error || (r.details?.redirects?.length ? `Redirected ${r.details.redirects.length}× → ${r.details.final_url}` : "OK")}
-              {r.attempts?.length > 1 && <div className="mt-1 font-mono text-[10px] text-plum/45">{r.attempts.map((a: any) => `#${a.attempt}: ${a.ok ? "ok" : a.error || a.status_code}`).join(" · ")}</div>}
-            </Td>
-          </tr>
-        ))}
-        {data && !data.length && <tr><Td colSpan={6} className="py-10 text-center text-plum/50">No results in this period.</Td></tr>}
-      </Table>
-    </Card>
+    <SoftBusy busy={refreshing}>
+      <Card>
+        <CardHeader title="Check results" subtitle="Last 7 days. Transient = failed at first, passed on retry." action={<Toggle checked={failures} onChange={setFailures} label="Failures only" />} />
+        <Table head={["Time", "Result", "HTTP", "Response", "Attempts", "Details"]}>
+          {(data || []).map((r) => (
+            <tr key={r.id} className="hover:bg-cream/50">
+              <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(r.at)}</Td>
+              <Td><Badge tone={r.classification === "ok" ? "ok" : r.classification}>{r.classification}</Badge></Td>
+              <Td className="font-mono text-xs">{r.status_code ?? "—"}</Td>
+              <Td className="font-mono text-xs">{ms(r.response_ms)}</Td>
+              <Td className="font-mono text-xs">{r.attempts?.length || 1}</Td>
+              <Td className="max-w-md text-xs text-plum/70">
+                {r.error || (r.details?.redirects?.length ? `Redirected ${r.details.redirects.length}× → ${r.details.final_url}` : "OK")}
+                {r.attempts?.length > 1 && <div className="mt-1 font-mono text-[10px] text-plum/45">{r.attempts.map((a: any) => `#${a.attempt}: ${a.ok ? "ok" : a.error || a.status_code}`).join(" · ")}</div>}
+              </Td>
+            </tr>
+          ))}
+          {data && !data.length && <tr><Td colSpan={6} className="py-10 text-center text-plum/50">No results in this period.</Td></tr>}
+        </Table>
+      </Card>
+    </SoftBusy>
   );
 }
 
@@ -420,30 +423,43 @@ function SslTab({ site, run, busy }: { site: any; run: (k: string) => void; busy
 }
 
 function Related({ site }: { site: any }) {
-  const { data: tests } = useApi<any>(`/api/browser-tests?website_id=${site.id}`);
-  const { data: checks } = useApi<any[]>(`/api/page-checks?website_id=${site.id}`);
-  const { data: apis } = useApi<any[]>(`/api/api-monitors?website_id=${site.id}`);
-  const { data: errs } = useApi<any[]>(`/api/errors?website_id=${site.id}`);
-  const section = (title: string, href: string, rows: any[] | null | undefined, render: (r: any) => React.ReactNode, cta: string) => (
+  const { data: tests, loading: loadingTests } = useApi<any>(`/api/browser-tests?website_id=${site.id}`);
+  const { data: checks, loading: loadingChecks } = useApi<any[]>(`/api/page-checks?website_id=${site.id}`);
+  const { data: apis, loading: loadingApis } = useApi<any[]>(`/api/api-monitors?website_id=${site.id}`);
+  const { data: errs, loading: loadingErrs } = useApi<any[]>(`/api/errors?website_id=${site.id}`);
+  const section = (
+    title: string,
+    href: string,
+    rows: any[] | null | undefined,
+    loading: boolean,
+    render: (r: any) => React.ReactNode,
+    cta: string,
+  ) => (
     <Card>
       <CardHeader title={title} action={<Link href={href} className="text-xs text-magenta">{cta}</Link>} />
       <div className="divide-y divide-plum/6">
-        {rows?.length ? rows.map(render) : <div className="px-5 py-6 text-sm text-plum/50">None configured.</div>}
+        {loading && rows == null ? (
+          <div className="px-5 py-6"><Loading rows={2} /></div>
+        ) : rows?.length ? (
+          rows.map(render)
+        ) : (
+          <div className="px-5 py-6 text-sm text-plum/50">None configured.</div>
+        )}
       </div>
     </Card>
   );
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      {section("User journeys", `/app/tests?website_id=${site.id}`, tests?.tests, (t) => (
+      {section("User journeys", `/app/tests?website_id=${site.id}`, tests?.tests, loadingTests, (t) => (
         <Link key={t.id} href={`/app/tests/${t.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-cream/50"><span>{t.name}</span><Badge>{t.status}</Badge></Link>
       ), "Add journey →")}
-      {section("Content & visual checks", "/app/checks", checks, (c) => (
+      {section("Content & visual checks", "/app/checks", checks, loadingChecks, (c) => (
         <Link key={c.id} href={`/app/checks/${c.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-cream/50"><span>{c.name}</span><Badge tone={{ ok: "passing", bad: "failing", warn: "changed", info: "pending" }[checkStatus(c).tone]}>{checkStatus(c).title}</Badge></Link>
       ), "Watch a page →")}
-      {section("API monitors", "/app/api-monitors", apis, (m) => (
+      {section("API monitors", "/app/api-monitors", apis, loadingApis, (m) => (
         <Link key={m.id} href={`/app/api-monitors/${m.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-cream/50"><span><span className="font-mono text-xs text-plum/50">{m.method}</span> {m.name}</span><Badge>{m.status}</Badge></Link>
       ), "Add monitor →")}
-      {section("Browser errors · 7d", `/app/errors?website_id=${site.id}`, errs?.slice(0, 6), (e) => (
+      {section("Browser errors · 7d", `/app/errors?website_id=${site.id}`, errs?.slice(0, 6), loadingErrs, (e) => (
         <Link key={e.id} href={`/app/errors/${e.id}`} className="flex items-center justify-between gap-3 px-5 py-3 text-sm hover:bg-cream/50"><span className="truncate font-mono text-xs">{e.message}</span><span className="font-mono text-xs text-plum/60">{e.count}×</span></Link>
       ), "View all →")}
     </div>

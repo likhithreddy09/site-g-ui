@@ -3,7 +3,7 @@
 import { AlertOctagon, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Badge, Card, Empty, Loading, PageHeader, Select, Table, Td } from "@/components/ui";
+import { Badge, Card, Empty, Loading, PageHeader, Select, SoftBusy, Table, Td } from "@/components/ui";
 import { duration, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
 
@@ -17,7 +17,7 @@ export default function IncidentsPage() {
   const [source, setSource] = useState("");
   const [q, setQ] = useState("");
   const params = new URLSearchParams({ status, ...(severity && { severity }), ...(source && { source_type: source }), ...(q && { q }) });
-  const { data, loading } = useApi<any>(`/api/incidents?${params}`, { poll: 15000 });
+  const { data, loading, refreshing } = useApi<any>(`/api/incidents?${params}`, { poll: 15000 });
   const c = data?.counts || {};
   const tabs = [
     ["active", "Active", (c.open || 0) + (c.investigating || 0)], ["open", "Open", c.open], ["investigating", "Investigating", c.investigating],
@@ -46,6 +46,7 @@ export default function IncidentsPage() {
       {loading && !data ? <Loading rows={5} /> : !data?.incidents.length ? (
         <Empty icon={<AlertOctagon className="h-6 w-6" />} title="No incidents here" body={status === "active" ? "Nothing needs attention right now." : "Try a different filter."} />
       ) : (
+        <SoftBusy busy={refreshing}>
         <Card>
           <Table head={["Incident", "Severity", "Status", "Source", "Website", "Assignee", "Started", "Duration", "Seen"]}>
             {data.incidents.map((i: any) => (
@@ -70,6 +71,7 @@ export default function IncidentsPage() {
             ))}
           </Table>
         </Card>
+        </SoftBusy>
       )}
     </div>
   );

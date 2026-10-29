@@ -6,7 +6,7 @@ import { Suspense, useState } from "react";
 import { Sparkline } from "@/components/charts";
 import { useToast } from "@/components/toast";
 import { WebsiteForm } from "@/components/WebsiteForm";
-import { Badge, Button, Card, Empty, ErrorBox, Loading, Modal, PageHeader, Select, StatusDot, Table, Td } from "@/components/ui";
+import { Badge, Button, Card, Empty, ErrorBox, Loading, Modal, PageHeader, Select, SoftBusy, StatusDot, Table, Td } from "@/components/ui";
 import { patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { certTone, expiryLabel, intervalLabel, ms, pct, timeAgo } from "@/lib/format";
@@ -24,7 +24,7 @@ function WebsitesInner() {
   const [status, setStatus] = useState("");
   const [env, setEnv] = useState("");
   const params = new URLSearchParams({ ...(q && { q }), ...(client && { client_id: client }), ...(status && { status }) });
-  const { data, loading, reload } = useApi<any[]>(`/api/websites?${params}`, { poll: 20000 });
+  const { data, loading, refreshing, reload } = useApi<any[]>(`/api/websites?${params}`, { poll: 20000 });
   const { data: clients } = useApi<any[]>("/api/clients");
   const [adding, setAdding] = useState(false);
   const [importing, setImporting] = useState(false);
@@ -84,6 +84,7 @@ function WebsitesInner() {
         <Empty icon={<Globe className="h-6 w-6" />} title={q || client || status || env ? "No websites match these filters" : "No websites yet"}
           body="Add a client website to start uptime, SSL, and content monitoring." action={can("member") && <Button onClick={() => setAdding(true)}>Add website</Button>} />
       ) : (
+        <SoftBusy busy={refreshing}>
         <Card>
           <Table dense head={["Website", "Status", "Response", "Uptime", "SSL · domain", ""]}>
             {filtered.map((s) => (
@@ -120,6 +121,7 @@ function WebsitesInner() {
             ))}
           </Table>
         </Card>
+        </SoftBusy>
       )}
       <Modal open={adding} onClose={() => setAdding(false)} title="Add a website" subtitle="We'll validate the URL and run the first check immediately.">
         <WebsiteForm onCancel={() => setAdding(false)} onSaved={(s) => { setAdding(false); toast(`Added ${s.name} — first check: ${s.status}`); router.push(`/app/websites/${s.id}`); }} />

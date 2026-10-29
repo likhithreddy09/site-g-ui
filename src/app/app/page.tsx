@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { DayShape } from "@/components/charts";
 import { WebsiteForm } from "@/components/WebsiteForm";
-import { Badge, Button, Card, CardHeader, Loading, Modal, PageHeader, Stat, StatusDot } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, Loading, Modal, PageHeader, SoftBusy, Stat, StatusDot } from "@/components/ui";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, issuerShort, ms, pct, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
@@ -38,7 +38,7 @@ function greetingFor(now: Date): string {
 export default function Dashboard() {
   const { user, can } = useAuth();
   const router = useRouter();
-  const { data, loading, reload } = useApi<any>("/api/dashboard", { poll: 20000 });
+  const { data, loading, refreshing, reload } = useApi<any>("/api/dashboard", { poll: 20000 });
   const { data: ws } = useApi<any>("/api/workspace");
   const [adding, setAdding] = useState(false);
   const now = useLocalClock();
@@ -70,6 +70,7 @@ export default function Dashboard() {
   const planName = data.plan?.name || "Free";
 
   return (
+    <SoftBusy busy={refreshing} label="Refreshing…">
     <div>
       <PageHeader
         eyebrow={now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}
@@ -164,6 +165,7 @@ export default function Dashboard() {
         <WebsiteForm onCancel={() => setAdding(false)} onSaved={(s) => { setAdding(false); reload(); router.push(`/app/websites/${s.id}`); }} />
       </Modal>
     </div>
+    </SoftBusy>
   );
 }
 
