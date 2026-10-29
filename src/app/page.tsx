@@ -21,14 +21,6 @@ const MODULES = [
   ["Client reporting", "/features/client-reports", "Branded, shareable reports with uptime, incidents, actions taken, and explicit coverage."],
 ];
 
-const QUOTES = [
-  ["“I used to open 40 client sites every Monday. Now I open one dashboard.”", "WordPress maintenance freelancer, 38 sites"],
-  ["“The contact form test caught a broken plugin update before the client noticed a single missing lead.”", "Founder, 9-person web agency"],
-  ["“The screenshot and console log on the incident saved us an hour of guessing.”", "Technical lead, digital marketing agency"],
-  ["“Client reports used to take half a day. Now it's a link.”", "Account manager, agency with 70 retainers"],
-  ["“It tells me what it saw and what it thinks — and keeps those separate.”", "Frontend developer, e-commerce studio"],
-];
-
 const appLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -93,19 +85,6 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
-      </section>
-
-      <section className="mt-28 overflow-hidden bg-cream py-20">
-        <div className="mx-auto max-w-6xl px-6"><h2 className="text-3xl font-semibold tracking-tight text-ink md:text-4xl">What agencies told us</h2></div>
-        <div className="mt-10 flex w-max animate-marquee gap-5 hover:[animation-play-state:paused]">
-          {[...QUOTES, ...QUOTES].map(([q, w], i) => (
-            <figure key={i} className="w-[380px] shrink-0 rounded-2xl bg-white p-6 ring-1 ring-plum/8">
-              <blockquote className="text-lg leading-snug text-ink">{q}</blockquote>
-              <figcaption className="mt-4 text-sm text-plum-2">{w}</figcaption>
-            </figure>
-          ))}
-        </div>
-        <p className="mx-auto mt-6 max-w-6xl px-6 text-xs text-plum/50">Illustrative quotes from discovery interviews.</p>
       </section>
 
       <section id="how" className="mx-auto mt-28 max-w-6xl px-6">
