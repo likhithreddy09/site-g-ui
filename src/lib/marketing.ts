@@ -102,10 +102,10 @@ export const FEATURES: Feature[] = [
     h1: "Client reports that prove the value of your retainer",
     intro: "Uptime, incidents and fixes become a clear report your client can open from a link — branded with your agency's name, and honest about exactly what was monitored.",
     steps: [["Pick a client and period", "Watchfront pulls uptime, incidents, resolutions and checks automatically."], ["Add your notes", "Summarise the month in your own words alongside the data."], ["Share or schedule", "Send a secure link or schedule the report to go out every month."]],
-    benefits: ["Uptime, response time and incident summaries", "Resolution notes from your team", "White-label branding on Agency Pro", "Secure shareable links — no client login needed", "Scheduled monthly delivery"],
+    benefits: ["Uptime, response time and incident summaries", "Resolution notes from your team", "White-label branding on Agency", "Secure shareable links — no client login needed", "Scheduled monthly delivery"],
     faqs: [
       { q: "Do clients need an account?", a: "No. Reports open from a secure, unguessable link. You can revoke a link at any time." },
-      { q: "Can I put my agency's branding on reports?", a: "Yes, white-label branding is available on the Agency Pro plan." },
+      { q: "Can I put my agency's branding on reports?", a: "Yes, white-label branding is available on the Agency plan." },
     ],
     related: ["uptime-monitoring", "ssl-domain-monitoring", "visual-regression-testing"],
   },
@@ -121,7 +121,7 @@ export const USE_CASES: UseCase[] = [
     pains: ["Clients report broken forms before you notice", "Checking 40 sites by hand every Monday", "Expired SSL certificates on sites you thought were fine", "Hours spent writing monthly reports"],
     outcomes: [["One portfolio view", "Every client's websites grouped, with health at a glance."], ["Evidence, not guesswork", "Screenshots, console logs and timelines on every incident."], ["Reports in one click", "Uptime and fixes turned into a link your client can open."]],
     features: ["uptime-monitoring", "form-journey-testing", "client-reports", "visual-regression-testing"],
-    faqs: [{ q: "How many client websites can I monitor?", a: "From 3 on the Free plan up to 200 on Agency Pro, with custom limits for enterprise." }, { q: "Can I give clients access?", a: "Yes — invite clients with a read-only role scoped to their own websites, or share report links." }],
+    faqs: [{ q: "How many client websites can I monitor?", a: "Starter covers 1–3 sites (₹999), Growth 4–10 (₹2,499), Agency up to 50 (₹4,999). Enterprise is custom — book a call." }, { q: "Can I give clients access?", a: "Yes — invite clients with a read-only role scoped to their own websites, or share report links." }],
   },
   {
     slug: "wordpress-maintenance", name: "WordPress maintenance",
@@ -158,42 +158,68 @@ export const USE_CASES: UseCase[] = [
   },
 ];
 
-export const PLANS = [
-  { name: "Free", price: 0, priceInr: 0, note: "Evaluate the product", features: ["3 websites", "5-minute checks", "7-day history", "Email alerts"] },
-  { name: "Starter", price: 19, priceInr: 1499, note: "Freelancers", features: ["10 websites", "1-minute checks", "SSL & domain monitoring", "Content checks", "30-day history"] },
-  { name: "Agency", price: 79, priceInr: 6499, note: "Small agencies", featured: true, features: ["50 websites", "Client grouping & reports", "300 browser-test minutes", "JS & API monitoring", "Slack & Teams", "5 team members"] },
-  { name: "Agency Pro", price: 199, priceInr: 16499, note: "Larger portfolios", features: ["200 websites", "1,500 browser-test minutes", "White-label reports", "Scheduled client reports", "365-day history", "Priority support"] },
+export type MarketingPlan = {
+  name: string;
+  price: number;
+  priceInr: number;
+  note: string;
+  features: string[];
+  featured?: boolean;
+  /** Custom price label (e.g. Enterprise) */
+  priceLabel?: string;
+  cta?: string;
+  href?: string;
+};
+
+export const PLANS: MarketingPlan[] = [
+  {
+    name: "Starter", price: 12, priceInr: 999, note: "1–3 websites",
+    features: ["Up to 3 websites", "1-minute checks", "SSL & domain monitoring", "Content checks", "Email alerts", "30-day history"],
+  },
+  {
+    name: "Growth", price: 30, priceInr: 2499, note: "4–10 websites", featured: true,
+    features: ["Up to 10 websites", "Client grouping", "API & JS monitoring", "120 browser-test min", "Slack alerts", "Scheduled reports"],
+  },
+  {
+    name: "Agency", price: 60, priceInr: 4999, note: "10+ websites",
+    features: ["Up to 50 websites", "White-label reports", "400 browser-test min", "10 team members", "Priority support", "180-day history"],
+  },
+  {
+    name: "Enterprise", price: 0, priceInr: 0, note: "Large portfolios & custom needs",
+    priceLabel: "Custom", cta: "Book a call", href: "/contact",
+    features: ["Unlimited scale", "SSO & audit needs", "Custom retention", "Dedicated support", "SLA options", "Onboarding help"],
+  },
 ];
 
-
 export const COMPARISON: [string, string, string, string, string][] = [
-  ["Websites", "3", "10", "50", "200"],
-  ["Check interval", "5 min", "1 min", "1 min", "1 min"],
-  ["History", "7 days", "30 days", "90 days", "365 days"],
-  ["SSL & domain monitoring", "—", "✓", "✓", "✓"],
-  ["Content & visual checks", "—", "✓", "✓", "✓"],
-  ["Browser-test minutes / month", "—", "60", "300", "1,500"],
-  ["JavaScript & API monitoring", "—", "—", "✓", "✓"],
-  ["Client reports", "—", "—", "✓", "✓ white-label"],
-  ["Slack, Teams & webhooks", "—", "—", "✓", "✓"],
-  ["Team members", "1", "2", "5", "15"],
+  ["Websites", "3", "10", "50", "Custom"],
+  ["Best for", "Freelancers", "Growing teams", "Agencies", "Enterprise"],
+  ["Price / month", "₹999", "₹2,499", "₹4,999", "Custom"],
+  ["Check interval", "1 min", "1 min", "1 min", "Custom"],
+  ["SSL & domain monitoring", "✓", "✓", "✓", "✓"],
+  ["Content & visual checks", "✓", "✓", "✓", "✓"],
+  ["Browser-test minutes / month", "30", "120", "400", "Custom"],
+  ["JavaScript & API monitoring", "—", "✓", "✓", "✓"],
+  ["Client / white-label reports", "—", "✓", "✓ white-label", "✓"],
+  ["Slack, Teams & webhooks", "—", "✓", "✓", "✓"],
+  ["Team members", "1", "3", "10", "Custom"],
 ];
 
 export const HOME_FAQS: Faq[] = [
   { q: "What is Watchfront?", a: "Watchfront is a website monitoring and automated QA platform for agencies. It checks uptime, SSL, domains, content, forms, APIs and JavaScript errors across every client website, and turns the results into incidents and client reports." },
   { q: "How is it different from a basic uptime monitor?", a: "A site can be “up” while its contact form, checkout or layout is broken. Watchfront tests the things that matter to the business — forms, journeys, content and errors — and attaches evidence to every incident." },
   { q: "Do I need to install anything?", a: "No. Uptime, SSL, content, journey and API checks work from the outside. The optional browser script adds real-visitor JavaScript errors." },
-  { q: "Is there a free plan?", a: "Yes. Monitor 3 websites free with 5-minute checks and email alerts. No credit card required." },
+  { q: "Is there a free plan?", a: "Yes. Start with 1 website free to evaluate. Paid plans begin at ₹999/month for up to 3 websites." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
 ];
 
 export const PRICING_FAQS: Faq[] = [
   { q: "Can I change plans later?", a: "Yes, upgrade or downgrade at any time. Changes take effect immediately and are prorated." },
-  { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Cashfree Payments. Prices on this page show INR (and approximate USD for reference)." },
+  { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Cashfree. Starter ₹999, Growth ₹2,499, Agency ₹4,999 per month." },
   { q: "What is your refund policy?", a: "You can cancel anytime. First paid purchase may be refundable within 7 days if unused; see our Refund & Cancellation Policy." },
   { q: "What are browser-test minutes?", a: "Journey tests, visual checks and re-checks run in a real browser. Minutes measure that browser time and are shown before you run anything." },
-  { q: "Do you offer discounts for agencies?", a: "Agencies in our pilot programme get 60 days on the Agency plan free. Annual billing saves two months." },
-  { q: "Do you offer enterprise plans?", a: "Yes — custom retention, SSO, audit requirements and dedicated infrastructure. Contact sales." },
+  { q: "Do you offer discounts for agencies?", a: "Annual billing saves two months. For larger portfolios, book an Enterprise call." },
+  { q: "Do you offer enterprise plans?", a: "Yes — custom limits, SSO, audit requirements and dedicated support. Book a call from the pricing page." },
 ];
 
 

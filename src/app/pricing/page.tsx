@@ -6,15 +6,16 @@ import { faqLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Pricing — Website Monitoring Plans for Freelancers & Agencies",
-  description: "Simple per-website pricing in INR. Free for 3 websites; Starter ₹1,499, Agency ₹6,499 and Agency Pro ₹16,499 per month. Paid via Cashfree.",
+  title: "Pricing — Website Monitoring Plans for Indian Agencies",
+  description: "Simple INR pricing. Starter ₹999 (1–3 sites), Growth ₹2,499 (4–10 sites), Agency ₹4,999 (10+). Enterprise: book a call.",
   path: "/pricing",
 });
 
 const inr = (n: number) =>
-  n === 0 ? "₹0" : new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
+  new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
 
 export default function PricingPage() {
+  const paid = PLANS.filter((p) => p.priceInr > 0);
   return (
     <MarketingShell>
       <JsonLd data={[
@@ -23,16 +24,16 @@ export default function PricingPage() {
           "@context": "https://schema.org", "@type": "Product", name: SITE.name, description: SITE.description, brand: { "@type": "Brand", name: SITE.name },
           offers: {
             "@type": "AggregateOffer", priceCurrency: "INR",
-            lowPrice: Math.min(...PLANS.map((p) => p.priceInr)), highPrice: Math.max(...PLANS.map((p) => p.priceInr)),
-            offerCount: PLANS.length, url: abs("/pricing"),
+            lowPrice: Math.min(...paid.map((p) => p.priceInr)), highPrice: Math.max(...paid.map((p) => p.priceInr)),
+            offerCount: paid.length, url: abs("/pricing"),
           },
         },
       ]} />
       <PageHero
         crumbs={[["Home", "/"], ["Pricing", "/pricing"]]}
-        eyebrow="Pricing"
-        title="Priced for portfolios, not pageviews."
-        intro="Pay for the websites you manage. Every plan includes uptime monitoring and email alerts. Browser-test minutes are measured separately and shown before anything runs. Checkout is in INR via Cashfree."
+        eyebrow="Pricing for India"
+        title="Simple plans. Fair INR pricing."
+        intro="Built for freelancers and agencies managing client websites. Pay monthly in rupees via Cashfree — no surprise per-check fees."
       />
 
       <section className="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-2 lg:grid-cols-4" aria-label="Plans">
@@ -43,23 +44,29 @@ export default function PricingPage() {
               {p.featured && <span className="rounded-md bg-gold px-2 py-0.5 text-xs font-medium text-ink">Most popular</span>}
             </div>
             <p className={`mt-1 text-sm ${p.featured ? "text-cream/60" : "text-plum-2"}`}>{p.note}</p>
-            <div className="mt-6 text-4xl font-semibold">{inr(p.priceInr)}<span className="text-base font-normal opacity-60">/mo</span></div>
+            <div className="mt-6 text-4xl font-semibold">
+              {p.priceLabel || inr(p.priceInr)}
+              {!p.priceLabel && <span className="text-base font-normal opacity-60">/mo</span>}
+            </div>
             {p.priceInr > 0 && (
-              <p className={`mt-1 text-xs ${p.featured ? "text-cream/50" : "text-plum/50"}`}>≈ ${p.price} USD reference</p>
+              <p className={`mt-1 text-xs ${p.featured ? "text-cream/50" : "text-plum/50"}`}>Billed monthly in INR</p>
             )}
             <ul className="mt-6 flex-1 space-y-2.5 text-sm">
               {p.features.map((f) => <li key={f} className="flex gap-2"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${p.featured ? "text-sky" : "text-magenta"}`} />{f}</li>)}
             </ul>
-            <Link href="/register" className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition ${p.featured ? "bg-cream text-ink hover:bg-sky" : "bg-plum text-cream hover:bg-ink"}`}>
-              {p.priceInr === 0 ? "Start free" : `Start with ${p.name}`}
+            <Link
+              href={p.href || "/register"}
+              className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition ${p.featured ? "bg-cream text-ink hover:bg-sky" : "bg-plum text-cream hover:bg-ink"}`}
+            >
+              {p.cta || (p.priceInr === 0 && !p.priceLabel ? "Start free" : `Start with ${p.name}`)}
             </Link>
           </div>
         ))}
       </section>
       <p className="mx-auto mt-6 max-w-6xl px-6 text-sm text-plum-2">
-        Prices in <strong className="text-ink">INR</strong>, billed monthly via Cashfree. Annual billing saves two months.
+        Prices in <strong className="text-ink">INR</strong>, billed monthly via Cashfree.
         See <Link href="/refund" className="link-underline text-plum">refunds</Link> and <Link href="/shipping" className="link-underline text-plum">delivery</Link>.
-        Need more than 200 websites, SSO or custom retention? <Link href="/contact" className="link-underline text-plum">Talk to us about Enterprise</Link>.
+        Need SSO, custom retention or 50+ sites with special terms? <Link href="/contact" className="link-underline text-plum">Book an Enterprise call</Link>.
       </p>
 
       <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="compare">

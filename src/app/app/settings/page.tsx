@@ -241,7 +241,7 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
-        <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces Watchfront on shared reports." : "Available on Agency Pro and Enterprise."} />
+        <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces Watchfront on shared reports." : "Available on Agency and Enterprise."} />
         <div className="space-y-4 p-5">
           <Input label="Company name" value={b.company_name} disabled={!allowed} onChange={(e) => setB({ ...b, company_name: e.target.value })} />
           <Input label="Logo URL" value={b.logo_url} disabled={!allowed} onChange={(e) => setB({ ...b, logo_url: e.target.value })} placeholder="https://agency.com/logo.png" />
@@ -439,7 +439,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
                 {inr > 0 ? <>₹{inr.toLocaleString("en-IN")}</> : <>Free</>}
                 {inr > 0 && <span className="text-sm font-normal text-plum/50">/mo</span>}
               </div>
-              {inr > 0 && <div className="mt-1 text-[11px] text-plum/45">≈ ${p.price} USD reference · INR via Cashfree</div>}
+              {inr > 0 && <div className="mt-1 text-[11px] text-plum/45">INR via Cashfree · billed monthly</div>}
               <ul className="mt-4 flex-1 space-y-1.5 text-xs text-plum/75">
                 <li>{p.websites} websites · checks every {p.min_interval_sec >= 60 ? `${p.min_interval_sec / 60} min` : `${p.min_interval_sec}s`}</li>
                 <li>{p.history_days}-day history</li>

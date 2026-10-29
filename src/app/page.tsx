@@ -38,7 +38,7 @@ const appLd = {
   applicationSubCategory: "Website monitoring",
   operatingSystem: "Web",
   image: abs("/opengraph-image"),
-  offers: PLANS.map((p) => ({ "@type": "Offer", name: p.name, price: p.price, priceCurrency: "USD", url: abs("/pricing") })),
+  offers: PLANS.filter((p) => p.priceInr > 0).map((p) => ({ "@type": "Offer", name: p.name, price: p.priceInr, priceCurrency: "INR", url: abs("/pricing") })),
 };
 
 export default function Home() {
@@ -152,8 +152,8 @@ export default function Home() {
 
       <section id="pricing" className="mx-auto mt-28 max-w-6xl px-6">
         <Reveal>
-          <h2 className="text-4xl font-semibold tracking-tight text-ink md:text-5xl">Priced for portfolios, not pageviews.</h2>
-          <p className="mt-4 max-w-2xl text-lg text-plum-2">Pay for the websites you manage. Browser-test minutes are measured separately and shown before you run.</p>
+          <h2 className="text-4xl font-semibold tracking-tight text-ink md:text-5xl">Fair INR pricing for Indian teams.</h2>
+          <p className="mt-4 max-w-2xl text-lg text-plum-2">Starter ₹999 · Growth ₹2,499 · Agency ₹4,999. Enterprise is a booked call — no surprise fees.</p>
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-4">
           {PLANS.map((p, i) => (
@@ -164,16 +164,21 @@ export default function Home() {
                   {p.featured && <span className="rounded-md bg-gold px-2 py-0.5 text-xs font-medium text-ink">Popular</span>}
                 </div>
                 <p className={`mt-1 text-sm ${p.featured ? "text-cream/60" : "text-plum-2"}`}>{p.note}</p>
-                <div className="mt-6 text-4xl font-semibold">${p.price}<span className="text-base font-normal opacity-60">/mo</span></div>
+                <div className="mt-6 text-4xl font-semibold">
+                  {p.priceLabel || `₹${p.priceInr.toLocaleString("en-IN")}`}
+                  {!p.priceLabel && <span className="text-base font-normal opacity-60">/mo</span>}
+                </div>
                 <ul className="mt-6 flex-1 space-y-2.5 text-sm">
                   {p.features.map((f) => <li key={f} className="flex gap-2"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${p.featured ? "text-sky" : "text-magenta"}`} />{f}</li>)}
                 </ul>
-                <Link href="/register" className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition ${p.featured ? "bg-cream text-ink hover:bg-sky" : "bg-plum text-cream hover:bg-ink"}`}>Start with {p.name}</Link>
+                <Link href={p.href || "/register"} className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition ${p.featured ? "bg-cream text-ink hover:bg-sky" : "bg-plum text-cream hover:bg-ink"}`}>
+                  {p.cta || `Start with ${p.name}`}
+                </Link>
               </div>
             </Reveal>
           ))}
         </div>
-        <p className="mt-6 text-sm text-plum-2">Enterprise: custom retention, SSO, audit requirements, and dedicated infrastructure — <Link className="link-underline" href="/contact">talk to us</Link>. <Link className="link-underline ml-1" href="/pricing">Compare all plans</Link></p>
+        <p className="mt-6 text-sm text-plum-2">Need SSO or a large portfolio? <Link className="link-underline" href="/contact">Book an Enterprise call</Link>. <Link className="link-underline ml-1" href="/pricing">Compare all plans</Link></p>
       </section>
 
       <section id="use-cases" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="use-cases-title">
