@@ -198,7 +198,21 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
         <CardHeader title="Channels" subtitle={ws.smtp_configured ? "SMTP configured — emails are delivered." : "SMTP not configured — emails are logged on the server (see Delivery log)."} />
         <div className="space-y-4 p-5">
           <ErrorBox error={error} />
-          <ChipInput label="Alert email recipients" values={f.emails} onChange={(v) => setF({ ...f, emails: v })} placeholder="ops@agency.com" hint="If empty, workspace owners are notified." />
+          <ChipInput
+            label="Alert email recipients"
+            values={f.emails}
+            onChange={(v) => setF({ ...f, emails: v })}
+            placeholder="ops@agency.com"
+            hint="If empty, workspace owners are notified. Alerts use subjects like [Watchfront · Critical · JS] so mail apps can play a custom sound."
+          />
+          <div className="rounded-2xl bg-cream/60 p-4 text-xs leading-relaxed text-plum-2 ring-1 ring-plum/8">
+            <b className="text-ink">Custom alert sounds.</b> Email can&apos;t force a ringtone by itself.
+            On iPhone/Android/Gmail, create a filter for subjects containing{" "}
+            <code className="font-mono text-[11px] text-ink">[Watchfront · Critical]</code>
+            {" "}or{" "}
+            <code className="font-mono text-[11px] text-ink">[Watchfront · Major · JS]</code>
+            {" "}and set a unique notification sound for that filter. Critical/major also set high-priority headers.
+          </div>
           <Input label={`Slack incoming webhook ${ws.limits.slack ? "" : "(Agency plan)"}`} value={f.slack_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, slack_webhook: e.target.value })} placeholder="https://hooks.slack.com/services/…" />
           <Input label="Microsoft Teams webhook" value={f.teams_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, teams_webhook: e.target.value })} placeholder="https://…webhook.office.com/…" />
           <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" />
