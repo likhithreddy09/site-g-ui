@@ -51,10 +51,12 @@ export function Logo({ href = "/", light = false }: { href?: string; light?: boo
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2 text-[26px] font-semibold tracking-tight ${light ? "text-cream" : "text-plum"}`}
+      className={`flex items-center gap-2.5 ${light ? "text-cream" : "text-plum"}`}
     >
       <LogoMark light={light} />
-      Watchfront
+      <span className="font-brand text-[25px] font-bold leading-none tracking-[-0.035em]">
+        Watchfront
+      </span>
     </Link>
   );
 }

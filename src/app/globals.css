@@ -20,6 +20,7 @@
 
   --font-sans: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-brand: var(--font-syne), var(--font-poppins), system-ui, sans-serif;
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-underline: underline 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both;
