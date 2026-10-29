@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
 import { Logo } from "./Logo";
+import { TrialBanner, TrialLockOverlay, isTrialLocked } from "./TrialLock";
 import { cn } from "./ui";
 
 type NavItem =
@@ -42,7 +43,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobile, setMobile] = useState(false);
   const { data: health } = useApi<any>("/api/system/health", { poll: 30000 });
   const { data: inc } = useApi<any>("/api/incidents?status=active&limit=1", { poll: 30000 });
+  const { data: ws } = useApi<any>("/api/workspace", { poll: 60_000 });
   const openCount = inc ? (inc.counts?.open || 0) + (inc.counts?.investigating || 0) : 0;
+  const locked = isTrialLocked(ws);
+  const onBilling = path.startsWith("/app/billing");
 
   const sidebar = (
     <div className="flex h-full flex-col">
@@ -124,6 +128,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <button onClick={() => setMobile(true)}><Menu className="h-5 w-5 text-plum" /></button>
           <Logo href="/app" />
         </div>
+        <TrialBanner ws={ws} />
+        {locked && !onBilling && (
+          <div className="flex flex-col gap-2 bg-bad/15 px-4 py-2.5 text-sm text-bad sm:flex-row sm:items-center sm:gap-3 sm:px-6">
+            <span><b>Trial ended.</b> Dashboard is view-only until you unlock a plan.</span>
+            <Link href="/app/billing" className="link-underline font-medium sm:ml-auto shrink-0">Unlock →</Link>
+          </div>
+        )}
         {health?.degraded && (
           <div className="flex flex-col gap-2 bg-gold/25 px-4 py-2.5 text-sm text-[#6b4700] sm:flex-row sm:items-center sm:gap-3 sm:px-6">
             <div className="flex items-start gap-3">
@@ -133,7 +144,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <Link href="/app/settings?tab=system" className="link-underline sm:ml-auto shrink-0">System status</Link>
           </div>
         )}
-        <main className="mx-auto max-w-[1280px] px-4 py-6 md:px-8 md:py-8">{children}</main>
+        <main className="mx-auto max-w-[1280px] px-4 py-6 md:px-8 md:py-8">
+          {locked && !onBilling ? <TrialLockOverlay>{children}</TrialLockOverlay> : children}
+        </main>
         <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 pb-8 text-[11px] text-plum/40 md:px-8">
           <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · Watchfront
         </footer>

@@ -60,7 +60,8 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       </div>
       {banner && (
         <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
-          Agency pilot · 60 days free for 5 agencies. <Link href="/register" className="link-underline ml-1 font-medium">Join →</Link>
+          1-day free trial — try Watchfront, keep going on a paid plan if you like it.{" "}
+          <Link href="/register" className="link-underline ml-1 font-medium">Start free →</Link>
         </div>
       )}
     </header>

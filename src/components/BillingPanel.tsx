@@ -139,8 +139,24 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
     }
   };
 
+  const locked = !!(ws?.locked || ws?.access?.locked);
+  const trialActive = !!(ws?.trial_active || ws?.access?.trial_active);
+
   return (
     <div>
+      {locked && (
+        <Card className="mb-4 border border-bad/25 bg-bad/5 p-4 text-sm text-ink sm:p-5">
+          <div className="font-semibold text-bad">Trial ended — unlock to continue</div>
+          <p className="mt-1 text-plum-2">
+            Your 24-hour free trial is over. Choose a plan below to restore monitoring, alerts, and edits.
+          </p>
+        </Card>
+      )}
+      {trialActive && !locked && (
+        <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum sm:p-5">
+          You&apos;re on a <b className="text-ink">24-hour free trial</b> with full Growth features. Pick a plan anytime to keep access after it ends.
+        </Card>
+      )}
       {confirming && (
         <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum">
           Confirming your Cashfree payment…
@@ -215,7 +231,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
             <Card key={id} className={`flex flex-col p-5 sm:p-6 ${current ? "ring-2 ring-magenta" : ""}`}>
               <div className="flex items-center justify-between gap-2">
                 <h3 className="font-semibold text-ink">{p.name}</h3>
-                {current && <Badge tone="active">current{ws.trial ? " · trial" : ""}</Badge>}
+                {current && <Badge tone="active">current{trialActive ? " · trial" : locked ? " · locked" : ""}</Badge>}
               </div>
               <div className="mt-3 text-3xl font-semibold text-ink">
                 {inr > 0 ? <>₹{inr.toLocaleString("en-IN")}</> : <>Free</>}

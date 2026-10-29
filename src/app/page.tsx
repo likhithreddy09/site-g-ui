@@ -211,7 +211,7 @@ export default function Home() {
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {[
             ["Your portfolio", "Start monitoring free", "Add websites, group them by client, and get alerts that come with evidence.", "/register"],
-            ["Agencies with 10–50 sites", "Join the pilot", "60 days on the Agency plan while we measure the time you save.", "/register"],
+            ["Agencies with 10–50 sites", "Start free trial", "24 hours on the full product — continue on a paid plan if it fits.", "/register"],
             ["Already have an account", "Open your dashboard", "Pick up where you left off.", "/login"],
           ].map(([k, t, d, h]) => (
             <Link key={t} href={h} className="group rounded-3xl bg-cream p-8 transition hover:-translate-y-1 hover:shadow-xl">

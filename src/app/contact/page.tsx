@@ -13,7 +13,7 @@ export const metadata = pageMeta({
 });
 
 const TOPICS = [
-  { icon: Handshake, title: "Sales & agency pilot", body: "Plans for 50+ websites, Enterprise, or joining the 60-day agency pilot." },
+  { icon: Handshake, title: "Sales & agency plans", body: "Plans for 50+ websites, Enterprise, or volume pricing for agencies." },
   { icon: LifeBuoy, title: "Help & support", body: "Questions about setting up checks, alerts or reports." },
   { icon: Receipt, title: "Billing & refunds", body: "Invoices, plan changes, Cashfree payments and refund requests." },
   { icon: Lock, title: "Security & privacy", body: "Vulnerabilities, data requests and privacy questions." },
