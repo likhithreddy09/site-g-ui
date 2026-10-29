@@ -179,7 +179,7 @@ export function PageCheckWizard({ initial, defaultWebsiteId, onClose, onSaved }:
             </div>
 
             <div className="rounded-2xl bg-sky/10 p-4 text-sm ring-1 ring-sky/30">
-              <div className="mb-2 font-semibold text-ink">{freqLabel(interval)}, SiteGuard will:</div>
+              <div className="mb-2 font-semibold text-ink">{freqLabel(interval)}, Watchfront will:</div>
               <ul className="space-y-1.5 text-plum/80">
                 {texts.length > 0 && <Li>Check {texts.length === 1 ? `“${texts[0]}” is` : `${texts.length} pieces of text are`} still on the page</Li>}
                 {parts.length > 0 && <Li>Check {parts.map((p) => p.label).slice(0, 3).join(", ")}{parts.length > 3 ? ` and ${parts.length - 3} more` : ""} {parts.length === 1 ? "is" : "are"} still there</Li>}

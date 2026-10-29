@@ -40,7 +40,7 @@ function LoginForm() {
       <Input label="Work email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@agency.com" />
       <Input label="Password" type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Button type="submit" loading={loading} className="w-full" size="lg">Sign in</Button>
-      <p className="text-center text-sm text-plum-2">New to SiteGuard? <Link href="/register" className="link-underline text-magenta">Create an account</Link></p>
+      <p className="text-center text-sm text-plum-2">New to Watchfront? <Link href="/register" className="link-underline text-magenta">Create an account</Link></p>
     </form>
   );
 }

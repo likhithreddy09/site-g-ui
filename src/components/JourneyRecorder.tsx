@@ -25,7 +25,7 @@ const GOALS = [
 ];
 const QUICK_VALUES = [
   { label: "Unique test email", value: "{{email}}" },
-  { label: "Test name", value: "SiteGuard Test" },
+  { label: "Test name", value: "Watchfront Test" },
   { label: "Test phone", value: "9999999999" },
   { label: "Test message", value: "Automated website check — please ignore." },
 ];
@@ -147,7 +147,7 @@ export function JourneyRecorder({ onClose, onSaved, defaultWebsiteId }: { onClos
         <div className="flex flex-1 items-center justify-center overflow-y-auto p-6">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl rounded-3xl bg-white p-8 shadow-xl ring-1 ring-plum/10">
             <h2 className="text-2xl font-semibold text-ink">What should we test?</h2>
-            <p className="mt-1 text-sm text-plum/70">No code needed. You&apos;ll click through the website like a visitor, and SiteGuard repeats it on a schedule and alerts you if it stops working.</p>
+            <p className="mt-1 text-sm text-plum/70">No code needed. You&apos;ll click through the website like a visitor, and Watchfront repeats it on a schedule and alerts you if it stops working.</p>
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
               {GOALS.map((g) => (
                 <button key={g.id} onClick={() => setGoal(g)} className={cn("rounded-2xl p-4 text-left text-sm ring-1 transition", goal.id === g.id ? "bg-plum text-cream ring-plum" : "bg-cream/50 text-ink ring-plum/10 hover:ring-magenta/40")}>{g.label}</button>
@@ -214,7 +214,7 @@ export function JourneyRecorder({ onClose, onSaved, defaultWebsiteId }: { onClos
           <aside className="flex w-full flex-col border-t border-plum/10 bg-white lg:w-[340px] lg:border-l lg:border-t-0">
             <div className="border-b border-plum/8 px-5 py-4">
               <h3 className="font-semibold text-ink">Your steps</h3>
-              <p className="text-xs text-plum/60">SiteGuard opens <span className="font-mono">{new URL(startUrl).pathname}</span> first, then repeats these.</p>
+              <p className="text-xs text-plum/60">Watchfront opens <span className="font-mono">{new URL(startUrl).pathname}</span> first, then repeats these.</p>
             </div>
             <ol className="flex-1 space-y-2 overflow-y-auto p-4 scrollbar-thin">
               {steps.length === 0 && (
@@ -242,7 +242,7 @@ export function JourneyRecorder({ onClose, onSaved, defaultWebsiteId }: { onClos
               </AnimatePresence>
             </ol>
             <div className="space-y-2 border-t border-plum/8 p-4">
-              {steps.length > 0 && !steps.some(isCheckStep) && <p className="text-xs text-[#8a5b00]">Tip: add a check at the end so SiteGuard knows what success looks like.</p>}
+              {steps.length > 0 && !steps.some(isCheckStep) && <p className="text-xs text-[#8a5b00]">Tip: add a check at the end so Watchfront knows what success looks like.</p>}
               <Button className="w-full" disabled={!steps.length} onClick={() => setPhase("save")}>Finish & save</Button>
             </div>
           </aside>
@@ -393,7 +393,7 @@ function SaveStep({ steps, startUrl, websiteId, defaultName, onBack, onSaved }: 
         {submits && (
           <div className={cn("rounded-2xl p-4 ring-1", safe === "yes" ? "bg-teal/5 ring-teal/20" : "bg-gold/10 ring-gold/40")}>
             <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-ink"><ShieldCheck className="h-4 w-4 text-teal" /> This journey sends a form. Is that OK to repeat?</div>
-            <p className="mb-3 text-xs text-plum/70">Each run submits the form for real. Only say yes if submissions go to a test inbox, test mode, or are easy to ignore (we use a unique <span className="font-mono">siteguard-test+…@example.com</span> email and add an <span className="font-mono">x-siteguard-test</span> header your developer can filter on).</p>
+            <p className="mb-3 text-xs text-plum/70">Each run submits the form for real. Only say yes if submissions go to a test inbox, test mode, or are easy to ignore (we use a unique <span className="font-mono">watchfront-test+…@example.com</span> email and add an <span className="font-mono">x-watchfront-test</span> header your developer can filter on).</p>
             <div className="grid gap-2 sm:grid-cols-2">
               <button onClick={() => setSafe("yes")} className={cn("rounded-xl px-3 py-2.5 text-left text-sm ring-1", safe === "yes" ? "bg-teal text-white ring-teal" : "bg-white ring-plum/10")}>Yes, it&apos;s safe to submit</button>
               <button onClick={() => setSafe("unsure")} className={cn("rounded-xl px-3 py-2.5 text-left text-sm ring-1", safe === "unsure" ? "bg-plum text-cream ring-plum" : "bg-white ring-plum/10")}>Not sure — save as a draft for now</button>

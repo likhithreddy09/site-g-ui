@@ -69,7 +69,12 @@ export function SiteFooter() {
     ["Product", [["All features", "/features"], ...FEATURES.slice(0, 6).map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
     ["Use cases", USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"], ["Sign in", "/login"], ["Start free", "/register"]]],
-    ["Legal", [["Privacy policy", "/privacy"], ["Terms of service", "/terms"]]],
+    ["Legal", [
+      ["Privacy policy", "/privacy"],
+      ["Terms of service", "/terms"],
+      ["Refund & cancellation", "/refund"],
+      ["Shipping & delivery", "/shipping"],
+    ]],
   ];
   return (
     <footer className="mt-28 bg-ink py-14 text-cream">
@@ -77,7 +82,8 @@ export function SiteFooter() {
         <div>
           <Logo light />
           <p className="mt-3 max-w-xs text-sm text-cream/60">{SITE.tagline}. Monitor every client website, catch broken forms and errors, and share reports clients understand.</p>
-          <a href={`mailto:${SITE.email.hello}`} className="mt-4 inline-block text-sm text-sky hover:underline">{SITE.email.hello}</a>
+          <a href={`mailto:${SITE.email.hello}`} className="mt-4 block text-sm text-sky hover:underline">{SITE.email.hello}</a>
+          <a href={`tel:${SITE.phoneHref}`} className="mt-1 block text-sm text-sky hover:underline">{SITE.phone}</a>
         </div>
         {cols.map(([title, links]) => (
           <nav key={title} aria-label={title} className="space-y-2 text-sm text-cream/70">
@@ -87,12 +93,16 @@ export function SiteFooter() {
         ))}
       </div>
       <div className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-2 px-6 text-xs text-cream/40">
-        <span>© {new Date().getFullYear()} SiteGuard. All rights reserved.</span>
+        <span>
+          © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
+          {SITE.gstin ? ` · GSTIN ${SITE.gstin}` : ""}
+        </span>
         <span>We don&apos;t promise zero downtime — we promise you&apos;ll know first.</span>
       </div>
     </footer>
   );
 }
+
 
 export function MarketingShell({ children, banner = false }: { children: React.ReactNode; banner?: boolean }) {
   return (

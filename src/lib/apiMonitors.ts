@@ -44,7 +44,7 @@ export function intervalLabel(sec: number): string {
 export const SAMPLE_CSV = `name,method,url,expected_status,max_response_ms,check_every_minutes,headers,body,must_contain,website
 Health check,GET,https://api.example.com/health,200,1000,5,,,ok,
 Product list,GET,https://api.example.com/products?page=1,200,2000,15,Accept: application/json,,,example.com
-Create lead (test),POST,https://api.example.com/leads,"200,201",,60,Authorization: Bearer YOUR_TEST_TOKEN; Content-Type: application/json,"{""name"":""SiteGuard test"",""email"":""test@example.com""}",,
+Create lead (test),POST,https://api.example.com/leads,"200,201",,60,Authorization: Bearer YOUR_TEST_TOKEN; Content-Type: application/json,"{""name"":""Watchfront test"",""email"":""test@example.com""}",,
 `;
 
 /** Curated startup/agency API monitor presets (fill base URL before saving). */

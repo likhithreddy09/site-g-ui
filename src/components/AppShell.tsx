@@ -132,7 +132,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
         <main className="mx-auto max-w-[1280px] px-4 py-8 md:px-8">{children}</main>
         <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-8 pb-8 text-[11px] text-plum/40">
-          <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · SiteGuard
+          <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · Watchfront
         </footer>
       </div>
     </div>

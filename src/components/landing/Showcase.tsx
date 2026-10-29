@@ -126,7 +126,7 @@ function Journey() {
       </Panel>
       <Panel title="Safety policy" chip={<Chip>enforced</Chip>}>
         <div className="space-y-1.5 text-[9px] text-ink">
-          <div>✓ Test inbox confirmed</div><div>✓ Payment endpoints blocked</div><div>✓ Private network blocked</div><div>✓ x-siteguard-test header sent</div>
+          <div>✓ Test inbox confirmed</div><div>✓ Payment endpoints blocked</div><div>✓ Private network blocked</div><div>✓ x-watchfront-test header sent</div>
         </div>
       </Panel>
     </div>

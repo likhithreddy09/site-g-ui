@@ -8,7 +8,7 @@ import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Features — Uptime, SSL, Visual, Form, API & JS Error Monitoring",
-  description: "Every SiteGuard feature in one place: uptime and SSL monitoring, visual regression testing, form and journey tests, API monitoring, JavaScript error tracking and client reports.",
+  description: "Every Watchfront feature in one place: uptime and SSL monitoring, visual regression testing, form and journey tests, API monitoring, JavaScript error tracking and client reports.",
   path: "/features",
 });
 
@@ -23,7 +23,7 @@ export default function FeaturesPage() {
   return (
     <MarketingShell>
       <JsonLd data={{
-        "@context": "https://schema.org", "@type": "ItemList", name: "SiteGuard features",
+        "@context": "https://schema.org", "@type": "ItemList", name: "Watchfront features",
         itemListElement: FEATURES.map((f, i) => ({ "@type": "ListItem", position: i + 1, name: f.name, url: abs(`/features/${f.slug}`) })),
       }} />
       <PageHero

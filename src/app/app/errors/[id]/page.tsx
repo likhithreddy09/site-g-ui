@@ -200,7 +200,7 @@ export default function ErrorDetail() {
           ) : (e.frames?.length > 0 || e.stack) && <Frames frames={e.frames || []} stack={e.stack} />}
 
           <Card>
-            <CardHeader title="What the visitor did before the error" subtitle={selected ? `${selected.origin === "recheck" ? "SiteGuard re-check" : `${selected.browser} · ${selected.os} · ${selected.device}`} · ${fmtDate(selected.at)} · ${(selected.page || "").replace(/^https?:\/\//, "")}` : undefined} />
+            <CardHeader title="What the visitor did before the error" subtitle={selected ? `${selected.origin === "recheck" ? "Watchfront re-check" : `${selected.browser} · ${selected.os} · ${selected.device}`} · ${fmtDate(selected.at)} · ${(selected.page || "").replace(/^https?:\/\//, "")}` : undefined} />
             {selected ? <Breadcrumbs ev={selected} message={e.message} /> : <p className="px-5 py-6 text-sm text-plum/60">No occurrences stored yet.</p>}
           </Card>
 
@@ -211,7 +211,7 @@ export default function ErrorDetail() {
                 <button key={ev.id} onClick={() => setPicked(ev.id)} className={cn("flex w-full flex-wrap items-center gap-x-4 gap-y-1 px-5 py-2.5 text-left text-xs transition hover:bg-cream/60", selected?.id === ev.id && "bg-cream")}>
                   <span className="w-32 font-mono text-plum/60">{fmtDate(ev.at)}</span>
                   <span className="min-w-0 flex-1 truncate font-mono text-ink">{ev.page}</span>
-                  <span className="text-plum/60">{ev.origin === "recheck" ? "SiteGuard re-check" : `${ev.browser} · ${ev.os} · ${ev.device}`}</span>
+                  <span className="text-plum/60">{ev.origin === "recheck" ? "Watchfront re-check" : `${ev.browser} · ${ev.os} · ${ev.device}`}</span>
                   {ev.n > 1 && <span className="font-mono text-plum/50">×{ev.n}</span>}
                   {ev.crumbs?.length > 0 && <span className="text-magenta">{ev.crumbs.length} steps</span>}
                 </button>

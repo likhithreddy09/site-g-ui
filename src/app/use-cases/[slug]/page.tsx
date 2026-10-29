@@ -43,7 +43,7 @@ export default async function UseCasePage({ params }: Props) {
           </ul>
         </div>
         <div className="rounded-[2rem] bg-plum p-8 text-cream md:p-10">
-          <h2 className="text-2xl font-semibold tracking-tight">With SiteGuard</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">With Watchfront</h2>
           <dl className="mt-6 space-y-5">
             {u.outcomes.map(([t, d]) => (
               <div key={t}>
@@ -76,7 +76,7 @@ export default async function UseCasePage({ params }: Props) {
       <FaqList faqs={u.faqs} />
 
       <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="others">
-        <h2 id="others" className="text-2xl font-semibold tracking-tight text-ink">SiteGuard is also used by</h2>
+        <h2 id="others" className="text-2xl font-semibold tracking-tight text-ink">Watchfront is also used by</h2>
         <div className="mt-6 flex flex-wrap gap-3">
           {others.map((o) => (
             <Link key={o.slug} href={`/use-cases/${o.slug}`} className="group flex items-center gap-2 rounded-full bg-cream px-5 py-2.5 text-[15px] text-plum hover:text-magenta">

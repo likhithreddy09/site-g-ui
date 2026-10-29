@@ -47,7 +47,7 @@ export async function api<T = any>(path: string, opts: Opts = {}): Promise<T> {
       cache: "no-store",
     });
   } catch {
-    throw new ApiError("Cannot reach the SiteGuard API. Is the backend running?", 0, "network");
+    throw new ApiError("Cannot reach the Watchfront API. Is the backend running?", 0, "network");
   }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {

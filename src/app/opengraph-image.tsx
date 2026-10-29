@@ -14,7 +14,7 @@ export default function OgImage() {
             <path d="M16 2.5 4.5 7v8.2c0 7 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7.3 11.5-14.3V7L16 2.5Z" fill="#4b2440" />
             <path d="M9.5 16.5h3.2l2-4.5 3 8 2-3.5h2.8" fill="none" stroke="#8fd3f4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span style={{ fontSize: 44, fontWeight: 700, color: "#4b2440" }}>siteguard</span>
+          <span style={{ fontSize: 44, fontWeight: 700, color: "#4b2440" }}>Watchfront</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, fontWeight: 700, color: "#1c0f18", lineHeight: 1.05 }}>Know when client sites break</div>

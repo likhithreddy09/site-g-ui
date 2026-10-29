@@ -7,7 +7,7 @@ export function Logo({ href = "/", light = false }: { href?: string; light?: boo
         <path d="M16 2.5 4.5 7v8.2c0 7 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7.3 11.5-14.3V7L16 2.5Z" fill={light ? "#faf6ed" : "#4b2440"} />
         <path d="M9.5 16.5h3.2l2-4.5 3 8 2-3.5h2.8" fill="none" stroke="#8fd3f4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      siteguard
+      Watchfront
     </Link>
   );
 }

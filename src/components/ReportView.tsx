@@ -115,7 +115,7 @@ export function ReportView({ data }: { data: any }) {
           </section>
         )}
       </div>
-      {!b.white_label && <div className="border-t border-plum/8 px-10 py-4 text-center text-[11px] text-plum/45">Monitoring by SiteGuard</div>}
+      {!b.white_label && <div className="border-t border-plum/8 px-10 py-4 text-center text-[11px] text-plum/45">Monitoring by Watchfront</div>}
     </div>
   );
 }

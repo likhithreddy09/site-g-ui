@@ -218,7 +218,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
   };
   const downloadSample = () => {
     const url = URL.createObjectURL(new Blob([SAMPLE_CSV], { type: "text/csv" }));
-    const a = Object.assign(document.createElement("a"), { href: url, download: "siteguard-api-monitors-sample.csv" });
+    const a = Object.assign(document.createElement("a"), { href: url, download: "watchfront-api-monitors-sample.csv" });
     a.click();
     URL.revokeObjectURL(url);
   };

@@ -55,7 +55,7 @@ export default function Home() {
           <span className="hl-underline text-magenta">and why they broke</span>
         </h1>
         <p className="mt-8 max-w-2xl animate-fade-up text-lg leading-relaxed text-ink [animation-delay:160ms] md:text-xl">
-          SiteGuard monitors uptime, SSL, content, browser errors, APIs, and the forms and journeys that bring in leads — then gives your team the evidence to fix it.
+          Watchfront monitors uptime, SSL, content, browser errors, APIs, and the forms and journeys that bring in leads — then gives your team the evidence to fix it.
         </p>
         <p className="mt-3 animate-fade-up text-[15px] text-plum-2 [animation-delay:200ms]">For web agencies, marketing agencies, and WordPress maintenance providers.</p>
         <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-6 [animation-delay:260ms]">
@@ -179,7 +179,7 @@ export default function Home() {
       <section id="use-cases" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="use-cases-title">
         <Reveal>
           <h2 id="use-cases-title" className="text-4xl font-semibold tracking-tight text-ink md:text-5xl">Built for the people who keep websites running.</h2>
-          <p className="mt-4 max-w-2xl text-lg text-plum-2">Whether you run 5 client sites or 500, SiteGuard fits the way you already work.</p>
+          <p className="mt-4 max-w-2xl text-lg text-plum-2">Whether you run 5 client sites or 500, Watchfront fits the way you already work.</p>
         </Reveal>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {USE_CASES.map((u, i) => (

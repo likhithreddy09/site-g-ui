@@ -46,7 +46,7 @@ export default function TestsPage() {
         </>} />
       <div className="mb-5 grid gap-3 md:grid-cols-3">
         {[
-          [MousePointerClick, "1. Record it once", "Open the client's site inside SiteGuard and click through it like a visitor — no code."],
+          [MousePointerClick, "1. Record it once", "Open the client's site inside Watchfront and click through it like a visitor — no code."],
           [Repeat, "2. We repeat it for you", "A real browser replays your steps on a schedule and checks the result, with screenshots."],
           [BellRing, "3. Get told when it breaks", "If a step stops working twice in a row, you get an alert explaining which step failed."],
         ].map(([Icon, title, body]: any) => (

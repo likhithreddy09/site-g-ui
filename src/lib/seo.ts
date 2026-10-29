@@ -26,8 +26,19 @@ export const breadcrumbLd = (items: [string, string][]) => ({
 });
 
 export const organizationLd = {
-  "@context": "https://schema.org", "@type": "Organization", name: SITE.name, url: SITE.url, logo: abs("/icon.svg"),
-  email: SITE.email.hello, contactPoint: [{ "@type": "ContactPoint", contactType: "sales", email: SITE.email.sales }],
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  url: SITE.url,
+  logo: abs("/icon.svg"),
+  email: SITE.email.hello,
+  telephone: SITE.phone,
+  contactPoint: [
+    { "@type": "ContactPoint", contactType: "customer support", email: SITE.email.hello, telephone: SITE.phone, areaServed: "IN" },
+    { "@type": "ContactPoint", contactType: "sales", email: SITE.email.sales, telephone: SITE.phone },
+  ],
 };
+
 
 export const websiteLd = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: SITE.url, description: SITE.description };

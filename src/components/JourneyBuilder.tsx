@@ -28,7 +28,7 @@ type Step = { _k: string; action: string; selector?: string; value?: string; url
 
 const TEMPLATES: Record<string, Omit<Step, "_k">[]> = {
   "Contact form": [
-    { action: "fill", selector: "input[name=name], input[name=full_name], #name", value: "SiteGuard Test" },
+    { action: "fill", selector: "input[name=name], input[name=full_name], #name", value: "Watchfront Test" },
     { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
     { action: "fill", selector: "textarea, textarea[name=message]", value: "Automated monitoring test — please ignore." },
     { action: "click", selector: "button[type=submit], input[type=submit]" },
@@ -41,7 +41,7 @@ const TEMPLATES: Record<string, Omit<Step, "_k">[]> = {
     { action: "assert_url", value: "/dashboard" },
   ],
   Signup: [
-    { action: "fill", selector: "input[name=name], #name", value: "SiteGuard Tester" },
+    { action: "fill", selector: "input[name=name], #name", value: "Watchfront Tester" },
     { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
     { action: "fill", selector: "input[type=password], #password", value: "Test-{{random}}!", secret: true },
     { action: "click", selector: "button[type=submit]" },
@@ -59,7 +59,7 @@ const TEMPLATES: Record<string, Omit<Step, "_k">[]> = {
     { action: "assert_text", value: "Cart" },
   ],
   "Booking / demo request": [
-    { action: "fill", selector: "input[name=name], #name", value: "SiteGuard Test" },
+    { action: "fill", selector: "input[name=name], #name", value: "Watchfront Test" },
     { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
     { action: "fill", selector: "input[type=tel], input[name=phone]", value: "+15555550100" },
     { action: "click", selector: "button[type=submit]" },
@@ -174,10 +174,10 @@ export function JourneyBuilder({ initial, onSaved }: { initial?: any; onSaved: (
           </div>
           <div className="space-y-3">
             <ChipInput label="Block requests containing" values={safety.blocked_patterns || []} onChange={(v) => setSafety({ ...safety, blocked_patterns: v })} placeholder="/api/send-sms" hint="Requests matching any pattern are aborted." />
-            <Input label="Cleanup notes" value={safety.cleanup_notes || ""} onChange={(e) => setSafety({ ...safety, cleanup_notes: e.target.value })} placeholder="Leads from siteguard-test+ are auto-deleted in CRM" />
+            <Input label="Cleanup notes" value={safety.cleanup_notes || ""} onChange={(e) => setSafety({ ...safety, cleanup_notes: e.target.value })} placeholder="Leads from watchfront-test+ are auto-deleted in CRM" />
           </div>
         </div>
-        <p className="mt-3 text-[11px] text-plum/55">Requests to your site carry an <code className="font-mono">x-siteguard-test: 1</code> header so your backend can skip emails or CRM writes. Private networks are always blocked.</p>
+        <p className="mt-3 text-[11px] text-plum/55">Requests to your site carry an <code className="font-mono">x-watchfront-test: 1</code> header so your backend can skip emails or CRM writes. Private networks are always blocked.</p>
       </div>
 
       <div className="flex justify-end"><Button onClick={save} loading={saving}>{initial?.id ? "Save journey" : "Create journey"}</Button></div>

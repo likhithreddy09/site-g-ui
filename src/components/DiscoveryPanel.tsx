@@ -160,7 +160,7 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
             <div className="mb-1 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-magenta"><Radar className="h-3.5 w-3.5" /> Endpoint discovery</div>
             <h3 className="text-lg font-semibold text-ink">Find this site&apos;s login pages and backend APIs automatically</h3>
             <p className="mt-1 text-sm text-plum/70">
-              SiteGuard opens pages in a real browser, captures XHR/fetch traffic, clicks sign-in buttons (nothing is submitted), and looks for OpenAPI / Swagger specs.
+              Watchfront opens pages in a real browser, captures XHR/fetch traffic, clicks sign-in buttons (nothing is submitted), and looks for OpenAPI / Swagger specs.
               Trackers are filtered out; path IDs are templated; recommended endpoints are pre-selected for one-click watching.
             </p>
           </div>
@@ -260,7 +260,7 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
               )}
             />
             <div className="flex flex-wrap items-center gap-2 border-b border-plum/8 px-5 py-3">
-              <button onClick={() => { setFilter("recommended"); setPage(1); }} title="Endpoints SiteGuard suggests watching first"
+              <button onClick={() => { setFilter("recommended"); setPage(1); }} title="Endpoints Watchfront suggests watching first"
                 className={cn("inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs transition", filter === "recommended" ? "bg-plum text-cream" : "bg-teal/10 text-teal hover:bg-teal/15")}>
                 <Star className="h-3 w-3" /> Recommended <span className="opacity-60">{counts.recommended || 0}</span>
               </button>

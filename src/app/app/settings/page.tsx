@@ -196,7 +196,7 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
           <ChipInput label="Alert email recipients" values={f.emails} onChange={(v) => setF({ ...f, emails: v })} placeholder="ops@agency.com" hint="If empty, workspace owners are notified." />
           <Input label={`Slack incoming webhook ${ws.limits.slack ? "" : "(Agency plan)"}`} value={f.slack_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, slack_webhook: e.target.value })} placeholder="https://hooks.slack.com/services/…" />
           <Input label="Microsoft Teams webhook" value={f.teams_webhook} disabled={!ws.limits.slack} onChange={(e) => setF({ ...f, teams_webhook: e.target.value })} placeholder="https://…webhook.office.com/…" />
-          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/siteguard" />
+          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" />
         </div>
       </Card>
       <Card>
@@ -241,7 +241,7 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
-        <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces SiteGuard on shared reports." : "Available on Agency Pro and Enterprise."} />
+        <CardHeader title="White-label reports" subtitle={allowed ? "Your brand replaces Watchfront on shared reports." : "Available on Agency Pro and Enterprise."} />
         <div className="space-y-4 p-5">
           <Input label="Company name" value={b.company_name} disabled={!allowed} onChange={(e) => setB({ ...b, company_name: e.target.value })} />
           <Input label="Logo URL" value={b.logo_url} disabled={!allowed} onChange={(e) => setB({ ...b, logo_url: e.target.value })} placeholder="https://agency.com/logo.png" />
@@ -256,7 +256,7 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
           <div className="flex items-center gap-3">{allowed && b.logo_url ? <img src={b.logo_url} alt="" className="h-9 rounded bg-white/90 p-1" /> : <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/20 font-semibold">{(allowed && b.company_name || ws.name)[0]}</span>}<span className="font-semibold">{allowed && b.company_name || ws.name}</span></div>
           <div className="mt-8 text-2xl font-semibold">Website health report — Preview</div>
         </div>
-        <div className="p-6 text-sm text-plum/60">Report preview with your branding.{!allowed && " SiteGuard attribution is shown on lower plans."}</div>
+        <div className="p-6 text-sm text-plum/60">Report preview with your branding.{!allowed && " Watchfront attribution is shown on lower plans."}</div>
       </Card>
     </div>
   );
@@ -283,34 +283,53 @@ async function loadCashfreeSdk() {
 function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   const { data, reload: reloadPlans } = useApi<any>("/api/workspace/plans");
   const { data: billing } = useApi<any>("/api/billing/config");
-  const { can, refresh } = useAuth();
+  const { can, refresh, user } = useAuth();
   const toast = useToast();
   const [busy, setBusy] = useState<string | null>(null);
+  const [phone, setPhone] = useState("");
+  const [confirming, setConfirming] = useState(false);
   const sp = useSearchParams();
+
+  useEffect(() => {
+    const saved = (user as any)?.phone || "";
+    if (saved) setPhone(String(saved).replace(/\D/g, "").slice(-10));
+  }, [user]);
 
   useEffect(() => {
     const orderId = sp.get("order_id");
     if (!orderId || !can("owner")) return;
+    let cancelled = false;
+    setConfirming(true);
     (async () => {
-      try {
-        const st = await api<any>(`/api/billing/orders/${orderId}`);
-        if (st.paid) {
-          toast(`Payment received — plan is now ${st.workspace_plan?.replace("_", " ")}`);
-          await refresh();
-          reloadPlans();
-          onSaved(await api("/api/workspace"));
-        } else {
-          toast("Payment not confirmed yet. If you paid, refresh in a moment.", "error");
+      // Cashfree docs: always confirm on the server after return (webhook can lag).
+      for (let i = 0; i < 6 && !cancelled; i++) {
+        try {
+          const st = await api<any>(`/api/billing/orders/${orderId}`);
+          if (st.paid) {
+            toast(`Payment received — plan is now ${String(st.workspace_plan || "").replace("_", " ")}`);
+            await refresh();
+            reloadPlans();
+            onSaved(await api("/api/workspace"));
+            setConfirming(false);
+            return;
+          }
+        } catch {
+          /* retry */
         }
-      } catch {
-        /* ignore return-url noise */
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+      if (!cancelled) {
+        toast("Payment not confirmed yet. If you paid, refresh this page in a minute.", "error");
+        setConfirming(false);
       }
     })();
+    return () => { cancelled = true; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!data) return <Loading />;
   const u = ws.usage;
   const paymentsOn = !!billing?.enabled;
+  const methodLabels: { id: string; label: string }[] = billing?.payment_methods_labels || [];
 
   const startCheckout = async (planId: string, planName: string) => {
     setBusy(planId);
@@ -321,10 +340,16 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
         toast(planId === "free" ? "Moved to Free" : `Switched to ${planName}`);
         return;
       }
-      const session = await post<any>("/api/billing/checkout", { plan: planId });
+      const digits = phone.replace(/\D/g, "").slice(-10);
+      if (digits.length !== 10 || !/^[6-9]/.test(digits)) {
+        throw new Error("Enter a valid 10-digit Indian mobile number (required by Cashfree)");
+      }
+      const session = await post<any>("/api/billing/checkout", { plan: planId, phone: digits });
+      if (!session.payment_session_id) throw new Error("Cashfree did not return a payment session");
       await loadCashfreeSdk();
       if (!window.Cashfree) throw new Error("Cashfree SDK missing");
       const cf = window.Cashfree({ mode: session.mode === "sandbox" ? "sandbox" : "production" });
+      // Hosted checkout — UPI, cards, netbanking etc. per order_meta.payment_methods
       await cf.checkout({ paymentSessionId: session.payment_session_id, redirectTarget: "_self" });
     } catch (e: any) {
       toast(e.message, "error");
@@ -335,11 +360,47 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
 
   return (
     <div>
+      {confirming && (
+        <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum">
+          Confirming your Cashfree payment…
+        </Card>
+      )}
       <Card className="mb-6 grid gap-6 p-6 md:grid-cols-4">
         {[["Browser-test minutes", (u.browser_seconds / 60).toFixed(1), ws.limits.browser_minutes], ["AI analyses", u.ai_calls, ws.limits.ai_calls], ["Browser events ingested", u.ingest_events, ws.limits.ingest_events], ["History retention", ws.limits.history_days, "days"]].map(([k, v, cap]) => (
           <div key={k as string}><div className="font-mono text-[10px] uppercase tracking-[0.12em] text-plum/50">{k}</div><div className="mt-1 font-mono text-2xl font-semibold text-ink">{v}<span className="text-sm text-plum/45"> / {cap}</span></div></div>
         ))}
       </Card>
+
+      {paymentsOn && can("owner") && (
+        <Card className="mb-6 p-6">
+          <CardHeader title="Checkout details" subtitle="Required by Cashfree before opening payment methods" />
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Input
+              label="Mobile number (India)"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+              placeholder="9876543210"
+              inputMode="numeric"
+            />
+            <div>
+              <div className="text-xs font-medium text-plum/70">Payment methods on checkout</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {(methodLabels.length ? methodLabels : [
+                  { id: "upi", label: "UPI" }, { id: "cc", label: "Credit card" },
+                  { id: "dc", label: "Debit card" }, { id: "nb", label: "Netbanking" },
+                ]).map((m) => (
+                  <span key={m.id} className="rounded-full bg-cream px-3 py-1 text-xs text-ink">{m.label}</span>
+                ))}
+              </div>
+              <p className="mt-2 text-[11px] text-plum/50">
+                Mode: <strong className="text-ink">{billing.mode}</strong>
+                {billing.webhook_url ? <> · Webhook: <code className="text-[10px]">{billing.webhook_url}</code></> : null}
+              </p>
+            </div>
+          </div>
+        </Card>
+      )}
+
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {Object.entries(data.plans).filter(([id]) => id !== "enterprise").map(([id, p]: any) => {
           const current = data.current === id;
@@ -351,7 +412,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
                 {inr > 0 ? <>₹{inr.toLocaleString("en-IN")}</> : <>Free</>}
                 {inr > 0 && <span className="text-sm font-normal text-plum/50">/mo</span>}
               </div>
-              {inr > 0 && <div className="mt-1 text-[11px] text-plum/45">≈ ${p.price} USD reference</div>}
+              {inr > 0 && <div className="mt-1 text-[11px] text-plum/45">≈ ${p.price} USD reference · INR via Cashfree</div>}
               <ul className="mt-4 flex-1 space-y-1.5 text-xs text-plum/75">
                 <li>{p.websites} websites · checks every {p.min_interval_sec >= 60 ? `${p.min_interval_sec / 60} min` : `${p.min_interval_sec}s`}</li>
                 <li>{p.history_days}-day history</li>
@@ -376,7 +437,7 @@ function Billing({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       </div>
       <p className="mt-4 text-xs text-plum/55">
         {paymentsOn
-          ? `Payments via Cashfree (${billing.mode}). Webhook: ${typeof window !== "undefined" ? "" : ""}configure notify URL to /api/billing/webhook in Cashfree dashboard. Enterprise: contact sales.`
+          ? <>Payments via Cashfree hosted checkout ({billing.mode}). See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>. Whitelist <code>https://watchfront.in</code> in Cashfree → Developers → Whitelisting.</>
           : "Cashfree is not configured on the API — plan switches are free until payment keys are set."}
       </p>
     </div>

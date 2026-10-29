@@ -19,7 +19,7 @@ export function LegalPage({ title, intro, path, updated, sections }: { title: st
           {sections.map((s) => (
             <section key={s.id} id={s.id} className="scroll-mt-24">
               <h2 className="text-2xl font-semibold tracking-tight text-ink">{s.title}</h2>
-              <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-plum-2 [&_a]:text-magenta [&_a]:underline [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-ink">{s.body}</div>
+              <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-plum-2 [&_a]:text-magenta [&_a]:underline [&_ol]:list-decimal [&_ol]:pl-5 [&_ul_li]:ml-5 [&_ul_li]:list-disc [&_strong]:text-ink">{s.body}</div>
             </section>
           ))}
         </article>
