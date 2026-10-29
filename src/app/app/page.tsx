@@ -150,7 +150,7 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
-              <Link href="/app/settings?tab=billing" className="mt-5 inline-block text-xs text-magenta">Manage plan →</Link>
+              <Link href="/app/billing" className="mt-5 inline-block text-xs text-magenta">Manage plan →</Link>
             </Card>
           </div>
 

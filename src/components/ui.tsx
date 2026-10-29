@@ -173,7 +173,7 @@ export function PageHeader({ title, subtitle, action, eyebrow }: { title: React.
     <div className="mb-7 flex flex-col gap-4 md:flex-row md:items-end md:justify-between animate-fade-up">
       <div>
         {eyebrow && <div className="mb-1 text-xs font-medium uppercase tracking-[0.14em] text-magenta">{eyebrow}</div>}
-        <h1 className="text-[28px] font-semibold leading-tight tracking-tight text-ink">{title}</h1>
+        <h1 className="text-[24px] font-semibold leading-tight tracking-tight text-ink sm:text-[28px]">{title}</h1>
         {subtitle && <p className="mt-1 max-w-2xl text-sm text-plum/65">{subtitle}</p>}
       </div>
       {action && <div className="flex flex-wrap items-center gap-2">{action}</div>}

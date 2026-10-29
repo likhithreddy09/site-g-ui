@@ -24,9 +24,9 @@ export const SITE = {
   phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415",
   phoneHref: (process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415").replace(/\s+/g, ""),
   address: {
-    line1: process.env.NEXT_PUBLIC_ADDRESS_LINE1 || "India",
+    line1: process.env.NEXT_PUBLIC_ADDRESS_LINE1 || "",
     city: process.env.NEXT_PUBLIC_ADDRESS_CITY || "",
-    country: "India",
+    country: process.env.NEXT_PUBLIC_ADDRESS_COUNTRY || "India",
   },
   /** Optional GSTIN shown on invoices / Contact when set. */
   gstin: process.env.NEXT_PUBLIC_GSTIN || "",

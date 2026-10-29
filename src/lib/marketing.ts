@@ -186,7 +186,7 @@ export const PLANS: MarketingPlan[] = [
   },
   {
     name: "Enterprise", price: 0, priceInr: 0, note: "Large portfolios & custom needs",
-    priceLabel: "Custom", cta: "Book a call", href: "/contact",
+    priceLabel: "Custom", cta: "Book a call", href: "/contact#book",
     features: ["Unlimited scale", "SSO & audit needs", "Custom retention", "Dedicated support", "SLA options", "Onboarding help"],
   },
 ];

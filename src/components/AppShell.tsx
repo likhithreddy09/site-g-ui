@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Activity, AlertOctagon, Bug, Building2, ChevronDown, FileBarChart, Globe, LayoutDashboard, LogOut, Menu, MousePointerClick,
+  Activity, AlertOctagon, Bug, Building2, ChevronDown, CreditCard, FileBarChart, Globe, LayoutDashboard, LogOut, Menu, MousePointerClick,
   Plug, ScanEye, Settings, TriangleAlert, X,
 } from "lucide-react";
 import Link from "next/link";
@@ -15,7 +15,7 @@ import { cn } from "./ui";
 
 type NavItem =
   | { section: string; client?: boolean }
-  | { href: string; label: string; icon: typeof LayoutDashboard; badge?: boolean; minRole?: "client" | "member" | "admin" };
+  | { href: string; label: string; icon: typeof LayoutDashboard; badge?: boolean; minRole?: "client" | "member" | "admin" | "owner" };
 
 const NAV: NavItem[] = [
   { href: "/app", label: "Overview", icon: LayoutDashboard },
@@ -29,6 +29,7 @@ const NAV: NavItem[] = [
   { href: "/app/errors", label: "Browser errors", icon: Bug },
   { section: "Agency", client: false },
   { href: "/app/reports", label: "Reports", icon: FileBarChart },
+  { href: "/app/billing", label: "Billing", icon: CreditCard, minRole: "owner" },
   { href: "/app/settings", label: "Settings", icon: Settings, minRole: "member" },
 ];
 
@@ -124,14 +125,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Logo href="/app" />
         </div>
         {health?.degraded && (
-          <div className="flex items-center gap-3 bg-gold/25 px-6 py-2.5 text-sm text-[#6b4700]">
-            <TriangleAlert className="h-4 w-4 shrink-0" />
-            <span><b>Monitoring coverage degraded.</b> {health.reasons?.join(" ")}</span>
-            <Link href="/app/settings?tab=system" className="link-underline ml-auto shrink-0">System status</Link>
+          <div className="flex flex-col gap-2 bg-gold/25 px-4 py-2.5 text-sm text-[#6b4700] sm:flex-row sm:items-center sm:gap-3 sm:px-6">
+            <div className="flex items-start gap-3">
+              <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
+              <span><b>Monitoring coverage degraded.</b> {health.reasons?.join(" ")}</span>
+            </div>
+            <Link href="/app/settings?tab=system" className="link-underline sm:ml-auto shrink-0">System status</Link>
           </div>
         )}
-        <main className="mx-auto max-w-[1280px] px-4 py-8 md:px-8">{children}</main>
-        <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-8 pb-8 text-[11px] text-plum/40">
+        <main className="mx-auto max-w-[1280px] px-4 py-6 md:px-8 md:py-8">{children}</main>
+        <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 pb-8 text-[11px] text-plum/40 md:px-8">
           <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · Watchfront
         </footer>
       </div>

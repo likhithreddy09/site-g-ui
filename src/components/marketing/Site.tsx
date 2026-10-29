@@ -33,7 +33,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
   const cases = USE_CASES.map((u) => ({ href: `/use-cases/${u.slug}`, name: u.name, short: u.intro.split(".")[0] + "." }));
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <Logo />
         <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
@@ -41,23 +41,24 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <Link href="/pricing" className="hover:text-magenta">Pricing</Link>
           <Link href="/security" className="hover:text-magenta">Security</Link>
           <Link href="/about" className="hover:text-magenta">About</Link>
+          <Link href="/contact" className="hover:text-magenta">Contact</Link>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/login" className="hidden text-[15px] text-plum hover:text-magenta sm:block">Sign in</Link>
-          <Link href="/register" className="rounded-full bg-plum px-5 py-2.5 text-[15px] font-medium text-cream transition hover:bg-ink">Start free</Link>
+          <Link href="/register" className="rounded-full bg-plum px-4 py-2 text-sm font-medium text-cream transition hover:bg-ink sm:px-5 sm:py-2.5 sm:text-[15px]">Start free</Link>
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
-            <nav aria-label="Mobile" className="absolute right-0 top-full mt-2 w-64 space-y-1 rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Features", "/features"], ["Pricing", "/pricing"], ...USE_CASES.map((u) => [`For ${audience(u)}`, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Sign in", "/login"]].map(([l, h]) => (
-                <Link key={h} href={h} className="block rounded-lg px-3 py-2 text-plum hover:bg-cream">{l}</Link>
+            <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
+              {[["Features", "/features"], ["Pricing", "/pricing"], ...USE_CASES.map((u) => [`For ${audience(u)}`, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"], ["Sign in", "/login"]].map(([l, h]) => (
+                <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
             </nav>
           </details>
         </div>
       </div>
       {banner && (
-        <div className="bg-magenta py-2.5 text-center text-sm text-cream">
-          Agency pilot programme · 60 days free for 5 agencies. <Link href="/register" className="link-underline ml-1 font-medium">Join the pilot →</Link>
+        <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
+          Agency pilot · 60 days free for 5 agencies. <Link href="/register" className="link-underline ml-1 font-medium">Join →</Link>
         </div>
       )}
     </header>
@@ -133,11 +134,11 @@ export function Breadcrumbs({ items }: { items: [string, string][] }) {
 
 export function PageHero({ eyebrow, title, intro, crumbs, children }: { eyebrow?: string; title: string; intro: string; crumbs?: [string, string][]; children?: React.ReactNode }) {
   return (
-    <section className="mx-auto max-w-6xl px-6 pb-12 pt-14">
+    <section className="mx-auto max-w-6xl px-4 pb-8 pt-10 sm:px-6 sm:pb-12 sm:pt-14">
       {crumbs && <Breadcrumbs items={crumbs} />}
       {eyebrow && <p className="text-[15px] font-medium text-magenta">{eyebrow}</p>}
-      <h1 className="mt-3 max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight text-ink md:text-6xl">{title}</h1>
-      <p className="mt-6 max-w-2xl text-lg leading-relaxed text-plum-2 md:text-xl">{intro}</p>
+      <h1 className="mt-3 max-w-4xl text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-6xl">{title}</h1>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-2 sm:mt-6 sm:text-lg md:text-xl">{intro}</p>
       {children}
     </section>
   );
@@ -174,7 +175,7 @@ export function CtaBand({ title = "Start with one website.", body = "Free for 3 
           </div>
           <div className="flex flex-wrap gap-3">
             <Link href="/register" className="rounded-full bg-cream px-7 py-3.5 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-sky">Start monitoring free</Link>
-            <Link href="/contact" className="rounded-full px-7 py-3.5 font-medium text-cream ring-1 ring-cream/30 transition hover:bg-white/10">Talk to us</Link>
+            <Link href="/contact#book" className="rounded-full px-7 py-3.5 font-medium text-cream ring-1 ring-cream/30 transition hover:bg-white/10">Book a call</Link>
           </div>
         </div>
       </div>

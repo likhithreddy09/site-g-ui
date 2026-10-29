@@ -36,9 +36,9 @@ export default function PricingPage() {
         intro="Built for freelancers and agencies managing client websites. Pay monthly in rupees via Cashfree — no surprise per-check fees."
       />
 
-      <section className="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-2 lg:grid-cols-4" aria-label="Plans">
+      <section className="mx-auto grid max-w-6xl gap-4 px-4 sm:gap-5 sm:px-6 md:grid-cols-2 lg:grid-cols-4" aria-label="Plans">
         {PLANS.map((p) => (
-          <div key={p.name} className={`flex flex-col rounded-3xl p-7 ${p.featured ? "bg-ink text-cream shadow-2xl" : "bg-cream text-ink"}`}>
+          <div key={p.name} className={`flex flex-col rounded-3xl p-5 sm:p-7 ${p.featured ? "bg-ink text-cream shadow-2xl" : "bg-cream text-ink"}`}>
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">{p.name}</h2>
               {p.featured && <span className="rounded-md bg-gold px-2 py-0.5 text-xs font-medium text-ink">Most popular</span>}
@@ -66,7 +66,7 @@ export default function PricingPage() {
       <p className="mx-auto mt-6 max-w-6xl px-6 text-sm text-plum-2">
         Prices in <strong className="text-ink">INR</strong>, billed monthly via Cashfree.
         See <Link href="/refund" className="link-underline text-plum">refunds</Link> and <Link href="/shipping" className="link-underline text-plum">delivery</Link>.
-        Need SSO, custom retention or 50+ sites with special terms? <Link href="/contact" className="link-underline text-plum">Book an Enterprise call</Link>.
+        Need SSO, custom retention or 50+ sites with special terms? <Link href="/contact#book" className="link-underline text-plum">Book an Enterprise call</Link>.
       </p>
 
       <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="compare">
