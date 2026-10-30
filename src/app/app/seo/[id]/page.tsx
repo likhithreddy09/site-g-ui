@@ -68,7 +68,12 @@ export default function SeoDetailPage() {
           </>
         )}
       />
-      <SeoAuditPanel site={site} />
+      <SeoAuditPanel
+        site={site}
+        busy={busy}
+        canEdit={can("member")}
+        onRun={run}
+      />
     </div>
   );
 }

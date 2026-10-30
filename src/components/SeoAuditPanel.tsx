@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  CheckCircle2, ChevronDown, CircleAlert, ExternalLink, FileSearch, Search, XCircle,
+  CheckCircle2, CircleAlert, ExternalLink, FileSearch, Globe2, Search, XCircle,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Badge, Button, Card, CardHeader, Toggle, cn } from "@/components/ui";
+import { Badge, Button, Card, SoftBusy, Stat, Toggle, cn } from "@/components/ui";
 import { timeAgo } from "@/lib/format";
 
 export function seoTone(seo: any): "ok" | "warn" | "bad" | "unknown" | "info" {
@@ -21,97 +21,51 @@ function scoreCls(score?: number) {
   return "text-bad";
 }
 
-function scoreRing(score?: number) {
-  if (typeof score !== "number") return "bg-cream-2 ring-plum/10";
-  if (score >= 80) return "bg-ok/10 ring-ok/25";
-  if (score >= 60) return "bg-gold/15 ring-gold/35";
-  return "bg-bad/10 ring-bad/25";
+function scoreSurface(score?: number) {
+  if (typeof score !== "number") return "from-cream-2 to-white ring-plum/10";
+  if (score >= 80) return "from-ok/15 to-ok/5 ring-ok/25";
+  if (score >= 60) return "from-gold/25 to-gold/5 ring-gold/35";
+  return "from-bad/15 to-bad/5 ring-bad/25";
 }
 
-function StatusIcon({ status }: { status: string }) {
-  if (status === "pass") return <CheckCircle2 className="h-4 w-4 text-ok" />;
-  if (status === "warn") return <CircleAlert className="h-4 w-4 text-[#c48a1a]" />;
-  return <XCircle className="h-4 w-4 text-bad" />;
+function StatusIcon({ status, className }: { status: string; className?: string }) {
+  if (status === "pass") return <CheckCircle2 className={cn("h-4 w-4 text-ok", className)} />;
+  if (status === "warn") return <CircleAlert className={cn("h-4 w-4 text-[#c48a1a]", className)} />;
+  return <XCircle className={cn("h-4 w-4 text-bad", className)} />;
 }
 
-function CheckList({ checks, compact }: { checks: any[]; compact?: boolean }) {
-  const ordered = useMemo(() => {
-    const rank = { fail: 0, warn: 1, pass: 2 } as Record<string, number>;
-    return [...(checks || [])].sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9));
-  }, [checks]);
+function pageKey(p: any) {
+  return p.path || p.url || "/";
+}
 
-  if (!ordered.length) {
-    return <p className="px-5 py-8 text-center text-sm text-plum/55">No checklist for this page.</p>;
-  }
-
+function CheckCard({ c }: { c: any }) {
   return (
-    <ul className={cn("divide-y divide-plum/6", compact && "text-[13px]")}>
-      {ordered.map((c: any) => (
-        <li
-          key={c.id}
-          className={cn(
-            "flex gap-3 px-5 py-3",
-            c.status === "fail" && "bg-bad/[0.04]",
-            c.status === "warn" && "bg-gold/[0.08]",
-          )}
-        >
-          <span className="mt-0.5 shrink-0"><StatusIcon status={c.status} /></span>
-          <span className="min-w-0 flex-1">
-            <span className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-ink">{c.label}</span>
-              <Badge tone={c.status === "pass" ? "ok" : c.status === "warn" ? "warn" : "bad"}>
-                {c.status === "pass" ? "good" : c.status === "warn" ? "improve" : "fix"}
-              </Badge>
-            </span>
-            <span className="mt-0.5 block text-sm text-plum/70">{c.message}</span>
-            {c.value && (
-              <span className="mt-1 block break-all font-mono text-[11px] leading-relaxed text-plum/50">{c.value}</span>
-            )}
-            {c.tip && c.status !== "pass" && (
-              <span className="mt-2 block rounded-xl bg-white/80 px-3 py-2 text-[12px] leading-relaxed text-ink/85 ring-1 ring-plum/8">
-                <span className="font-medium text-magenta">Tip · </span>{c.tip}
-              </span>
-            )}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function PagePicker({
-  pages,
-  active,
-  onPick,
-}: {
-  pages: any[];
-  active: string;
-  onPick: (key: string) => void;
-}) {
-  if (pages.length <= 1) return null;
-  return (
-    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
-      {pages.map((p: any) => {
-        const key = p.path || p.url || "/";
-        const selected = active === key;
-        return (
-          <button
-            key={key}
-            type="button"
-            onClick={() => onPick(key)}
-            className={cn(
-              "flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 text-left text-sm transition ring-1",
-              selected ? "bg-plum text-cream ring-plum" : "bg-white text-plum/75 ring-plum/10 hover:ring-plum/25",
-            )}
-          >
-            <span className={cn("font-mono text-xs font-semibold", selected ? "text-cream" : scoreCls(p.score))}>
-              {typeof p.score === "number" ? p.score : "—"}
-            </span>
-            <span className="max-w-[140px] truncate font-mono text-xs">{p.path || "/"}</span>
-            {p.is_home && <span className={cn("text-[10px] uppercase tracking-wide", selected ? "text-cream/70" : "text-plum/45")}>home</span>}
-          </button>
-        );
-      })}
+    <div
+      className={cn(
+        "flex h-full flex-col rounded-2xl bg-white p-4 ring-1 transition",
+        c.status === "fail" && "ring-bad/25 bg-bad/[0.03]",
+        c.status === "warn" && "ring-gold/40 bg-gold/[0.08]",
+        c.status === "pass" && "ring-plum/8",
+      )}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2">
+          <StatusIcon status={c.status} />
+          <span className="truncate text-sm font-semibold text-ink">{c.label}</span>
+        </div>
+        <Badge tone={c.status === "pass" ? "ok" : c.status === "warn" ? "warn" : "bad"}>
+          {c.status === "pass" ? "good" : c.status === "warn" ? "improve" : "fix"}
+        </Badge>
+      </div>
+      <p className="mt-2 text-[13px] leading-relaxed text-plum/70">{c.message}</p>
+      {c.value && (
+        <p className="mt-2 line-clamp-2 break-all font-mono text-[11px] leading-relaxed text-plum/45">{c.value}</p>
+      )}
+      {c.tip && c.status !== "pass" && (
+        <p className="mt-auto pt-3 text-[12px] leading-relaxed text-ink/80">
+          <span className="font-medium text-magenta">Tip · </span>{c.tip}
+        </p>
+      )}
     </div>
   );
 }
@@ -157,13 +111,13 @@ export function SeoAuditPanel({
   const defaultKey = useMemo(() => {
     const bad = pages.find((p: any) => (p.failed || 0) > 0 || p.error);
     const first = bad || pages[0];
-    return first ? (first.path || first.url || "/") : "/";
+    return first ? pageKey(first) : "/";
   }, [pages]);
 
   const [picked, setPicked] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"issues" | "all">("issues");
   const activeKey = picked ?? defaultKey;
-  const active = pages.find((p: any) => (p.path || p.url || "/") === activeKey) || pages[0];
-  const [showPasses, setShowPasses] = useState(false);
+  const active = pages.find((p: any) => pageKey(p) === activeKey) || pages[0];
 
   const discovery = s?.discovery;
   const pagesChecked = s?.pages_checked ?? pages.length;
@@ -172,15 +126,16 @@ export function SeoAuditPanel({
     [s],
   );
 
-  const activeChecks = useMemo(() => {
-    const all = active?.checks || [];
-    if (showPasses) return all;
-    const flagged = all.filter((c: any) => c.status !== "pass");
-    return flagged.length ? flagged : all;
-  }, [active, showPasses]);
+  const orderedChecks = useMemo(() => {
+    const rank = { fail: 0, warn: 1, pass: 2 } as Record<string, number>;
+    return [...(active?.checks || [])].sort((a, b) => (rank[a.status] ?? 9) - (rank[b.status] ?? 9));
+  }, [active]);
 
-  const passCount = (active?.checks || []).filter((c: any) => c.status === "pass").length;
-  const flagCount = (active?.checks || []).filter((c: any) => c.status !== "pass").length;
+  const flagCount = orderedChecks.filter((c) => c.status !== "pass").length;
+  const passCount = orderedChecks.filter((c) => c.status === "pass").length;
+  const visibleChecks = filter === "all" || !flagCount
+    ? orderedChecks
+    : orderedChecks.filter((c) => c.status !== "pass");
 
   if (site.seo_enabled === false) {
     return (
@@ -195,196 +150,218 @@ export function SeoAuditPanel({
 
   if (!s) {
     return (
-      <Card>
-        {embedded && (
-          <CardHeader
-            title={<span className="flex items-center gap-2"><Search className="h-4 w-4" /> SEO audit</span>}
-            subtitle="We scan the homepage, sitemap, and important internal pages"
-            action={<Button size="sm" loading={busy} onClick={onRun}>Run first audit</Button>}
-          />
-        )}
-        <div className="px-5 py-14 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-cream-2 text-magenta">
-            <FileSearch className="h-6 w-6" />
-          </div>
-          <p className="mx-auto max-w-md text-sm text-plum/60">
-            No audit yet. We&apos;ll discover pages from your sitemap and links, then check titles, descriptions, mobile setup, and share previews on each.
-          </p>
-          {embedded && (
-            <Button className="mt-5" loading={busy} onClick={onRun}>Run first SEO audit</Button>
-          )}
+      <Card className="px-6 py-16 text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-cream-2 text-magenta">
+          <FileSearch className="h-6 w-6" />
         </div>
+        <h3 className="text-base font-semibold text-ink">No SEO audit yet</h3>
+        <p className="mx-auto mt-1 max-w-md text-sm text-plum/60">
+          We&apos;ll discover pages from your sitemap and links, then check titles, descriptions, mobile setup, and share previews on each.
+        </p>
+        {embedded && (
+          <Button className="mt-5" loading={busy} onClick={onRun}>
+            <Search className="h-4 w-4" /> Run first SEO audit
+          </Button>
+        )}
       </Card>
     );
   }
 
   const tone = seoTone(s);
+  const multi = pages.length > 1;
 
   return (
-    <div className="space-y-5">
-      {/* Hero */}
-      <Card className="overflow-hidden">
-        <div
-          className={cn(
-            "flex flex-wrap items-stretch gap-5 border-b border-plum/8 px-5 py-5 sm:px-6",
-            tone === "ok" && "bg-ok/[0.06]",
-            tone === "warn" && "bg-gold/15",
-            tone === "bad" && "bg-bad/[0.06]",
-            (tone === "unknown" || tone === "info") && "bg-cream/60",
-          )}
-        >
-          <div className={cn("flex h-[88px] w-[88px] shrink-0 flex-col items-center justify-center rounded-3xl ring-1", scoreRing(s.score))}>
-            <span className={cn("font-mono text-4xl font-semibold leading-none tracking-tight", scoreCls(s.score))}>{s.score}</span>
-            <span className="mt-1 text-[10px] uppercase tracking-[0.14em] text-plum/45">/ 100</span>
-          </div>
-          <div className="min-w-0 flex-1 self-center">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-lg font-semibold text-ink">Grade {s.grade}</h2>
-              <Badge tone={tone}>{tone === "ok" ? "Looking good" : tone === "warn" ? "Needs polish" : tone === "bad" ? "Needs work" : "Pending"}</Badge>
+    <SoftBusy busy={busy}>
+      <div className="space-y-5">
+        {/* Score + stats grid */}
+        <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
+          <Card className={cn("relative overflow-hidden bg-gradient-to-br p-5 ring-1", scoreSurface(s.score))}>
+            <div className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-plum/50">Site score</div>
+            <div className={cn("mt-2 font-mono text-5xl font-semibold tracking-tight", scoreCls(s.score))}>{s.score}</div>
+            <div className="mt-1 flex flex-wrap items-center gap-2">
+              <Badge tone={tone}>Grade {s.grade}</Badge>
+              <span className="text-xs text-plum/55">/ 100 avg</span>
             </div>
-            <p className="mt-1 max-w-xl text-sm text-plum/70">{s.summary}</p>
-            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-plum/50">
-              <span>{pagesChecked} page{pagesChecked === 1 ? "" : "s"} audited</span>
-              <span className="text-ok">{s.passed || 0} good</span>
-              <span className="text-[#8a5b00]">{s.warned || 0} tips</span>
-              <span className="text-bad">{s.failed || 0} to fix</span>
-              {s.checked_at && <span>Checked {timeAgo(s.checked_at)}</span>}
-            </div>
-            {discovery && (
-              <div className="mt-1.5 text-[11px] text-plum/45">
-                {discovery.sitemap_found ? "Discovered via sitemap" : "No sitemap found"}
-                {discovery.from_links ? ` · ${discovery.from_links} from links` : ""}
-                {discovery.limit ? ` · plan cap ${discovery.limit}` : ""}
-              </div>
+            <p className="mt-4 text-[13px] leading-relaxed text-plum/70">{s.summary}</p>
+            {s.checked_at && (
+              <div className="mt-4 font-mono text-[11px] text-plum/45">Checked {timeAgo(s.checked_at)}</div>
             )}
+          </Card>
+
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Stat label="Pages" value={pagesChecked} icon={<Globe2 className="h-4 w-4" />} sub={discovery?.sitemap_found ? "via sitemap" : "via links"} />
+            <Stat label="Good" value={s.passed || 0} tone="ok" icon={<CheckCircle2 className="h-4 w-4" />} />
+            <Stat label="Tips" value={s.warned || 0} tone={(s.warned || 0) > 0 ? "warn" : "default"} icon={<CircleAlert className="h-4 w-4" />} />
+            <Stat label="To fix" value={s.failed || 0} tone={(s.failed || 0) > 0 ? "bad" : "ok"} icon={<XCircle className="h-4 w-4" />} />
           </div>
-          {embedded && (
-            <div className="flex flex-wrap items-center gap-3 self-center">
-              {onToggle && <Toggle checked={site.seo_enabled !== false} onChange={(v) => void onToggle(v)} label="Enabled" />}
-              <Button size="sm" variant="secondary" loading={busy} onClick={onRun}>Run again</Button>
-            </div>
-          )}
         </div>
 
+        {/* Priority fixes */}
         {issues.length > 0 && (
-          <div className="px-5 py-4 sm:px-6">
-            <div className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-plum/50">Start here</div>
-            <ol className="space-y-2.5">
-              {issues.slice(0, 8).map((imp: any, idx: number) => (
-                <li key={`${imp.id}-${imp.path || ""}-${idx}`} className="flex gap-3 rounded-2xl bg-cream/70 px-4 py-3 ring-1 ring-plum/6">
-                  <span className="mt-0.5 shrink-0"><StatusIcon status={imp.status} /></span>
-                  <span className="min-w-0 flex-1 text-sm text-ink">
+          <Card className="overflow-hidden">
+            <div className="flex items-center justify-between gap-3 border-b border-plum/8 px-5 py-3.5">
+              <div>
+                <div className="text-sm font-semibold text-ink">Start here</div>
+                <div className="text-xs text-plum/55">Highest-impact fixes across the site</div>
+              </div>
+              <Badge tone="warn">{issues.length}</Badge>
+            </div>
+            <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3">
+              {issues.slice(0, 9).map((imp: any, idx: number) => (
+                <button
+                  key={`${imp.id}-${imp.path || ""}-${idx}`}
+                  type="button"
+                  onClick={() => {
+                    if (imp.path) setPicked(imp.path);
+                    setFilter("issues");
+                  }}
+                  className="flex gap-3 rounded-2xl bg-cream/60 p-3.5 text-left ring-1 ring-plum/6 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md hover:ring-magenta/20"
+                >
+                  <StatusIcon status={imp.status} className="mt-0.5" />
+                  <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-center gap-2">
                       {imp.path && <span className="font-mono text-[11px] text-plum/45">{imp.path}</span>}
-                      <span className="font-medium">{imp.label}</span>
+                      <span className="text-sm font-medium text-ink">{imp.label}</span>
                     </span>
-                    <span className="mt-0.5 block text-plum/70">{imp.tip || imp.message}</span>
+                    <span className="mt-1 block text-[12px] leading-relaxed text-plum/65 line-clamp-3">
+                      {imp.tip || imp.message}
+                    </span>
                   </span>
-                </li>
+                </button>
               ))}
-            </ol>
-          </div>
+            </div>
+          </Card>
         )}
-      </Card>
 
-      {/* Per-page checklist */}
-      <Card>
-        <CardHeader
-          title={pages.length > 1 ? "Page checklist" : "Checklist"}
-          subtitle={
-            active?.url ? (
-              <a href={active.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-magenta">
-                {String(active.url).replace(/^https?:\/\//, "")}
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            ) : "On-page SEO signals"
-          }
-          action={
-            flagCount > 0 && passCount > 0 ? (
-              <button
-                type="button"
-                onClick={() => setShowPasses((v) => !v)}
-                className="rounded-full bg-plum/5 px-3 py-1 text-xs font-medium text-plum/70 hover:bg-plum/10"
-              >
-                {showPasses ? "Hide passed" : `Show ${passCount} passed`}
-              </button>
-            ) : undefined
-          }
-        />
-        <div className="space-y-4 px-5 pb-5">
-          <PagePicker pages={pages} active={activeKey} onPick={setPicked} />
+        {/* Pages + checklist */}
+        <div className={cn("grid gap-4", multi ? "lg:grid-cols-[260px_1fr]" : "")}>
+          {multi && (
+            <Card className="h-fit overflow-hidden lg:sticky lg:top-4">
+              <div className="border-b border-plum/8 px-4 py-3">
+                <div className="text-sm font-semibold text-ink">Pages</div>
+                <div className="text-[11px] text-plum/50">{pages.length} audited</div>
+              </div>
+              <ul className="max-h-[min(70vh,560px)] overflow-y-auto scrollbar-thin">
+                {pages.map((p: any) => {
+                  const key = pageKey(p);
+                  const selected = activeKey === key;
+                  return (
+                    <li key={key}>
+                      <button
+                        type="button"
+                        onClick={() => { setPicked(key); setFilter("issues"); }}
+                        className={cn(
+                          "flex w-full items-center gap-3 border-l-2 px-3.5 py-3 text-left transition",
+                          selected
+                            ? "border-magenta bg-magenta/[0.06]"
+                            : "border-transparent hover:bg-cream/60",
+                        )}
+                      >
+                        <span className={cn(
+                          "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl font-mono text-xs font-semibold ring-1",
+                          typeof p.score === "number" && p.score >= 80 ? "bg-ok/10 ring-ok/20 text-ok"
+                            : typeof p.score === "number" && p.score >= 60 ? "bg-gold/15 ring-gold/30 text-ink"
+                              : "bg-bad/10 ring-bad/20 text-bad",
+                        )}>
+                          {typeof p.score === "number" ? p.score : "—"}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center gap-1.5">
+                            <span className="truncate font-mono text-[12.5px] font-medium text-ink">{p.path || "/"}</span>
+                            {p.is_home && <span className="rounded bg-plum/8 px-1 py-px text-[9px] uppercase tracking-wide text-plum/50">home</span>}
+                          </span>
+                          <span className="mt-0.5 block truncate text-[11px] text-plum/50">
+                            {p.error || (p.failed ? `${p.failed} fix` : p.warned ? `${p.warned} tips` : "Looking good")}
+                          </span>
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          )}
 
-          {pages.length > 1 && active && (
-            <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-cream/60 px-4 py-3">
-              <span className={cn("flex h-11 w-11 items-center justify-center rounded-xl font-mono text-sm font-semibold ring-1", scoreRing(active.score), scoreCls(active.score))}>
-                {active.score ?? "—"}
-              </span>
-              <div className="min-w-0 flex-1">
+          <Card className="overflow-hidden" id="seo-checklist">
+            <div className="flex flex-wrap items-start justify-between gap-3 border-b border-plum/8 px-5 py-4">
+              <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-sm font-medium text-ink">{active.path || "/"}</span>
-                  {active.is_home && <Badge tone="info">home</Badge>}
-                  {active.grade && <Badge tone={seoTone(active)}>Grade {active.grade}</Badge>}
+                  <h3 className="text-sm font-semibold text-ink">
+                    {multi ? (active?.path || "/") : "Checklist"}
+                  </h3>
+                  {active?.is_home && <Badge tone="info">home</Badge>}
+                  {active?.grade && <Badge tone={seoTone(active)}>Grade {active.grade}</Badge>}
+                  {typeof active?.score === "number" && (
+                    <span className={cn("font-mono text-sm font-semibold", scoreCls(active.score))}>{active.score}</span>
+                  )}
                 </div>
-                <div className="mt-0.5 truncate text-xs text-plum/55">
-                  {active.error || active.title || active.summary}
-                </div>
+                {active?.url ? (
+                  <a
+                    href={active.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 inline-flex max-w-full items-center gap-1 truncate font-mono text-[11px] text-plum/55 hover:text-magenta"
+                  >
+                    <span className="truncate">{String(active.url).replace(/^https?:\/\//, "")}</span>
+                    <ExternalLink className="h-3 w-3 shrink-0" />
+                  </a>
+                ) : (
+                  <div className="mt-1 text-xs text-plum/55">On-page SEO signals</div>
+                )}
+                {active?.title && (
+                  <div className="mt-1 truncate text-xs text-plum/60">{active.title}</div>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {flagCount > 0 && (
+                  <div className="flex rounded-full bg-plum/5 p-0.5">
+                    {([
+                      ["issues", `Issues (${flagCount})`],
+                      ["all", `All (${orderedChecks.length})`],
+                    ] as const).map(([id, label]) => (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => setFilter(id)}
+                        className={cn(
+                          "rounded-full px-3 py-1 text-xs font-medium transition",
+                          filter === id ? "bg-plum text-cream" : "text-plum/65 hover:text-plum",
+                        )}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {embedded && (
+                  <Button size="sm" variant="secondary" loading={busy} onClick={onRun}>Run again</Button>
+                )}
               </div>
             </div>
-          )}
 
-          {active?.error && !(active?.checks?.length) ? (
-            <p className="rounded-2xl bg-bad/5 px-4 py-3 text-sm text-bad ring-1 ring-bad/15">{active.error}</p>
-          ) : (
-            <div className="overflow-hidden rounded-2xl ring-1 ring-plum/8">
-              <CheckList checks={activeChecks} />
-            </div>
-          )}
-        </div>
-      </Card>
-
-      {pages.length > 1 && (
-        <Card>
-          <CardHeader title="All pages" subtitle={`${pages.length} audited · tap one to inspect`} />
-          <ul className="divide-y divide-plum/6">
-            {pages.map((p: any) => {
-              const key = p.path || p.url || "/";
-              const selected = activeKey === key;
-              return (
-                <li key={key}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPicked(key);
-                      setShowPasses(false);
-                      document.getElementById("seo-checklist")?.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }}
-                    className={cn(
-                      "flex w-full items-center gap-3 px-5 py-3.5 text-left transition hover:bg-cream/50",
-                      selected && "bg-cream/70",
-                    )}
-                  >
-                    <span className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-mono text-sm font-semibold ring-1", scoreRing(p.score), scoreCls(p.score))}>
-                      {typeof p.score === "number" ? p.score : "—"}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="flex flex-wrap items-center gap-2">
-                        <span className="truncate font-mono text-sm font-medium text-ink">{p.path || "/"}</span>
-                        {p.is_home && <Badge tone="info">home</Badge>}
-                        {p.error && <Badge tone="bad">error</Badge>}
-                      </span>
-                      <span className="mt-0.5 block truncate text-xs text-plum/55">
-                        {p.error || p.title || (p.failed ? `${p.failed} to fix` : p.warned ? `${p.warned} tips` : "Looking good")}
-                      </span>
-                    </span>
-                    <ChevronDown className={cn("h-4 w-4 shrink-0 -rotate-90 text-plum/30", selected && "text-magenta")} />
+            {active?.error && !orderedChecks.length ? (
+              <div className="m-5 rounded-2xl bg-bad/5 px-4 py-3 text-sm text-bad ring-1 ring-bad/15">{active.error}</div>
+            ) : !visibleChecks.length ? (
+              <div className="flex flex-col items-center justify-center px-5 py-14 text-center">
+                <CheckCircle2 className="mb-3 h-8 w-8 text-ok" />
+                <div className="text-sm font-semibold text-ink">Nothing to fix on this page</div>
+                <div className="mt-1 text-xs text-plum/55">{passCount} checks passed</div>
+                {passCount > 0 && filter === "issues" && (
+                  <button type="button" onClick={() => setFilter("all")} className="mt-3 text-xs font-medium text-magenta hover:underline">
+                    Show passed checks
                   </button>
-                </li>
-              );
-            })}
-          </ul>
-        </Card>
-      )}
-      <div id="seo-checklist" className="sr-only" />
-    </div>
+                )}
+              </div>
+            ) : (
+              <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3">
+                {visibleChecks.map((c: any) => (
+                  <CheckCard key={c.id} c={c} />
+                ))}
+              </div>
+            )}
+          </Card>
+        </div>
+      </div>
+    </SoftBusy>
   );
 }
