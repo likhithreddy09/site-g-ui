@@ -83,20 +83,30 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#4b2440", width: "device-width", initialScale: 1 };
 
+const GA_ID = "G-2KJ7JC3FP6";
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN">
+      <head>
+        {/* Inline in <head> so Google Tag Assistant / GA setup can detect it in HTML source */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+        <script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}');
+            `,
+          }}
+        />
+      </head>
       <body className={`${poppins.variable} ${mono.variable} antialiased`}>
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-2KJ7JC3FP6" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-2KJ7JC3FP6');
-        `}</Script>
         {RUM_SITE_KEY && (
           <Script src={RUM_SRC} data-site-key={RUM_SITE_KEY} strategy="afterInteractive" />
         )}
