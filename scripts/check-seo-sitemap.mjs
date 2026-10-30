@@ -121,6 +121,40 @@ for (const [rel, kind] of metaRoutes) {
   }
 }
 
+// Also emit a static public/sitemap.xml (fallback if the App Router route misbehaves on host).
+const now = new Date().toISOString();
+const ordered = [...expected];
+const pri = (p) =>
+  p === "/" ? 1 :
+  ["/features", "/pricing"].includes(p) ? 0.95 :
+  p === "/use-cases" ? 0.9 :
+  p.startsWith("/features/") || p.startsWith("/use-cases/") ? 0.85 :
+  ["/security", "/contact"].includes(p) ? 0.7 :
+  p === "/register" ? 0.65 :
+  p === "/about" ? 0.55 : 0.2;
+const freq = (p) =>
+  ["/", "/features", "/pricing", "/use-cases"].includes(p) || p.startsWith("/features/") || p.startsWith("/use-cases/")
+    ? "weekly"
+    : ["/privacy", "/terms", "/refund", "/shipping"].includes(p)
+      ? "yearly"
+      : "monthly";
+const xml = [
+  `<?xml version="1.0" encoding="UTF-8"?>`,
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+  ...ordered.flatMap((p) => [
+    `<url>`,
+    `<loc>https://watchfront.in${p}</loc>`,
+    `<lastmod>${now}</lastmod>`,
+    `<changefreq>${freq(p)}</changefreq>`,
+    `<priority>${pri(p)}</priority>`,
+    `</url>`,
+  ]),
+  `</urlset>`,
+  ``,
+].join("\n");
+fs.writeFileSync(path.join(root, "public/sitemap.xml"), xml);
+console.log(`Wrote public/sitemap.xml (${ordered.length} URLs)`);
+
 if (errors) {
   console.error(`\n${errors} issue(s) found.`);
   process.exit(1);
