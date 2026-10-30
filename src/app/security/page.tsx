@@ -3,9 +3,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Security — How Watchfront Protects Your Data and Your Clients' Sites",
-  description: "How Watchfront secures monitoring data: encrypted secrets, SSRF-protected workers, safe live-site testing, role-based access, data retention limits and responsible disclosure.",
+  title: "Website Monitoring Security — Encrypted Secrets & Safe Live Tests",
+  description: "How Watchfront website monitoring secures your data: encrypted API secrets, SSRF-protected workers, safe live-site form testing, role-based access and responsible disclosure.",
   path: "/security",
+  keywords: ["website monitoring security", "safe synthetic monitoring", "encrypted monitoring secrets"],
 });
 
 export default function SecurityPage() {

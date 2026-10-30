@@ -4,8 +4,8 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Privacy Policy",
-  description: "What personal data Watchfront collects, why we collect it, how long we keep it and the choices you have — including payment data processed by Cashfree.",
+  title: "Privacy Policy — Watchfront Website Monitoring",
+  description: "Watchfront privacy policy: what personal data we collect for website monitoring, why, how long we keep it, and Cashfree payment data — for agencies in India.",
   path: "/privacy",
 });
 
