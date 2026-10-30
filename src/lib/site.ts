@@ -4,7 +4,8 @@ export const SITE = {
   legalName: process.env.NEXT_PUBLIC_LEGAL_NAME || "Watchfront",
   /** Trading / brand name if different from legal entity. */
   tradingAs: "Watchfront",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://watchfront.in").replace(/\/$/, ""),
+  /** Canonical host - keep one (prefer apex). Set NEXT_PUBLIC_SITE_URL in Vercel to match. */
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.watchfront.in").replace(/\/$/, ""),
   tagline: "Website monitoring for agencies in India",
   description:
     "Watchfront helps Indian agencies watch client sites for downtime, SSL problems, broken forms, SEO issues and JS errors - then share clear reports. Priced in INR. Start free.",

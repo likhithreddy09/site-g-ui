@@ -30,6 +30,9 @@ const nextConfig: NextConfig = {
       { source: "/monitoring", destination: "/features", permanent: true },
       { source: "/agencies", destination: "/use-cases/web-agencies", permanent: true },
       { source: "/wordpress", destination: "/use-cases/wordpress-maintenance", permanent: true },
+      { source: "/freelancers", destination: "/use-cases/freelancers", permanent: true },
+      { source: "/marketing", destination: "/use-cases/marketing-agencies", permanent: true },
+      { source: "/seo", destination: "/features/seo-audit", permanent: true },
     ];
   },
 };

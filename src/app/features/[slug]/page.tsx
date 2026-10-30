@@ -4,8 +4,7 @@ import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
-import { faqLd, pageMeta } from "@/lib/seo";
-import { SITE, abs } from "@/lib/site";
+import { faqLd, hierarchicalTitle, pageMeta, webPageLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,12 +14,13 @@ export const generateStaticParams = () => FEATURES.map((f) => ({ slug: f.slug })
 export async function generateMetadata({ params }: Props) {
   const f = featureBySlug((await params).slug);
   if (!f) return {};
+  const title = hierarchicalTitle(f.name, "Features");
   return pageMeta({
-    title: f.title,
+    title,
     description: f.description,
     path: `/features/${f.slug}`,
     keywords: f.keywords,
-    ogTitle: f.title,
+    ogTitle: title,
     ogDescription: f.description,
   });
 }
@@ -36,10 +36,13 @@ export default async function FeaturePage({ params }: Props) {
     <MarketingShell>
       <JsonLd data={[
         faqLd(f.faqs),
-        {
-          "@context": "https://schema.org", "@type": "WebPage", name: f.title, description: f.description, url: abs(`/features/${f.slug}`),
-          about: { "@type": "SoftwareApplication", name: SITE.name, applicationCategory: "BusinessApplication", operatingSystem: "Web" },
-        },
+        webPageLd({
+          name: f.name,
+          description: f.description,
+          path: `/features/${f.slug}`,
+          parentName: "Features",
+          parentPath: "/features",
+        }),
       ]} />
       <PageHero crumbs={[["Home", "/"], ["Features", "/features"], [f.name, `/features/${f.slug}`]]} eyebrow={f.name} title={f.h1} intro={f.intro}>
         <div className="mt-8 flex flex-wrap items-center gap-5">

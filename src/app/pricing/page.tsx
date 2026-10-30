@@ -2,15 +2,15 @@ import { Check } from "lucide-react";
 import Link from "next/link";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { COMPARISON, PLANS, PRICING_FAQS } from "@/lib/marketing";
-import { faqLd, pageMeta } from "@/lib/seo";
+import { faqLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Pricing | Watchfront website monitoring (INR)",
+  title: hierarchicalTitle("Pricing"),
   description: "Simple INR plans for Indian teams. Starter ₹999, Growth ₹2,499, Agency ₹4,999. Start free, pay with UPI or card via Dodo Payments.",
   path: "/pricing",
   keywords: ["website monitoring pricing", "uptime monitoring India", "INR website monitoring", "agency monitoring plans"],
-  ogTitle: "Watchfront pricing in INR",
+  ogTitle: hierarchicalTitle("Pricing"),
   ogDescription: "Starter ₹999 · Growth ₹2,499 · Agency ₹4,999. Start free - billed in India via Dodo Payments.",
 });
 

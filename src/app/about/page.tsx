@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
-import { organizationLd, pageMeta } from "@/lib/seo";
+import { hierarchicalTitle, organizationLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "About Watchfront",
+  title: hierarchicalTitle("About"),
   description: "Watchfront is website monitoring for Indian agencies. We help you spot broken client sites before clients do - with clear evidence, not noise.",
   path: "/about",
   keywords: ["about Watchfront", "Watchfront India", "website monitoring company"],
-  ogTitle: "About Watchfront",
+  ogTitle: hierarchicalTitle("About"),
   ogDescription: "We build website monitoring for Indian agencies who manage many client sites.",
 });
 

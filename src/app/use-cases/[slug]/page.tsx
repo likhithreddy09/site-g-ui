@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
-import { faqLd, pageMeta } from "@/lib/seo";
+import { faqLd, hierarchicalTitle, pageMeta, webPageLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,12 +14,13 @@ export const generateStaticParams = () => USE_CASES.map((u) => ({ slug: u.slug }
 export async function generateMetadata({ params }: Props) {
   const u = getUseCase((await params).slug);
   if (!u) return {};
+  const title = hierarchicalTitle(u.name, "Use cases");
   return pageMeta({
-    title: u.title,
+    title,
     description: u.description,
     path: `/use-cases/${u.slug}`,
     keywords: u.keywords,
-    ogTitle: u.title,
+    ogTitle: title,
     ogDescription: u.description,
   });
 }
@@ -32,8 +33,17 @@ export default async function UseCasePage({ params }: Props) {
 
   return (
     <MarketingShell>
-      <JsonLd data={faqLd(u.faqs)} />
-      <PageHero crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [`For ${audience(u)}`, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
+      <JsonLd data={[
+        faqLd(u.faqs),
+        webPageLd({
+          name: u.name,
+          description: u.description,
+          path: `/use-cases/${u.slug}`,
+          parentName: "Use cases",
+          parentPath: "/use-cases",
+        }),
+      ]} />
+      <PageHero crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [u.name, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start monitoring free</Link>
           <Link href="/pricing" className="link-underline text-[15px] text-plum">See pricing</Link>

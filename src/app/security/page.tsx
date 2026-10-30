@@ -3,11 +3,11 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Security at Watchfront",
+  title: "Security | Watchfront",
   description: "How we protect secrets, keep live-site tests safe, and lock down workers. Read our practices and how to report a security issue.",
   path: "/security",
   keywords: ["Watchfront security", "monitoring security", "safe form testing"],
-  ogTitle: "Security at Watchfront",
+  ogTitle: "Security | Watchfront",
   ogDescription: "Encrypted secrets, safe live tests, and workers that refuse private network targets.",
 });
 

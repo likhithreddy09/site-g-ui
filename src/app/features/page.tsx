@@ -3,15 +3,15 @@ import Link from "next/link";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { FEATURES } from "@/lib/marketing";
-import { pageMeta } from "@/lib/seo";
+import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Website monitoring features | Watchfront",
+  title: hierarchicalTitle("Features"),
   description: "See what Watchfront checks: uptime, SSL, SEO, forms, APIs, JS errors and client reports - built for agencies looking after many sites.",
   path: "/features",
   keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit"],
-  ogTitle: "Website monitoring features | Watchfront",
+  ogTitle: hierarchicalTitle("Features"),
   ogDescription: "Uptime, SSL, SEO, forms, APIs, JS errors and client reports - one toolkit for agency portfolios.",
 });
 
@@ -25,13 +25,21 @@ const EXTRAS = [
 export default function FeaturesPage() {
   return (
     <MarketingShell>
-      <JsonLd data={{
-        "@context": "https://schema.org", "@type": "ItemList", name: "Watchfront features",
-        itemListElement: FEATURES.map((f, i) => ({ "@type": "ListItem", position: i + 1, name: f.name, url: abs(`/features/${f.slug}`) })),
-      }} />
+      <JsonLd data={[
+        collectionPageLd({
+          name: "Features",
+          description: "Watchfront website monitoring features",
+          path: "/features",
+          children: FEATURES.map((f) => ({ name: f.name, path: `/features/${f.slug}` })),
+        }),
+        {
+          "@context": "https://schema.org", "@type": "ItemList", name: "Watchfront features",
+          itemListElement: FEATURES.map((f, i) => ({ "@type": "ListItem", position: i + 1, name: f.name, url: abs(`/features/${f.slug}`) })),
+        },
+      ]} />
       <PageHero
         crumbs={[["Home", "/"], ["Features", "/features"]]}
-        eyebrow="Website monitoring features"
+        eyebrow="Features"
         title="Everything that can break on a client website - checked for you."
         intro="Uptime, SSL, forms, APIs, visual checks and JS errors - seven kinds of website monitoring in one record. Set up in minutes by anyone on your team."
       />

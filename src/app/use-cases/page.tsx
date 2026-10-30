@@ -2,11 +2,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
 import { USE_CASES, audience } from "@/lib/marketing";
-import { pageMeta } from "@/lib/seo";
+import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Who Watchfront is for | Agencies, WordPress & freelancers",
+  title: hierarchicalTitle("Use cases"),
   description: "Built for web agencies, WordPress maintainers, marketing teams and freelancers who look after client websites every week.",
   path: "/use-cases",
   keywords: [
@@ -15,7 +15,7 @@ export const metadata = pageMeta({
     "landing page monitoring",
     "website monitoring for freelancers",
   ],
-  ogTitle: "Who Watchfront is for",
+  ogTitle: hierarchicalTitle("Use cases"),
   ogDescription: "Web agencies, WordPress care plans, marketing teams and freelancers - monitor client sites without the Monday manual check.",
 });
 
@@ -23,22 +23,30 @@ export default function UseCasesPage() {
   return (
     <MarketingShell>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: "Watchfront use cases",
-          itemListElement: USE_CASES.map((u, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            name: u.name,
-            url: abs(`/use-cases/${u.slug}`),
-            description: u.description,
-          })),
-        }}
+        data={[
+          collectionPageLd({
+            name: "Use cases",
+            description: "Watchfront website monitoring by audience",
+            path: "/use-cases",
+            children: USE_CASES.map((u) => ({ name: u.name, path: `/use-cases/${u.slug}` })),
+          }),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Watchfront use cases",
+            itemListElement: USE_CASES.map((u, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: u.name,
+              url: abs(`/use-cases/${u.slug}`),
+              description: u.description,
+            })),
+          },
+        ]}
       />
       <PageHero
         crumbs={[["Home", "/"], ["Use cases", "/use-cases"]]}
-        eyebrow="Who Watchfront is for"
+        eyebrow="Use cases"
         title="Built for teams who look after other people’s websites."
         intro="Same product, different workflows - pick the path that matches how you work with clients."
       />

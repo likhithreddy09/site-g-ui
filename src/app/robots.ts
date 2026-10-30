@@ -17,11 +17,12 @@ export default function robots(): MetadataRoute.Robots {
         disallow: PRIVATE,
       },
       {
+        // Must crawl favicons + logo for SERP brand icon
         userAgent: "Googlebot-Image",
-        allow: ["/", "/opengraph-image", "/icon.svg", "/twitter-image", "/logo.png", "/favicon.ico", "/favicon.svg"],
+        allow: "/",
       },
     ],
     sitemap: `${SITE.url}/sitemap.xml`,
-    host: SITE.url,
+    host: SITE.url.replace(/^https?:\/\//, ""),
   };
 }
