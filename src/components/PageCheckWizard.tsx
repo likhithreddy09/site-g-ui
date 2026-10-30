@@ -20,7 +20,7 @@ type Part = { selector: string; label: string };
 
 export const SENSITIVITY = [
   { value: 0.5, label: "Notice small changes", hint: "A changed word or icon will be flagged" },
-  { value: 2, label: "Balanced", hint: "Recommended — ignores tiny rendering noise" },
+  { value: 2, label: "Balanced", hint: "Recommended - ignores tiny rendering noise" },
   { value: 5, label: "Only big changes", hint: "For busy pages with lots of moving content" },
 ];
 const FREQ = [[900, "Every 15 min"], [3600, "Every hour"], [21600, "Every 6 hours"], [86400, "Once a day"]] as const;
@@ -63,7 +63,7 @@ export function PageCheckWizard({ initial, defaultWebsiteId, onClose, onSaved }:
       if (!name) {
         const u = new URL(p.url);
         const path = u.pathname.replace(/\/$/, "");
-        setName(`${u.hostname.replace(/^www\./, "")} — ${path ? path.split("/").pop()!.replace(/[-_]/g, " ") : "Homepage"}`);
+        setName(`${u.hostname.replace(/^www\./, "")} - ${path ? path.split("/").pop()!.replace(/[-_]/g, " ") : "Homepage"}`);
       }
       if (first && !editing) {
         setTexts(p.suggestions.texts.filter((t) => t.recommended).map((t) => t.text));
@@ -118,10 +118,10 @@ export function PageCheckWizard({ initial, defaultWebsiteId, onClose, onSaved }:
         <div className="flex flex-1 items-center justify-center overflow-y-auto p-6">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl rounded-3xl bg-white p-8 shadow-xl ring-1 ring-plum/10">
             <h2 className="text-2xl font-semibold text-ink">Which page should we keep an eye on?</h2>
-            <p className="mt-1 text-sm text-plum/70">We&apos;ll open it, show you a picture of it, and suggest what to watch. You just tick or click — no code.</p>
+            <p className="mt-1 text-sm text-plum/70">We&apos;ll open it, show you a picture of it, and suggest what to watch. You just tick or click - no code.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <Select label="Website" value={websiteId} onChange={(e) => { setWebsiteId(e.target.value); setUrl(sites?.find((s) => s.id === e.target.value)?.url || ""); }}>
-                <option value="">— choose —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                <option value="">- choose -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </Select>
               <Input label="Page address" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://client.com/pricing" />
             </div>
@@ -185,9 +185,9 @@ export function PageCheckWizard({ initial, defaultWebsiteId, onClose, onSaved }:
                 {parts.length > 0 && <Li>Check {parts.map((p) => p.label).slice(0, 3).join(", ")}{parts.length > 3 ? ` and ${parts.length - 3} more` : ""} {parts.length === 1 ? "is" : "are"} still there</Li>}
                 {visual && <Li>Compare how the page looks with the approved version{ignores.length ? ` (ignoring ${ignores.map((i) => i.label.toLowerCase()).join(", ")})` : ""}</Li>}
                 {links && <Li>Test the links on the page</Li>}
-                {!texts.length && !parts.length && !visual && !links && <li className="text-bad">Nothing selected — go back and pick at least one thing to watch.</li>}
+                {!texts.length && !parts.length && !visual && !links && <li className="text-bad">Nothing selected - go back and pick at least one thing to watch.</li>}
               </ul>
-              <p className="mt-3 text-xs text-plum/60">Missing text or parts open an incident and alert your team. A change in looks is only flagged for you to review — you decide if it was on purpose.</p>
+              <p className="mt-3 text-xs text-plum/60">Missing text or parts open an incident and alert your team. A change in looks is only flagged for you to review - you decide if it was on purpose.</p>
             </div>
 
             <details className="rounded-2xl p-4 ring-1 ring-plum/10">
@@ -255,7 +255,7 @@ function PickPhase({ preview, loading, err, retry, texts, setTexts, parts, setPa
   return (
     <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
       <section className="flex min-h-0 flex-1 flex-col p-4">
-        <p className="mb-3 flex items-center gap-2 text-sm text-plum/75"><MousePointerClick className="h-4 w-4 text-magenta" /> Click anything on the page to watch it — or to ignore it if it changes on its own.</p>
+        <p className="mb-3 flex items-center gap-2 text-sm text-plum/75"><MousePointerClick className="h-4 w-4 text-magenta" /> Click anything on the page to watch it - or to ignore it if it changes on its own.</p>
         <div className="relative min-h-0 flex-1 overflow-auto rounded-2xl bg-white shadow-inner ring-1 ring-plum/10 scrollbar-thin">
           {loading && !preview && <div className="flex h-full items-center justify-center gap-2 text-sm text-plum/60"><Loader2 className="h-4 w-4 animate-spin" /> Opening the page in a secure browser…</div>}
           {!loading && !preview && (
@@ -321,7 +321,7 @@ function PickPhase({ preview, loading, err, retry, texts, setTexts, parts, setPa
               <Check_ key={s.selector} on={parts.some((p) => p.selector === s.selector)} onClick={() => toggle(parts, setParts, { selector: s.selector, label: s.label }, (p) => p.selector === s.selector)} title={s.label} />
             ))}
             {extraParts.map((p) => <Check_ key={p.selector} on onClick={() => setParts(parts.filter((x) => x.selector !== p.selector))} title={p.label} sub="Picked on the page" />)}
-            {!suggestedParts.length && !extraParts.length && <p className="text-xs text-plum/50">Nothing yet — click a part of the page.</p>}
+            {!suggestedParts.length && !extraParts.length && <p className="text-xs text-plum/50">Nothing yet - click a part of the page.</p>}
           </Section>
 
           <Section icon={EyeOff} title="Things that change on their own" hint="Hidden before comparing looks, so they don't cause false alarms.">
@@ -393,7 +393,7 @@ function PickMenu({ el, preview, texts, parts, ignores, onText, onPart, onIgnore
           <CheckCircle2 className="h-3.5 w-3.5" /> {partOn ? "Stop watching this part" : "This part must always be there"}
         </Button>
         <Button size="sm" className="w-full" variant="ghost" onClick={onIgnore}>
-          <EyeOff className="h-3.5 w-3.5" /> {ignOn ? "Stop ignoring it" : "Ignore it — it changes on its own"}
+          <EyeOff className="h-3.5 w-3.5" /> {ignOn ? "Stop ignoring it" : "Ignore it - it changes on its own"}
         </Button>
       </motion.div>
     </AnimatePresence>

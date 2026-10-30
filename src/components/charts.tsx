@@ -48,7 +48,7 @@ export function ResponseChart({ data, height = 220, long = false }: { data: { t:
 type HourPoint = { t: string; avg_ms?: number | null; failures?: number; checks?: number };
 
 function hourMs(v?: number | null) {
-  if (v == null || Number.isNaN(v)) return "—";
+  if (v == null || Number.isNaN(v)) return "-";
   if (v >= 1000) return `${(v / 1000).toFixed(v >= 10000 ? 0 : 2).replace(/\.00$/, "")}s`;
   return `${Math.round(v)}ms`;
 }
@@ -197,7 +197,7 @@ export function UptimeBars({ data }: { data: { t: string; uptime: number; checks
     <div className="flex h-9 items-end gap-[3px]">
       {items.length === 0 && <div className="text-xs text-plum/50">No checks yet</div>}
       {items.map((d, i) => (
-        <div key={i} title={`${new Date(d.t).toLocaleString()} — ${d.uptime}% (${d.checks} checks)`}
+        <div key={i} title={`${new Date(d.t).toLocaleString()} - ${d.uptime}% (${d.checks} checks)`}
           className={cn("flex-1 rounded-[3px] transition-all hover:opacity-70", d.uptime >= 99.9 ? "bg-ok/80" : d.uptime >= 90 ? "bg-gold" : "bg-bad")}
           style={{ height: `${40 + d.uptime * 0.6}%`, animation: `fade-up .5s ${i * 12}ms both` }} />
       ))}

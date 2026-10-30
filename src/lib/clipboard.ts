@@ -8,7 +8,7 @@ export async function copyText(text: string): Promise<boolean> {
       await navigator.clipboard.writeText(value);
       return true;
     } catch {
-      // fall through — Permissions Policy / insecure context / Safari quirks
+      // fall through - Permissions Policy / insecure context / Safari quirks
     }
   }
 

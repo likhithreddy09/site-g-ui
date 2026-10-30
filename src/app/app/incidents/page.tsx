@@ -62,8 +62,8 @@ export default function IncidentsPage() {
                 <Td><Badge>{i.severity}</Badge></Td>
                 <Td><Badge>{i.status}</Badge></Td>
                 <Td className="text-xs text-plum/70">{SOURCES[i.source_type] || i.source_type}</Td>
-                <Td className="text-xs">{i.website_name || "—"}</Td>
-                <Td className="text-xs text-plum/70">{i.assignee_email || "—"}</Td>
+                <Td className="text-xs">{i.website_name || "-"}</Td>
+                <Td className="text-xs text-plum/70">{i.assignee_email || "-"}</Td>
                 <Td className="whitespace-nowrap text-xs text-plum/60">{timeAgo(i.started_at)}</Td>
                 <Td className="whitespace-nowrap font-mono text-xs">{duration(((i.resolved_at ? +new Date(i.resolved_at) : Date.now()) - +new Date(i.started_at)) / 1000)}</Td>
                 <Td className="font-mono text-xs">{i.occurrences}×</Td>

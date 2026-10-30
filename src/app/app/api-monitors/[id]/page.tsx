@@ -38,8 +38,8 @@ export default function ApiMonitorDetail() {
           <Button loading={running} onClick={async () => { setRunning(true); try { const r = await post(`/api/api-monitors/${id}/run`); toast(r.ok ? "Working" : `Failing: ${r.error}`, r.ok ? "ok" : "error"); reload(); } finally { setRunning(false); } }}><Play className="h-4 w-4" /> Check now</Button>
         </>} />
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="Worked (last 100 checks)" value={m.results.length ? `${Math.round((ok / m.results.length) * 100)}%` : "—"} tone={ok === m.results.length ? "ok" : "warn"} />
-        <Stat label="Last answer" value={m.last_status_code ?? "—"} sub={httpMeaning(m.last_status_code)} />
+        <Stat label="Worked (last 100 checks)" value={m.results.length ? `${Math.round((ok / m.results.length) * 100)}%` : "-"} tone={ok === m.results.length ? "ok" : "warn"} />
+        <Stat label="Last answer" value={m.last_status_code ?? "-"} sub={httpMeaning(m.last_status_code)} />
         <Stat label="Speed" value={ms(m.last_response_ms)} sub={m.max_response_ms ? `slow above ${m.max_response_ms} ms` : undefined} />
         <Stat label="Last check" value={timeAgo(m.last_check_at)} sub={m.last_error || undefined} />
       </div>
@@ -59,7 +59,7 @@ export default function ApiMonitorDetail() {
             <KV k="How often" v={intervalLabel(m.interval_sec)} />
             <KV k="Alerts" v={m.failure_threshold === 1 ? "On the first failure" : `After ${m.failure_threshold} failures in a row`} />
             <KV k="Retries" v={m.retries ? `${m.retries} automatic retry before counting a failure` : "None"} />
-            <KV k="Login / key headers" v={Object.keys(m.secret_headers || {}).map((k) => `${k}: ••••••`).join(", ") || "—"} mono />
+            <KV k="Login / key headers" v={Object.keys(m.secret_headers || {}).map((k) => `${k}: ••••••`).join(", ") || "-"} mono />
             {Object.keys(m.headers || {}).length > 0 && <KV k="Other headers" v={Object.keys(m.headers).join(", ")} />}
           </div>
         </Card>
@@ -72,13 +72,13 @@ export default function ApiMonitorDetail() {
               <tr className="cursor-pointer hover:bg-cream/50" onClick={() => setOpen(open === r.id ? null : r.id)}>
                 <Td className="font-mono text-xs">{fmtDate(r.at)}</Td>
                 <Td><Badge tone={r.ok ? "ok" : r.classification}>{r.ok ? "Working" : r.classification === "transient" ? "Hiccup (retried OK)" : "Failed"}</Badge></Td>
-                <Td className="font-mono text-xs">{r.status_code ?? "—"}</Td>
+                <Td className="font-mono text-xs">{r.status_code ?? "-"}</Td>
                 <Td className="font-mono text-xs">{ms(r.response_ms)}</Td>
-                <Td className="text-xs text-plum/70">{r.error || (r.status_code ? `${httpMeaning(r.status_code)} — all checks passed` : "All checks passed")}</Td>
+                <Td className="text-xs text-plum/70">{r.error || (r.status_code ? `${httpMeaning(r.status_code)} - all checks passed` : "All checks passed")}</Td>
               </tr>
               {open === r.id && (
                 <tr><Td colSpan={5} className="bg-cream/40">
-                  {r.details?.assertions?.map((a: any, i: number) => <div key={i} className={`font-mono text-[11px] ${a.ok ? "text-ok" : "text-bad"}`}>{a.ok ? "✓" : "✗"} {describeAssertion(a)} — got: {String(a.actual ?? a.error)}</div>)}
+                  {r.details?.assertions?.map((a: any, i: number) => <div key={i} className={`font-mono text-[11px] ${a.ok ? "text-ok" : "text-bad"}`}>{a.ok ? "✓" : "✗"} {describeAssertion(a)} - got: {String(a.actual ?? a.error)}</div>)}
                   {r.details?.body_sample && <pre className="mt-2 max-h-40 overflow-auto rounded-lg bg-ink p-3 text-[11px] text-sky">{r.details.body_sample}</pre>}
                 </Td></tr>
               )}

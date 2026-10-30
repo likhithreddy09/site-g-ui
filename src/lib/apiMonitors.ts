@@ -22,16 +22,16 @@ export function describeAssertion(a: any): string {
 }
 
 export function httpMeaning(code?: number | null): string {
-  if (!code) return "No response — the server couldn't be reached";
+  if (!code) return "No response - the server couldn't be reached";
   if (code < 300) return "OK";
   if (code < 400) return "Redirect";
-  if (code === 400) return "Bad request — the data sent was rejected";
-  if (code === 401) return "Not logged in — the token or key is missing or expired";
-  if (code === 403) return "Forbidden — the key doesn't have permission";
-  if (code === 404) return "Not found — the address doesn't exist (anymore)";
+  if (code === 400) return "Bad request - the data sent was rejected";
+  if (code === 401) return "Not logged in - the token or key is missing or expired";
+  if (code === 403) return "Forbidden - the key doesn't have permission";
+  if (code === 404) return "Not found - the address doesn't exist (anymore)";
   if (code === 405) return "Wrong method for this address";
-  if (code === 429) return "Too many requests — rate limited";
-  if (code >= 500) return "Server error — the backend crashed or is down";
+  if (code === 429) return "Too many requests - rate limited";
+  if (code >= 500) return "Server error - the backend crashed or is down";
   return `HTTP ${code}`;
 }
 

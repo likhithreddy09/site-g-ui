@@ -21,7 +21,7 @@
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Softer than Tailwind defaults — less heavy type across the site */
+  /* Softer than Tailwind defaults - less heavy type across the site */
   --font-weight-medium: 400;
   --font-weight-semibold: 500;
   --font-weight-bold: 600;

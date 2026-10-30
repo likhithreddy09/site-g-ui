@@ -91,7 +91,7 @@ function ErrorsInner() {
       {current ? <RecheckPanel key={current.id} site={current} onDone={reload} /> : !!sites?.length && (
         <Card className="mb-6 flex flex-wrap items-center gap-3 px-5 py-4">
           <RefreshCw className="h-5 w-5 text-magenta" />
-          <div className="flex-1 text-sm"><span className="font-semibold text-ink">Re-check a website now.</span> <span className="text-plum/65">We open it in a real browser and list any errors — no script needed.</span></div>
+          <div className="flex-1 text-sm"><span className="font-semibold text-ink">Re-check a website now.</span> <span className="text-plum/65">We open it in a real browser and list any errors - no script needed.</span></div>
           <div className="flex flex-wrap gap-2">
             {sites.slice(0, 6).map((s) => <button key={s.id} onClick={() => { setSite(s.id); setPage(1); }} className="flex items-center gap-1.5 rounded-full bg-cream-2 px-3 py-1.5 text-xs text-plum hover:bg-magenta hover:text-white"><Globe className="h-3.5 w-3.5" /> {s.name}</button>)}
           </div>
@@ -100,7 +100,7 @@ function ErrorsInner() {
 
       {loading && !data ? <Loading rows={4} /> : !data?.items.length ? (
         <Empty icon={<Bug className="h-6 w-6" />} title={status === "active" ? "No open errors" : "Nothing here"}
-          body={<>Click <b>Re-check now</b> above to test a website right away{current ? <> — or <Link href={`/app/websites/${current.id}?tab=script`} className="text-magenta hover:underline">install the visitor script</Link> to hear about errors real people hit</> : <>, and install the visitor script from a website → <b>Browser errors</b> tab</>}.</>} />
+          body={<>Click <b>Re-check now</b> above to test a website right away{current ? <> - or <Link href={`/app/websites/${current.id}?tab=script`} className="text-magenta hover:underline">install the visitor script</Link> to hear about errors real people hit</> : <>, and install the visitor script from a website → <b>Browser errors</b> tab</>}.</>} />
       ) : (
         <SoftBusy busy={refreshing}>
         <Card>
@@ -156,7 +156,7 @@ function ErrorPager({ page, pages, total, perPage, onPage }: { page: number; pag
   const btn = "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2.5 text-xs font-medium text-plum/70 transition hover:bg-plum/5 disabled:pointer-events-none disabled:opacity-40";
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-plum/8 px-5 py-3">
-      <p className="text-xs text-plum/60">Showing {start}–{end} of {total}</p>
+      <p className="text-xs text-plum/60">Showing {start}-{end} of {total}</p>
       <div className="flex items-center gap-1">
         <button type="button" className={btn} disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="Previous page"><ChevronLeft className="h-4 w-4" /> Previous</button>
         {pageWindow(page, pages).map((n, i) => n === "…"

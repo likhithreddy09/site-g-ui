@@ -13,8 +13,8 @@ const SITES = [
 ] as const;
 
 const BEATS = [
-  { t: "09:42", label: "Detected", body: "Contact form journey fails at “Thank you” — before anyone emails you." },
-  { t: "09:43", label: "Evidence", body: "Screenshot, console TypeError, and a 500 from the form endpoint — attached." },
+  { t: "09:42", label: "Detected", body: "Contact form journey fails at “Thank you” - before anyone emails you." },
+  { t: "09:43", label: "Evidence", body: "Screenshot, console TypeError, and a 500 from the form endpoint - attached." },
   { t: "10:11", label: "Closed", body: "Theme rolled back. Check passes. The client never had to call." },
 ] as const;
 
@@ -40,7 +40,7 @@ export function Showcase() {
 
       <div className="overflow-hidden rounded-[2rem] bg-ink text-cream">
         <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
-          {/* Radar — product metaphor, not a fake dashboard */}
+          {/* Radar - product metaphor, not a fake dashboard */}
           <div className="relative border-b border-white/10 px-6 py-10 sm:px-10 sm:py-12 lg:border-b-0 lg:border-r">
             <p className="text-[12px] uppercase tracking-[0.2em] text-cream/45">Portfolio signal</p>
             <h2 className="mt-3 max-w-md text-2xl font-medium leading-snug tracking-tight sm:text-3xl">
@@ -76,7 +76,7 @@ export function Showcase() {
                   return <line key={d} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="rgba(250,246,237,0.08)" strokeWidth="1" />;
                 })}
 
-                {/* SVG rotate around center — reliable (CSS transform-origin breaks when SVG scales) */}
+                {/* SVG rotate around center - reliable (CSS transform-origin breaks when SVG scales) */}
                 {!reduce && (
                   <g clipPath="url(#radar-clip)">
                     <g>
@@ -143,7 +143,7 @@ export function Showcase() {
             </p>
           </div>
 
-          {/* Morning story — one column, no card grid */}
+          {/* Morning story - one column, no card grid */}
           <div className="flex flex-col justify-between px-6 py-10 sm:px-10 sm:py-12">
             <div>
               <p className="text-[12px] uppercase tracking-[0.2em] text-cream/45">This morning</p>

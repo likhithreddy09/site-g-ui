@@ -110,8 +110,8 @@ function WebsitesInner() {
                 <Td dense className="whitespace-nowrap font-mono text-xs">{pct(s.uptime_24h)}</Td>
                 <Td dense className="whitespace-nowrap">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">SSL</span>{s.ssl ? <Badge tone={certTone(s.ssl.status, s.ssl.days_left)}>{s.ssl.days_left != null ? expiryLabel(s.ssl.days_left, "badge") : s.ssl.status}</Badge> : <span className="text-plum/40">—</span>}</div>
-                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">Domain</span>{s.domain ? <Badge tone={certTone(s.domain.status, s.domain.days_left)}>{s.domain.days_left != null ? expiryLabel(s.domain.days_left, "badge") : s.domain.status}</Badge> : <span className="text-plum/40">—</span>}</div>
+                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">SSL</span>{s.ssl ? <Badge tone={certTone(s.ssl.status, s.ssl.days_left)}>{s.ssl.days_left != null ? expiryLabel(s.ssl.days_left, "badge") : s.ssl.status}</Badge> : <span className="text-plum/40">-</span>}</div>
+                    <div className="flex items-center gap-1.5"><span className="w-11 text-[10px] uppercase tracking-wide text-plum/40">Domain</span>{s.domain ? <Badge tone={certTone(s.domain.status, s.domain.days_left)}>{s.domain.days_left != null ? expiryLabel(s.domain.days_left, "badge") : s.domain.status}</Badge> : <span className="text-plum/40">-</span>}</div>
                   </div>
                 </Td>
                 <Td dense onClick={(e) => e.stopPropagation()}>
@@ -124,7 +124,7 @@ function WebsitesInner() {
         </SoftBusy>
       )}
       <Modal open={adding} onClose={() => setAdding(false)} title="Add a website" subtitle="We'll validate the URL and run the first check immediately.">
-        <WebsiteForm onCancel={() => setAdding(false)} onSaved={(s) => { setAdding(false); toast(`Added ${s.name} — first check: ${s.status}`); router.push(`/app/websites/${s.id}`); }} />
+        <WebsiteForm onCancel={() => setAdding(false)} onSaved={(s) => { setAdding(false); toast(`Added ${s.name} - first check: ${s.status}`); router.push(`/app/websites/${s.id}`); }} />
       </Modal>
       <Modal open={importing} onClose={() => setImporting(false)} title="Import websites from CSV" subtitle="Columns: url, name, client, environment, interval_sec, labels. Missing clients are created automatically." wide>
         <div className="space-y-4">

@@ -4,9 +4,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Privacy Policy — Watchfront Website Monitoring",
-  description: "Watchfront privacy policy: what personal data we collect for website monitoring, why, how long we keep it, and Dodo Payments payment data — for agencies in India.",
+  title: "Privacy policy | Watchfront",
+  description: "What data Watchfront collects, why we need it, how long we keep it, and how payments through Dodo Payments are handled.",
   path: "/privacy",
+  keywords: ["Watchfront privacy policy", "privacy"],
 });
 
 export default function PrivacyPage() {

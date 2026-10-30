@@ -12,12 +12,12 @@ import { timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";
 
 const CATEGORIES: Record<string, { label: string; tone: string; hint: string }> = {
-  health: { label: "Health", tone: "active", hint: "Health / readiness / ping endpoints — best first monitors" },
+  health: { label: "Health", tone: "active", hint: "Health / readiness / ping endpoints - best first monitors" },
   auth: { label: "Auth", tone: "major", hint: "Login, signup, token or session endpoints" },
   graphql: { label: "GraphQL", tone: "info", hint: "GraphQL or GQL endpoints" },
   api: { label: "Read API", tone: "active", hint: "GET requests the site makes to load data" },
   form: { label: "Form", tone: "changed", hint: "Form submissions" },
-  write: { label: "Write / POST", tone: "degraded", hint: "Non-GET requests — monitoring them sends that request on every check" },
+  write: { label: "Write / POST", tone: "degraded", hint: "Non-GET requests - monitoring them sends that request on every check" },
 };
 
 const SOURCE_LABEL: Record<string, string> = {
@@ -39,7 +39,7 @@ function loginJourney(site: any, lg: any) {
     if (lg.submit_selector) steps.push({ action: "click", selector: lg.submit_selector, description: lg.submit_text ? `Click “${lg.submit_text}”` : "Submit" });
     steps.push({ action: "assert_not_visible", selector: lg.password_selector, description: "Login form is gone after signing in" });
   }
-  return { name: `Login — ${host}`, start_url: lg.page_url, website_id: site.id, steps, interval_sec: 3600 };
+  return { name: `Login - ${host}`, start_url: lg.page_url, website_id: site.id, steps, interval_sec: 3600 };
 }
 
 export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonitorsChange?: () => void }) {
@@ -128,7 +128,7 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
   const watchRecommended = async () => {
     const items = recommended.filter((e) => !e.added && e.method === "GET");
     if (!items.length) {
-      toast("Nothing recommended left to add — try selecting endpoints manually");
+      toast("Nothing recommended left to add - try selecting endpoints manually");
       return;
     }
     setPicked(new Set(items.map((e) => e.key)));
@@ -185,7 +185,7 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
                 <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-plum/60">
                   <span>{disc.pages_done || 0} pages</span>
                   <span>{disc.endpoints_found || 0} endpoints found</span>
-                  <span className="text-plum/45">Usually 30–90 seconds</span>
+                  <span className="text-plum/45">Usually 30-90 seconds</span>
                 </div>
               </div>
             ) : (
@@ -280,8 +280,8 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
             {shown.length === 0 ? (
               <p className="px-5 py-6 text-sm text-plum/60">
                 {filter === "recommended"
-                  ? "No strong recommendations yet — try All, or scan again after browsing more of the site."
-                  : "No endpoints in this category. Sites that render everything on the server make few API calls — monitor their key pages with content checks instead."}
+                  ? "No strong recommendations yet - try All, or scan again after browsing more of the site."
+                  : "No endpoints in this category. Sites that render everything on the server make few API calls - monitor their key pages with content checks instead."}
               </p>
             ) : (
               <Table head={[
@@ -300,7 +300,7 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
                       <div className="flex flex-wrap items-center gap-2">
                         <span className={cn("rounded-md px-1.5 py-0.5 font-mono text-[10px] font-semibold", e.method === "GET" ? "bg-teal/10 text-teal" : "bg-gold/20 text-[#8a5b00]")}>{e.method}</span>
                         <span className="font-mono text-xs text-plum/55">{e.host}</span>
-                        {e.auth_required && <span title="Sent with an Authorization header — add it as a secret header"><Lock className="h-3.5 w-3.5 text-magenta" /></span>}
+                        {e.auth_required && <span title="Sent with an Authorization header - add it as a secret header"><Lock className="h-3.5 w-3.5 text-magenta" /></span>}
                         {e.recommend && <Badge tone="active" className="normal-case"><Star className="h-2.5 w-2.5" /> Suggested</Badge>}
                         {e.source === "openapi" && <Badge tone="info" className="normal-case">{SOURCE_LABEL.openapi}</Badge>}
                       </div>
@@ -333,18 +333,18 @@ export function DiscoveryPanel({ site, onMonitorsChange }: { site: any; onMonito
             {endpoints.some((e) => e.auth_required) && (
               <div className="flex items-start gap-2 border-t border-plum/8 px-5 py-3 text-xs text-plum/60">
                 <ShieldAlert className="mt-0.5 h-3.5 w-3.5 text-magenta" />
-                Endpoints with a lock were called with credentials. Header values are never recorded — add a test token as a secret header when you configure the monitor.
+                Endpoints with a lock were called with credentials. Header values are never recorded - add a test token as a secret header when you configure the monitor.
               </div>
             )}
           </Card>
         </>
       )}
 
-      <Modal open={!!configure} onClose={() => setConfigure(null)} title="Configure API monitor" subtitle="Prefilled from discovery — adjust checks, headers, and schedule before saving." wide>
+      <Modal open={!!configure} onClose={() => setConfigure(null)} title="Configure API monitor" subtitle="Prefilled from discovery - adjust checks, headers, and schedule before saving." wide>
         {configure && <ApiMonitorForm initial={configure} onSaved={() => { setConfigure(null); toast("API monitor created"); reload(); onMonitorsChange?.(); }} />}
       </Modal>
       <Modal open={!!journey} onClose={() => setJourney(null)} title="Create login journey" subtitle="Prefilled from the detected login form. Enter test-account credentials before saving." wide>
-        {journey && <JourneyBuilder initial={journey} onSaved={() => { setJourney(null); toast("Login journey saved as a draft — run it from User journeys"); }} />}
+        {journey && <JourneyBuilder initial={journey} onSaved={() => { setJourney(null); toast("Login journey saved as a draft - run it from User journeys"); }} />}
       </Modal>
     </div>
   );

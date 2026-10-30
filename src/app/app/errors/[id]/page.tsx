@@ -44,7 +44,7 @@ const fileOf = (u: string) => { try { const x = new URL(u); return { host: x.hos
 
 function Breadcrumbs({ ev, message }: { ev: any; message: string }) {
   const crumbs: any[] = ev?.crumbs || [];
-  if (!crumbs.length) return <p className="px-5 py-6 text-sm text-plum/60">No steps recorded for this occurrence. Steps are captured by the latest error script — re-copy the snippet if the site uses an old one.</p>;
+  if (!crumbs.length) return <p className="px-5 py-6 text-sm text-plum/60">No steps recorded for this occurrence. Steps are captured by the latest error script - re-copy the snippet if the site uses an old one.</p>;
   return (
     <ol className="relative space-y-0 px-5 py-4">
       {crumbs.map((c, i) => {
@@ -132,7 +132,7 @@ export default function ErrorDetail() {
   const pages = Object.entries(e.pages || {}).sort((a: any, b: any) => b[1] - a[1]).map(([p]) => p).filter((p) => p.startsWith("http")).slice(0, 3);
   const setStatus = async (status: string) => {
     setData(await patch(`/api/errors/${id}`, { status }));
-    toast(status === "resolved" ? "Marked as fixed — it reopens automatically if it comes back" : status === "ignored" ? "Ignored — it won't alert again" : "Reopened");
+    toast(status === "resolved" ? "Marked as fixed - it reopens automatically if it comes back" : status === "ignored" ? "Ignored - it won't alert again" : "Reopened");
   };
   const recheck = async () => {
     if (!e.website?.id) return;
@@ -141,9 +141,9 @@ export default function ErrorDetail() {
     try {
       const r: any = await post(`/api/websites/${e.website.id}/recheck`, { urls: pages });
       if (r.status === "failed") setVerdict({ tone: "bad", text: `The re-check couldn't finish: ${r.error}` });
-      else if (r.found.some((f: any) => f.group_id === id)) setVerdict({ tone: "bad", text: `Still happening — we saw it again just now on ${r.found.filter((f: any) => f.group_id === id).map((f: any) => f.page.replace(/^https?:\/\//, "")).join(", ")}.` });
-      else if (r.fixed.some((f: any) => f.group_id === id)) setVerdict({ tone: "ok", text: "Looks fixed — it didn't happen on any of the pages, so we marked it resolved. If it comes back, it reopens automatically." });
-      else setVerdict({ tone: "info", text: `It didn't happen in our browser on ${r.pages.length} page${r.pages.length > 1 ? "s" : ""}. Real visitors reported it, so it stays open — it may only happen on certain browsers, devices, after a click, or when logged in. Check the steps below.` });
+      else if (r.found.some((f: any) => f.group_id === id)) setVerdict({ tone: "bad", text: `Still happening - we saw it again just now on ${r.found.filter((f: any) => f.group_id === id).map((f: any) => f.page.replace(/^https?:\/\//, "")).join(", ")}.` });
+      else if (r.fixed.some((f: any) => f.group_id === id)) setVerdict({ tone: "ok", text: "Looks fixed - it didn't happen on any of the pages, so we marked it resolved. If it comes back, it reopens automatically." });
+      else setVerdict({ tone: "info", text: `It didn't happen in our browser on ${r.pages.length} page${r.pages.length > 1 ? "s" : ""}. Real visitors reported it, so it stays open - it may only happen on certain browsers, devices, after a click, or when logged in. Check the steps below.` });
       reload();
     } catch (er: any) {
       toast(er.message, "error");
@@ -181,7 +181,7 @@ export default function ErrorDetail() {
 
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Times it happened" value={e.count} sub={e.origins ? [e.origins.visitors && `${e.origins.visitors} from visitors`, e.origins.recheck && `${e.origins.recheck} in re-checks`].filter(Boolean).join(" · ") : undefined} />
-        <Stat label="Visitors affected" value={e.users || (e.origins?.visitors ? "—" : 0)} sub={e.users ? `across ${Object.keys(e.pages || {}).length} page${Object.keys(e.pages || {}).length === 1 ? "" : "s"}` : "counted by the latest error script"} tone={e.users > 10 ? "bad" : "default"} />
+        <Stat label="Visitors affected" value={e.users || (e.origins?.visitors ? "-" : 0)} sub={e.users ? `across ${Object.keys(e.pages || {}).length} page${Object.keys(e.pages || {}).length === 1 ? "" : "s"}` : "counted by the latest error script"} tone={e.users > 10 ? "bad" : "default"} />
         <Stat label="First seen" value={timeAgo(e.first_seen)} sub={e.first_release ? `in release ${e.first_release}` : fmtDate(e.first_seen)} />
         <Stat label="Last seen" value={timeAgo(e.last_seen)} sub={e.regressed_at ? `came back ${timeAgo(e.regressed_at)}` : e.last_release ? `release ${e.last_release}` : undefined} />
       </div>

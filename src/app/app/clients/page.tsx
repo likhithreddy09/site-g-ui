@@ -266,7 +266,7 @@ export default function ClientsPage() {
                         )}
                         {otherClient && !checked && (
                           <span className="mt-0.5 block text-[11px] text-plum/50">
-                            Currently on {otherClient} — checking moves it here
+                            Currently on {otherClient} - checking moves it here
                           </span>
                         )}
                       </span>

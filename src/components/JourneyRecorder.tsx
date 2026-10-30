@@ -27,7 +27,7 @@ const QUICK_VALUES = [
   { label: "Unique test email", value: "{{email}}" },
   { label: "Test name", value: "Watchfront Test" },
   { label: "Test phone", value: "9999999999" },
-  { label: "Test message", value: "Automated website check — please ignore." },
+  { label: "Test message", value: "Automated website check - please ignore." },
 ];
 
 const stepIcon = (a: string) =>
@@ -60,7 +60,7 @@ export function JourneyRecorder({ onClose, onSaved, defaultWebsiteId }: { onClos
 
   const fail = (e: any) => {
     if (e instanceof ApiError && e.status === 410) {
-      setErr("The recording session timed out after 10 minutes of inactivity. Your steps are kept — click “Finish & save”, or start again.");
+      setErr("The recording session timed out after 10 minutes of inactivity. Your steps are kept - click “Finish & save”, or start again.");
     } else setErr(e.message);
   };
 
@@ -155,7 +155,7 @@ export function JourneyRecorder({ onClose, onSaved, defaultWebsiteId }: { onClos
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <Select label="Website" value={websiteId} onChange={(e) => { setWebsiteId(e.target.value); setStartUrl(sites?.find((s) => s.id === e.target.value)?.url || ""); }}>
-                <option value="">— choose —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                <option value="">- choose -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </Select>
               <Input label="Page to start on" value={startUrl} onChange={(e) => setStartUrl(e.target.value)} placeholder="https://client.com/contact" />
             </div>
@@ -339,7 +339,7 @@ function ActionMenu({ info, state, onAct, onClose }: { info: Info; state: State;
 
 function SaveStep({ steps, startUrl, websiteId, defaultName, onBack, onSaved }: { steps: Step[]; startUrl: string; websiteId: string; defaultName: string; onBack: () => void; onSaved: (t: any) => void }) {
   const host = (() => { try { return new URL(startUrl).host; } catch { return ""; } })();
-  const [name, setName] = useState(`${defaultName} — ${host}`);
+  const [name, setName] = useState(`${defaultName} - ${host}`);
   const [interval, setInterval_] = useState(3600);
   const [alertAfter, setAlertAfter] = useState(2);
   const submits = steps.some((s) => s.action === "fill") && steps.some((s) => s.action === "click" || s.action === "press");
@@ -396,7 +396,7 @@ function SaveStep({ steps, startUrl, websiteId, defaultName, onBack, onSaved }: 
             <p className="mb-3 text-xs text-plum/70">Each run submits the form for real. Only say yes if submissions go to a test inbox, test mode, or are easy to ignore (we use a unique <span className="font-mono">watchfront-test+…@example.com</span> email and add an <span className="font-mono">x-watchfront-test</span> header your developer can filter on).</p>
             <div className="grid gap-2 sm:grid-cols-2">
               <button onClick={() => setSafe("yes")} className={cn("rounded-xl px-3 py-2.5 text-left text-sm ring-1", safe === "yes" ? "bg-teal text-white ring-teal" : "bg-white ring-plum/10")}>Yes, it&apos;s safe to submit</button>
-              <button onClick={() => setSafe("unsure")} className={cn("rounded-xl px-3 py-2.5 text-left text-sm ring-1", safe === "unsure" ? "bg-plum text-cream ring-plum" : "bg-white ring-plum/10")}>Not sure — save as a draft for now</button>
+              <button onClick={() => setSafe("unsure")} className={cn("rounded-xl px-3 py-2.5 text-left text-sm ring-1", safe === "unsure" ? "bg-plum text-cream ring-plum" : "bg-white ring-plum/10")}>Not sure - save as a draft for now</button>
             </div>
           </div>
         )}

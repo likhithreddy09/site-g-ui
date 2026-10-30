@@ -61,7 +61,7 @@ export function useApi<T = any>(path: string | null, opts: { poll?: number } = {
     const hasData = dataRef.current != null;
 
     if (changed && hasData) {
-      // Tab / filter switch — keep previous content, show Updating…
+      // Tab / filter switch - keep previous content, show Updating…
       load("soft");
     } else {
       if (changed) {

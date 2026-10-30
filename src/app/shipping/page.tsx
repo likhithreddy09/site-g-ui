@@ -4,9 +4,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Shipping & Delivery Policy",
-  description: "Watchfront is a digital SaaS product. This page explains how access is delivered after purchase — there is no physical shipping.",
+  title: "Shipping and delivery | Watchfront",
+  description: "Watchfront is software delivered online. There is no physical shipping - this page explains how access works after you subscribe.",
   path: "/shipping",
+  keywords: ["Watchfront delivery", "digital delivery"],
 });
 
 export default function ShippingPage() {

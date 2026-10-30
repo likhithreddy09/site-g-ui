@@ -63,7 +63,7 @@ export default function CheckDetail() {
   };
   const review = async (chid: string, decision: "issue" | "dismiss") => {
     await post(`/api/visual-changes/${chid}/review`, { decision });
-    toast(decision === "issue" ? "Reported as a problem — an incident was opened" : "Ignored this time");
+    toast(decision === "issue" ? "Reported as a problem - an incident was opened" : "Ignored this time");
     reload();
   };
 
@@ -85,7 +85,7 @@ export default function CheckDetail() {
             <div className="text-sm text-plum/75">{latest?.error ? friendlyPageError(latest.error) : status.text}</div>
           </div>
           <div className="text-right text-xs text-plum/60">
-            <div>Last checked {timeAgo(c.last_check_at) || "—"}</div>
+            <div>Last checked {timeAgo(c.last_check_at) || "-"}</div>
             <div>{freqLabel(c.interval_sec)}</div>
           </div>
         </div>

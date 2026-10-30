@@ -14,10 +14,10 @@ import { useApi } from "@/lib/hooks";
 type Mode = "menu" | "discover" | "templates" | "manual" | "file" | "csv";
 
 const OPTIONS: { id: Mode; icon: any; title: string; body: string; who: string }[] = [
-  { id: "discover", icon: Radar, title: "Find them automatically", body: "We browse the site, capture live API traffic, and pull OpenAPI / Swagger specs when present. Recommended endpoints are ready to watch in one click.", who: "Easiest — no technical knowledge needed" },
+  { id: "discover", icon: Radar, title: "Find them automatically", body: "We browse the site, capture live API traffic, and pull OpenAPI / Swagger specs when present. Recommended endpoints are ready to watch in one click.", who: "Easiest - no technical knowledge needed" },
   { id: "templates", icon: Sparkles, title: "Start from a template", body: "Health, auth, and marketing-site API packs for startups and agencies. Paste your base URL and create monitors in one click.", who: "Fastest for common SaaS setups" },
   { id: "manual", icon: PenLine, title: "Add one by hand", body: "Type the address, or paste a cURL command copied from the browser or terminal.", who: "For a single endpoint" },
-  { id: "file", icon: FileJson, title: "Import Postman / OpenAPI", body: "Upload a Postman collection, OpenAPI (Swagger) spec, or a HAR file exported from browser DevTools.", who: "For developers — add many at once" },
+  { id: "file", icon: FileJson, title: "Import Postman / OpenAPI", body: "Upload a Postman collection, OpenAPI (Swagger) spec, or a HAR file exported from browser DevTools.", who: "For developers - add many at once" },
   { id: "csv", icon: FileSpreadsheet, title: "Upload a spreadsheet", body: "Fill in our sample sheet in Excel or Google Sheets (one API per row) and upload it as CSV.", who: "For teams handing over a list" },
 ];
 
@@ -59,7 +59,7 @@ export function AddApiMonitors({ onClose, onDone }: { onClose: () => void; onDon
           <div className="mx-auto max-w-6xl space-y-5">
             <div className="max-w-sm">
               <Select label="Which website?" value={siteId} onChange={(e) => setSiteId(e.target.value)}>
-                <option value="">— choose a website —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                <option value="">- choose a website -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </Select>
             </div>
             {site ? <DiscoveryPanel key={site.id} site={site} onMonitorsChange={onDone} /> : <p className="text-sm text-plum/60">Choose a website to scan. You can add websites from the Websites page.</p>}
@@ -106,7 +106,7 @@ function TemplatePacks({ sites, onDone }: { sites: any[]; onDone: () => void }) 
       <div className="grid gap-4 sm:grid-cols-2">
         <Input label="API base URL" value={base} onChange={(e) => setBase(e.target.value)} placeholder="https://api.yourapp.com" />
         <Select label="Attach to website (optional)" value={websiteId} onChange={(e) => setWebsiteId(e.target.value)}>
-          <option value="">— none —</option>
+          <option value="">- none -</option>
           {sites.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
         </Select>
       </div>
@@ -158,7 +158,7 @@ function ManualAdd({ onSaved }: { onSaved: () => void }) {
         <div className="mt-2 flex justify-end"><Button size="sm" variant="secondary" disabled={!curl.trim()} onClick={read}>Fill in the form</Button></div>
       </div>
       <div className="rounded-2xl bg-white p-6 ring-1 ring-plum/10">
-        <ApiMonitorForm key={n} initial={prefill || undefined} onSaved={() => { toast("API monitor added — first check in a few seconds"); onSaved(); }} />
+        <ApiMonitorForm key={n} initial={prefill || undefined} onSaved={() => { toast("API monitor added - first check in a few seconds"); onSaved(); }} />
       </div>
     </div>
   );
@@ -232,7 +232,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
         {result.failed.length > 0 && (
           <div className="rounded-xl bg-bad/8 p-3 text-sm text-bad">
             <b>{result.failed.length} couldn&apos;t be added:</b>
-            <ul className="mt-1 list-disc pl-5">{result.failed.map((f: any, i: number) => <li key={i}>{f.row ? `Row ${f.row} — ` : ""}{f.name}: {f.error}</li>)}</ul>
+            <ul className="mt-1 list-disc pl-5">{result.failed.map((f: any, i: number) => <li key={i}>{f.row ? `Row ${f.row} - ` : ""}{f.name}: {f.error}</li>)}</ul>
           </div>
         )}
         <div className="flex justify-end gap-2">
@@ -253,7 +253,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
           {csv && (
             <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-sky/10 p-5 ring-1 ring-sky/30">
               <div className="text-sm text-plum/80">
-                <div className="font-semibold text-ink">Step 1 — download the sample sheet</div>
+                <div className="font-semibold text-ink">Step 1 - download the sample sheet</div>
                 Open it in Excel or Google Sheets, keep the first row, and add one API per row. Only <b>url</b> is required.
                 <div className="mt-1 font-mono text-[11px] text-plum/60">name · method · url · expected_status · max_response_ms · check_every_minutes · headers · body · must_contain · website</div>
               </div>
@@ -264,7 +264,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
             onDrop={(e) => { e.preventDefault(); setDrag(false); loadFile(e.dataTransfer.files?.[0]); }}
             className={cn("flex cursor-pointer flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed bg-white p-10 text-center transition", drag ? "border-magenta bg-magenta/5" : "border-plum/15 hover:border-magenta/40")}>
             <Upload className="h-8 w-8 text-magenta" />
-            <div className="font-semibold text-ink">{csv ? "Step 2 — upload your CSV" : "Drop your file here, or click to choose"}</div>
+            <div className="font-semibold text-ink">{csv ? "Step 2 - upload your CSV" : "Drop your file here, or click to choose"}</div>
             <div className="text-xs text-plum/60">{csv ? "Save as .csv from Excel or Google Sheets (File → Download → CSV)." : "Postman collection (.json), OpenAPI / Swagger (.json), or HAR (.har)"}</div>
             {fileName && <div className="text-xs text-teal">{fileName}</div>}
             <input ref={fileRef} type="file" className="hidden" accept={csv ? ".csv,text/csv" : ".json,.har,application/json"} onChange={(e) => loadFile(e.target.files?.[0])} />
@@ -294,7 +294,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-xl font-semibold text-ink">Found {items.length} API{items.length === 1 ? "" : "s"} <span className="text-sm font-normal text-plum/55">in {fileName || "your paste"} · {({ postman: "Postman collection", openapi: "OpenAPI spec", har: "HAR file", csv: "CSV sheet", curl: "cURL" } as any)[parsed.format]}</span></h2>
-              <p className="text-xs text-plum/60">GET requests are pre-selected. Others send a real request on every check — only tick them if that&apos;s safe.</p>
+              <p className="text-xs text-plum/60">GET requests are pre-selected. Others send a real request on every check - only tick them if that&apos;s safe.</p>
             </div>
             <Button variant="ghost" size="sm" onClick={() => { setParsed(null); setContent(""); setFileName(""); }}>Choose another file</Button>
           </div>
@@ -344,7 +344,7 @@ function ImportPanel({ csv, sites, onDone, onClose }: { csv: boolean; sites: any
           <div className="flex flex-wrap items-end gap-4 rounded-2xl bg-white p-5 ring-1 ring-plum/10">
             {!csv && (
               <div className="w-56"><Select label="Link to website (optional)" value={siteId} onChange={(e) => setSiteId(e.target.value)}>
-                <option value="">— none —</option>{sites.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                <option value="">- none -</option>{sites.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </Select></div>
             )}
             <div className="w-44"><Select label="Check every" value={interval} onChange={(e) => setInterval_(Number(e.target.value))}>

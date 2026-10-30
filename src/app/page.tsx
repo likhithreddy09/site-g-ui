@@ -13,12 +13,12 @@ import { SITE, abs } from "@/lib/site";
 const MODULES = [
   ["Portfolio & client management", "/use-cases/web-agencies", "Group every client website in one workspace with labels, notes, and per-client health."],
   ["Uptime & response time", "/features/uptime-monitoring", "Scheduled HTTP checks with retries, failure thresholds, and confirmed-outage incidents."],
-  ["SEO audit", "/features/seo-audit", "Multi-page crawl of titles, meta, headings, canonicals and social tags — scored with a fix list."],
-  ["SSL & domain expiry", "/features/ssl-domain-monitoring", "Certificate validity, HTTPS redirects, and registry expiry — unknown is shown as unknown."],
+  ["SEO audit", "/features/seo-audit", "Multi-page crawl of titles, meta, headings, canonicals and social tags - scored with a fix list."],
+  ["SSL & domain expiry", "/features/ssl-domain-monitoring", "Certificate validity, HTTPS redirects, and registry expiry - unknown is shown as unknown."],
   ["Content & visual changes", "/features/visual-regression-testing", "Expected text, required elements, broken links, and screenshot baselines with ignored regions."],
   ["Browser error monitoring", "/features/javascript-error-monitoring", "A lightweight script groups JavaScript errors by fingerprint, page, browser, and release."],
   ["API monitoring", "/features/api-monitoring", "Scheduled endpoint checks with encrypted secrets and assertions, plus real-visitor API failures."],
-  ["Form & journey testing", "/features/form-journey-testing", "Real-browser journeys that fill forms, click, and assert outcomes — with safety guards."],
+  ["Form & journey testing", "/features/form-journey-testing", "Real-browser journeys that fill forms, click, and assert outcomes - with safety guards."],
   ["Incident management", "/features", "Grouping, severity, assignment, notes, reopen-on-recurrence, and false-positive review."],
   ["AI-assisted diagnosis", "/features", "Evidence-grounded summaries that separate observations from hypotheses."],
   ["Client reporting", "/features/client-reports", "Branded, shareable reports with uptime, incidents, actions taken, and explicit coverage."],
@@ -91,7 +91,7 @@ export default function Home() {
         </Reveal>
         <Stagger className="mt-14 grid gap-6 md:grid-cols-3" stagger={0.1}>
           {[
-            ["01", "See the whole portfolio every morning.", "Uptime, SSL, failing journeys, and new browser errors across every client — on one screen."],
+            ["01", "See the whole portfolio every morning.", "Uptime, SSL, failing journeys, and new browser errors across every client - on one screen."],
             ["02", "Tests work the routine checks.", "Scheduled journeys submit test forms, click booking buttons, and verify success messages for you."],
             ["03", "Share the evidence.", "Incidents carry screenshots, logs, and timelines. Reports turn them into something a client understands."],
           ].map(([n, t, d]) => (
@@ -116,7 +116,7 @@ export default function Home() {
           <Stagger className="mt-6 grid gap-5 md:grid-cols-3" stagger={0.12}>
             {[
               ["1", "Observed", "The journey test fails at “Assert text: Thank you”. Screenshot, console exception, and a 500 from the form endpoint are attached."],
-              ["2", "Explained", "AI lists observations with evidence references, then hypotheses labelled by confidence — and the evidence it doesn't have."],
+              ["2", "Explained", "AI lists observations with evidence references, then hypotheses labelled by confidence - and the evidence it doesn't have."],
               ["3", "Resolved", "Your developer fixes it, monitoring confirms recovery, and the resolution note flows into the client report."],
             ].map(([n, t, d]) => (
               <StaggerItem key={n} variant="scale">
@@ -133,7 +133,7 @@ export default function Home() {
       <section id="pricing" className="mx-auto mt-28 max-w-6xl px-6">
         <Reveal>
           <h2 className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Fair INR pricing for Indian teams.</h2>
-          <p className="mt-4 max-w-2xl text-base text-plum-2">Starter ₹999 · Growth ₹2,499 · Agency ₹4,999. Enterprise is a booked call — no surprise fees.</p>
+          <p className="mt-4 max-w-2xl text-base text-plum-2">Starter ₹999 · Growth ₹2,499 · Agency ₹4,999. Enterprise is a booked call - no surprise fees.</p>
         </Reveal>
         <Stagger className="mt-12 grid gap-5 md:grid-cols-4" stagger={0.07}>
           {PLANS.map((p) => (
@@ -191,7 +191,7 @@ export default function Home() {
         <Stagger className="mt-10 grid gap-5 md:grid-cols-3" stagger={0.1}>
           {[
             ["Your portfolio", "Start monitoring free", "Add websites, group them by client, and get alerts that come with evidence.", "/register"],
-            ["Agencies with 10–50 sites", "Start free trial", "24 hours on the full product — continue on a paid plan if it fits.", "/register"],
+            ["Agencies with 10-50 sites", "Start free trial", "24 hours on the full product - continue on a paid plan if it fits.", "/register"],
             ["Already have an account", "Open your dashboard", "Pick up where you left off.", "/login"],
           ].map(([k, t, d, h]) => (
             <StaggerItem key={t} variant="scale">

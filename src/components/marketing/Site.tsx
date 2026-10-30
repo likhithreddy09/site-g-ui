@@ -1,14 +1,21 @@
-import { ArrowRight, ChevronDown, ChevronRight, Menu } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { CtaPrimaryLink, FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
-import { FEATURES, USE_CASES, audience, type Faq } from "@/lib/marketing";
-import { breadcrumbLd } from "@/lib/seo";
+import { ScrollProgress } from "@/components/landing/ScrollProgress";
+import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
+import { FEATURES, USE_CASES, audience } from "@/lib/marketing";
 import { SITE } from "@/lib/site";
 
-export function JsonLd({ data }: { data: object | object[] }) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
-}
+export { JsonLd } from "@/components/marketing/SiteJsonLd";
+export {
+  Breadcrumbs,
+  PageHero,
+  FaqList,
+  CtaBand,
+  MotionGrid,
+  MotionTile,
+  MotionSection,
+} from "@/components/marketing/MarketingUi";
 
 function NavMenu({ label, items, all }: { label: string; items: { href: string; name: string; short?: string }[]; all?: [string, string] }) {
   return (
@@ -60,7 +67,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       </div>
       {banner && (
         <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
-          1-day free trial — try Watchfront, keep going on a paid plan if you like it.{" "}
+          1-day free trial - try Watchfront, keep going on a paid plan if you like it.{" "}
           <Link href="/register" className="link-underline ml-1 font-medium">Start free →</Link>
         </div>
       )}
@@ -102,7 +109,7 @@ export function SiteFooter() {
           © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
           {SITE.gstin ? ` · GSTIN ${SITE.gstin}` : ""}
         </span>
-        <span>We don&apos;t promise zero downtime — we promise you&apos;ll know first.</span>
+        <span>We don&apos;t promise zero downtime - we promise you&apos;ll know first.</span>
       </div>
     </footer>
   );
@@ -111,78 +118,16 @@ export function SiteFooter() {
 
 export function MarketingShell({ children, banner = false }: { children: React.ReactNode; banner?: boolean }) {
   return (
-    <div className="bg-white">
+    <div className="relative min-h-screen bg-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(155,27,103,0.09),transparent_55%),radial-gradient(ellipse_at_90%_20%,rgba(143,211,244,0.14),transparent_45%)]"
+      />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-plum focus:px-4 focus:py-2 focus:text-cream">Skip to content</a>
+      <ScrollProgress />
       <SiteHeader banner={banner} />
-      <main id="main">{children}</main>
+      <main id="main" className="pb-16">{children}</main>
       <SiteFooter />
     </div>
-  );
-}
-
-export function Breadcrumbs({ items }: { items: [string, string][] }) {
-  return (
-    <>
-      <JsonLd data={breadcrumbLd(items)} />
-      <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-sm text-plum-2">
-        {items.map(([name, path], i) => (
-          <span key={path} className="flex items-center gap-1">
-            {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-plum/30" />}
-            {i < items.length - 1 ? <Link href={path} className="hover:text-magenta">{name}</Link> : <span aria-current="page" className="text-ink">{name}</span>}
-          </span>
-        ))}
-      </nav>
-    </>
-  );
-}
-
-export function PageHero({ eyebrow, title, intro, crumbs, children }: { eyebrow?: string; title: string; intro: string; crumbs?: [string, string][]; children?: React.ReactNode }) {
-  return (
-    <section className="mx-auto max-w-6xl px-4 pb-8 pt-10 sm:px-6 sm:pb-12 sm:pt-14">
-      {crumbs && <Breadcrumbs items={crumbs} />}
-      {eyebrow && <p className="text-[15px] font-medium text-magenta">{eyebrow}</p>}
-      <h1 className="mt-3 max-w-4xl text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl md:text-6xl">{title}</h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-plum-2 sm:mt-6 sm:text-lg md:text-xl">{intro}</p>
-      {children}
-    </section>
-  );
-}
-
-export function FaqList({ faqs, title = "Frequently asked questions" }: { faqs: Faq[]; title?: string }) {
-  return (
-    <section className="mx-auto mt-24 max-w-3xl px-6" aria-labelledby="faq">
-      <h2 id="faq" className="text-3xl font-semibold tracking-tight text-ink md:text-4xl">{title}</h2>
-      <div className="mt-8 divide-y divide-plum/10 border-y border-plum/10">
-        {faqs.map((f) => (
-          <details key={f.q} className="group py-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium text-ink [&::-webkit-details-marker]:hidden">
-              <h3>{f.q}</h3><ChevronDown className="h-5 w-5 shrink-0 text-plum/50 transition group-open:rotate-180" />
-            </summary>
-            <p className="mt-3 text-[15px] leading-relaxed text-plum-2">{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function CtaBand({ title = "Start with one website.", body = "Free for 3 websites. No credit card, nothing to install." }: { title?: string; body?: string }) {
-  return (
-    <section className="mx-auto mt-24 max-w-6xl px-6">
-      <div className="relative overflow-hidden rounded-[2rem] bg-plum px-8 py-14 text-cream md:px-14">
-        <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-magenta/40 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-sky/20 blur-3xl" />
-        <div className="relative flex flex-wrap items-center justify-between gap-8">
-          <div>
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
-            <p className="mt-3 text-lg text-cream/75">{body}</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <CtaPrimaryLink className="rounded-full bg-cream px-7 py-3.5 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-sky" />
-            <Link href="/contact#book" className="rounded-full px-7 py-3.5 font-medium text-cream ring-1 ring-cream/30 transition hover:bg-white/10">Book a call</Link>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }

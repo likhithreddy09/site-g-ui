@@ -250,7 +250,7 @@ export function SeoAuditPanel({
                             : typeof p.score === "number" && p.score >= 60 ? "bg-gold/15 ring-gold/30 text-ink"
                               : "bg-bad/10 ring-bad/20 text-bad",
                         )}>
-                          {typeof p.score === "number" ? p.score : "—"}
+                          {typeof p.score === "number" ? p.score : "-"}
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="flex items-center gap-1.5">

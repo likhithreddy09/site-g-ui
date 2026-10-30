@@ -218,7 +218,7 @@ function Team({ ws }: { ws: any }) {
         </Card>
       </SoftBusy>
       <Card className="mt-6 p-5 text-sm text-plum/75">
-        <b className="text-ink">Roles.</b> <b>Owner</b> — billing & everything. <b>Admin</b> — settings, team, deletes. <b>Member</b> — create & manage monitors, incidents, reports. <b>Client viewer</b> — read-only access limited to their assigned clients&apos; websites, incidents, and reports.
+        <b className="text-ink">Roles.</b> <b>Owner</b> - billing & everything. <b>Admin</b> - settings, team, deletes. <b>Member</b> - create & manage monitors, incidents, reports. <b>Client viewer</b> - read-only access limited to their assigned clients&apos; websites, incidents, and reports.
       </Card>
       <Modal open={!!inv} onClose={() => !inviting && setInv(null)} title="Invite to workspace" subtitle="If they don't have an account yet, they'll join when they sign up with this email.">
         {inv && (
@@ -294,7 +294,7 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
-        <CardHeader title="Channels" subtitle={ws.smtp_configured ? "SMTP configured — emails are delivered." : "SMTP not configured — emails are logged on the server (see Delivery log)."} />
+        <CardHeader title="Channels" subtitle={ws.smtp_configured ? "SMTP configured - emails are delivered." : "SMTP not configured - emails are logged on the server (see Delivery log)."} />
         <div className="space-y-4 p-5">
           <ErrorBox error={error} />
           <ChipInput
@@ -313,12 +313,12 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
             {" "}and set a unique notification sound for that filter. Critical/major also set high-priority headers.
           </div>
           <div className="rounded-2xl bg-cream/60 p-4 text-sm text-plum-2 ring-1 ring-plum/8">
-            <div className="font-medium text-ink">WhatsApp alerts — coming soon</div>
+            <div className="font-medium text-ink">WhatsApp alerts - coming soon</div>
             <p className="mt-1 text-xs leading-relaxed">
-              Today alerts go by email only. WhatsApp notifications are on the roadmap — we&apos;ll announce when they&apos;re ready.
+              Today alerts go by email only. WhatsApp notifications are on the roadmap - we&apos;ll announce when they&apos;re ready.
             </p>
           </div>
-          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" hint="Optional. For your own systems — not Slack/Teams." />
+          <Input label="Generic webhook (JSON POST)" value={f.webhook_url} onChange={(e) => setF({ ...f, webhook_url: e.target.value })} placeholder="https://your-system.com/hooks/watchfront" hint="Optional. For your own systems - not Slack/Teams." />
         </div>
       </Card>
       <Card>
@@ -410,7 +410,7 @@ function Branding({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
       <Card className="overflow-hidden">
         <div className="px-8 py-8 text-white" style={{ background: allowed ? b.primary_color : "#9b1b67" }}>
           <div className="flex items-center gap-3">{allowed && b.logo_url ? <img src={b.logo_url} alt="" className="h-9 rounded bg-white/90 p-1" /> : <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/20 font-semibold">{(allowed && b.company_name || ws.name)[0]}</span>}<span className="font-semibold">{allowed && b.company_name || ws.name}</span></div>
-          <div className="mt-8 text-2xl font-semibold">Website health report — Preview</div>
+          <div className="mt-8 text-2xl font-semibold">Website health report - Preview</div>
         </div>
         <div className="p-6 text-sm text-plum/60">Report preview with your branding.{!allowed && " Watchfront attribution is shown on lower plans."}</div>
       </Card>

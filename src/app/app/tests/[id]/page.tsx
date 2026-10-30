@@ -66,7 +66,7 @@ export default function TestDetail() {
       {blocked && <div className="mb-5 rounded-2xl bg-gold/15 px-5 py-3 text-sm text-[#6b4700] ring-1 ring-gold/40">This journey submits a form. Edit the journey and confirm the safety policy before it can run.</div>}
 
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="Pass rate (last 30)" value={passRate != null ? `${passRate}%` : "—"} tone={passRate == null ? "default" : passRate >= 95 ? "ok" : passRate >= 80 ? "warn" : "bad"} />
+        <Stat label="Pass rate (last 30)" value={passRate != null ? `${passRate}%` : "-"} tone={passRate == null ? "default" : passRate >= 95 ? "ok" : passRate >= 80 ? "warn" : "bad"} />
         <Stat label="Last run" value={timeAgo(t.last_run_at)} sub={t.runs[0]?.trigger} />
         <Stat label="Last duration" value={ms(t.last_duration_ms)} />
         <Stat label="Schedule" value={t.paused ? "Paused" : `${t.interval_sec >= 3600 ? t.interval_sec / 3600 + "h" : t.interval_sec / 60 + "m"}`} sub={`${t.retries} retries · incident after ${t.failure_threshold}`} />
@@ -115,7 +115,7 @@ export default function TestDetail() {
                         className={`rounded-xl px-3 py-2 text-sm ${s.ok === false ? "bg-bad/8 ring-1 ring-bad/20" : s.skipped ? "opacity-40" : "bg-cream/70"}`}>
                         <div className="flex items-center justify-between gap-3">
                           <span className="flex items-center gap-2">
-                            <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${s.ok === false ? "bg-bad text-white" : s.skipped ? "bg-plum/15" : "bg-ok text-white"}`}>{s.ok === false ? "✗" : s.skipped ? "–" : "✓"}</span>
+                            <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${s.ok === false ? "bg-bad text-white" : s.skipped ? "bg-plum/15" : "bg-ok text-white"}`}>{s.ok === false ? "✗" : s.skipped ? "-" : "✓"}</span>
                             <span className="text-ink" title={s.selector || undefined}>{s.index === 0 && !s.description ? "Open the start page" : describeStep(s)}</span>
                           </span>
                           <span className="font-mono text-[11px] text-plum/50">{s.duration_ms != null ? ms(s.duration_ms) : ""}</span>
@@ -152,7 +152,7 @@ export default function TestDetail() {
                   <div className="max-h-64 space-y-1 overflow-auto p-4 font-mono text-[11px] scrollbar-thin">
                     {!run.network_failures?.length && !run.blocked_requests?.length && <span className="text-plum/40">No failed requests.</span>}
                     {run.network_failures?.map((n: any, i: number) => <div key={i} className="text-ink"><span className="text-bad">{n.status || "ERR"}</span> {n.method} {n.url}</div>)}
-                    {run.blocked_requests?.map((n: any, i: number) => <div key={`b${i}`} className="text-teal">BLOCKED {n.method} {n.url} — {n.reason}</div>)}
+                    {run.blocked_requests?.map((n: any, i: number) => <div key={`b${i}`} className="text-teal">BLOCKED {n.method} {n.url} - {n.reason}</div>)}
                   </div>
                 </Card>
               </div>

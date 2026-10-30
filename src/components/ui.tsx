@@ -270,7 +270,7 @@ export function KV({ k, v, mono }: { k: string; v: React.ReactNode; mono?: boole
   return (
     <div className="flex items-start justify-between gap-4 py-2 text-sm">
       <span className="text-plum/55">{k}</span>
-      <span className={cn("text-right text-ink", mono && "font-mono text-[13px]")}>{v ?? "—"}</span>
+      <span className={cn("text-right text-ink", mono && "font-mono text-[13px]")}>{v ?? "-"}</span>
     </div>
   );
 }
@@ -340,7 +340,7 @@ export function Pager({ page, pages, total, perPage, onPage }: { page: number; p
   const btn = "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2.5 text-xs font-medium text-plum/70 transition hover:bg-plum/5 disabled:pointer-events-none disabled:opacity-40";
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-plum/8 px-5 py-3">
-      <p className="text-xs text-plum/60">Showing {start}–{end} of {total}</p>
+      <p className="text-xs text-plum/60">Showing {start}-{end} of {total}</p>
       <div className="flex items-center gap-1">
         <button type="button" className={btn} disabled={page <= 1} onClick={() => onPage(page - 1)} aria-label="Previous page"><ChevronLeft className="h-4 w-4" /> Previous</button>
         {pageWindow(page, pages).map((n, i) => n === "…"

@@ -4,7 +4,7 @@ export type SitemapEntry = {
   path: string;
   priority: number;
   changeFrequency: "weekly" | "monthly" | "yearly";
-  /** Short note for SEO audits — not rendered. */
+  /** Short note for SEO audits - not rendered. */
   seo: string;
 };
 
@@ -19,7 +19,7 @@ const featurePriority = (slug: string) =>
 export const SITEMAP_PAGES: SitemapEntry[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", seo: "Brand + agency website monitoring" },
   { path: "/features", priority: 0.95, changeFrequency: "weekly", seo: "All monitoring features hub" },
-  { path: "/features/seo-audit", priority: 0.95, changeFrequency: "weekly", seo: "Website SEO audit — multi-page on-page checks" },
+  { path: "/features/seo-audit", priority: 0.95, changeFrequency: "weekly", seo: "Website SEO audit - multi-page on-page checks" },
   ...FEATURES.filter((f) => f.slug !== "seo-audit").map((f) => ({
     path: `/features/${f.slug}`,
     priority: featurePriority(f.slug),

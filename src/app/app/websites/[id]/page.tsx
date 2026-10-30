@@ -53,7 +53,7 @@ function WebsiteDetailInner() {
         kind === "http"
           ? `Check complete: ${s.status} (${ms(s.last_response_ms)})`
           : kind === "seo"
-            ? `SEO audit complete — score ${s.seo?.score ?? "—"} (${s.seo?.grade || "—"})`
+            ? `SEO audit complete - score ${s.seo?.score ?? "-"} (${s.seo?.grade || "-"})`
             : `${kind.toUpperCase()} check complete`,
       );
     } catch (e: any) {
@@ -118,7 +118,7 @@ function WebsiteDetailInner() {
       )}
 
       <div className="mb-4 grid grid-cols-2 gap-4 lg:grid-cols-5">
-        <Stat label="Status" value={<span className="capitalize">{site.paused ? "paused" : site.status}</span>} tone={site.status === "up" ? "ok" : site.status === "down" ? "bad" : "warn"} sub={site.last_error ? shortError(site.last_error) : `HTTP ${site.last_status_code ?? "—"}`} />
+        <Stat label="Status" value={<span className="capitalize">{site.paused ? "paused" : site.status}</span>} tone={site.status === "up" ? "ok" : site.status === "down" ? "bad" : "warn"} sub={site.last_error ? shortError(site.last_error) : `HTTP ${site.last_status_code ?? "-"}`} />
         <Stat label="Response" value={ms(site.last_response_ms)} sub={`Checked ${timeAgo(site.last_check_at)}`} />
         <Stat label="Uptime 24h" value={pct(site.uptime?.["24h"])} />
         <Stat label="Uptime 7d" value={pct(site.uptime?.["7d"])} />
@@ -202,8 +202,8 @@ function WebsiteDetailInner() {
               <KV k="Retries" v={`${site.retries} × ${site.retry_delay_sec}s`} />
               <KV k="Incident after" v={`${site.failure_threshold} failed checks`} />
               <KV k="Expected codes" v={site.expected_statuses?.join(", ")} mono />
-              <KV k="Must contain" v={site.keyword_present?.join(", ") || "—"} />
-              <KV k="Must not contain" v={site.keyword_absent?.join(", ") || "—"} />
+              <KV k="Must contain" v={site.keyword_present?.join(", ") || "-"} />
+              <KV k="Must not contain" v={site.keyword_absent?.join(", ") || "-"} />
               <KV k="Next check" v={timeAgo(site.next_check_at)} />
               {site.notes && <div className="py-2 text-xs text-plum/70">{site.notes}</div>}
             </div>
@@ -334,14 +334,14 @@ function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => v
     { icon: Bug, label: "Browser errors", value: i.errors_active ?? site.counts?.error_groups ?? 0, bad: (i.errors_active || 0) > 0, tab: "script" },
     { icon: MousePointerClick, label: "Journeys", value: `${i.journeys_failing || 0}/${i.journeys_total || 0}`, bad: (i.journeys_failing || 0) > 0, tab: "monitoring" },
     { icon: Plug, label: "API monitors", value: `${i.apis_failing || 0}/${i.apis_total || 0}`, bad: (i.apis_failing || 0) > 0, tab: "monitoring" },
-    { icon: Search, label: "SEO score", value: typeof i.seo_score === "number" ? i.seo_score : "—", bad: typeof i.seo_score === "number" && i.seo_score < 60, href: `/app/seo/${site.id}` },
+    { icon: Search, label: "SEO score", value: typeof i.seo_score === "number" ? i.seo_score : "-", bad: typeof i.seo_score === "number" && i.seo_score < 60, href: `/app/seo/${site.id}` },
   ];
 
   return (
     <Card className="lg:col-span-3">
       <CardHeader
         title="Site insights"
-        subtitle="What matters on this website right now — tap through for detail"
+        subtitle="What matters on this website right now - tap through for detail"
         action={<Link href={`/app/errors?website_id=${site.id}`} className="text-xs text-magenta">All errors →</Link>}
       />
       <div className="grid gap-3 px-5 pb-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -405,7 +405,7 @@ function History({ id }: { id: string }) {
             <tr key={r.id} className="hover:bg-cream/50">
               <Td className="whitespace-nowrap font-mono text-xs">{fmtDate(r.at)}</Td>
               <Td><Badge tone={r.classification === "ok" ? "ok" : r.classification}>{r.classification}</Badge></Td>
-              <Td className="font-mono text-xs">{r.status_code ?? "—"}</Td>
+              <Td className="font-mono text-xs">{r.status_code ?? "-"}</Td>
               <Td className="font-mono text-xs">{ms(r.response_ms)}</Td>
               <Td className="font-mono text-xs">{r.attempts?.length || 1}</Td>
               <Td className="max-w-md text-xs text-plum/70">
@@ -439,7 +439,7 @@ function SslTab({ site, run, busy }: { site: any; run: (k: string) => void; busy
           <div className="divide-y divide-plum/6 px-5 py-2">
             <KV k="Status" v={<Badge tone={certTone(s.status, s.days_left)}>{typeof s.days_left === "number" && s.days_left < 0 ? "expired" : s.status}</Badge>} />
             {s.error && <KV k="Error" v={<span className="text-bad">{s.error}</span>} />}
-            <KV k={typeof s.days_left === "number" && s.days_left < 0 ? "Expired" : "Days left"} v={s.days_left == null ? "—" : expiryLabel(s.days_left, "full")} mono />
+            <KV k={typeof s.days_left === "number" && s.days_left < 0 ? "Expired" : "Days left"} v={s.days_left == null ? "-" : expiryLabel(s.days_left, "full")} mono />
             <KV k="Valid until" v={fmtDate(s.valid_to, false)} />
             <KV k="Issued" v={fmtDate(s.valid_from, false)} />
             <KV k="Subject" v={s.subject} mono />
@@ -534,7 +534,7 @@ function ScriptTab({ site, onChange }: { site: any; onChange: () => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-5">
       <Card className="lg:col-span-3">
-        <CardHeader title="Install the browser monitoring script" subtitle="Optional. Captures JavaScript crashes, failed requests, missing files and blocked content from real visitors — with the steps they took before it happened." />
+        <CardHeader title="Install the browser monitoring script" subtitle="Optional. Captures JavaScript crashes, failed requests, missing files and blocked content from real visitors - with the steps they took before it happened." />
         <div className="space-y-4 p-5">
           {script.active ? (
             <div className="flex items-start gap-3 rounded-2xl bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
@@ -559,25 +559,25 @@ function ScriptTab({ site, onChange }: { site: any; onChange: () => void }) {
             </div>
           ) : (
             <div className="rounded-2xl bg-cream/80 px-4 py-3 text-sm text-plum/75">
-              Waiting for the first visitor hit after you install the snippet — this page updates automatically.
+              Waiting for the first visitor hit after you install the snippet - this page updates automatically.
             </div>
           )}
           <ol className="list-decimal space-y-1 pl-5 text-sm text-plum/80">
             <li>Paste this snippet before <code className="font-mono text-xs">&lt;/head&gt;</code> on every page (or via your theme / tag manager).</li>
             <li>Optionally add <code className="font-mono text-xs">data-release=&quot;v1.2.3&quot;</code> so you can see which deployment introduced an error, and <code className="font-mono text-xs">data-environment=&quot;staging&quot;</code> for non-live sites.</li>
-            <li>Open any page with the snippet — we’ll mark the install here within a few seconds.</li>
+            <li>Open any page with the snippet - we’ll mark the install here within a few seconds.</li>
           </ol>
           <div className="relative rounded-2xl bg-ink p-4 pr-12 font-mono text-[12px] leading-relaxed text-sky">
             {site.snippet}
             <button onClick={() => { navigator.clipboard.writeText(site.snippet); toast("Snippet copied"); }} className="absolute right-3 top-3 rounded-lg p-1.5 text-cream/60 hover:bg-white/10 hover:text-cream"><Copy className="h-4 w-4" /></button>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            {[["~3 KB", "gzipped, loads async — no effect on page speed"], ["1 request", "errors are batched and sent together, even if 100 happen"], ["Zero noise", "browser extensions, bots and blank “Script error.” are filtered out"]].map(([k, v]) => (
+            {[["~3 KB", "gzipped, loads async - no effect on page speed"], ["1 request", "errors are batched and sent together, even if 100 happen"], ["Zero noise", "browser extensions, bots and blank “Script error.” are filtered out"]].map(([k, v]) => (
               <div key={k} className="rounded-2xl bg-cream/70 p-3"><div className="font-mono text-sm font-semibold text-ink">{k}</div><div className="mt-0.5 text-[11px] leading-snug text-plum/65">{v}</div></div>
             ))}
           </div>
           <div className="rounded-2xl bg-cream/70 p-4 text-xs leading-relaxed text-plum/75">
-            <b className="text-ink">What the script collects:</b> error message and stack trace, page address without query string, browser/OS/device, release tag, an anonymous per-tab session ID (to count affected visitors), and the last steps before the error — pages opened, buttons clicked (by their label) and requests made (method, path, status).
+            <b className="text-ink">What the script collects:</b> error message and stack trace, page address without query string, browser/OS/device, release tag, an anonymous per-tab session ID (to count affected visitors), and the last steps before the error - pages opened, buttons clicked (by their label) and requests made (method, path, status).
             <br /><b className="text-ink">Never collected:</b> what visitors type, form values, cookies, request/response bodies, auth headers or query strings. Emails, tokens and card-like numbers are also redacted on our side.
           </div>
           {can("admin") && <Button size="sm" variant="ghost" onClick={async () => { if (confirm("Rotate the site key? The old snippet will stop reporting.")) { await post(`/api/websites/${site.id}/rotate-key`); onChange(); toast("Site key rotated"); } }}>Rotate site key</Button>}
@@ -588,7 +588,7 @@ function ScriptTab({ site, onChange }: { site: any; onChange: () => void }) {
         <div className="space-y-4 p-5">
           <Toggle checked={rum.enabled ?? true} onChange={(v) => setRum({ ...rum, enabled: v })} label="Accept browser events" />
           <Toggle checked={rum.capture_api ?? true} onChange={(v) => setRum({ ...rum, capture_api: v })} label="Capture failed API requests" hint="fetch / XHR responses ≥ 400 and network errors" />
-          <Input label="Sample rate (0.01–1)" type="number" step="any" min={0.01} max={1} value={rum.sample_rate ?? 1} onChange={(e) => setRum({ ...rum, sample_rate: Number(e.target.value) })} />
+          <Input label="Sample rate (0.01-1)" type="number" step="any" min={0.01} max={1} value={rum.sample_rate ?? 1} onChange={(e) => setRum({ ...rum, sample_rate: Number(e.target.value) })} />
           <Input label="Spike alert: N times in 10 minutes" type="number" min={1} value={rum.alert_threshold ?? 10} onChange={(e) => setRum({ ...rum, alert_threshold: Number(e.target.value) })} />
           <Toggle checked={rum.alert_new ?? true} onChange={(v) => setRum({ ...rum, alert_new: v })} label="Alert on new errors" hint="Open an incident the first time a new error appears in the website's own code" />
           <Toggle checked={rum.console_errors ?? false} onChange={(v) => setRum({ ...rum, console_errors: v })} label="Also report console.error messages" hint="Re-copy the snippet after turning this on" />

@@ -77,7 +77,7 @@ export function ApiMonitorForm({ initial, onSaved }: { initial?: any; onSaved: (
         <div className="grid gap-4 md:grid-cols-2">
           <Input label="Name" value={f.name} onChange={(e) => set("name", e.target.value)} placeholder="Booking API health" />
           <Select label="Website (optional)" value={f.website_id} onChange={(e) => set("website_id", e.target.value)}>
-            <option value="">— none —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+            <option value="">- none -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </Select>
         </div>
         {f.method !== "GET" && f.method !== "HEAD" && (
@@ -96,14 +96,14 @@ export function ApiMonitorForm({ initial, onSaved }: { initial?: any; onSaved: (
           <Input label="Slow if it takes longer than (ms)" type="number" value={f.max_response_ms || ""} onChange={(e) => set("max_response_ms", Number(e.target.value))} placeholder="Off" hint="1000 ms = 1 second. Leave empty to not check speed." />
         </div>
         <div>
-          <span className="mb-1.5 block text-xs font-medium text-plum">Extra checks on the answer <span className="font-normal text-plum/45">— e.g. the response must say &quot;status&quot;: &quot;ok&quot;</span></span>
+          <span className="mb-1.5 block text-xs font-medium text-plum">Extra checks on the answer <span className="font-normal text-plum/45">- e.g. the response must say &quot;status&quot;: &quot;ok&quot;</span></span>
           <div className="space-y-2">
             {assertions.map((a, i) => (
               <div key={i} className="grid grid-cols-[170px_1fr_130px_1fr_24px] gap-2">
                 <Select value={a.type} onChange={(e) => setA(i, "type", e.target.value)}>
                   <option value="json_path">Response field</option><option value="body_contains">Response contains</option><option value="body_not_contains">Response doesn&apos;t contain</option><option value="header">Response header</option><option value="response_time">Response time (ms)</option>
                 </Select>
-                <Input value={a.path || ""} disabled={a.type.startsWith("body") || a.type === "response_time"} onChange={(e) => setA(i, "path", e.target.value)} placeholder={a.type === "header" ? "content-type" : a.type === "json_path" ? "data.status" : "—"} />
+                <Input value={a.path || ""} disabled={a.type.startsWith("body") || a.type === "response_time"} onChange={(e) => setA(i, "path", e.target.value)} placeholder={a.type === "header" ? "content-type" : a.type === "json_path" ? "data.status" : "-"} />
                 <Select value={a.op} disabled={a.type.startsWith("body")} onChange={(e) => setA(i, "op", e.target.value)}>
                   {[["equals", "equals"], ["not_equals", "is not"], ["contains", "contains"], ["exists", "exists"], ["gt", "more than"], ["lt", "less than"]].map(([o, l]) => <option key={o} value={o}>{l}</option>)}
                 </Select>

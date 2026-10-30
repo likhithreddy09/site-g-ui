@@ -30,7 +30,7 @@ const TEMPLATES: Record<string, Omit<Step, "_k">[]> = {
   "Contact form": [
     { action: "fill", selector: "input[name=name], input[name=full_name], #name", value: "Watchfront Test" },
     { action: "fill", selector: "input[type=email], input[name=email]", value: "{{email}}" },
-    { action: "fill", selector: "textarea, textarea[name=message]", value: "Automated monitoring test — please ignore." },
+    { action: "fill", selector: "textarea, textarea[name=message]", value: "Automated monitoring test - please ignore." },
     { action: "click", selector: "button[type=submit], input[type=submit]" },
     { action: "assert_text", value: "Thank you" },
   ],
@@ -112,7 +112,7 @@ export function JourneyBuilder({ initial, onSaved }: { initial?: any; onSaved: (
         <Input label="Journey name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Contact form submits" />
         <Input label="Start URL" value={startUrl} onChange={(e) => setStartUrl(e.target.value)} placeholder="https://client.com/contact" />
         <Select label="Website" value={websiteId} onChange={(e) => setWebsiteId(e.target.value)}>
-          <option value="">— none —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          <option value="">- none -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
         </Select>
       </div>
 
@@ -171,7 +171,7 @@ export function JourneyBuilder({ initial, onSaved }: { initial?: any; onSaved: (
             <Toggle checked={safety.test_mode_confirmed} onChange={(v) => setSafety({ ...safety, test_mode_confirmed: v })}
               label="I confirm submissions are safe" hint="The form uses a test inbox / test mode, or test leads are filtered or cleaned up. Required to run journeys that submit forms." />
             <Toggle checked={safety.allow_payments} onChange={(v) => setSafety({ ...safety, allow_payments: v })}
-              label="Allow payment endpoints" hint="Off by default — Stripe/PayPal/Razorpay/Square charge requests are blocked. Only enable against sandbox gateways." />
+              label="Allow payment endpoints" hint="Off by default - Stripe/PayPal/Razorpay/Square charge requests are blocked. Only enable against sandbox gateways." />
           </div>
           <div className="space-y-3">
             <ChipInput label="Block requests containing" values={safety.blocked_patterns || []} onChange={(v) => setSafety({ ...safety, blocked_patterns: v })} placeholder="/api/send-sms" hint="Requests matching any pattern are aborted." />

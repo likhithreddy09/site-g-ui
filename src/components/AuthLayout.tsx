@@ -26,7 +26,7 @@ export function AuthLayout({ title, subtitle, children }: { title: string; subti
             ))}
           </div>
           <h2 className="max-w-md text-4xl font-semibold leading-tight">Every client website. <span className="text-sky">One dashboard.</span></h2>
-          <p className="mt-4 max-w-md text-cream/70">Uptime, SSL, journeys, browser errors, and client reports — with the evidence to act.</p>
+          <p className="mt-4 max-w-md text-cream/70">Uptime, SSL, journeys, browser errors, and client reports - with the evidence to act.</p>
         </div>
       </div>
     </div>

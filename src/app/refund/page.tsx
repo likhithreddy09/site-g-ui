@@ -4,9 +4,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Refund & Cancellation Policy",
-  description: "How Watchfront handles subscription cancellations, refunds and failed payments for plans billed via Dodo Payments.",
+  title: "Refund and cancellation policy | Watchfront",
+  description: "How cancellations, refunds and failed payments work for Watchfront subscriptions billed through Dodo Payments.",
   path: "/refund",
+  keywords: ["Watchfront refund policy", "cancellation"],
 });
 
 export default function RefundPage() {
@@ -66,7 +67,7 @@ export default function RefundPage() {
                 <strong>Duplicate / failed charges:</strong> contact us with the Dodo Payments order / payment ID. Verified duplicate successful charges are refunded in full.
               </li>
               <li>
-                Refunds, once approved, are initiated via Dodo Payments and typically appear in 5–7 business days depending on your bank or UPI app.
+                Refunds, once approved, are initiated via Dodo Payments and typically appear in 5-7 business days depending on your bank or UPI app.
               </li>
             </ul>
           ),

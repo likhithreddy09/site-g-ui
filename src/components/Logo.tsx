@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-/** Radar mark — one desk watching many sites. */
+/** Radar mark - one desk watching many sites. */
 export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boolean; className?: string }) {
   const ink = light ? "#faf6ed" : "#4b2440";
   const accent = light ? "#f8e8f1" : "#9b1b67";

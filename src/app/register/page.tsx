@@ -29,7 +29,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <AuthLayout title="Start monitoring" subtitle="Create your workspace. Full access for 24 hours — then pick a plan to keep monitoring.">
+    <AuthLayout title="Start monitoring" subtitle="Create your workspace. Full access for 24 hours - then pick a plan to keep monitoring.">
       <form onSubmit={submit} className="space-y-4">
         <ErrorBox error={error} />
         <Input label="Your name" required value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} placeholder="Priya Sharma" />

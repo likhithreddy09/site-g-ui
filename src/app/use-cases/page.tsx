@@ -1,22 +1,22 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CtaBand, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
 import { USE_CASES, audience } from "@/lib/marketing";
 import { pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Website Monitoring Use Cases — Agencies, WordPress & Freelancers",
-  description:
-    "Website monitoring for web agencies, WordPress maintenance, marketing agencies and freelancers. Monitor client websites, test lead forms, and share uptime reports.",
+  title: "Who Watchfront is for | Agencies, WordPress & freelancers",
+  description: "Built for web agencies, WordPress maintainers, marketing teams and freelancers who look after client websites every week.",
   path: "/use-cases",
   keywords: [
     "website monitoring for agencies",
     "WordPress website monitoring",
     "landing page monitoring",
     "website monitoring for freelancers",
-    "monitor client websites",
   ],
+  ogTitle: "Who Watchfront is for",
+  ogDescription: "Web agencies, WordPress care plans, marketing teams and freelancers - monitor client sites without the Monday manual check.",
 });
 
 export default function UseCasesPage() {
@@ -40,24 +40,29 @@ export default function UseCasesPage() {
         crumbs={[["Home", "/"], ["Use cases", "/use-cases"]]}
         eyebrow="Who Watchfront is for"
         title="Built for teams who look after other people’s websites."
-        intro="Same product, different workflows — pick the path that matches how you work with clients."
+        intro="Same product, different workflows - pick the path that matches how you work with clients."
       />
-      <section className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2" aria-label="Use cases">
-        {USE_CASES.map((u) => (
-          <Link
-            key={u.slug}
-            href={`/use-cases/${u.slug}`}
-            className="group flex flex-col rounded-3xl bg-cream p-7 transition hover:-translate-y-1 hover:shadow-xl"
-          >
-            <p className="text-sm font-medium text-magenta">For {audience(u)}</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink group-hover:text-magenta">{u.name}</h2>
-            <p className="mt-3 flex-1 text-[15px] leading-relaxed text-plum-2">{u.description}</p>
-            <span className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-plum">
-              Read use case <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-            </span>
-          </Link>
+      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2" stagger={0.1}>
+        {USE_CASES.map((u, i) => (
+          <MotionTile key={u.slug}>
+            <Link
+              href={`/use-cases/${u.slug}`}
+              className={`group flex h-full flex-col rounded-[1.75rem] p-8 ring-1 transition hover:-translate-y-1 hover:shadow-xl ${
+                i % 2 === 0
+                  ? "bg-cream text-ink ring-plum/8 hover:ring-magenta/20"
+                  : "bg-ink text-cream ring-ink hover:ring-sky/40"
+              }`}
+            >
+              <p className={`text-sm font-medium ${i % 2 === 0 ? "text-magenta" : "text-sky"}`}>For {audience(u)}</p>
+              <h2 className={`mt-2 text-2xl font-medium tracking-tight ${i % 2 === 0 ? "group-hover:text-magenta" : "group-hover:text-sky"}`}>{u.name}</h2>
+              <p className={`mt-3 flex-1 text-[15px] leading-relaxed ${i % 2 === 0 ? "text-plum-2" : "text-cream/70"}`}>{u.description}</p>
+              <span className={`mt-6 inline-flex items-center gap-1 text-sm font-medium ${i % 2 === 0 ? "text-plum" : "text-sky"}`}>
+                Read use case <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </MotionTile>
         ))}
-      </section>
+      </MotionGrid>
       <CtaBand title="Start with one client website." body="Free for 3 websites. No credit card, nothing to install on client sites." />
     </MarketingShell>
   );

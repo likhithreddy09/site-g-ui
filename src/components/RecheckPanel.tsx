@@ -47,7 +47,7 @@ export function RecheckPanel({ site, onDone }: { site: any; onDone?: () => void 
               : clean ? `No errors on ${scan.pages.length} page${scan.pages.length > 1 ? "s" : ""}` : `${found.length} problem${found.length > 1 ? "s" : ""} on ${new Set(found.map((f) => f.page)).size} page${new Set(found.map((f) => f.page)).size > 1 ? "s" : ""}`}
           </div>
           <div className="text-xs text-plum/60">
-            {busy ? "Opening the homepage and up to 4 important pages — about 20–40 seconds." : !scan
+            {busy ? "Opening the homepage and up to 4 important pages - about 20-40 seconds." : !scan
               ? "We open the site like a visitor and record JavaScript errors, missing files and failing API calls. Works even without the script installed."
               : <>Last re-check {timeAgo(scan.at)}{scan.by ? ` by ${scan.by}` : ""} · {scan.duration_sec}s{scan.fixed?.length ? <span className="text-ok"> · {scan.fixed.length} fixed since last time</span> : null}{scan.error ? <span className="text-bad"> · {scan.error}</span> : null}</>}
           </div>
@@ -82,18 +82,18 @@ export function RecheckPanel({ site, onDone }: { site: any; onDone?: () => void 
             )}
             {scan.fixed?.length > 0 && (
               <div>
-                <div className="mb-2 text-xs font-semibold text-ok">Fixed — no longer happening (marked resolved)</div>
+                <div className="mb-2 text-xs font-semibold text-ok">Fixed - no longer happening (marked resolved)</div>
                 <ul className="space-y-1 text-xs text-plum/70">{scan.fixed.map((f: any) => <li key={f.group_id}>✓ {explainError(f).title}</li>)}</ul>
               </div>
             )}
             {scan.not_reproduced?.length > 0 && (
               <div>
                 <div className="mb-2 text-xs font-semibold text-ink">Didn&apos;t happen this time</div>
-                <p className="mb-1 text-[11px] text-plum/55">Real visitors reported these, so we leave them open — they may depend on the browser, device or login.</p>
+                <p className="mb-1 text-[11px] text-plum/55">Real visitors reported these, so we leave them open - they may depend on the browser, device or login.</p>
                 <ul className="space-y-1 text-xs text-plum/70">{scan.not_reproduced.map((f: any) => <li key={f.group_id}><Link href={`/app/errors/${f.group_id}`} className="hover:text-magenta">• {explainError(f).title}</Link></li>)}</ul>
               </div>
             )}
-            {!found.length && !scan.fixed?.length && !scan.not_reproduced?.length && scan.status === "done" && <p className="text-xs text-plum/60">Nothing to report — every page loaded without errors.</p>}
+            {!found.length && !scan.fixed?.length && !scan.not_reproduced?.length && scan.status === "done" && <p className="text-xs text-plum/60">Nothing to report - every page loaded without errors.</p>}
           </div>
         </div>
       )}

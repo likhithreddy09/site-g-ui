@@ -4,9 +4,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Terms of Service — Watchfront Website Monitoring",
-  description: "Terms for using Watchfront website monitoring and automated QA for agencies, including INR billing via Dodo Payments.",
+  title: "Terms of service | Watchfront",
+  description: "The terms that apply when you create a Watchfront account or use the service, including billing in INR.",
   path: "/terms",
+  keywords: ["Watchfront terms", "terms of service"],
 });
 
 export default function TermsPage() {
@@ -87,7 +88,7 @@ export default function TermsPage() {
           body: (
             <p>
               We work hard to keep {SITE.name} reliable, but monitoring can&apos;t guarantee that every issue on every website will be detected.
-              {SITE.name} is a tool to help you find problems sooner — not a guarantee against downtime or loss.
+              {SITE.name} is a tool to help you find problems sooner - not a guarantee against downtime or loss.
             </p>
           ),
         },

@@ -29,7 +29,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
         try {
           const st = await api<any>(`/api/billing/orders/${orderId}`);
           if (st.paid) {
-            toast(`Payment received — plan is now ${String(st.workspace_plan || "").replace("_", " ")}`);
+            toast(`Payment received - plan is now ${String(st.workspace_plan || "").replace("_", " ")}`);
             await refresh();
             reloadPlans();
             onSaved(await api("/api/workspace"));
@@ -90,18 +90,18 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       {locked && (
         <Card className="mb-4 border border-bad/25 bg-bad/5 p-4 text-sm text-ink sm:p-5">
           <div className="font-semibold text-bad">
-            {lockReason === "subscription_ended" ? "Plan expired — renew to continue" : "Trial ended — unlock to continue"}
+            {lockReason === "subscription_ended" ? "Plan expired - renew to continue" : "Trial ended - unlock to continue"}
           </div>
           <p className="mt-1 text-plum-2">
             {lockReason === "subscription_ended"
               ? "Your 30-day access window ended. Pay again below to restore monitoring for another 30 days."
-              : "Your 24-hour free trial is over. Choose a plan below — each payment unlocks 30 days of access."}
+              : "Your 24-hour free trial is over. Choose a plan below - each payment unlocks 30 days of access."}
           </p>
         </Card>
       )}
       {trialActive && !locked && (
         <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum sm:p-5">
-          You&apos;re on a <b className="text-ink">24-hour free trial</b> with full Growth features. Pick a plan anytime — payment unlocks <b className="text-ink">30 days</b> of access.
+          You&apos;re on a <b className="text-ink">24-hour free trial</b> with full Growth features. Pick a plan anytime - payment unlocks <b className="text-ink">30 days</b> of access.
         </Card>
       )}
       {billingActive && !locked && paidUntil && (
@@ -138,7 +138,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
             ))}
           </div>
           {billing?.mode === "test" && (
-            <p className="mt-3 text-xs text-plum/55">Test mode — use Dodo test cards / UPI VPAs. No real money is charged.</p>
+            <p className="mt-3 text-xs text-plum/55">Test mode - use Dodo test cards / UPI VPAs. No real money is charged.</p>
           )}
         </Card>
       )}
@@ -203,7 +203,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       <p className="mt-4 text-xs text-plum/55">
         {paymentsOn
           ? <>Payments via Dodo Payments in INR. See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>.</>
-          : "Payments are not configured yet — plan switches are free until billing is enabled."}
+          : "Payments are not configured yet - plan switches are free until billing is enabled."}
       </p>
       <p className="mt-2 text-xs text-plum/55">
         Need Enterprise? <a className="underline hover:text-magenta" href="/contact#book">Book a call</a>.

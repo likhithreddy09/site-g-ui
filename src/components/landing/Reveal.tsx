@@ -34,6 +34,7 @@ export function Reveal({
   as: Tag = "div",
   variant = "up",
   once = true,
+  id,
 }: {
   children: React.ReactNode;
   delay?: number;
@@ -41,16 +42,18 @@ export function Reveal({
   as?: "div" | "section" | "li" | "article";
   variant?: keyof typeof variants;
   once?: boolean;
+  id?: string;
 }) {
   const reduce = useReducedMotion();
   const MotionTag = motion[Tag];
 
   if (reduce) {
-    return <Tag className={className}>{children}</Tag>;
+    return <Tag id={id} className={className}>{children}</Tag>;
   }
 
   return (
     <MotionTag
+      id={id}
       className={className}
       variants={variants[variant]}
       initial="hidden"

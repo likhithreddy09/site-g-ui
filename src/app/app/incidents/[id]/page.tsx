@@ -102,7 +102,7 @@ export default function IncidentDetail() {
                       <div className="space-y-1">
                         {e.run.infra && (
                           <div className="mb-2 rounded-lg bg-gold/20 px-2.5 py-2 text-[11px] text-[#8a5b00]">
-                            Worker infrastructure error — not a failure on the client website. Browser was unavailable on our side.
+                            Worker infrastructure error - not a failure on the client website. Browser was unavailable on our side.
                           </div>
                         )}
                         {e.run.steps?.map((s: any) => (
@@ -163,8 +163,8 @@ export default function IncidentDetail() {
           <Card>
             <CardHeader title="Details" />
             <div className="divide-y divide-plum/6 px-5 py-2">
-              <KV k="Website" v={inc.website ? <Link href={`/app/websites/${inc.website.id}`} className="text-magenta">{inc.website.name}</Link> : "—"} />
-              <KV k="Client" v={inc.client?.name || "—"} />
+              <KV k="Website" v={inc.website ? <Link href={`/app/websites/${inc.website.id}`} className="text-magenta">{inc.website.name}</Link> : "-"} />
+              <KV k="Client" v={inc.client?.name || "-"} />
               <KV k="Source" v={inc.source_type.replace("_", " ")} />
               <KV k="First detected" v={fmtDate(inc.started_at)} />
               <KV k="Last detected" v={timeAgo(inc.last_detected_at)} />
@@ -182,7 +182,7 @@ export default function IncidentDetail() {
                 onAssign={async (email) => {
                   await update(
                     email ? { assignee_email: email, assignee_id: null } : { assignee_id: null, assignee_email: null },
-                    email ? `Assigned to ${email} — email sent` : "Unassigned",
+                    email ? `Assigned to ${email} - email sent` : "Unassigned",
                   );
                 }}
               />
@@ -268,7 +268,7 @@ function AssigneePicker({
     <div className="space-y-2">
       <Select
         label="Assignee"
-        hint="Pick a teammate — they get an email with a link to this incident."
+        hint="Pick a teammate - they get an email with a link to this incident."
         value={value || ""}
         disabled={saving}
         onChange={(e) => {

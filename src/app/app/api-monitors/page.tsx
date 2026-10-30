@@ -203,7 +203,7 @@ export default function ApiMonitorsPage() {
                             {m.last_status_code ? <span className="font-mono">{m.last_status_code} </span> : null}
                             {m.status === "down" && m.last_error ? m.last_error : httpMeaning(m.last_status_code)}
                           </span>
-                        ) : "—"}
+                        ) : "-"}
                       </Td>
                       <Td className="font-mono text-xs">{ms(m.last_response_ms)}</Td>
                       <Td className="whitespace-nowrap text-xs text-plum/60">{timeAgo(m.last_check_at) || "not yet"}</Td>
@@ -229,7 +229,7 @@ function FoundFromScan({ scans, siteId, onSite, onChange }: { scans: any[]; site
   return (
     <div className="space-y-5">
       <Card className="p-5">
-        <div className="text-sm font-semibold text-ink">Endpoints found — nothing is being watched yet</div>
+        <div className="text-sm font-semibold text-ink">Endpoints found - nothing is being watched yet</div>
         <p className="mt-1 max-w-2xl text-sm text-plum/65">The scan listed backend addresses for this site. Pick the ones to watch below. They stay off the monitor list until you add them.</p>
         {scans.length > 1 && (
           <div className="mt-4 max-w-sm">

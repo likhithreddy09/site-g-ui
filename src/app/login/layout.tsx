@@ -1,9 +1,10 @@
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Sign in",
-  description: "Sign in to Watchfront to see the health of every client website, incidents and reports.",
+  title: "Sign in | Watchfront",
+  description: "Sign in to your Watchfront workspace.",
   path: "/login",
+  keywords: ["Watchfront login"],
   noindex: true,
 });
 

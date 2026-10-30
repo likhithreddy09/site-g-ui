@@ -66,7 +66,7 @@ function ReportsInner() {
         </>} />
       <div className="mb-4 w-56"><Select value={clientFilter} onChange={(e) => setClientFilter(e.target.value)}><option value="">All clients</option>{clients?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</Select></div>
       {loading && !data ? <Loading /> : !data?.length ? (
-        <Empty icon={<FileBarChart className="h-6 w-6" />} title="No reports yet" body="Reports summarize uptime, incidents, and actions taken — ready to send to a client." action={can("member") && <Button onClick={() => setGen(true)}>Generate a report</Button>} />
+        <Empty icon={<FileBarChart className="h-6 w-6" />} title="No reports yet" body="Reports summarize uptime, incidents, and actions taken - ready to send to a client." action={can("member") && <Button onClick={() => setGen(true)}>Generate a report</Button>} />
       ) : (
         <SoftBusy busy={refreshing}>
         <Card>
@@ -75,7 +75,7 @@ function ReportsInner() {
               <tr key={r.id} className="hover:bg-cream/50">
                 <Td><Link href={`/app/reports/${r.id}`} className="font-medium text-ink hover:text-magenta">{r.title}</Link></Td>
                 <Td className="text-xs">{r.client_name || "Portfolio"}</Td>
-                <Td className="whitespace-nowrap text-xs text-plum/65">{fmtDate(r.period_start, false)} – {fmtDate(r.period_end, false)}</Td>
+                <Td className="whitespace-nowrap text-xs text-plum/65">{fmtDate(r.period_start, false)} - {fmtDate(r.period_end, false)}</Td>
                 <Td className="font-mono text-xs">{pct(r.summary.uptime_pct)}</Td>
                 <Td className="font-mono text-xs">{r.summary.incidents_detected} / {r.summary.incidents_resolved} resolved</Td>
                 <Td><Badge tone={r.share_active ? "active" : "ignored"}>{r.share_active ? "active" : r.revoked ? "revoked" : "expired"}</Badge></Td>

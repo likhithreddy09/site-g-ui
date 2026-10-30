@@ -14,15 +14,15 @@ export function duration(sec: number): string {
 }
 
 export function fmtDate(iso?: string | null, withTime = true): string {
-  if (!iso) return "—";
+  if (!iso) return "-";
   const d = new Date(iso);
   return d.toLocaleString(undefined, withTime
     ? { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }
     : { year: "numeric", month: "short", day: "numeric" });
 }
 
-export const ms = (v?: number | null) => (v == null ? "—" : v >= 1000 ? `${(v / 1000).toFixed(2)}s` : `${Math.round(v)}ms`);
-export const pct = (v?: number | null, d = 2) => (v == null ? "—" : `${Number(v.toFixed(d))}%`);
+export const ms = (v?: number | null) => (v == null ? "-" : v >= 1000 ? `${(v / 1000).toFixed(2)}s` : `${Math.round(v)}ms`);
+export const pct = (v?: number | null, d = 2) => (v == null ? "-" : `${Number(v.toFixed(d))}%`);
 
 /** Human label for a certificate or domain countdown. Negative means already expired. */
 export function expiryLabel(days?: number | null, style: "badge" | "inline" | "full" = "inline"): string {
@@ -44,7 +44,7 @@ export function expiryLabel(days?: number | null, style: "badge" | "inline" | "f
 }
 
 export function expiryHeadline(days?: number | null): string {
-  if (days == null || Number.isNaN(Number(days))) return "—";
+  if (days == null || Number.isNaN(Number(days))) return "-";
   const n = Math.trunc(Number(days));
   if (n < 0) return "Expired";
   if (n === 0) return "Expires today";
@@ -61,7 +61,7 @@ export function certTone(status?: string | null, days?: number | null): string {
   return status;
 }
 
-/** Short issuer for tables. Let's Encrypt intermediates use codes like YR1 — hide those. */
+/** Short issuer for tables. Let's Encrypt intermediates use codes like YR1 - hide those. */
 export function issuerShort(issuer?: string | null): string {
   if (!issuer) return "";
   const raw = String(issuer).split(",")[0].trim();

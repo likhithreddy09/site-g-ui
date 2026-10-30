@@ -1,46 +1,77 @@
 import type { Metadata } from "next";
 import type { Faq } from "./marketing";
-import { PRIMARY_KEYWORDS } from "./seoKeywords";
 import { SITE, abs } from "./site";
 
-const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} — ${SITE.tagline}` };
+const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} - ${SITE.tagline}` };
 
+type PageMetaInput = {
+  /** Browser / SERP title. Use absolute form - do not rely on the layout template. */
+  title: string;
+  description: string;
+  path: string;
+  /** 3-6 focused phrases for this page only. Do not stuff the whole site list. */
+  keywords?: string[];
+  /** Defaults to title when omitted. */
+  ogTitle?: string;
+  /** Defaults to description when omitted. */
+  ogDescription?: string;
+  noindex?: boolean;
+};
+
+/**
+ * Per-page metadata. Titles are absolute (no "| Watchfront" double brand).
+ * Keywords stay page-specific - Google ignores stuffed meta keywords.
+ */
 export function pageMeta({
   title,
   description,
   path,
+  keywords = [],
+  ogTitle,
+  ogDescription,
   noindex,
-  keywords,
-}: {
-  title: string;
-  description: string;
-  path: string;
-  noindex?: boolean;
-  keywords?: string[];
-}): Metadata {
-  const merged = [...new Set([...(keywords || []), ...PRIMARY_KEYWORDS, ...SITE.keywords.slice(0, 8)])];
+}: PageMetaInput): Metadata {
+  const socialTitle = ogTitle || title;
+  const socialDesc = ogDescription || description;
+  const kw = [...new Set(keywords.map((k) => k.trim()).filter(Boolean))].slice(0, 8);
+
   return {
-    title,
+    title: { absolute: title },
     description,
-    keywords: merged,
-    alternates: { canonical: path },
+    keywords: kw,
+    alternates: {
+      canonical: path,
+      languages: { "en-IN": path, en: path },
+    },
     openGraph: {
       type: "website",
       url: abs(path),
       siteName: SITE.name,
-      title,
-      description,
+      title: socialTitle,
+      description: socialDesc,
       locale: "en_IN",
       images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: socialTitle,
+      description: socialDesc,
       site: SITE.twitter,
       images: [OG_IMAGE.url],
     },
-    ...(noindex && { robots: { index: false, follow: true } }),
+    robots: noindex
+      ? { index: false, follow: true }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        },
   };
 }
 

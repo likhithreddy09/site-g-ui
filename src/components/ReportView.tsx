@@ -21,11 +21,11 @@ export function ReportView({ data }: { data: any }) {
           <span className="font-mono text-xs opacity-80">Generated {fmtDate(data.generated_at)}</span>
         </div>
         <h1 className="relative mt-10 text-3xl font-semibold leading-tight md:text-4xl">{data.title}</h1>
-        <p className="relative mt-2 text-sm opacity-85">{fmtDate(data.period.start, false)} – {fmtDate(data.period.end, false)}</p>
+        <p className="relative mt-2 text-sm opacity-85">{fmtDate(data.period.start, false)} - {fmtDate(data.period.end, false)}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-px bg-plum/8 md:grid-cols-4">
-        {[["Uptime", pct(s.uptime_pct, 3)], ["Incidents detected", s.incidents_detected], ["Resolved", s.incidents_resolved], ["Avg time to resolve", s.mttr_min != null ? `${s.mttr_min} min` : "—"]].map(([k, v], i) => (
+        {[["Uptime", pct(s.uptime_pct, 3)], ["Incidents detected", s.incidents_detected], ["Resolved", s.incidents_resolved], ["Avg time to resolve", s.mttr_min != null ? `${s.mttr_min} min` : "-"]].map(([k, v], i) => (
           <motion.div key={k as string} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + i * 0.07 }} className="bg-white px-8 py-6">
             <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-plum/50">{k}</div>
             <div className="mt-1 font-mono text-3xl font-semibold text-ink">{v}</div>
@@ -74,7 +74,7 @@ export function ReportView({ data }: { data: any }) {
                     <td className="pr-4 font-mono text-xs">{ms(w.avg_response_ms)}</td>
                     <td className="pr-4 font-mono text-xs">{ms(w.p95_response_ms)}</td>
                     <td className="pr-4 font-mono text-xs">{w.incidents}</td>
-                    <td className="pr-4 text-xs">{w.ssl_days_left != null ? expiryLabel(w.ssl_days_left, "badge") : "—"}</td>
+                    <td className="pr-4 text-xs">{w.ssl_days_left != null ? expiryLabel(w.ssl_days_left, "badge") : "-"}</td>
                     <td className="text-xs">{w.domain_days_left != null ? expiryLabel(w.domain_days_left, "badge") : "No date"}</td>
                   </tr>
                 ))}

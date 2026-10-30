@@ -14,15 +14,18 @@ const RUM_SITE_KEY =
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jbmono", display: "swap" });
 
-const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} — ${SITE.tagline}` };
+const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} - ${SITE.tagline}` };
+
+const HOME_TITLE = "Watchfront | Website monitoring for agencies in India";
+const HOME_DESC = SITE.description;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
+    default: HOME_TITLE,
     template: `%s | ${SITE.name}`,
   },
-  description: SITE.description,
+  description: HOME_DESC,
   keywords: SITE.keywords,
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: SITE.url }],
@@ -38,16 +41,16 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE.name,
     url: SITE.url,
-    title: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
-    description: SITE.description,
+    title: HOME_TITLE,
+    description: HOME_DESC,
     locale: "en_IN",
     images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     site: SITE.twitter,
-    title: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
-    description: SITE.description,
+    title: HOME_TITLE,
+    description: HOME_DESC,
     images: [OG_IMAGE.url],
   },
   robots: {

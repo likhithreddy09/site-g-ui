@@ -102,7 +102,7 @@ export default function Dashboard() {
       ) : (
         <>
           <p className="mb-4 text-xs text-plum/55">
-            Plan · {planName} · {total}/{planCap ?? "—"} sites
+            Plan · {planName} · {total}/{planCap ?? "-"} sites
             {" · "}
             <Link href="/app/billing" className="text-magenta hover:underline">Manage →</Link>
           </p>
@@ -112,7 +112,7 @@ export default function Dashboard() {
               <Stat key="u" label="Uptime · 24h" value={pct(data.uptime_24h)} tone={data.uptime_24h == null ? "default" : data.uptime_24h >= 99.5 ? "ok" : data.uptime_24h >= 97 ? "warn" : "bad"}
                 sub={`${data.transient_24h} transient failures filtered`} icon={<Gauge className="h-4 w-4" />} />,
               <Stat key="i" label="Open incidents" value={(data.incident_counts.open || 0) + (data.incident_counts.investigating || 0)}
-                tone={data.incident_counts.open ? "bad" : "ok"} sub={`${data.incident_counts.investigating || 0} investigating · MTTR 7d ${data.mttr_7d_min != null ? data.mttr_7d_min + " min" : "—"}`} icon={<AlertOctagon className="h-4 w-4" />} />,
+                tone={data.incident_counts.open ? "bad" : "ok"} sub={`${data.incident_counts.investigating || 0} investigating · MTTR 7d ${data.mttr_7d_min != null ? data.mttr_7d_min + " min" : "-"}`} icon={<AlertOctagon className="h-4 w-4" />} />,
               <Stat key="r" label="Avg response" value={ms(data.avg_response_ms)} sub="Across all monitored sites" icon={<Clock className="h-4 w-4" />} />,
               <Stat key="s" label="Sites" value={<span>{by.up || 0}<span className="text-base text-plum/40">/{total}</span></span>}
                 sub={<span className="flex flex-wrap gap-2">{by.down ? <span className="text-bad">{by.down} down</span> : null}{by.degraded ? <span className="text-warn">{by.degraded} degraded</span> : null}{by.paused ? <span>{by.paused} paused</span> : null}{!by.down && !by.degraded && "All responding"}</span>}
@@ -256,14 +256,14 @@ function PortfolioHealth({ rows }: { rows: any[] }) {
               </div>
             </div>
             <div className="hidden shrink-0 text-right sm:block">
-              <div className="font-mono text-xs text-ink">{s.uptime_24h != null ? pct(s.uptime_24h) : "—"}</div>
+              <div className="font-mono text-xs text-ink">{s.uptime_24h != null ? pct(s.uptime_24h) : "-"}</div>
               <div className="font-mono text-[11px] text-plum/50">{ms(s.last_response_ms)}</div>
             </div>
             <span className="hidden shrink-0 text-[11px] font-medium text-magenta opacity-0 transition group-hover:opacity-100 sm:inline">
               Insights →
             </span>
             <span className="shrink-0 capitalize text-[11px] text-plum/55 sm:w-16 sm:text-right">
-              {s.paused ? "paused" : s.status || "—"}
+              {s.paused ? "paused" : s.status || "-"}
             </span>
           </Link>
         ))}

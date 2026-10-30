@@ -92,7 +92,7 @@ export function TrialBanner({ ws }: { ws: WorkspaceAccess | null | undefined }) 
         <div className="flex items-start gap-2 sm:items-center">
           <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-gold sm:mt-0" />
           <span>
-            <b>Free trial</b> — {formatRemaining(left)} left. Add websites and explore; unlock to keep monitoring after 24 hours.
+            <b>Free trial</b> - {formatRemaining(left)} left. Add websites and explore; unlock to keep monitoring after 24 hours.
           </span>
         </div>
         <Link href="/app/billing" className="shrink-0 rounded-full bg-cream px-3 py-1 text-xs font-medium text-ink hover:bg-sky sm:ml-auto">
@@ -106,7 +106,7 @@ export function TrialBanner({ ws }: { ws: WorkspaceAccess | null | undefined }) 
     return (
       <div className="flex flex-col gap-2 bg-gold/25 px-4 py-2.5 text-sm text-[#6b4700] sm:flex-row sm:items-center sm:gap-3 sm:px-6">
         <span>
-          <b>Plan renews soon</b> — {formatRemaining(left)} of access left. Pay again to unlock another 30 days.
+          <b>Plan renews soon</b> - {formatRemaining(left)} of access left. Pay again to unlock another 30 days.
         </span>
         <Link href="/app/billing" className="link-underline font-medium sm:ml-auto shrink-0">Renew →</Link>
       </div>
@@ -135,7 +135,7 @@ export function TrialLockOverlay({ children, reason }: { children: React.ReactNo
           <p className="mt-2 text-center text-sm leading-relaxed text-plum-2">
             {expiredSub
               ? "You can still see your dashboard, but monitoring is locked until payment is received for the next 30 days."
-              : "You can still see your dashboard, but monitoring stays locked until you choose a plan. Keep what you set up — pick Starter, Growth, or Agency to unlock."}
+              : "You can still see your dashboard, but monitoring stays locked until you choose a plan. Keep what you set up - pick Starter, Growth, or Agency to unlock."}
           </p>
           <ul className="mt-5 space-y-2 text-sm text-plum">
             {(expiredSub

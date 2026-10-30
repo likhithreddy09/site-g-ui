@@ -23,7 +23,7 @@ export default function SeoDetailPage() {
     try {
       const s = await post<any>(`/api/websites/${id}/check?kind=seo`);
       setData(s);
-      toast(`SEO audit complete — score ${s.seo?.score ?? "—"} (${s.seo?.grade || "—"})`);
+      toast(`SEO audit complete - score ${s.seo?.score ?? "-"} (${s.seo?.grade || "-"})`);
     } catch (e: any) {
       toast(e.message || "Could not run SEO audit", "error");
     } finally {

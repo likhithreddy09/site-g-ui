@@ -36,14 +36,14 @@ export function PageCheckForm({ initial, onSaved }: { initial?: any; onSaved: (c
       <div className="grid gap-4 md:grid-cols-2">
         <Input label="Name" value={f.name} onChange={(e) => set("name", e.target.value)} placeholder="Homepage hero & CTA" />
         <Select label="Website" value={f.website_id} onChange={(e) => set("website_id", e.target.value)}>
-          <option value="">— none —</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          <option value="">- none -</option>{sites?.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
         </Select>
       </div>
       <Input label="Page URL" required value={f.url} onChange={(e) => set("url", e.target.value)} placeholder="https://client.com/" />
       <ChipInput label="Expected text" values={f.expected_texts} onChange={(v) => set("expected_texts", v)} placeholder="Book a free consultation" hint="Missing text is a functional failure and opens an incident." />
       <ChipInput label="Required elements (CSS selectors)" values={f.required_selectors} onChange={(v) => set("required_selectors", v)} placeholder="form#contact, a.cta-button" />
       <div className="rounded-2xl bg-cream/60 p-4 ring-1 ring-plum/8 space-y-4">
-        <Toggle checked={f.visual_enabled} onChange={(v) => set("visual_enabled", v)} label="Visual comparison" hint="Screenshot compared against an approved baseline. A visual change is flagged for review — never treated as a functional failure automatically." />
+        <Toggle checked={f.visual_enabled} onChange={(v) => set("visual_enabled", v)} label="Visual comparison" hint="Screenshot compared against an approved baseline. A visual change is flagged for review - never treated as a functional failure automatically." />
         {f.visual_enabled && (
           <div className="grid gap-4 md:grid-cols-2">
             <Input label="Change threshold (% of pixels)" type="number" step="any" min={0.01} max={50} value={f.threshold_pct} onChange={(e) => set("threshold_pct", Number(e.target.value))} />

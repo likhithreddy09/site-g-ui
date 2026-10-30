@@ -39,14 +39,14 @@ export default function TestsPage() {
   return (
     <div>
       <PageHeader eyebrow="Automated QA" title="User journeys"
-        subtitle="Scheduled browser tests that fill forms, click buttons, and verify the outcome — with screenshots and logs when they fail."
+        subtitle="Scheduled browser tests that fill forms, click buttons, and verify the outcome - with screenshots and logs when they fail."
         action={can("member") && <>
           <Button variant="ghost" onClick={() => setCreating(true)}><Wrench className="h-4 w-4" /> Advanced builder</Button>
           <Button onClick={() => setRecording(true)}><MousePointerClick className="h-4 w-4" /> Record a journey</Button>
         </>} />
       <div className="mb-5 grid gap-3 md:grid-cols-3">
         {[
-          [MousePointerClick, "1. Record it once", "Open the client's site inside Watchfront and click through it like a visitor — no code."],
+          [MousePointerClick, "1. Record it once", "Open the client's site inside Watchfront and click through it like a visitor - no code."],
           [Repeat, "2. We repeat it for you", "A real browser replays your steps on a schedule and checks the result, with screenshots."],
           [BellRing, "3. Get told when it breaks", "If a step stops working twice in a row, you get an alert explaining which step failed."],
         ].map(([Icon, title, body]: any) => (
@@ -64,7 +64,7 @@ export default function TestsPage() {
         </Card>
       )}
       {loading && !data ? <Loading rows={4} /> : !data?.tests.length ? (
-        <Empty icon={<MousePointerClick className="h-6 w-6" />} title="No journeys yet" body="Start with your client's most important flow — usually the contact form or booking button."
+        <Empty icon={<MousePointerClick className="h-6 w-6" />} title="No journeys yet" body="Start with your client's most important flow - usually the contact form or booking button."
           action={can("member") && <Button onClick={() => setRecording(true)}><MousePointerClick className="h-4 w-4" /> Record your first journey</Button>} />
       ) : (
         <Card>
@@ -72,7 +72,7 @@ export default function TestsPage() {
             {data.tests.map((t: any) => (
               <tr key={t.id} className="hover:bg-cream/50">
                 <Td><Link href={`/app/tests/${t.id}`} className="font-medium text-ink hover:text-magenta">{t.name}</Link><div className="text-[11px] text-plum/50">{t.steps.length} steps</div></Td>
-                <Td className="text-xs">{t.website_name || "—"}</Td>
+                <Td className="text-xs">{t.website_name || "-"}</Td>
                 <Td><Badge>{t.status}</Badge></Td>
                 <Td>
                   <div className="flex gap-[2px]">

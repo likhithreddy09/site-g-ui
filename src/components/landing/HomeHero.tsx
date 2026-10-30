@@ -20,7 +20,7 @@ export function HomeHero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Soft atmospheric motion — brand colours, not purple-AI default */}
+      {/* Soft atmospheric motion - brand colours, not purple-AI default */}
       {!reduce && (
         <>
           <motion.div
@@ -63,7 +63,7 @@ export function HomeHero() {
             variants={line}
             className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink sm:mt-7 sm:text-base md:text-lg"
           >
-            Watchfront is website monitoring software for Indian agencies — uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and INR-priced client reports.
+            Watchfront is website monitoring software for Indian agencies - uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and INR-priced client reports.
           </motion.p>
           <motion.p custom={3} variants={line} className="mt-3 text-[13px] text-plum-2">
             Built for web agencies, marketing agencies, WordPress maintenance providers, and freelancers.
@@ -79,7 +79,7 @@ export function HomeHero() {
             </a>
           </motion.div>
           <motion.p custom={5} variants={line} className="mt-5 max-w-sm text-[13px] leading-relaxed text-plum-2">
-            Add a website and get your first useful result within minutes — no code required.
+            Add a website and get your first useful result within minutes - no code required.
           </motion.p>
         </motion.div>
 

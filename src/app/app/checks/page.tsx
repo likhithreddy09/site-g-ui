@@ -56,7 +56,7 @@ export default function ChecksPage() {
 
       {loading && !data ? <Loading rows={3} /> : !data?.length ? (
         <Empty icon={<ScanEye className="h-6 w-6" />} title="No pages watched yet"
-          body="Pick a client's homepage or landing page. We'll suggest what to watch — it takes about a minute."
+          body="Pick a client's homepage or landing page. We'll suggest what to watch - it takes about a minute."
           action={can("member") && <Button onClick={() => setCreating(true)}><Plus className="h-4 w-4" /> Watch your first page</Button>} />
       ) : (
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -94,7 +94,7 @@ export default function ChecksPage() {
       )}
       {creating && (
         <PageCheckWizard onClose={() => setCreating(false)}
-          onSaved={(c) => { setCreating(false); reload(); toast("Now watching this page — first check within a minute"); router.push(`/app/checks/${c.id}`); }} />
+          onSaved={(c) => { setCreating(false); reload(); toast("Now watching this page - first check within a minute"); router.push(`/app/checks/${c.id}`); }} />
       )}
     </div>
   );

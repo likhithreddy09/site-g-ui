@@ -49,7 +49,7 @@ export default function ReportDetail() {
     setCopying(true);
     try {
       const ok = await copyText(url);
-      toast(ok ? "Link copied" : "Could not copy — select the link and copy manually");
+      toast(ok ? "Link copied" : "Could not copy - select the link and copy manually");
     } finally {
       setCopying(false);
     }

@@ -61,7 +61,7 @@ export default function SeoPage() {
     setBusyId(id);
     try {
       const s = await post<any>(`/api/websites/${id}/check?kind=seo`);
-      toast(`SEO audit complete for ${name} — score ${s.seo?.score ?? "—"} (${s.seo?.grade || "—"})`);
+      toast(`SEO audit complete for ${name} - score ${s.seo?.score ?? "-"} (${s.seo?.grade || "-"})`);
       reload();
     } catch (e: any) {
       toast(e.message || "Could not run SEO audit", "error");
@@ -100,7 +100,7 @@ export default function SeoPage() {
       <PageHeader
         eyebrow="Testing & QA"
         title="SEO audits"
-        subtitle="Site-wide SEO scores from sitemap and internal pages — titles, descriptions, mobile & share previews."
+        subtitle="Site-wide SEO scores from sitemap and internal pages - titles, descriptions, mobile & share previews."
         action={can("member") && counts.pending > 0 && (
           <Button variant="secondary" loading={auditingAll} onClick={runPending}>
             <RefreshCw className="h-4 w-4" /> Audit {counts.pending} pending
@@ -113,7 +113,7 @@ export default function SeoPage() {
           <Stat label="Sites" value={counts.all} icon={<Search className="h-4 w-4" />} />
           <Stat
             label="Average score"
-            value={avgScore ?? "—"}
+            value={avgScore ?? "-"}
             sub={scored.length ? `across ${scored.length} audited` : "no audits yet"}
             tone={avgScore == null ? "default" : avgScore >= 80 ? "ok" : avgScore >= 60 ? "warn" : "bad"}
             icon={<CheckCircle2 className="h-4 w-4" />}
@@ -245,7 +245,7 @@ export default function SeoPage() {
                                 {seo.pages_checked ? `${seo.pages_checked} page${seo.pages_checked === 1 ? "" : "s"} · ` : ""}
                                 {seo.failed ? `${seo.failed} to fix` : seo.warned ? `${seo.warned} tips` : "Looking good"}
                               </>
-                            : "No audit yet — open to run one."}
+                            : "No audit yet - open to run one."}
                       </div>
                     </div>
                   </Link>
