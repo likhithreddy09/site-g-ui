@@ -4,7 +4,7 @@ import {
   CheckCircle2, CircleAlert, ExternalLink, FileSearch, Globe2, Search, XCircle,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Badge, Button, Card, SoftBusy, Stat, Toggle, cn } from "@/components/ui";
+import { Badge, Button, Card, SoftBusy, Stat, cn } from "@/components/ui";
 import { timeAgo } from "@/lib/format";
 
 export function seoTone(seo: any): "ok" | "warn" | "bad" | "unknown" | "info" {
@@ -75,13 +75,11 @@ export function SeoAuditPanel({
   busy,
   canEdit,
   onRun,
-  onToggle,
 }: {
   site: any;
   busy?: boolean;
   canEdit?: boolean;
   onRun?: () => void;
-  onToggle?: (v: boolean) => void | Promise<void>;
 }) {
   const s = site.seo;
   const embedded = !!(canEdit && onRun);
@@ -136,17 +134,6 @@ export function SeoAuditPanel({
   const visibleChecks = filter === "all" || !flagCount
     ? orderedChecks
     : orderedChecks.filter((c) => c.status !== "pass");
-
-  if (site.seo_enabled === false) {
-    return (
-      <Card className="p-6">
-        <p className="text-sm text-plum/60">SEO audit is turned off for this website (or not on your plan). Turn it on to get a daily score.</p>
-        {embedded && onToggle && (
-          <div className="mt-4"><Toggle checked={false} onChange={(v) => void onToggle(v)} label="Enable SEO audit" /></div>
-        )}
-      </Card>
-    );
-  }
 
   if (!s) {
     return (

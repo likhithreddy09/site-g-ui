@@ -6,14 +6,14 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { SeoAuditPanel } from "@/components/SeoAuditPanel";
 import { useToast } from "@/components/toast";
-import { Button, Loading, PageHeader, Toggle } from "@/components/ui";
-import { patch, post } from "@/lib/api";
+import { Button, Loading, PageHeader } from "@/components/ui";
+import { post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
 
 export default function SeoDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { data: site, reload, setData } = useApi<any>(`/api/websites/${id}`, { poll: 15000 });
+  const { data: site, setData } = useApi<any>(`/api/websites/${id}`, { poll: 15000 });
   const [busy, setBusy] = useState(false);
   const { can } = useAuth();
   const toast = useToast();
@@ -52,20 +52,9 @@ export default function SeoDetailPage() {
           </>
         }
         action={can("member") && (
-          <>
-            <Toggle
-              checked={site.seo_enabled !== false}
-              onChange={async (v) => {
-                await patch(`/api/websites/${id}`, { seo_enabled: v });
-                reload();
-                toast(v ? "SEO audit enabled" : "SEO audit disabled");
-              }}
-              label="Enabled"
-            />
-            <Button loading={busy} onClick={run} disabled={site.seo_enabled === false}>
-              <RefreshCw className="h-4 w-4" /> Run audit
-            </Button>
-          </>
+          <Button loading={busy} onClick={run}>
+            <RefreshCw className="h-4 w-4" /> Run audit
+          </Button>
         )}
       />
       <SeoAuditPanel
