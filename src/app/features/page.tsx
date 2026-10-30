@@ -7,9 +7,10 @@ import { pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Features — Uptime, SSL, Visual, Form, API & JS Error Monitoring",
-  description: "Every Watchfront feature in one place: uptime and SSL monitoring, visual regression testing, form and journey tests, API monitoring, JavaScript error tracking and client reports.",
+  title: "Website Monitoring Features — Uptime, SSL, Forms, API & JS Errors",
+  description: "Website monitoring features for agencies: uptime monitoring, SSL & domain expiry, broken link & visual checks, contact form monitoring, API monitoring, JavaScript error tracking and white-label client reports.",
   path: "/features",
+  keywords: ["website monitoring features", "uptime SSL form monitoring", "API monitoring", "JavaScript error monitoring", "client website reports"],
 });
 
 const EXTRAS = [
@@ -28,9 +29,9 @@ export default function FeaturesPage() {
       }} />
       <PageHero
         crumbs={[["Home", "/"], ["Features", "/features"]]}
-        eyebrow="Features"
+        eyebrow="Website monitoring features"
         title="Everything that can break on a client website — checked for you."
-        intro="Seven kinds of checks, one website record. Each one is designed to be set up in minutes by anyone on your team, technical or not."
+        intro="Uptime, SSL, forms, APIs, visual checks and JS errors — seven kinds of website monitoring in one record. Set up in minutes by anyone on your team."
       />
       <section className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f) => {

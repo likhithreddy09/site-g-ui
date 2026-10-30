@@ -1,9 +1,10 @@
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Start Free — Monitor 3 Websites, No Credit Card",
-  description: "Create a free Watchfront account and monitor 3 websites with uptime checks and email alerts. Set up in minutes, no credit card or code required.",
+  title: "Start Free Website Monitoring — Uptime Alerts, No Credit Card",
+  description: "Start free website monitoring for your client sites. Uptime checks, SSL monitoring and email downtime alerts — set up in minutes, no credit card or code required.",
   path: "/register",
+  keywords: ["free website monitoring", "free uptime monitoring India", "start website monitoring free"],
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {

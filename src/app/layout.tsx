@@ -13,7 +13,7 @@ const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SI
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Website Monitoring for Agencies in India`,
+    default: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE.name,
     url: SITE.url,
-    title: `${SITE.name} — Website Monitoring for Agencies in India`,
+    title: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
     description: SITE.description,
     locale: "en_IN",
     images: [OG_IMAGE],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: SITE.twitter,
-    title: `${SITE.name} — Website Monitoring for Agencies in India`,
+    title: `Watchfront — Website Monitoring for Agencies in India | Uptime, SSL & Forms`,
     description: SITE.description,
     images: [OG_IMAGE.url],
   },

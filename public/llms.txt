@@ -1,8 +1,8 @@
 # Watchfront
 
-> Website monitoring and automated QA for agencies in India.
+> Website monitoring software for agencies in India — uptime monitoring, SSL, forms, APIs, JS errors and client reports (INR pricing).
 
-Watchfront monitors uptime, SSL, domain expiry, content, visual changes, JavaScript errors, APIs, and lead forms across every client website — then turns incidents into evidence and client-ready reports.
+Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, and white-label client website uptime reports.
 
 Website: https://watchfront.in
 Pricing: https://watchfront.in/pricing

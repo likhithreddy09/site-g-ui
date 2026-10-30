@@ -52,15 +52,15 @@ export default function Home() {
       <main id="main">
 
       <section className="mx-auto max-w-6xl px-5 pb-8 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
-        <p className="animate-fade-up text-[15px] text-plum">Website monitoring & automated QA for agencies in India</p>
+        <p className="animate-fade-up text-[15px] text-plum">Website monitoring for agencies in India · Uptime, SSL, forms & reports</p>
         <h1 className="mt-4 animate-fade-up text-[2.35rem] font-semibold leading-[1.05] tracking-tight text-ink [animation-delay:80ms] sm:text-5xl md:text-[76px]">
           Know when client sites break<br />
           <span className="hl-underline text-magenta">and why they broke</span>
         </h1>
         <p className="mt-6 max-w-2xl animate-fade-up text-base leading-relaxed text-ink [animation-delay:160ms] sm:mt-8 sm:text-lg md:text-xl">
-          Watchfront monitors uptime, SSL, content, browser errors, APIs, and the forms and journeys that bring in leads — then gives your team the evidence to fix it.
+          Watchfront is website monitoring software for Indian agencies — uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and INR-priced client reports.
         </p>
-        <p className="mt-3 animate-fade-up text-[15px] text-plum-2 [animation-delay:200ms]">For web agencies, marketing agencies, and WordPress maintenance providers.</p>
+        <p className="mt-3 animate-fade-up text-[15px] text-plum-2 [animation-delay:200ms]">Built for web agencies, marketing agencies, WordPress maintenance providers, and freelancers.</p>
         <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-4 sm:mt-10 sm:gap-6 [animation-delay:260ms]">
           <CtaPrimaryLink
             className="rounded-full bg-plum px-6 py-3 text-[16px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg sm:px-7 sm:py-3.5 sm:text-[17px]"

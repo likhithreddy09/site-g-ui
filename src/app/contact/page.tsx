@@ -7,9 +7,10 @@ import { pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Contact Watchfront — Sales, Support & Book a Call",
-  description: "Talk to Watchfront about sales, support, billing or security. Book a call online — confirmation emailed instantly.",
+  title: "Contact Watchfront — Website Monitoring Sales & Support India",
+  description: "Contact Watchfront for website monitoring sales, support, billing or a demo. Book a call — confirmation emailed instantly. India phone & email support.",
   path: "/contact",
+  keywords: ["contact Watchfront", "website monitoring demo India", "agency monitoring sales"],
 });
 
 const TOPICS = [

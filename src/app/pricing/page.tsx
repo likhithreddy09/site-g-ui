@@ -6,9 +6,10 @@ import { faqLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Pricing — Website Monitoring Plans for Indian Agencies",
-  description: "Simple INR pricing. Starter ₹999 (1–3 sites), Growth ₹2,499 (4–10 sites), Agency ₹4,999 (10+). Enterprise: book a call.",
+  title: "Website Monitoring Pricing India — Plans from ₹999/mo",
+  description: "Website monitoring pricing in INR for Indian agencies. Starter ₹999 (1–3 sites), Growth ₹2,499 (4–10), Agency ₹4,999 (up to 50). Uptime, SSL, forms & reports — start free via Cashfree.",
   path: "/pricing",
+  keywords: ["website monitoring pricing India", "uptime monitoring cost INR", "website monitoring plans agencies", "Cashfree website monitoring"],
 });
 
 const inr = (n: number) =>
@@ -31,9 +32,9 @@ export default function PricingPage() {
       ]} />
       <PageHero
         crumbs={[["Home", "/"], ["Pricing", "/pricing"]]}
-        eyebrow="Pricing for India"
+        eyebrow="Website monitoring pricing · India"
         title="Simple plans. Fair INR pricing."
-        intro="Built for freelancers and agencies managing client websites. Pay monthly in rupees via Cashfree — no surprise per-check fees."
+        intro="Website monitoring for freelancers and agencies managing client websites. Pay monthly in rupees via Cashfree — uptime, SSL, forms and reports, no surprise per-check fees."
       />
 
       <section className="mx-auto grid max-w-6xl gap-4 px-4 sm:gap-5 sm:px-6 md:grid-cols-2 lg:grid-cols-4" aria-label="Plans">

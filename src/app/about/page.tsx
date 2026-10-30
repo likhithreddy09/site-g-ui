@@ -4,9 +4,10 @@ import { organizationLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "About Watchfront — Why We Build Website Monitoring for Agencies",
-  description: "Watchfront helps agencies find out about broken client websites before their clients do — with honest checks, real evidence and reports anyone can read.",
+  title: "About Watchfront — Website Monitoring Company for Indian Agencies",
+  description: "About Watchfront: website monitoring for Indian agencies. We help you catch broken client websites before clients do — uptime, SSL, forms and evidence-backed reports.",
   path: "/about",
+  keywords: ["about Watchfront", "website monitoring company India", "agency monitoring platform"],
 });
 
 const PRINCIPLES = [

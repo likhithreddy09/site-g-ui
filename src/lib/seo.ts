@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Faq } from "./marketing";
+import { PRIMARY_KEYWORDS } from "./seoKeywords";
 import { SITE, abs } from "./site";
 
 const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} — ${SITE.tagline}` };
@@ -17,10 +18,11 @@ export function pageMeta({
   noindex?: boolean;
   keywords?: string[];
 }): Metadata {
+  const merged = [...new Set([...(keywords || []), ...PRIMARY_KEYWORDS, ...SITE.keywords.slice(0, 8)])];
   return {
     title,
     description,
-    ...(keywords?.length ? { keywords } : {}),
+    keywords: merged,
     alternates: { canonical: path },
     openGraph: {
       type: "website",

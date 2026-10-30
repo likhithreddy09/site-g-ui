@@ -6,15 +6,16 @@ import { pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Use Cases — Website Monitoring for Agencies, WordPress & Freelancers",
+  title: "Website Monitoring Use Cases — Agencies, WordPress & Freelancers",
   description:
-    "See how Watchfront fits web agencies, WordPress maintenance providers, marketing teams and freelance developers — portfolio monitoring, form tests and client reports.",
+    "Website monitoring for web agencies, WordPress maintenance, marketing agencies and freelancers. Monitor client websites, test lead forms, and share uptime reports.",
   path: "/use-cases",
   keywords: [
     "website monitoring for agencies",
-    "WordPress maintenance monitoring",
-    "marketing agency landing page monitoring",
-    "freelance website monitoring",
+    "WordPress website monitoring",
+    "landing page monitoring",
+    "website monitoring for freelancers",
+    "monitor client websites",
   ],
 });
 

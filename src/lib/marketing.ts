@@ -11,10 +11,10 @@ export type UseCase = {
 export const FEATURES: Feature[] = [
   {
     slug: "uptime-monitoring", name: "Uptime & response time", short: "Know within a minute when a client site goes down — without false alarms.",
-    title: "Uptime Monitoring for Agencies — 1-Minute Checks, No False Alarms",
-    description: "Monitor every client website's uptime and response time with 1-minute checks, automatic retries and confirmed-outage alerts by email. WhatsApp alerts coming soon.",
+    title: "Uptime Monitoring Tool for Agencies — 1-Minute Checks & Downtime Alerts",
+    description: "Uptime monitoring for agencies in India. Check every client website every minute, retry before alerting, and get email downtime alerts with response-time history. WhatsApp coming soon.",
     h1: "Uptime monitoring that only wakes you for real outages",
-    intro: "Watchfront checks each website from our monitoring workers as often as every minute. A failed check is retried before anyone is alerted, so you hear about real outages — not a single slow request.",
+    intro: "Watchfront is an uptime monitoring tool built for agencies that look after many client sites. We check each website as often as every minute, retry failures before alerting, and open incidents only for real downtime — not a single slow request.",
     steps: [["Add a website", "Paste the address. We start checking it straight away — no code or plugin needed."], ["We retry before alerting", "A failure is confirmed with an automatic retry and a failure threshold you control."], ["Get an incident with evidence", "Status code, response time, error and timeline are attached, and recovery closes it automatically."]],
     benefits: ["Checks every 1–5 minutes depending on your plan", "Retries and failure thresholds prevent false alarms", "Response-time history and 24h / 7d / 30d uptime", "Email alerts today · WhatsApp coming soon", "Uptime figures flow straight into client reports"],
     faqs: [
@@ -26,10 +26,10 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "ssl-domain-monitoring", name: "SSL & domain expiry", short: "Never let a certificate or domain expire on a client again.",
-    title: "SSL Certificate & Domain Expiry Monitoring — Alerts Before It Expires",
-    description: "Track SSL certificate validity, HTTPS redirects and domain registration expiry for every client website, with alerts 30, 14 and 7 days before anything lapses.",
+    title: "SSL Certificate & Domain Expiry Monitoring for Client Websites",
+    description: "SSL certificate monitoring and domain expiry alerts for every client website. Track HTTPS redirects and get warned 30, 14 and 7 days before anything lapses — not after.",
     h1: "SSL and domain expiry monitoring for every client",
-    intro: "An expired certificate shows visitors a full-page security warning; an expired domain takes the whole site offline. Watchfront watches both and warns you well before either happens.",
+    intro: "An expired SSL certificate shows visitors a full-page security warning; an expired domain takes the whole site offline. Watchfront’s SSL certificate monitoring and domain expiry checks warn you well before either happens.",
     steps: [["Automatic discovery", "Adding a website starts SSL and domain checks automatically."], ["Daily verification", "We validate the certificate chain, hostname, expiry date and HTTPS redirect, and look up the domain's registry expiry."], ["Early warnings", "You're alerted ahead of expiry — and if a registry hides the date, we show it as unknown instead of guessing."]],
     benefits: ["Certificate expiry, issuer and hostname match", "HTTP → HTTPS redirect check", "Domain registration expiry via RDAP/WHOIS", "Warnings before expiry, not after", "Honest “unknown” when a registry doesn't publish dates"],
     faqs: [
@@ -40,8 +40,8 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "visual-regression-testing", name: "Content & visual checks", short: "Spot missing content, broken links and unexpected visual changes.",
-    title: "Visual Regression Testing & Broken Link Checker for Client Websites",
-    description: "Watch key pages for missing text, missing elements, broken links and unexpected visual changes. Point-and-click setup, screenshot comparison and one-click approval.",
+    title: "Broken Link Checker & Visual Regression Testing for Agencies",
+    description: "Broken link checker and visual regression testing for client websites. Spot missing text, layout changes and dead links with screenshot comparison — no selectors to write.",
     h1: "Content and visual checks without writing a single selector",
     intro: "Open a page in Watchfront, tick the words and parts that must always be there, and we check them on a schedule. Screenshots are compared with the version you approved, and broken links are listed in plain English.",
     steps: [["Pick what matters", "We suggest the main heading, key buttons and contact details. Click anything else on the preview to watch it."], ["We check on a schedule", "Missing text or parts open an incident. Look changes are compared against your approved screenshot."], ["You decide", "Was the change on purpose? Approve the new look, report a problem, or ignore it once."]],
@@ -54,10 +54,10 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "form-journey-testing", name: "Form & journey testing", short: "Prove contact forms, logins and booking flows still work.",
-    title: "Automated Form & User Journey Testing — Record Without Code",
-    description: "Record contact forms, logins and booking flows by clicking through the site. Watchfront replays them in a real browser on a schedule and alerts you with screenshots when a step fails.",
+    title: "Contact Form Monitoring & User Journey Testing for Agencies",
+    description: "Contact form monitoring and automated journey testing for agencies. Record forms, logins and bookings without code — replay in a real browser and get screenshots when a step fails.",
     h1: "Test the forms and journeys that bring in leads",
-    intro: "A site can be “up” while its contact form silently fails. Record the journey once by clicking through it — Watchfront replays it in a real Chromium browser and tells you exactly which step broke.",
+    intro: "A site can be “up” while its contact form silently fails. Watchfront’s contact form monitoring lets you record the journey once by clicking through it — then replays it in a real browser and tells you exactly which step broke.",
     steps: [["Record by clicking", "Open the site inside Watchfront and click through it like a visitor. Each action becomes a plain-English step."], ["Replay on a schedule", "A real browser repeats the journey hourly or daily, with retries and screenshots."], ["Know which step failed", "Alerts say “Step 3 failed — couldn't find the ‘Send’ button”, with the screenshot and console log attached."]],
     benefits: ["No-code recorder with plain-English steps", "Real Chromium browser under the hood", "Payment requests always blocked by default", "Unique test emails and a test-traffic header", "Per-step screenshots, console and network logs"],
     faqs: [
@@ -68,8 +68,8 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "api-monitoring", name: "API monitoring", short: "Check backend endpoints and integrations, not just the homepage.",
-    title: "API Monitoring — Import Postman, OpenAPI or CSV and Monitor Endpoints",
-    description: "Monitor REST APIs and third-party integrations with status, response-time and response-content checks. Discover endpoints automatically or import Postman, OpenAPI, HAR, CSV or cURL.",
+    title: "API Monitoring Tool — Postman, OpenAPI & Endpoint Checks",
+    description: "API monitoring tool for agencies: schedule REST endpoint checks, assert status and response body, and import Postman, OpenAPI, HAR, CSV or cURL. Catch backend failures the homepage misses.",
     h1: "API monitoring that's easy to set up — for developers and everyone else",
     intro: "Booking engines, form handlers and CMS endpoints fail independently of the homepage. Watchfront calls them on a schedule and checks the answer, not just the status code.",
     steps: [["Add APIs your way", "Find them automatically by scanning the site, paste a cURL command, import Postman / OpenAPI / HAR, or upload a CSV."], ["Define “working”", "Expected status codes, maximum response time, and checks on response fields or text."], ["Get told when it breaks", "Plain-English answers like “401 — the token is missing or expired”, with history and alerts."]],
@@ -82,8 +82,8 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "javascript-error-monitoring", name: "JavaScript error monitoring", short: "See the errors real visitors hit — with the steps they took before it broke.",
-    title: "JavaScript Error Monitoring for Websites — With Visitor Steps & Plain English",
-    description: "Capture JavaScript crashes, missing files and failed API calls from real visitors. Errors are grouped across browsers, counted by visitors affected, and show the clicks and pages before they happened.",
+    title: "JavaScript Error Monitoring for Client Websites — Real Visitor Evidence",
+    description: "JavaScript error monitoring for agency client sites. Capture crashes and failed API calls from real visitors, group them across browsers, and see the clicks before the bug — in plain English.",
     h1: "JavaScript error monitoring that shows what the visitor did",
     intro: "Add one ~3 KB script, or press “Re-check now” with no install. Watchfront groups the same bug across Chrome, Safari and Firefox, counts how many visitors were hit, and replays the steps they took before the crash — in language your whole team can follow.",
     steps: [["Install or re-check", "Paste a ~3 KB async script for real-visitor data, or run an on-demand re-check with no install."], ["Grouped across browsers", "The same bug is merged even when Chrome, Safari and Firefox word the message differently — with pages, devices, releases and visitors affected."], ["See the steps, then verify", "Open the clicks and requests before the crash, fix it, then re-check the pages to confirm."]],
@@ -97,10 +97,10 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "client-reports", name: "Client reports", short: "Turn monitoring into reports clients actually read.",
-    title: "White-Label Website Monitoring Reports for Agency Clients",
-    description: "Generate branded, shareable website reports with uptime, incidents, actions taken and coverage. Schedule them monthly or share a secure link in one click.",
+    title: "White Label Website Monitoring Reports for Agency Clients",
+    description: "White label website monitoring reports with uptime, incidents and fixes. Schedule monthly client website uptime reports or share a secure link — branded with your agency name.",
     h1: "Client reports that prove the value of your retainer",
-    intro: "Uptime, incidents and fixes become a clear report your client can open from a link — branded with your agency's name, and honest about exactly what was monitored.",
+    intro: "Turn monitoring into client website uptime reports your clients actually open — branded with your agency’s name (white-label on Agency), honest about coverage, and shareable without a login.",
     steps: [["Pick a client and period", "Watchfront pulls uptime, incidents, resolutions and checks automatically."], ["Add your notes", "Summarise the month in your own words alongside the data."], ["Share or schedule", "Send a secure link or schedule the report to go out every month."]],
     benefits: ["Uptime, response time and incident summaries", "Resolution notes from your team", "White-label branding on Agency", "Secure shareable links — no client login needed", "Scheduled monthly delivery"],
     faqs: [
@@ -114,10 +114,10 @@ export const FEATURES: Feature[] = [
 export const USE_CASES: UseCase[] = [
   {
     slug: "web-agencies", name: "Web agencies",
-    title: "Website Monitoring Software for Web Agencies",
-    description: "Monitor every client website from one dashboard: uptime, SSL, forms, content and errors — with incidents your developers can act on and reports your clients understand.",
+    title: "Website Monitoring for Web Agencies — One Dashboard for Every Client",
+    description: "Website monitoring for web agencies in India. Monitor client websites for uptime, SSL, forms, content and JS errors from one dashboard — with incidents your developers can fix and reports clients understand.",
     h1: "Website monitoring built for web agencies",
-    intro: "When you manage dozens of client sites, problems are found by clients first. Watchfront puts every site, journey and error on one screen — so your team hears about it first, with the evidence to fix it.",
+    intro: "When you manage dozens of client sites, problems are found by clients first. Watchfront is website monitoring software for web agencies — every site, journey and error on one screen, so your team hears about it first with the evidence to fix it.",
     pains: ["Clients report broken forms before you notice", "Checking 40 sites by hand every Monday", "Expired SSL certificates on sites you thought were fine", "Hours spent writing monthly reports"],
     outcomes: [["One portfolio view", "Every client's websites grouped, with health at a glance."], ["Evidence, not guesswork", "Screenshots, console logs and timelines on every incident."], ["Reports in one click", "Uptime and fixes turned into a link your client can open."]],
     features: ["uptime-monitoring", "form-journey-testing", "client-reports", "visual-regression-testing"],
@@ -125,10 +125,10 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "wordpress-maintenance", name: "WordPress maintenance",
-    title: "WordPress Maintenance Monitoring — Catch Broken Plugin Updates",
-    description: "Catch what WordPress plugin and theme updates break: contact forms, layouts, checkout and JavaScript errors. Visual checks and form tests run after every update.",
+    title: "WordPress Website Monitoring — Catch Broken Plugin & Theme Updates",
+    description: "WordPress website monitoring for maintenance providers. Catch what plugin and theme updates break — contact forms, layouts, checkout and JavaScript errors — before your client does.",
     h1: "Catch what plugin updates break — before your client does",
-    intro: "A routine plugin update can quietly break a contact form or a page layout. Watchfront checks the forms, content and look of every WordPress site you maintain, so problems surface right after the update.",
+    intro: "A routine WordPress plugin update can quietly break a contact form or layout. Watchfront’s WordPress website monitoring checks forms, content and look on every site you maintain, so problems surface right after the update.",
     pains: ["Plugin updates that silently break forms", "Layout shifts nobody notices for weeks", "Clients asking “is the site OK?”", "No proof of the work in your care plan"],
     outcomes: [["Forms tested on schedule", "Contact Form 7, Gravity Forms, WPForms — any form, tested in a real browser."], ["Visual changes flagged", "Screenshots compared with the version you approved."], ["Care-plan reports", "Show clients the checks, uptime and fixes you delivered."]],
     features: ["form-journey-testing", "visual-regression-testing", "uptime-monitoring", "client-reports"],
@@ -136,10 +136,10 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "marketing-agencies", name: "Marketing agencies",
-    title: "Landing Page & Lead Form Monitoring for Marketing Agencies",
-    description: "Protect campaign spend by monitoring landing pages, lead forms and tracking scripts. Get alerted when a form, page or key message breaks during a campaign.",
+    title: "Landing Page Monitoring for Marketing Agencies — Protect Ad Spend",
+    description: "Landing page monitoring and lead form monitoring for marketing agencies. Get downtime and form-failure alerts when a campaign page stops converting — before budget burns.",
     h1: "Protect campaign spend with landing page monitoring",
-    intro: "Paid traffic sent to a broken landing page is money lost every minute. Watchfront watches the pages and forms your campaigns depend on, and alerts you the moment one stops converting.",
+    intro: "Paid traffic sent to a broken landing page is money lost every minute. Watchfront’s landing page monitoring watches the pages and lead forms your campaigns depend on, and alerts you the moment one stops converting.",
     pains: ["Ad spend wasted on broken landing pages", "Lead forms failing over a weekend", "Key offers or prices changed without notice", "Tracking scripts erroring on mobile"],
     outcomes: [["Lead forms tested hourly", "Know within the hour if submissions stop working."], ["Key messages watched", "Get alerted if the offer, price or CTA disappears."], ["Errors explained", "See JavaScript errors from real visitors in plain English."]],
     features: ["form-journey-testing", "visual-regression-testing", "javascript-error-monitoring", "uptime-monitoring"],
@@ -147,10 +147,10 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "freelancers", name: "Freelancers",
-    title: "Website Monitoring for Freelance Web Developers",
-    description: "Affordable uptime, SSL and form monitoring for freelancers managing client websites. Start free with 3 sites and look like an agency with professional reports.",
+    title: "Website Monitoring for Freelancers — Affordable Uptime & Client Reports",
+    description: "Website monitoring for freelancers and solo developers. Affordable uptime, SSL and contact form monitoring for client sites — start free, share professional reports, look like an agency.",
     h1: "Look after every client site like a full agency would",
-    intro: "You can't watch every client site yourself. Watchfront does it for you — uptime, certificates, forms and errors — and sends a professional report you can share with each client.",
+    intro: "You can’t watch every client site yourself. Watchfront is website monitoring for freelancers — uptime, certificates, forms and errors — plus professional reports you can share with each client.",
     pains: ["No time to check client sites manually", "Finding out about downtime from an angry email", "Renewals and certificates slipping through", "Hard to show the value of a maintenance fee"],
     outcomes: [["Start free", "Monitor 3 websites free, forever."], ["Alerts you can trust", "Retries and thresholds mean no 3 a.m. false alarms."], ["Professional reports", "Share uptime and fixes with clients in one click."]],
     features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "client-reports"],
@@ -207,18 +207,21 @@ export const COMPARISON: [string, string, string, string, string][] = [
 ];
 
 export const HOME_FAQS: Faq[] = [
-  { q: "What is Watchfront?", a: "Watchfront is a website monitoring and automated QA platform for agencies. It checks uptime, SSL, domains, content, forms, APIs and JavaScript errors across every client website, and turns the results into incidents and client reports." },
-  { q: "How is it different from a basic uptime monitor?", a: "A site can be “up” while its contact form, checkout or layout is broken. Watchfront tests the things that matter to the business — forms, journeys, content and errors — and attaches evidence to every incident." },
-  { q: "Do I need to install anything?", a: "No. Uptime, SSL, content, journey and API checks work from the outside. The optional browser script adds real-visitor JavaScript errors." },
-  { q: "Is there a free plan?", a: "Yes. Start with 1 website free to evaluate. Paid plans begin at ₹999/month for up to 3 websites." },
+  { q: "What is Watchfront?", a: "Watchfront is website monitoring software for agencies and freelancers in India. It monitors client website uptime, SSL certificates, domain expiry, content, contact forms, APIs and JavaScript errors — then turns failures into incidents with evidence and client-ready uptime reports." },
+  { q: "How is Watchfront different from UptimeRobot or basic uptime tools?", a: "Basic uptime monitors only ask if the homepage responds. A site can be “up” while its contact form, booking flow or layout is broken. Watchfront adds form and journey testing, visual checks, API monitoring and JS error tracking — with screenshots and logs on every incident." },
+  { q: "Is Watchfront built for Indian agencies?", a: "Yes. Plans are priced in INR via Cashfree, support is India-friendly, and workflows are designed for agencies managing many client websites — including client grouping and shareable reports." },
+  { q: "Do I need to install anything?", a: "No. Uptime, SSL, content, journey and API checks work from the outside. An optional lightweight script adds real-visitor JavaScript error monitoring." },
+  { q: "Is there a free plan?", a: "Yes. Start free to evaluate, then paid plans from ₹999/month for up to 3 websites — cheaper than stitching together separate uptime, SSL and form tools." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
 ];
 
 export const PRICING_FAQS: Faq[] = [
+  { q: "How much does website monitoring cost in India?", a: "Watchfront plans are in INR: Starter ₹999/mo (up to 3 sites), Growth ₹2,499/mo (up to 10), Agency ₹4,999/mo (up to 50). Start free to evaluate — billed via Cashfree (UPI, cards, netbanking)." },
   { q: "Can I change plans later?", a: "Yes, upgrade or downgrade at any time. Changes take effect immediately and are prorated." },
   { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Cashfree. Starter ₹999, Growth ₹2,499, Agency ₹4,999 per month." },
   { q: "What is your refund policy?", a: "You can cancel anytime. First paid purchase may be refundable within 7 days if unused; see our Refund & Cancellation Policy." },
   { q: "What are browser-test minutes?", a: "Journey tests, visual checks and re-checks run in a real browser. Minutes measure that browser time and are shown before you run anything." },
+  { q: "Is this cheaper than buying separate uptime, SSL and form tools?", a: "Usually yes. One Watchfront workspace covers uptime monitoring, SSL/domain expiry, form journeys, APIs, JS errors and client reports — instead of stacking basic uptime tools plus manual QA." },
   { q: "Do you offer discounts for agencies?", a: "Annual billing saves two months. For larger portfolios, book an Enterprise call." },
   { q: "Do you offer enterprise plans?", a: "Yes — custom limits, SSO, audit requirements and dedicated support. Book a call from the pricing page." },
 ];
