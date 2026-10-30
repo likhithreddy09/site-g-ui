@@ -19,6 +19,7 @@ type ActivePayload = {
   live_count: number;
   live_users: UserRow[];
   recent_login_only: UserRow[];
+  all_users: UserRow[];
   as_of: string;
 };
 
@@ -143,8 +144,8 @@ export default function CheckActiveUserPage() {
                   {data.live_users.map((u) => (
                     <li key={u.id || u.email} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="text-sm font-medium text-plum">{u.email || "—"}</p>
-                        {u.name ? <p className="text-xs text-plum-2">{u.name}</p> : null}
+                        <p className="text-sm font-medium text-plum">{u.name || "—"}</p>
+                        <p className="text-xs text-plum-2">{u.email || "—"}</p>
                       </div>
                       <p className="text-xs text-plum-2">Seen {fmt(u.last_seen_at)}</p>
                     </li>
@@ -165,8 +166,8 @@ export default function CheckActiveUserPage() {
                   {data.recent_login_only.map((u) => (
                     <li key={u.id || u.email} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="text-sm font-medium text-plum">{u.email || "—"}</p>
-                        {u.name ? <p className="text-xs text-plum-2">{u.name}</p> : null}
+                        <p className="text-sm font-medium text-plum">{u.name || "—"}</p>
+                        <p className="text-xs text-plum-2">{u.email || "—"}</p>
                       </div>
                       <p className="text-xs text-plum-2">Login {fmt(u.last_login_at)}</p>
                     </li>
@@ -174,6 +175,31 @@ export default function CheckActiveUserPage() {
                 </ul>
               </section>
             ) : null}
+
+            <section className="overflow-hidden rounded-2xl border border-plum/10 bg-white">
+              <div className="border-b border-plum/10 px-4 py-3">
+                <h2 className="text-sm font-medium text-plum">All users ({data.all_users?.length ?? data.total_users})</h2>
+                <p className="text-xs text-plum-2">Name and email for every account.</p>
+              </div>
+              {(data.all_users?.length ?? 0) === 0 ? (
+                <p className="px-4 py-6 text-sm text-plum-2">No users found.</p>
+              ) : (
+                <ul className="divide-y divide-plum/10">
+                  {data.all_users.map((u) => (
+                    <li key={u.id || u.email} className="flex flex-col gap-0.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-plum">{u.name || "—"}</p>
+                        <p className="text-xs text-plum-2">{u.email || "—"}</p>
+                      </div>
+                      <div className="text-xs text-plum-2 sm:text-right">
+                        <p>Login {fmt(u.last_login_at)}</p>
+                        <p>Seen {fmt(u.last_seen_at)}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
 
             <button
               type="button"
