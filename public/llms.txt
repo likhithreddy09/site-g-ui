@@ -15,7 +15,7 @@ Start free: https://watchfront.in/register
 - [Uptime monitoring](https://watchfront.in/features/uptime-monitoring): 1-minute checks, retries, confirmed-outage email alerts
 - [SSL & domain expiry](https://watchfront.in/features/ssl-domain-monitoring): certificate and registry expiry warnings
 - [Visual & content checks](https://watchfront.in/features/visual-regression-testing): missing text, broken links, screenshot baselines
-- [Form & journey testing](https://watchfront.in/features/form-journey-testing): Playwright journeys for contact forms and bookings
+- [Form & journey testing](https://watchfront.in/features/form-journey-testing): Real-browser journeys for contact forms and bookings
 - [API monitoring](https://watchfront.in/features/api-monitoring): scheduled endpoint checks with assertions
 - [JavaScript error monitoring](https://watchfront.in/features/javascript-error-monitoring): real-visitor errors grouped by fingerprint
 - [Client reports](https://watchfront.in/features/client-reports): shareable uptime and incident reports

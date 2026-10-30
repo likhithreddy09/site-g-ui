@@ -59,7 +59,7 @@ export const FEATURES: Feature[] = [
     h1: "Test the forms and journeys that bring in leads",
     intro: "A site can be “up” while its contact form silently fails. Record the journey once by clicking through it — Watchfront replays it in a real Chromium browser and tells you exactly which step broke.",
     steps: [["Record by clicking", "Open the site inside Watchfront and click through it like a visitor. Each action becomes a plain-English step."], ["Replay on a schedule", "A real browser repeats the journey hourly or daily, with retries and screenshots."], ["Know which step failed", "Alerts say “Step 3 failed — couldn't find the ‘Send’ button”, with the screenshot and console log attached."]],
-    benefits: ["No-code recorder with plain-English steps", "Real Chromium browser (Playwright)", "Payment requests always blocked by default", "Unique test emails and a test-traffic header", "Per-step screenshots, console and network logs"],
+    benefits: ["No-code recorder with plain-English steps", "Real Chromium browser under the hood", "Payment requests always blocked by default", "Unique test emails and a test-traffic header", "Per-step screenshots, console and network logs"],
     faqs: [
       { q: "Will test submissions spam my client?", a: "Each run uses a unique watchfront-test email and sends an x-watchfront-test header so submissions can be filtered. You confirm the form is safe to repeat before scheduling." },
       { q: "Can it test logins?", a: "Yes — use a dedicated test account. Passwords are stored encrypted and never shown again. OTP logins are verified up to the point of sending a code." },

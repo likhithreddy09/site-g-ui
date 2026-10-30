@@ -15,7 +15,7 @@ const MODULES = [
   ["Content & visual changes", "/features/visual-regression-testing", "Expected text, required elements, broken links, and screenshot baselines with ignored regions."],
   ["Browser error monitoring", "/features/javascript-error-monitoring", "A lightweight script groups JavaScript errors by fingerprint, page, browser, and release."],
   ["API monitoring", "/features/api-monitoring", "Scheduled endpoint checks with encrypted secrets and assertions, plus real-visitor API failures."],
-  ["Form & journey testing", "/features/form-journey-testing", "Playwright journeys that fill forms, click, and assert outcomes — with safety guards."],
+  ["Form & journey testing", "/features/form-journey-testing", "Real-browser journeys that fill forms, click, and assert outcomes — with safety guards."],
   ["Incident management", "/features", "Grouping, severity, assignment, notes, reopen-on-recurrence, and false-positive review."],
   ["AI-assisted diagnosis", "/features", "Evidence-grounded summaries that separate observations from hypotheses."],
   ["Client reporting", "/features/client-reports", "Branded, shareable reports with uptime, incidents, actions taken, and explicit coverage."],
@@ -51,29 +51,32 @@ export default function Home() {
       <SiteHeader />
       <main id="main">
 
-      <section className="mx-auto max-w-6xl px-6 pb-10 pt-20">
+      <section className="mx-auto max-w-6xl px-5 pb-8 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
         <p className="animate-fade-up text-[15px] text-plum">Website monitoring & automated QA for agencies in India</p>
-        <h1 className="mt-4 animate-fade-up text-5xl font-semibold leading-[1.05] tracking-tight text-ink [animation-delay:80ms] md:text-[76px]">
+        <h1 className="mt-4 animate-fade-up text-[2.35rem] font-semibold leading-[1.05] tracking-tight text-ink [animation-delay:80ms] sm:text-5xl md:text-[76px]">
           Know when client sites break<br />
           <span className="hl-underline text-magenta">and why they broke</span>
         </h1>
-        <p className="mt-8 max-w-2xl animate-fade-up text-lg leading-relaxed text-ink [animation-delay:160ms] md:text-xl">
+        <p className="mt-6 max-w-2xl animate-fade-up text-base leading-relaxed text-ink [animation-delay:160ms] sm:mt-8 sm:text-lg md:text-xl">
           Watchfront monitors uptime, SSL, content, browser errors, APIs, and the forms and journeys that bring in leads — then gives your team the evidence to fix it.
         </p>
         <p className="mt-3 animate-fade-up text-[15px] text-plum-2 [animation-delay:200ms]">For web agencies, marketing agencies, and WordPress maintenance providers.</p>
-        <div className="mt-10 flex animate-fade-up flex-wrap items-center gap-6 [animation-delay:260ms]">
+        <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-4 sm:mt-10 sm:gap-6 [animation-delay:260ms]">
           <CtaPrimaryLink
-            className="rounded-full bg-plum px-7 py-3.5 text-[17px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg"
+            className="rounded-full bg-plum px-6 py-3 text-[16px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg sm:px-7 sm:py-3.5 sm:text-[17px]"
             guestLabel="Start monitoring free"
           />
-          <a href="#how" className="link-underline text-[17px] text-plum">See an incident workflow <ArrowRight className="inline h-4 w-4" /></a>
+          <a href="#how" className="link-underline text-[15px] text-plum sm:text-[17px]">See an incident workflow <ArrowRight className="inline h-4 w-4" /></a>
         </div>
-        <p className="mt-6 max-w-sm animate-fade-up text-sm leading-relaxed text-plum-2 [animation-delay:320ms]">Add a website and get your first useful result within minutes — no code required.</p>
+        <p className="mt-5 max-w-sm animate-fade-up text-sm leading-relaxed text-plum-2 [animation-delay:320ms]">Add a website and get your first useful result within minutes — no code required.</p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal><Showcase /></Reveal>
-        <p className="mt-12 text-center text-lg text-plum-2">Built on <span className="font-medium text-ink">Playwright</span>, grounded in evidence. <Link href="/register" className="link-underline text-plum">Try it on your portfolio</Link></p>
+        <p className="mt-8 px-2 text-center text-[15px] leading-relaxed text-plum-2 sm:mt-10 sm:text-lg">
+          Grounded in evidence — screenshots, logs, and timelines on every incident.{" "}
+          <Link href="/register" className="link-underline text-plum">Try it on your portfolio</Link>
+        </p>
       </section>
 
       <section id="platform" className="mx-auto mt-28 max-w-6xl px-6">
