@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Poppins } from "next/font/google";
+import Script from "next/script";
 import { AuthProvider } from "@/lib/auth";
 import { ToastProvider } from "@/components/toast";
 import { SITE } from "@/lib/site";
 import "./globals.css";
+
+const RUM_SRC =
+  process.env.NEXT_PUBLIC_WATCHFRONT_SDK_URL ||
+  "https://site-g-backend-production.up.railway.app/sdk.js";
+const RUM_SITE_KEY =
+  process.env.NEXT_PUBLIC_WATCHFRONT_SITE_KEY || "sg_q_7bXnpS-63hVDdr";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-poppins", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jbmono", display: "swap" });
@@ -83,6 +90,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>
+        {RUM_SITE_KEY && (
+          <Script src={RUM_SRC} data-site-key={RUM_SITE_KEY} strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );
