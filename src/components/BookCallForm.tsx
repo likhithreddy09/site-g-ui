@@ -18,7 +18,7 @@ const HOURS = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 type DaySlots = { key: string; label: string; weekday: string; dayNum: number; month: string; hours: number[] };
 
 /** Next weekdays (Mon-Sat), hours 10:00-18:00 IST. */
-function buildDays(dayCount = 14): DaySlots[] {
+function buildDays(dayCount = 10): DaySlots[] {
   const out: DaySlots[] = [];
   const d = new Date();
   d.setDate(d.getDate() + 1);
@@ -109,11 +109,11 @@ export function BookCallForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form onSubmit={submit} className={`rounded-3xl bg-cream ring-1 ring-plum/8 ${compact ? "p-5" : "p-6 md:p-8"}`}>
+    <form onSubmit={submit} className={`min-w-0 overflow-hidden rounded-3xl bg-cream ring-1 ring-plum/8 ${compact ? "p-5" : "p-6 md:p-8"}`}>
       <h2 className="text-xl font-medium text-ink md:text-2xl">Book a call</h2>
       <p className="mt-1 text-sm text-plum-2">Pick a date and time - we&apos;ll email you a confirmation right away.</p>
 
-      <div className={`mt-5 grid gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
+      <div className={`mt-5 grid min-w-0 gap-4 ${compact ? "" : "sm:grid-cols-2"}`}>
         <Input label="Your name" className="bg-white" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Your full name" />
         <Input label="Work email" className="bg-white" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@company.com" />
         <div className={compact ? "" : "sm:col-span-2"}>
@@ -125,9 +125,9 @@ export function BookCallForm({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
 
-      <fieldset className="mt-5">
-        <legend className="text-sm font-medium text-ink">Pick a date (IST)</legend>
-        <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 scrollbar-thin">
+      <div className="mt-5 min-w-0">
+        <p className="text-sm font-medium text-ink">Pick a date (IST)</p>
+        <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5">
           {days.map((d) => {
             const active = d.key === dayKey;
             return (
@@ -136,25 +136,25 @@ export function BookCallForm({ compact = false }: { compact?: boolean }) {
                 type="button"
                 onClick={() => pickDay(d.key)}
                 className={cn(
-                  "flex min-w-[4.5rem] shrink-0 flex-col items-center rounded-2xl px-3 py-3 text-center transition",
+                  "flex min-w-0 flex-col items-center rounded-xl px-1.5 py-2.5 text-center transition sm:rounded-2xl sm:py-3",
                   active
                     ? "bg-ink text-cream shadow-md"
                     : "bg-white text-ink ring-1 ring-plum/10 hover:ring-magenta/30",
                 )}
               >
-                <span className={cn("text-[11px] uppercase tracking-wide", active ? "text-sky" : "text-plum/55")}>{d.weekday}</span>
-                <span className="mt-1 text-xl font-medium leading-none">{d.dayNum}</span>
-                <span className={cn("mt-1 text-[11px]", active ? "text-cream/70" : "text-plum/55")}>{d.month}</span>
+                <span className={cn("text-[10px] uppercase tracking-wide sm:text-[11px]", active ? "text-sky" : "text-plum/55")}>{d.weekday}</span>
+                <span className="mt-1 text-lg font-medium leading-none sm:text-xl">{d.dayNum}</span>
+                <span className={cn("mt-1 text-[10px] sm:text-[11px]", active ? "text-cream/70" : "text-plum/55")}>{d.month}</span>
               </button>
             );
           })}
         </div>
-      </fieldset>
+      </div>
 
-      <fieldset className="mt-5">
-        <legend className="text-sm font-medium text-ink">
+      <div className="mt-5 min-w-0">
+        <p className="text-sm font-medium text-ink">
           Time slot{selectedDay ? ` · ${selectedDay.label}` : ""} (IST)
-        </legend>
+        </p>
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
           {(selectedDay?.hours || []).map((h) => {
             const active = hour === h;
@@ -164,7 +164,7 @@ export function BookCallForm({ compact = false }: { compact?: boolean }) {
                 type="button"
                 onClick={() => setHour(h)}
                 className={cn(
-                  "rounded-xl px-2 py-2.5 text-sm font-medium transition",
+                  "rounded-xl px-1 py-2.5 text-sm font-medium transition",
                   active
                     ? "bg-plum text-cream"
                     : "bg-white text-ink ring-1 ring-plum/10 hover:ring-magenta/30",
@@ -181,7 +181,7 @@ export function BookCallForm({ compact = false }: { compact?: boolean }) {
             <span className="font-medium text-ink">{hour != null ? formatHour(hour) : ""} IST</span>
           </p>
         )}
-      </fieldset>
+      </div>
 
       <div className="mt-4">
         <Input label="Anything we should know? (optional)" className="bg-white" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Agency size, number of sites…" />

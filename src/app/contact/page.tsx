@@ -88,7 +88,7 @@ export default function ContactPage() {
       </MotionSection>
 
       <section className="mx-auto mt-10 grid max-w-6xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:items-start">
-        <MotionSection>
+        <MotionSection className="min-w-0">
           <h2 className="text-xl font-medium text-ink md:text-2xl">What can we help with?</h2>
           <p className="mt-1 text-sm text-plum-2">
             Write to us once at the address above and mention the topic - or book a call below.
@@ -111,7 +111,7 @@ export default function ContactPage() {
             <Calendar className="h-4 w-4" /> Book a call
           </a>
         </MotionSection>
-        <MotionSection id="book" className="scroll-mt-24 sm:scroll-mt-28" delay={0.08}>
+        <MotionSection id="book" className="min-w-0 scroll-mt-24 sm:scroll-mt-28" delay={0.08}>
           <BookCallForm />
         </MotionSection>
       </section>
