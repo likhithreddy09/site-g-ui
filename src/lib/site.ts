@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Watchfront",
-  /** Registered / legal business name shown for Cashfree & billing (must match KYC). */
+  /** Registered / legal business name shown for Dodo Payments & billing (must match KYC). */
   legalName: process.env.NEXT_PUBLIC_LEGAL_NAME || "Watchfront",
   /** Trading / brand name if different from legal entity. */
   tradingAs: "Watchfront",
@@ -39,7 +39,7 @@ export const SITE = {
     privacy: process.env.NEXT_PUBLIC_EMAIL_PRIVACY || "likhith.reddy@watchfront.in",
     billing: process.env.NEXT_PUBLIC_EMAIL_BILLING || "likhith.reddy@watchfront.in",
   },
-  /** Support phone — required on Contact Us for Cashfree (use the number registered in KYC). */
+  /** Support phone — required on Contact Us for Dodo Payments (use the number registered in KYC). */
   phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415",
   phoneHref: (process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+91 72070 27415").replace(/\s+/g, ""),
   address: {
@@ -50,7 +50,7 @@ export const SITE = {
   /** Optional GSTIN shown on invoices / Contact when set. */
   gstin: process.env.NEXT_PUBLIC_GSTIN || "",
   payments: {
-    provider: "Cashfree Payments",
+    provider: "Dodo Payments",
     currency: "INR",
   },
   twitter: "@watchfrontapp",

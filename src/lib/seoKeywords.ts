@@ -30,7 +30,7 @@ export const SECONDARY_KEYWORDS = [
   "UptimeRobot alternative for agencies",
   "website monitoring with client reports",
   "INR website monitoring",
-  "Cashfree website monitoring India",
+  "Dodo Payments website monitoring India",
 ] as const;
 
 export const ALL_KEYWORDS = [...PRIMARY_KEYWORDS, ...SECONDARY_KEYWORDS];

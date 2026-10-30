@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Refund & Cancellation Policy",
-  description: "How Watchfront handles subscription cancellations, refunds and failed payments for plans billed via Cashfree.",
+  description: "How Watchfront handles subscription cancellations, refunds and failed payments for plans billed via Dodo Payments.",
   path: "/refund",
 });
 
@@ -15,7 +15,7 @@ export default function RefundPage() {
       title="Refund & cancellation policy"
       path="/refund"
       updated="2026-10-29"
-      intro="This policy explains how cancellations and refunds work for Watchfront subscriptions. Payments are processed in INR through Cashfree Payments."
+      intro="This policy explains how cancellations and refunds work for Watchfront subscriptions. Payments are processed in INR through Dodo Payments."
       sections={[
         {
           id: "service",
@@ -63,10 +63,10 @@ export default function RefundPage() {
                 We may offer a credit or prorated adjustment at our discretion for prolonged outages on our side.
               </li>
               <li>
-                <strong>Duplicate / failed charges:</strong> contact us with the Cashfree order / payment ID. Verified duplicate successful charges are refunded in full.
+                <strong>Duplicate / failed charges:</strong> contact us with the Dodo Payments order / payment ID. Verified duplicate successful charges are refunded in full.
               </li>
               <li>
-                Refunds, once approved, are initiated via Cashfree and typically appear in 5–7 business days depending on your bank or UPI app.
+                Refunds, once approved, are initiated via Dodo Payments and typically appear in 5–7 business days depending on your bank or UPI app.
               </li>
             </ul>
           ),
@@ -87,7 +87,7 @@ export default function RefundPage() {
           body: (
             <ol className="list-decimal space-y-2 pl-5">
               <li>Email <a href={`mailto:${SITE.email.billing}`}>{SITE.email.billing}</a> from your account email.</li>
-              <li>Include workspace name, plan, payment date, and Cashfree order ID (from your receipt or payment email).</li>
+              <li>Include workspace name, plan, payment date, and Dodo Payments order ID (from your receipt or payment email).</li>
               <li>We respond within one business day and process eligible refunds promptly.</li>
             </ol>
           ),

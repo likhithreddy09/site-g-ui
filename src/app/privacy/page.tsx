@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Privacy Policy — Watchfront Website Monitoring",
-  description: "Watchfront privacy policy: what personal data we collect for website monitoring, why, how long we keep it, and Cashfree payment data — for agencies in India.",
+  description: "Watchfront privacy policy: what personal data we collect for website monitoring, why, how long we keep it, and Dodo Payments payment data — for agencies in India.",
   path: "/privacy",
 });
 
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
           body: (
             <p>
               Paid subscriptions are processed by <strong>{SITE.payments.provider}</strong> in {SITE.payments.currency}.
-              Cashfree may collect and process payment instrument details under its own privacy policy.
+              Dodo Payments may collect and process payment instrument details under its own privacy policy.
               We receive confirmation of payment (order ID, amount, status) to activate your plan. We do not store full card numbers or UPI PINs.
             </p>
           ),

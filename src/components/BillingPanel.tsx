@@ -2,57 +2,22 @@
 
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Badge, Button, Card, CardHeader, ErrorBox, Input, Loading, cn } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, ErrorBox, Loading } from "@/components/ui";
 import { ApiError, api, formatApiError, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { useApi } from "@/lib/hooks";
 
-declare global {
-  interface Window {
-    Cashfree?: (opts: { mode: string }) => { checkout: (opts: { paymentSessionId: string; redirectTarget?: string }) => Promise<any> };
-  }
-}
-
-async function loadCashfreeSdk() {
-  if (window.Cashfree) return;
-  await new Promise<void>((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
-    s.async = true;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error("Failed to load Cashfree checkout"));
-    document.body.appendChild(s);
-  });
-}
-
 export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => void }) {
   const { data, reload: reloadPlans } = useApi<any>("/api/workspace/plans");
   const { data: billing } = useApi<any>("/api/billing/config");
-  const { can, refresh, user } = useAuth();
+  const { can, refresh } = useAuth();
   const toast = useToast();
   const [busy, setBusy] = useState<string | null>(null);
-  const [phone, setPhone] = useState("");
-  const [phoneHighlight, setPhoneHighlight] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [checkoutError, setCheckoutError] = useState<{ message: string; code?: string } | null>(null);
-  const checkoutDetailsRef = useRef<HTMLDivElement>(null);
-  const phoneInputRef = useRef<HTMLInputElement>(null);
   const sp = useSearchParams();
-
-  const flagMissingPhone = () => {
-    setPhoneHighlight(true);
-    requestAnimationFrame(() => {
-      checkoutDetailsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-      phoneInputRef.current?.focus();
-    });
-  };
-
-  useEffect(() => {
-    const saved = (user as any)?.phone || "";
-    if (saved) setPhone(String(saved).replace(/\D/g, "").slice(-10));
-  }, [user]);
 
   useEffect(() => {
     const orderId = sp.get("order_id");
@@ -60,7 +25,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
     let cancelled = false;
     setConfirming(true);
     (async () => {
-      for (let i = 0; i < 6 && !cancelled; i++) {
+      for (let i = 0; i < 8 && !cancelled; i++) {
         try {
           const st = await api<any>(`/api/billing/orders/${orderId}`);
           if (st.paid) {
@@ -99,40 +64,15 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
         toast(planId === "free" ? "Moved to Free" : `Switched to ${planName}`);
         return;
       }
-      const digits = phone.replace(/\D/g, "").slice(-10);
-      if (digits.length !== 10 || !/^[6-9]/.test(digits)) {
-        const err = new ApiError(
-          "Enter a valid 10-digit Indian mobile number before paying (Cashfree requirement).",
-          422,
-          "invalid_phone",
-        );
-        setCheckoutError({ message: err.message, code: err.code });
-        flagMissingPhone();
-        toast(err.display(), "error");
-        return;
+      const session = await post<any>("/api/billing/checkout", { plan: planId });
+      if (!session.checkout_url) {
+        throw new ApiError("Dodo did not return a checkout URL. Try again or contact support.", 502, "dodo_missing_session");
       }
-      const session = await post<any>("/api/billing/checkout", { plan: planId, phone: digits });
-      if (!session.payment_session_id) {
-        throw new ApiError("Cashfree did not return a payment session. Try again or contact support.", 502, "cashfree_missing_session");
-      }
-      await loadCashfreeSdk();
-      if (!window.Cashfree) {
-        throw new ApiError("Could not load Cashfree checkout SDK. Check your connection and retry.", 502, "cashfree_sdk_missing");
-      }
-      const cf = window.Cashfree({ mode: session.mode === "sandbox" ? "sandbox" : "production" });
-      const result = await cf.checkout({ paymentSessionId: session.payment_session_id, redirectTarget: "_self" });
-      if (result?.error) {
-        throw new ApiError(
-          result.error.message || result.error.code || "Checkout was closed or failed before payment completed.",
-          400,
-          result.error.code || "cashfree_checkout_cancelled",
-        );
-      }
+      window.location.href = session.checkout_url;
     } catch (e: unknown) {
       const message = formatApiError(e, "Payment could not be started");
       const code = e instanceof ApiError ? e.code : "checkout_failed";
       setCheckoutError({ message: e instanceof ApiError ? e.message : message, code });
-      if (code === "invalid_phone") flagMissingPhone();
       toast(message, "error");
     } finally {
       setBusy(null);
@@ -172,7 +112,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       )}
       {confirming && (
         <Card className="mb-4 border border-magenta/20 bg-magenta/5 p-4 text-sm text-plum">
-          Confirming your Cashfree payment…
+          Confirming your Dodo Payments payment…
         </Card>
       )}
       {checkoutError && (
@@ -187,52 +127,19 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       </Card>
 
       {paymentsOn && can("owner") && (
-        <Card
-          ref={checkoutDetailsRef}
-          className={cn(
-            "mb-6 scroll-mt-20 p-5 transition sm:p-6",
-            phoneHighlight && "bg-bad/5 !ring-2 !ring-bad shadow-[0_0_0_4px_rgba(220,38,38,0.12)]",
-          )}
-        >
-          <CardHeader
-            className={phoneHighlight ? "border-bad/20" : undefined}
-            title="Checkout details"
-            subtitle={phoneHighlight ? "Enter your mobile number below to continue payment" : "Mobile number required by Cashfree"}
-          />
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <div>
-              <Input
-                ref={phoneInputRef}
-                label="Mobile number (India)"
-                value={phone}
-                onChange={(e) => {
-                  setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
-                  if (phoneHighlight) setPhoneHighlight(false);
-                }}
-                placeholder="7207027415"
-                inputMode="numeric"
-                aria-invalid={phoneHighlight}
-                className={phoneHighlight ? "bg-white ring-2 ring-bad focus:ring-bad" : undefined}
-              />
-              {phoneHighlight && (
-                <p className="mt-2 text-xs font-medium text-bad">
-                  Required: 10-digit Indian mobile starting with 6–9 (e.g. 7207027415).
-                </p>
-              )}
-            </div>
-            <div>
-              <div className="text-xs font-medium text-plum/70">Payment methods</div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {(methodLabels.length ? methodLabels : [
-                  { id: "upi", label: "UPI" }, { id: "cc", label: "Credit card" },
-                  { id: "dc", label: "Debit card" }, { id: "nb", label: "Netbanking" },
-                ]).map((m) => (
-                  <span key={m.id} className="rounded-full bg-cream px-3 py-1 text-xs text-ink">{m.label}</span>
-                ))}
-              </div>
-              <p className="mt-2 text-[11px] text-plum/50">Secure checkout via Cashfree</p>
-            </div>
+        <Card className="mb-6 p-5 sm:p-6">
+          <CardHeader title="Checkout" subtitle="Secure payment via Dodo Payments (UPI, cards, netbanking)" />
+          <div className="mt-3 flex flex-wrap gap-2">
+            {(methodLabels.length ? methodLabels : [
+              { id: "upi", label: "UPI" }, { id: "cc", label: "Credit card" },
+              { id: "dc", label: "Debit card" }, { id: "nb", label: "Netbanking" },
+            ]).map((m) => (
+              <span key={m.id} className="rounded-full bg-cream px-3 py-1 text-xs text-ink">{m.label}</span>
+            ))}
           </div>
+          {billing?.mode === "test" && (
+            <p className="mt-3 text-xs text-plum/55">Test mode — use Dodo test cards / UPI VPAs. No real money is charged.</p>
+          )}
         </Card>
       )}
 
@@ -295,7 +202,7 @@ export function BillingPanel({ ws, onSaved }: { ws: any; onSaved: (w: any) => vo
       </div>
       <p className="mt-4 text-xs text-plum/55">
         {paymentsOn
-          ? <>Payments via Cashfree in INR. See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>.</>
+          ? <>Payments via Dodo Payments in INR. See <a className="underline hover:text-magenta" href="/refund" target="_blank" rel="noreferrer">refund policy</a>, <a className="underline hover:text-magenta" href="/terms" target="_blank" rel="noreferrer">terms</a> and <a className="underline hover:text-magenta" href="/privacy" target="_blank" rel="noreferrer">privacy</a>.</>
           : "Payments are not configured yet — plan switches are free until billing is enabled."}
       </p>
       <p className="mt-2 text-xs text-plum/55">

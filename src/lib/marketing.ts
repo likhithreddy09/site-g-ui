@@ -209,16 +209,16 @@ export const COMPARISON: [string, string, string, string, string][] = [
 export const HOME_FAQS: Faq[] = [
   { q: "What is Watchfront?", a: "Watchfront is website monitoring software for agencies and freelancers in India. It monitors client website uptime, SSL certificates, domain expiry, content, contact forms, APIs and JavaScript errors — then turns failures into incidents with evidence and client-ready uptime reports." },
   { q: "How is Watchfront different from UptimeRobot or basic uptime tools?", a: "Basic uptime monitors only ask if the homepage responds. A site can be “up” while its contact form, booking flow or layout is broken. Watchfront adds form and journey testing, visual checks, API monitoring and JS error tracking — with screenshots and logs on every incident." },
-  { q: "Is Watchfront built for Indian agencies?", a: "Yes. Plans are priced in INR via Cashfree, support is India-friendly, and workflows are designed for agencies managing many client websites — including client grouping and shareable reports." },
+  { q: "Is Watchfront built for Indian agencies?", a: "Yes. Plans are priced in INR via Dodo Payments, support is India-friendly, and workflows are designed for agencies managing many client websites — including client grouping and shareable reports." },
   { q: "Do I need to install anything?", a: "No. Uptime, SSL, content, journey and API checks work from the outside. An optional lightweight script adds real-visitor JavaScript error monitoring." },
   { q: "Is there a free plan?", a: "Yes. Start free to evaluate, then paid plans from ₹999/month for up to 3 websites — cheaper than stitching together separate uptime, SSL and form tools." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
 ];
 
 export const PRICING_FAQS: Faq[] = [
-  { q: "How much does website monitoring cost in India?", a: "Watchfront plans are in INR: Starter ₹999/mo (up to 3 sites), Growth ₹2,499/mo (up to 10), Agency ₹4,999/mo (up to 50). Start free to evaluate — billed via Cashfree (UPI, cards, netbanking)." },
+  { q: "How much does website monitoring cost in India?", a: "Watchfront plans are in INR: Starter ₹999/mo (up to 3 sites), Growth ₹2,499/mo (up to 10), Agency ₹4,999/mo (up to 50). Start free to evaluate — billed via Dodo Payments (UPI, cards, netbanking)." },
   { q: "Can I change plans later?", a: "Yes, upgrade or downgrade at any time. Changes take effect immediately and are prorated." },
-  { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Cashfree. Starter ₹999, Growth ₹2,499, Agency ₹4,999 per month." },
+  { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Dodo Payments. Starter ₹999, Growth ₹2,499, Agency ₹4,999 per month." },
   { q: "What is your refund policy?", a: "You can cancel anytime. First paid purchase may be refundable within 7 days if unused; see our Refund & Cancellation Policy." },
   { q: "What are browser-test minutes?", a: "Journey tests, visual checks and re-checks run in a real browser. Minutes measure that browser time and are shown before you run anything." },
   { q: "Is this cheaper than buying separate uptime, SSL and form tools?", a: "Usually yes. One Watchfront workspace covers uptime monitoring, SSL/domain expiry, form journeys, APIs, JS errors and client reports — instead of stacking basic uptime tools plus manual QA." },

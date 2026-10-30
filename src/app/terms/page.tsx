@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Terms of Service — Watchfront Website Monitoring",
-  description: "Terms for using Watchfront website monitoring and automated QA for agencies, including INR billing via Cashfree.",
+  description: "Terms for using Watchfront website monitoring and automated QA for agencies, including INR billing via Dodo Payments.",
   path: "/terms",
 });
 

@@ -35,7 +35,7 @@ export default function ShippingPage() {
             <ul>
               <li>After a successful payment through {SITE.payments.provider}, your workspace plan is upgraded <strong>immediately</strong> (typically within a few minutes of confirmation).</li>
               <li>You access the service by signing in at <Link href="/login">{SITE.url}/login</Link>.</li>
-              <li>A payment confirmation / receipt is sent to the email on your account (and via Cashfree where applicable).</li>
+              <li>A payment confirmation / receipt is sent to the email on your account (and via Dodo Payments where applicable).</li>
             </ul>
           ),
         },
@@ -46,7 +46,7 @@ export default function ShippingPage() {
             <p>
               Digital access is delivered <strong>instantly</strong> upon successful payment confirmation.
               If your plan does not update within 30 minutes of a successful charge, contact{" "}
-              <a href={`mailto:${SITE.email.billing}`}>{SITE.email.billing}</a> with your Cashfree order ID.
+              <a href={`mailto:${SITE.email.billing}`}>{SITE.email.billing}</a> with your Dodo Payments order ID.
             </p>
           ),
         },
@@ -56,7 +56,7 @@ export default function ShippingPage() {
           body: (
             <p>
               The service is delivered online and can be used from anywhere with an internet connection, subject to our{" "}
-              <Link href="/terms">terms of service</Link>. Checkout and settlements for Indian merchants are processed in INR via Cashfree.
+              <Link href="/terms">terms of service</Link>. Checkout and settlements for Indian merchants are processed in INR via Dodo Payments.
             </p>
           ),
         },

@@ -7,9 +7,9 @@ import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Website Monitoring Pricing India — Plans from ₹999/mo",
-  description: "Website monitoring pricing in INR for Indian agencies. Starter ₹999 (1–3 sites), Growth ₹2,499 (4–10), Agency ₹4,999 (up to 50). Uptime, SSL, forms & reports — start free via Cashfree.",
+  description: "Website monitoring pricing in INR for Indian agencies. Starter ₹999 (1–3 sites), Growth ₹2,499 (4–10), Agency ₹4,999 (up to 50). Uptime, SSL, forms & reports — start free via Dodo Payments.",
   path: "/pricing",
-  keywords: ["website monitoring pricing India", "uptime monitoring cost INR", "website monitoring plans agencies", "Cashfree website monitoring"],
+  keywords: ["website monitoring pricing India", "uptime monitoring cost INR", "website monitoring plans agencies", "Dodo Payments website monitoring"],
 });
 
 const inr = (n: number) =>
@@ -34,7 +34,7 @@ export default function PricingPage() {
         crumbs={[["Home", "/"], ["Pricing", "/pricing"]]}
         eyebrow="Website monitoring pricing · India"
         title="Simple plans. Fair INR pricing."
-        intro="Website monitoring for freelancers and agencies managing client websites. Pay monthly in rupees via Cashfree — uptime, SSL, forms and reports, no surprise per-check fees."
+        intro="Website monitoring for freelancers and agencies managing client websites. Pay monthly in rupees via Dodo Payments — uptime, SSL, forms and reports, no surprise per-check fees."
       />
 
       <section className="mx-auto grid max-w-6xl gap-4 px-4 sm:gap-5 sm:px-6 md:grid-cols-2 lg:grid-cols-4" aria-label="Plans">
@@ -65,7 +65,7 @@ export default function PricingPage() {
         ))}
       </section>
       <p className="mx-auto mt-6 max-w-6xl px-6 text-sm text-plum-2">
-        Prices in <strong className="text-ink">INR</strong>, billed monthly via Cashfree.
+        Prices in <strong className="text-ink">INR</strong>, billed monthly via Dodo Payments.
         See <Link href="/refund" className="link-underline text-plum">refunds</Link> and <Link href="/shipping" className="link-underline text-plum">delivery</Link>.
         Need SSO, custom retention or 50+ sites with special terms? <Link href="/contact#book" className="link-underline text-plum">Book an Enterprise call</Link>.
       </p>
