@@ -46,13 +46,13 @@ export function HomeHero() {
 
       <div className="relative mx-auto max-w-6xl px-5 pb-8 pt-16 sm:px-6 sm:pb-12 sm:pt-20">
         <motion.div initial="hidden" animate="show" className="max-w-4xl">
-          <motion.p custom={0} variants={line} className="text-[15px] text-plum">
+          <motion.p custom={0} variants={line} className="text-[13px] text-plum">
             Website monitoring for agencies in India · Uptime, SSL, forms & reports
           </motion.p>
           <motion.h1
             custom={1}
             variants={line}
-            className="mt-4 text-[2.35rem] font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[76px]"
+            className="mt-4 text-[2rem] font-medium leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-[58px]"
           >
             Know when client sites break
             <br />
@@ -61,24 +61,24 @@ export function HomeHero() {
           <motion.p
             custom={2}
             variants={line}
-            className="mt-6 max-w-2xl text-base leading-relaxed text-ink sm:mt-8 sm:text-lg md:text-xl"
+            className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink sm:mt-7 sm:text-base md:text-lg"
           >
             Watchfront is website monitoring software for Indian agencies — uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and INR-priced client reports.
           </motion.p>
-          <motion.p custom={3} variants={line} className="mt-3 text-[15px] text-plum-2">
+          <motion.p custom={3} variants={line} className="mt-3 text-[13px] text-plum-2">
             Built for web agencies, marketing agencies, WordPress maintenance providers, and freelancers.
           </motion.p>
           <motion.div custom={4} variants={line} className="mt-8 flex flex-wrap items-center gap-4 sm:mt-10 sm:gap-6">
             <CtaPrimaryLink
-              className="rounded-full bg-plum px-6 py-3 text-[16px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg sm:px-7 sm:py-3.5 sm:text-[17px]"
+              className="rounded-full bg-plum px-5 py-2.5 text-[14px] font-normal text-cream transition hover:-translate-y-0.5 hover:bg-ink hover:shadow-lg sm:px-6 sm:py-3 sm:text-[15px]"
               guestLabel="Start monitoring free"
             />
-            <a href="#how" className="group link-underline text-[15px] text-plum sm:text-[17px]">
+            <a href="#how" className="group link-underline text-[14px] text-plum sm:text-[15px]">
               See an incident workflow{" "}
               <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" />
             </a>
           </motion.div>
-          <motion.p custom={5} variants={line} className="mt-5 max-w-sm text-sm leading-relaxed text-plum-2">
+          <motion.p custom={5} variants={line} className="mt-5 max-w-sm text-[13px] leading-relaxed text-plum-2">
             Add a website and get your first useful result within minutes — no code required.
           </motion.p>
         </motion.div>

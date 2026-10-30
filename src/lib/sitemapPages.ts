@@ -12,12 +12,17 @@ export type SitemapEntry = {
  * Single source of truth for public indexable routes.
  * Keep in sync with pageMeta / generateMetadata on each route.
  */
+/** Higher priority = crawl preference for key money pages. */
+const featurePriority = (slug: string) =>
+  slug === "seo-audit" ? 0.95 : slug === "uptime-monitoring" ? 0.9 : 0.85;
+
 export const SITEMAP_PAGES: SitemapEntry[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", seo: "Brand + agency website monitoring" },
   { path: "/features", priority: 0.95, changeFrequency: "weekly", seo: "All monitoring features hub" },
-  ...FEATURES.map((f) => ({
+  { path: "/features/seo-audit", priority: 0.95, changeFrequency: "weekly", seo: "Website SEO audit — multi-page on-page checks" },
+  ...FEATURES.filter((f) => f.slug !== "seo-audit").map((f) => ({
     path: `/features/${f.slug}`,
-    priority: 0.85,
+    priority: featurePriority(f.slug),
     changeFrequency: "weekly" as const,
     seo: f.title,
   })),

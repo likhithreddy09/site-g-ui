@@ -123,10 +123,16 @@ for (const [rel, kind] of metaRoutes) {
 
 // Also emit a static public/sitemap.xml (fallback if the App Router route misbehaves on host).
 const now = new Date().toISOString();
-const ordered = [...expected];
+// Rank money pages first: home → features hub → SEO audit → pricing → rest
+const rankFirst = ["/", "/features", "/features/seo-audit", "/pricing", "/use-cases"];
+const ordered = [
+  ...rankFirst.filter((p) => expected.has(p)),
+  ...[...expected].filter((p) => !rankFirst.includes(p)),
+];
 const pri = (p) =>
   p === "/" ? 1 :
-  ["/features", "/pricing"].includes(p) ? 0.95 :
+  ["/features", "/pricing", "/features/seo-audit"].includes(p) ? 0.95 :
+  p === "/features/uptime-monitoring" ? 0.9 :
   p === "/use-cases" ? 0.9 :
   p.startsWith("/features/") || p.startsWith("/use-cases/") ? 0.85 :
   ["/security", "/contact"].includes(p) ? 0.7 :

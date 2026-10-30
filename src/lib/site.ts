@@ -5,10 +5,14 @@ export const SITE = {
   /** Trading / brand name if different from legal entity. */
   tradingAs: "Watchfront",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://watchfront.in").replace(/\/$/, ""),
-  tagline: "Website monitoring for agencies in India — uptime, SSL, forms & reports",
+  tagline: "Website monitoring for agencies in India — uptime, SSL, SEO, forms & reports",
   description:
-    "Website monitoring software for Indian agencies and freelancers. Monitor client website uptime, SSL, domain expiry, contact forms, APIs and JS errors — with email alerts and INR-priced client reports. Start free.",
+    "Website monitoring software for Indian agencies and freelancers. Monitor client website uptime, SSL, domain expiry, SEO audits, contact forms, APIs and JS errors — with email alerts and INR-priced client reports. Start free.",
   keywords: [
+    "website SEO audit",
+    "SEO audit tool for agencies",
+    "on-page SEO checker",
+    "multi-page SEO audit",
     "website monitoring for agencies",
     "website monitoring India",
     "uptime monitoring tool",

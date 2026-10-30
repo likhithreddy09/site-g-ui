@@ -18,8 +18,15 @@
   --color-warn: #d98e04;
   --color-bad: #c2264b;
 
-  --font-sans: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Softer than Tailwind defaults — less heavy type across the site */
+  --font-weight-medium: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
+  --font-weight-black: 700;
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-underline: underline 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.4s both;
@@ -60,7 +67,10 @@
   }
 }
 
-html { scroll-behavior: smooth; }
+html {
+  font-size: 15px; /* slightly smaller base than browser 16px */
+  scroll-behavior: smooth;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -69,11 +79,18 @@ html { scroll-behavior: smooth; }
     transition-duration: 0.01ms !important;
   }
 }
+
 body {
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
 }
 ::selection { background: var(--color-sky); color: var(--color-ink); }
 

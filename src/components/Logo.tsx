@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { brandFont } from "@/lib/brandFont";
 
 /** Radar mark — one desk watching many sites. */
 export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boolean; className?: string }) {
@@ -51,9 +50,7 @@ export function Logo({ href = "/", light = false }: { href?: string; light?: boo
       className={`flex items-center gap-2.5 ${light ? "text-cream" : "text-plum"}`}
     >
       <LogoMark light={light} />
-      <span
-        className={`${brandFont.className} text-[25px] font-extrabold leading-none tracking-[-0.04em]`}
-      >
+      <span className="text-[21px] font-medium leading-none tracking-[-0.02em]">
         Watchfront
       </span>
     </Link>

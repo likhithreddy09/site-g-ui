@@ -70,7 +70,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
 
 export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
-    ["Product", [["All features", "/features"], ...FEATURES.slice(0, 6).map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
+    ["Product", [["All features", "/features"], ...FEATURES.filter((f) => f.slug !== "client-reports").map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
     ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [

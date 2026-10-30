@@ -1,4 +1,4 @@
-import { Activity, Bug, FileBarChart, Globe, ListChecks, ScanEye, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Activity, Bug, FileBarChart, Globe, ListChecks, ScanEye, Search, ShieldCheck, type LucideIcon } from "lucide-react";
 
 export const FEATURE_ICONS: Record<string, LucideIcon> = {
   "uptime-monitoring": Activity,
@@ -7,5 +7,6 @@ export const FEATURE_ICONS: Record<string, LucideIcon> = {
   "form-journey-testing": ListChecks,
   "api-monitoring": Globe,
   "javascript-error-monitoring": Bug,
+  "seo-audit": Search,
   "client-reports": FileBarChart,
 };
