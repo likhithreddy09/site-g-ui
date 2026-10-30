@@ -35,7 +35,7 @@ function WebsiteDetailInner() {
   const [hours, setHours] = useState(24);
   const [busy, setBusy] = useState<string | null>(null);
   const [scanKey, setScanKey] = useState(0);
-  const { data: site, reload, setData } = useApi<any>(`/api/websites/${id}`, { poll: 20000 });
+  const { data: site, reload, setData } = useApi<any>(`/api/websites/${id}`, { poll: tab === "script" ? 5000 : 20000 });
   const { data: stats } = useApi<any>(`/api/websites/${id}/stats?hours=${hours}`, { poll: 30000 });
 
   if (!site) return <Loading rows={4} />;
@@ -603,6 +603,7 @@ function ScriptTab({ site, onChange }: { site: any; onChange: () => void }) {
   const { can } = useAuth();
   const [rum, setRum] = useState(site.rum || {});
   const [saving, setSaving] = useState(false);
+  const script = site.rum_script || {};
   const save = async () => {
     setSaving(true);
     try {
@@ -620,10 +621,36 @@ function ScriptTab({ site, onChange }: { site: any; onChange: () => void }) {
       <Card className="lg:col-span-3">
         <CardHeader title="Install the browser monitoring script" subtitle="Optional. Captures JavaScript crashes, failed requests, missing files and blocked content from real visitors — with the steps they took before it happened." />
         <div className="space-y-4 p-5">
+          {script.active ? (
+            <div className="flex items-start gap-3 rounded-2xl bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+              <div>
+                <div className="font-semibold">Script added successfully</div>
+                <div className="mt-0.5 text-emerald-800/80">
+                  We’re receiving events from real visitors
+                  {script.last_seen_at ? <> · last heard {timeAgo(script.last_seen_at)}</> : null}.
+                </div>
+              </div>
+            </div>
+          ) : script.installed ? (
+            <div className="flex items-start gap-3 rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950">
+              <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+              <div>
+                <div className="font-semibold">Script not found lately</div>
+                <div className="mt-0.5 text-amber-900/75">
+                  We saw it before{script.last_seen_at ? <> ({timeAgo(script.last_seen_at)})</> : null}, but nothing recently. Confirm the snippet is still on your pages (or re-paste after a key rotate).
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl bg-cream/80 px-4 py-3 text-sm text-plum/75">
+              Waiting for the first visitor hit after you install the snippet — this page updates automatically.
+            </div>
+          )}
           <ol className="list-decimal space-y-1 pl-5 text-sm text-plum/80">
             <li>Paste this snippet before <code className="font-mono text-xs">&lt;/head&gt;</code> on every page (or via your theme / tag manager).</li>
             <li>Optionally add <code className="font-mono text-xs">data-release=&quot;v1.2.3&quot;</code> so you can see which deployment introduced an error, and <code className="font-mono text-xs">data-environment=&quot;staging&quot;</code> for non-live sites.</li>
-            <li>Errors appear in <Link href="/app/errors" className="text-magenta">Browser errors</Link> within seconds.</li>
+            <li>Open any page with the snippet — we’ll mark the install here within a few seconds.</li>
           </ol>
           <div className="relative rounded-2xl bg-ink p-4 pr-12 font-mono text-[12px] leading-relaxed text-sky">
             {site.snippet}

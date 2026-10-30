@@ -77,11 +77,14 @@ function ErrorsInner() {
         </Select></div>
       </div>
 
-      
-      {current && (
+      {current && !current.rum_script?.active && (
         <Card className="mb-4 flex flex-wrap items-center gap-3 px-5 py-3.5">
           <Code2 className="h-4 w-4 text-magenta" />
-          <div className="flex-1 text-sm text-plum/70">Want errors from real visitors, not only re-checks? <Link href={`/app/websites/${current.id}?tab=script`} className="font-medium text-magenta hover:underline">Install the ~3 KB script on {current.name}</Link>.</div>
+          <div className="flex-1 text-sm text-plum/70">
+            {current.rum_script?.installed
+              ? <>We haven’t heard from the visitor script on {current.name} lately. <Link href={`/app/websites/${current.id}?tab=script`} className="font-medium text-magenta hover:underline">Check the install</Link>.</>
+              : <>Want errors from real visitors, not only re-checks? <Link href={`/app/websites/${current.id}?tab=script`} className="font-medium text-magenta hover:underline">Install the ~3 KB script on {current.name}</Link>.</>}
+          </div>
         </Card>
       )}
 
