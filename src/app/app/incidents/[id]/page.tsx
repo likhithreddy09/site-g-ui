@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Bot, CheckCircle2, Copy, Eye, FlagOff, Image as ImageIcon, MessageSquare, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
-import { Badge, Button, Card, CardHeader, KV, Loading, Modal, PageHeader, Select, Textarea } from "@/components/ui";
+import { Badge, Button, Card, CardHeader, Input, KV, Loading, Modal, PageHeader, Select, Textarea } from "@/components/ui";
 import { patch, post } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { duration, fmtDate, ms, timeAgo } from "@/lib/format";
@@ -100,6 +100,11 @@ export default function IncidentDetail() {
                   {e.run && (
                     <div className="mt-3 grid gap-3 md:grid-cols-[1fr_200px]">
                       <div className="space-y-1">
+                        {e.run.infra && (
+                          <div className="mb-2 rounded-lg bg-gold/20 px-2.5 py-2 text-[11px] text-[#8a5b00]">
+                            Worker infrastructure error — not a failure on the client website. Browser was unavailable on our side.
+                          </div>
+                        )}
                         {e.run.steps?.map((s: any) => (
                           <div key={s.index} className={`flex justify-between rounded-lg px-2.5 py-1 font-mono text-[11px] ${s.ok === false ? "bg-bad/8 text-bad" : s.skipped ? "text-plum/35" : "bg-cream/70 text-ink"}`}>
                             <span>{s.ok === false ? "✗" : s.skipped ? "·" : "✓"} {s.action} {s.selector || s.description}</span><span>{s.duration_ms != null ? ms(s.duration_ms) : ""}</span>
@@ -107,6 +112,9 @@ export default function IncidentDetail() {
                         ))}
                         {e.run.console?.length > 0 && <div className="mt-2 rounded-lg bg-ink p-2.5 font-mono text-[10.5px] text-rose">{e.run.console.map((c: any, j: number) => <div key={j}>[{c.type}] {c.text}</div>)}</div>}
                         {e.run.network_failures?.length > 0 && <div className="mt-1 font-mono text-[10.5px] text-plum/60">{e.run.network_failures.map((n: any, j: number) => <div key={j}>{n.method} {n.url} → {n.status || n.error}</div>)}</div>}
+                        {!e.run.infra && !e.run.steps?.length && !e.run.console?.length && !e.run.network_failures?.length && e.summary && (
+                          <div className="text-[12px] text-plum/70">{e.summary}</div>
+                        )}
                       </div>
                       {e.run.screenshot_url && <button onClick={() => setPreview(e.run.screenshot_url)} className="overflow-hidden rounded-xl ring-1 ring-plum/10 hover:ring-magenta"><img src={e.run.screenshot_url} alt="Failure screenshot" className="w-full" /></button>}
                     </div>
@@ -168,10 +176,16 @@ export default function IncidentDetail() {
           </Card>
           {can("member") && (
             <Card className="space-y-4 p-5">
-              <Select label="Assignee" value={inc.assignee_id || ""} onChange={(e) => update({ assignee_id: e.target.value || null }, "Assignment updated")}>
-                <option value="">Unassigned</option>
-                {members?.filter((m) => m.user_id && m.role !== "client").map((m) => <option key={m.id} value={m.user_id}>{m.name || m.email}</option>)}
-              </Select>
+              <AssigneePicker
+                value={inc.assignee_email || ""}
+                members={(members || []).filter((m) => m.role !== "client")}
+                onAssign={async (email) => {
+                  await update(
+                    email ? { assignee_email: email, assignee_id: null } : { assignee_id: null, assignee_email: null },
+                    email ? `Assigned to ${email} — email sent` : "Unassigned",
+                  );
+                }}
+              />
               <Select label="Severity" value={inc.severity} onChange={(e) => update({ severity: e.target.value }, "Severity updated")}>
                 {["critical", "major", "minor", "info"].map((s) => <option key={s}>{s}</option>)}
               </Select>
@@ -222,6 +236,87 @@ export default function IncidentDetail() {
       <Modal open={!!preview} onClose={() => setPreview(null)} title="Screenshot" wide>
         {preview && <img src={preview} alt="Evidence" className="w-full rounded-xl ring-1 ring-plum/10" />}
       </Modal>
+    </div>
+  );
+}
+
+function AssigneePicker({
+  value,
+  members,
+  onAssign,
+}: {
+  value: string;
+  members: { id: string; email: string; name?: string; user_id?: string; status?: string }[];
+  onAssign: (email: string | null) => Promise<void>;
+}) {
+  const [email, setEmail] = useState(value || "");
+  const [saving, setSaving] = useState(false);
+  const team = members.filter((m) => m.email);
+  useEffect(() => { setEmail(value || ""); }, [value]);
+
+  const save = async (next: string | null) => {
+    setSaving(true);
+    try {
+      await onAssign(next);
+      setEmail(next || "");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <Select
+        label="Assignee"
+        hint="Pick a teammate — they get an email with a link to this incident."
+        value={value || ""}
+        disabled={saving}
+        onChange={(e) => {
+          const v = e.target.value;
+          void save(v || null);
+        }}
+      >
+        <option value="">Unassigned</option>
+        {team.map((m) => (
+          <option key={m.id} value={m.email}>
+            {m.name ? `${m.name} · ${m.email}` : m.email}
+            {m.status === "invited" ? " (invited)" : ""}
+          </option>
+        ))}
+      </Select>
+      <div className="flex gap-2">
+        <Input
+          list="assignee-emails"
+          type="email"
+          placeholder="Or type teammate email…"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const v = email.trim().toLowerCase();
+              if (v) void save(v);
+            }
+          }}
+        />
+        <datalist id="assignee-emails">
+          {team.map((m) => (
+            <option key={m.id} value={m.email} />
+          ))}
+        </datalist>
+        <Button
+          size="sm"
+          variant="secondary"
+          loading={saving}
+          disabled={!email.trim() || email.trim().toLowerCase() === (value || "").toLowerCase()}
+          onClick={() => void save(email.trim().toLowerCase())}
+        >
+          Assign
+        </Button>
+      </div>
+      {!team.length && (
+        <p className="text-[11px] text-plum/50">Invite teammates under Settings → Team so you can assign incidents by email.</p>
+      )}
     </div>
   );
 }
