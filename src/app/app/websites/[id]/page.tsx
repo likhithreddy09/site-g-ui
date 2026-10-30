@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Bug, Copy, Lock, MousePointerClick, Pause, Play, Plug, RefreshCw, ScanEye, ScanSearch, ShieldCheck, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bug, CheckCircle2, CircleAlert, Copy, Lock, MousePointerClick, Pause, Play, Plug, RefreshCw, ScanEye, ScanSearch, Search, ShieldCheck, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
@@ -16,7 +16,7 @@ import { useApi } from "@/lib/hooks";
 import { RecheckPanel } from "@/components/RecheckPanel";
 import { checkStatus } from "@/lib/pageChecks";
 
-type Tab = "overview" | "history" | "ssl" | "monitoring" | "discovery" | "script" | "settings";
+type Tab = "overview" | "history" | "ssl" | "seo" | "monitoring" | "discovery" | "script" | "settings";
 
 function WebsiteDetailInner() {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +25,7 @@ function WebsiteDetailInner() {
   const toast = useToast();
   const { can } = useAuth();
   const initial = (sp.get("tab") || "overview") as Tab;
-  const [tab, setTabState] = useState<Tab>(["overview","history","ssl","monitoring","discovery","script","settings"].includes(initial) ? initial : "overview");
+  const [tab, setTabState] = useState<Tab>(["overview","history","ssl","seo","monitoring","discovery","script","settings"].includes(initial) ? initial : "overview");
   const setTab = (t: Tab) => {
     setTabState(t);
     const url = new URL(window.location.href);
@@ -45,7 +45,13 @@ function WebsiteDetailInner() {
     try {
       const s = await post(`/api/websites/${id}/check?kind=${kind}`);
       setData(s);
-      toast(kind === "http" ? `Check complete: ${s.status} (${ms(s.last_response_ms)})` : `${kind.toUpperCase()} check complete`);
+      toast(
+        kind === "http"
+          ? `Check complete: ${s.status} (${ms(s.last_response_ms)})`
+          : kind === "seo"
+            ? `SEO audit complete — score ${s.seo?.score ?? "—"} (${s.seo?.grade || "—"})`
+            : `${kind.toUpperCase()} check complete`,
+      );
     } catch (e: any) {
       toast(e.message, "error");
     } finally {
@@ -114,7 +120,7 @@ function WebsiteDetailInner() {
         <Stat label="Uptime 7d" value={pct(site.uptime?.["7d"])} />
         <Stat label="Uptime 30d" value={pct(site.uptime?.["30d"])} />
       </div>
-      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
         <button type="button" onClick={() => setTab("ssl")} className="rounded-3xl bg-white p-5 text-left shadow-sm ring-1 ring-plum/8 transition hover:-translate-y-0.5 hover:shadow-lg hover:ring-magenta/25">
           <div className="flex items-center justify-between gap-3">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/55">SSL certificate</span>
@@ -147,10 +153,26 @@ function WebsiteDetailInner() {
           )}
           <div className="mt-3 text-xs font-medium text-magenta">Open SSL & domain →</div>
         </button>
+        <button type="button" onClick={() => setTab("seo")} className="rounded-3xl bg-white p-5 text-left shadow-sm ring-1 ring-plum/8 transition hover:-translate-y-0.5 hover:shadow-lg hover:ring-magenta/25">
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-plum/55">SEO audit</span>
+            <Badge tone={seoTone(site.seo)}>{site.seo ? `Grade ${site.seo.grade}` : site.seo_enabled === false ? "off" : "pending"}</Badge>
+          </div>
+          {site.seo ? (
+            <>
+              <div className="mt-2 font-mono text-2xl font-semibold tracking-tight text-ink">{site.seo.score}<span className="text-base font-normal text-plum/45">/100</span></div>
+              <div className="mt-2 text-sm text-plum/70">{site.seo.failed ? `${site.seo.failed} to fix` : site.seo.warned ? `${site.seo.warned} small tips` : "Looking good"}{site.seo.passed != null ? ` · ${site.seo.passed} passed` : ""}</div>
+              <div className="mt-1 font-mono text-[11px] text-plum/45">{site.seo.checked_at ? `Checked ${timeAgo(site.seo.checked_at)}` : ""}</div>
+            </>
+          ) : (
+            <div className="mt-2 text-sm text-plum/60">{site.seo_enabled === false ? "SEO audit is off for this site." : "Run an audit to see a friendly SEO score."}</div>
+          )}
+          <div className="mt-3 text-xs font-medium text-magenta">Open SEO audit →</div>
+        </button>
       </div>
 
       <div className="mb-5"><Tabs<Tab> value={tab} onChange={setTab} tabs={[
-        { id: "overview", label: "Overview" }, { id: "history", label: "Check history" }, { id: "ssl", label: "SSL & domain" },
+        { id: "overview", label: "Overview" }, { id: "history", label: "Check history" }, { id: "ssl", label: "SSL & domain" }, { id: "seo", label: "SEO" },
         { id: "monitoring", label: "QA & APIs" }, { id: "discovery", label: "Discovery" }, { id: "script", label: "Browser errors" }, { id: "settings", label: "Settings" },
       ]} /></div>
 
@@ -202,6 +224,7 @@ function WebsiteDetailInner() {
 
       {tab === "history" && <History id={id} />}
       {tab === "ssl" && <SslTab site={site} run={run} busy={busy} />}
+      {tab === "seo" && <SeoTab site={site} run={run} busy={busy} canEdit={can("member")} onToggle={async (v) => { await patch(`/api/websites/${id}`, { seo_enabled: v }); reload(); }} />}
       {tab === "monitoring" && <Related site={site} />}
       {tab === "discovery" && <DiscoveryPanel site={site} />}
       {tab === "script" && (
@@ -293,6 +316,14 @@ function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => v
         onClick: () => onOpenTab("ssl"),
       });
     }
+    if (typeof i.seo_score === "number" && (i.seo_score < 70 || (i.seo_failed || 0) > 0)) {
+      out.push({
+        tone: i.seo_score < 50 || (i.seo_failed || 0) > 0 ? "warn" : "info",
+        title: `SEO score ${i.seo_score}${i.seo_grade ? ` (${i.seo_grade})` : ""}`,
+        meta: i.seo_failed ? `${i.seo_failed} item${i.seo_failed === 1 ? "" : "s"} to improve` : "Open SEO audit",
+        onClick: () => onOpenTab("seo"),
+      });
+    }
     return out;
   }, [site, i, onOpenTab]);
 
@@ -300,7 +331,7 @@ function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => v
     { icon: Bug, label: "Browser errors", value: i.errors_active ?? site.counts?.error_groups ?? 0, bad: (i.errors_active || 0) > 0, tab: "script" as Tab },
     { icon: MousePointerClick, label: "Journeys", value: `${i.journeys_failing || 0}/${i.journeys_total || 0}`, bad: (i.journeys_failing || 0) > 0, tab: "monitoring" as Tab },
     { icon: Plug, label: "API monitors", value: `${i.apis_failing || 0}/${i.apis_total || 0}`, bad: (i.apis_failing || 0) > 0, tab: "monitoring" as Tab },
-    { icon: ScanEye, label: "Visual review", value: i.visual_pending || 0, bad: false, tab: "monitoring" as Tab },
+    { icon: Search, label: "SEO score", value: typeof i.seo_score === "number" ? i.seo_score : "—", bad: typeof i.seo_score === "number" && i.seo_score < 60, tab: "seo" as Tab },
   ];
 
   return (
@@ -378,6 +409,107 @@ function History({ id }: { id: string }) {
         </Table>
       </Card>
     </SoftBusy>
+  );
+}
+
+function seoTone(seo: any): "ok" | "warn" | "bad" | "unknown" | "info" {
+  if (!seo || typeof seo.score !== "number") return "unknown";
+  if (seo.failed > 0 || seo.score < 50) return "bad";
+  if (seo.warned > 0 || seo.score < 80) return "warn";
+  return "ok";
+}
+
+function SeoTab({
+  site,
+  run,
+  busy,
+  canEdit,
+  onToggle,
+}: {
+  site: any;
+  run: (k: string) => void;
+  busy: string | null;
+  canEdit: boolean;
+  onToggle: (v: boolean) => Promise<void>;
+}) {
+  const s = site.seo;
+  const checks = s?.checks || [];
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader
+          title={<span className="flex items-center gap-2"><Search className="h-4 w-4" /> SEO audit</span>}
+          subtitle={s ? `Checked ${timeAgo(s.checked_at)} · plain-language tips, not jargon` : "One quick page scan — title, description, headings, mobile & sharing tags"}
+          action={canEdit && (
+            <div className="flex flex-wrap items-center gap-3">
+              <Toggle checked={site.seo_enabled !== false} onChange={(v) => void onToggle(v)} label="Enabled" />
+              <Button size="sm" variant="secondary" loading={busy === "seo"} onClick={() => run("seo")} disabled={site.seo_enabled === false}>
+                Run audit
+              </Button>
+            </div>
+          )}
+        />
+        {site.seo_enabled === false ? (
+          <p className="p-5 text-sm text-plum/60">SEO audit is turned off for this website (or not on your plan). Turn it on to get a daily score.</p>
+        ) : !s ? (
+          <div className="px-5 py-10 text-center">
+            <p className="text-sm text-plum/60">No audit yet. We&apos;ll check the homepage for missing titles, descriptions, mobile setup, and share previews.</p>
+            {canEdit && (
+              <Button className="mt-4" loading={busy === "seo"} onClick={() => run("seo")}>Run first SEO audit</Button>
+            )}
+          </div>
+        ) : (
+          <div className="grid gap-6 p-5 lg:grid-cols-[220px_1fr]">
+            <div className="flex flex-col items-center justify-center rounded-3xl bg-cream/70 p-6 text-center">
+              <div className={`font-mono text-5xl font-semibold tracking-tight ${s.score >= 80 ? "text-ok" : s.score >= 60 ? "text-ink" : "text-bad"}`}>{s.score}</div>
+              <div className="mt-1 text-sm text-plum/60">out of 100</div>
+              <Badge className="mt-3" tone={seoTone(s)}>Grade {s.grade}</Badge>
+              <p className="mt-4 text-[13px] leading-relaxed text-plum-2">{s.summary}</p>
+              <div className="mt-4 flex gap-3 font-mono text-[11px] text-plum/50">
+                <span className="text-ok">{s.passed} ok</span>
+                <span className="text-[#8a5b00]">{s.warned} tips</span>
+                <span className="text-bad">{s.failed} fix</span>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-ink">What we checked</h3>
+              <p className="mt-1 text-xs text-plum/55">Homepage{s.url ? ` · ${s.url}` : ""}. Efficient single-page scan — no browser minutes used.</p>
+              <ul className="mt-4 divide-y divide-plum/6 rounded-2xl ring-1 ring-plum/8">
+                {checks.map((c: any) => (
+                  <li key={c.id} className="flex gap-3 px-4 py-3">
+                    <span className="mt-0.5 shrink-0">
+                      {c.status === "pass" ? <CheckCircle2 className="h-4 w-4 text-ok" /> : c.status === "warn" ? <CircleAlert className="h-4 w-4 text-[#c48a1a]" /> : <CircleAlert className="h-4 w-4 text-bad" />}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-2">
+                        <span className="text-sm font-medium text-ink">{c.label}</span>
+                        <Badge tone={c.status === "pass" ? "ok" : c.status === "warn" ? "warn" : "bad"}>{c.status === "pass" ? "good" : c.status === "warn" ? "improve" : "fix"}</Badge>
+                      </span>
+                      <span className="mt-0.5 block text-[13px] text-plum/75">{c.message}</span>
+                      {c.value && <span className="mt-1 block truncate font-mono text-[11px] text-plum/45">{c.value}</span>}
+                      {c.tip && c.status !== "pass" && <span className="mt-1.5 block text-[12px] leading-relaxed text-ink/80"><span className="font-medium text-magenta">Tip:</span> {c.tip}</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {s.error && <p className="mt-4 text-sm text-bad">{s.error}</p>}
+            </div>
+          </div>
+        )}
+      </Card>
+      {s?.improvements?.length > 0 && (
+        <Card>
+          <CardHeader title="Start here" subtitle="Highest-impact improvements in plain English" />
+          <ol className="list-decimal space-y-3 px-5 py-4 pl-10">
+            {s.improvements.map((imp: any) => (
+              <li key={imp.id} className="text-sm text-ink">
+                <span className="font-medium">{imp.label}.</span> {imp.tip || imp.message}
+              </li>
+            ))}
+          </ol>
+        </Card>
+      )}
+    </div>
   );
 }
 
