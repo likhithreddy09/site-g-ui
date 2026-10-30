@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Bug, Copy, Lock, MousePointerClick, Pause, Play, Plug, RefreshCw, ScanSearch, Search, ShieldCheck, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bug, CheckCircle2, CircleAlert, Copy, Lock, MousePointerClick, Pause, Play, Plug, RefreshCw, ScanSearch, Search, ShieldCheck, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
