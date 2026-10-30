@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Activity, AlertOctagon, Bug, Building2, ChevronDown, CreditCard, FileBarChart, Globe, LayoutDashboard, LogOut, Menu, MousePointerClick,
-  Plug, ScanEye, Settings, TriangleAlert, X,
+  Plug, ScanEye, Search, Settings, TriangleAlert, X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,6 +28,7 @@ const NAV: NavItem[] = [
   { href: "/app/checks", label: "Content & visual", icon: ScanEye, minRole: "member" },
   { href: "/app/api-monitors", label: "API monitors", icon: Plug, minRole: "member" },
   { href: "/app/errors", label: "Browser errors", icon: Bug },
+  { href: "/app/seo", label: "SEO audits", icon: Search, minRole: "member" },
   { section: "Agency", client: false },
   { href: "/app/reports", label: "Reports", icon: FileBarChart },
   { href: "/app/billing", label: "Billing", icon: CreditCard, minRole: "owner" },
