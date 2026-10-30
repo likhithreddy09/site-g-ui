@@ -61,12 +61,6 @@ export default function Home() {
         <ScrollStage>
           <Showcase />
         </ScrollStage>
-        <Reveal delay={0.1}>
-          <p className="mt-8 px-2 text-center text-[14px] leading-relaxed text-plum-2 sm:mt-10 sm:text-base">
-            Grounded in evidence — screenshots, logs, and timelines on every incident.{" "}
-            <Link href="/register" className="link-underline text-plum">Try it on your portfolio</Link>
-          </p>
-        </Reveal>
       </section>
 
       <section id="platform" className="mx-auto mt-28 max-w-6xl px-6">
