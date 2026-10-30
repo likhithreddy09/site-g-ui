@@ -5,7 +5,7 @@ import { Reveal } from "@/components/landing/Reveal";
 import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
 import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/Site";
 import { HOME_FAQS, PLANS, USE_CASES, audience } from "@/lib/marketing";
-import { faqLd, organizationLd, websiteLd } from "@/lib/seo";
+import { faqLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 const MODULES = [
@@ -47,7 +47,7 @@ const appLd = {
 export default function Home() {
   return (
     <div className="bg-white">
-      <JsonLd data={[organizationLd, websiteLd, appLd, faqLd(HOME_FAQS)]} />
+      <JsonLd data={[organizationIdLd, websiteLd, siteNavLd, appLd, faqLd(HOME_FAQS)]} />
       <SiteHeader />
       <main id="main">
 

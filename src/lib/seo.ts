@@ -63,14 +63,31 @@ export const breadcrumbLd = (items: [string, string][]) => ({
   })),
 });
 
+/** Primary marketing destinations Google may promote as sitelinks. */
+export const SITE_NAV: [string, string][] = [
+  ["Features", "/features"],
+  ["Pricing", "/pricing"],
+  ["Use cases", "/use-cases"],
+  ["Security", "/security"],
+  ["About", "/about"],
+  ["Contact", "/contact"],
+  ["Start free", "/register"],
+];
+
 export const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: SITE.legalName,
-  alternateName: [SITE.name, SITE.tradingAs].filter(Boolean),
+  name: SITE.name,
+  legalName: SITE.legalName,
+  alternateName: [SITE.tradingAs, "Watchfront India"].filter(Boolean),
   url: SITE.url,
-  logo: abs("/icon.svg"),
-  image: abs("/opengraph-image"),
+  logo: {
+    "@type": "ImageObject",
+    url: abs("/logo.png"),
+    width: 512,
+    height: 512,
+  },
+  image: abs("/logo.png"),
   description: SITE.description,
   email: SITE.email.hello,
   telephone: SITE.phone,
@@ -105,8 +122,32 @@ export const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: SITE.name,
+  alternateName: ["Watchfront India", "Watchfront monitoring"],
   url: SITE.url,
   description: SITE.description,
   inLanguage: "en-IN",
-  publisher: { "@type": "Organization", name: SITE.legalName, url: SITE.url },
+  publisher: { "@id": `${SITE.url}/#organization` },
+  hasPart: SITE_NAV.map(([name, path]) => ({
+    "@type": "WebPage",
+    name,
+    url: abs(path),
+  })),
+};
+
+/** Helps Google understand primary subpages (sitelinks candidates). */
+export const siteNavLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Watchfront primary pages",
+  itemListElement: SITE_NAV.map(([name, path], i) => ({
+    "@type": "SiteNavigationElement",
+    position: i + 1,
+    name,
+    url: abs(path),
+  })),
+};
+
+export const organizationIdLd = {
+  ...organizationLd,
+  "@id": `${SITE.url}/#organization`,
 };
