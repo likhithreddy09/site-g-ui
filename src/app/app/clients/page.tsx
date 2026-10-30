@@ -23,7 +23,7 @@ export default function ClientsPage() {
   const { can } = useAuth();
   const toast = useToast();
 
-  const siteList = sites || [];
+  const siteList = useMemo(() => sites || [], [sites]);
   const assignable = useMemo(() => {
     if (!edit) return [];
     return [...siteList].sort((a, b) => {

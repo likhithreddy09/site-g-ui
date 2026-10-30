@@ -93,7 +93,8 @@ export function JourneyBuilder({ initial, onSaved }: { initial?: any; onSaved: (
     setError(null);
     const body = {
       name, start_url: startUrl, website_id: websiteId || null, interval_sec: interval, retries, failure_threshold: threshold, severity, timeout_sec: timeout, safety,
-      steps: steps.map(({ _k, ...s }) => s),
+      // Omit client-only _k key before saving
+      steps: steps.map(({ _k, ...s }) => s), // eslint-disable-line @typescript-eslint/no-unused-vars
     };
     try {
       onSaved(initial?.id ? await patch(`/api/browser-tests/${initial.id}`, body) : await post("/api/browser-tests", body));

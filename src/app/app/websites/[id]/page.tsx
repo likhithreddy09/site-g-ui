@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Bug, CheckCircle2, CircleAlert, Copy, Lock, Mous
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { FailureBars, ResponseChart, UptimeBars } from "@/components/charts";
+import { ResponseChart, UptimeBars } from "@/components/charts";
 import { DiscoveryPanel } from "@/components/DiscoveryPanel";
 import { useToast } from "@/components/toast";
 import { WebsiteForm } from "@/components/WebsiteForm";
@@ -252,7 +252,7 @@ function WebsiteDetailInner() {
 }
 
 function SiteInsights({ site, onOpenTab }: { site: any; onOpenTab: (t: Tab) => void }) {
-  const i = site.insights || {};
+  const i = useMemo(() => site.insights || {}, [site.insights]);
   const items = useMemo(() => {
     const out: { tone: "bad" | "warn" | "ok" | "info"; title: string; meta: string; onClick: () => void }[] = [];
     if ((site.open_incidents || []).length) {

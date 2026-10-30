@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useToast } from "@/components/toast";
 import { Badge, Button, Card, CardHeader, ChipInput, ErrorBox, Input, KV, Loading, Modal, PageHeader, Select, SoftBusy, Table, Td, Tabs, Toggle } from "@/components/ui";
-import { api, del, patch, post, put } from "@/lib/api";
+import { del, patch, post, put } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { fmtDate, timeAgo } from "@/lib/format";
 import { useApi } from "@/lib/hooks";

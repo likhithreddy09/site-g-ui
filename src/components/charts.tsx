@@ -10,7 +10,7 @@ function fmtT(t: string, long: boolean) {
   return long ? d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) : d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 
-function TooltipBox({ active, payload, label, long }: any) {
+function TooltipBox({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
     <div className="rounded-xl bg-ink px-3 py-2 font-mono text-[11px] text-cream shadow-xl">
