@@ -294,7 +294,7 @@ function Notifications({ ws, onSaved }: { ws: any; onSaved: () => void }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
-        <CardHeader title="Channels" subtitle={ws.smtp_configured ? "SMTP configured - emails are delivered." : "SMTP not configured - emails are logged on the server (see Delivery log)."} />
+        <CardHeader title="Channels" subtitle={ws.smtp_configured ? "Email delivery is configured." : "Email not configured - messages are logged on the server (see Delivery log)."} />
         <div className="space-y-4 p-5">
           <ErrorBox error={error} />
           <ChipInput
