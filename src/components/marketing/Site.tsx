@@ -38,7 +38,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
         <Logo />
         <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
-          <NavMenu label="Use cases" items={cases} />
+          <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
           <Link href="/pricing" className="hover:text-magenta">Pricing</Link>
           <Link href="/security" className="hover:text-magenta">Security</Link>
           <Link href="/about" className="hover:text-magenta">About</Link>
@@ -71,7 +71,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
 export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
     ["Product", [["All features", "/features"], ...FEATURES.slice(0, 6).map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
-    ["Use cases", USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])],
+    ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [
       ["Privacy policy", "/privacy"],

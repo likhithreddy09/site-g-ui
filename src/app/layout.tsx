@@ -8,28 +8,69 @@ import "./globals.css";
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-poppins", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jbmono", display: "swap" });
 
+const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} — ${SITE.tagline}` };
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: `${SITE.name} — ${SITE.tagline}`, template: `%s | ${SITE.name}` },
+  title: {
+    default: `${SITE.name} — Website Monitoring for Agencies in India`,
+    template: `%s | ${SITE.name}`,
+  },
   description: SITE.description,
   keywords: SITE.keywords,
   applicationName: SITE.name,
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
-  publisher: SITE.name,
+  publisher: SITE.legalName,
   category: "technology",
-  alternates: { canonical: "/" },
-  openGraph: { type: "website", siteName: SITE.name, url: SITE.url, title: `${SITE.name} — ${SITE.tagline}`, description: SITE.description, locale: "en_US" },
-  twitter: { card: "summary_large_image", site: SITE.twitter, title: `${SITE.name} — ${SITE.tagline}`, description: SITE.description },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
-  formatDetection: { telephone: false },
+  classification: "Website monitoring software",
+  alternates: {
+    canonical: "/",
+    languages: { "en-IN": "/", en: "/" },
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    url: SITE.url,
+    title: `${SITE.name} — Website Monitoring for Agencies in India`,
+    description: SITE.description,
+    locale: "en_IN",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: SITE.twitter,
+    title: `${SITE.name} — Website Monitoring for Agencies in India`,
+    description: SITE.description,
+    images: [OG_IMAGE.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon" }],
+  },
+  appleWebApp: { capable: true, title: SITE.name, statusBarStyle: "default" },
+  formatDetection: { telephone: false, email: false, address: false },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = { themeColor: "#4b2440", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <body className={`${poppins.variable} ${mono.variable} antialiased`}>
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>

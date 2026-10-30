@@ -15,7 +15,12 @@ export const generateStaticParams = () => FEATURES.map((f) => ({ slug: f.slug })
 export async function generateMetadata({ params }: Props) {
   const f = featureBySlug((await params).slug);
   if (!f) return {};
-  return pageMeta({ title: f.title, description: f.description, path: `/features/${f.slug}` });
+  return pageMeta({
+    title: f.title,
+    description: f.description,
+    path: `/features/${f.slug}`,
+    keywords: [f.name, `${f.name} for agencies`, "website monitoring India", SITE.name],
+  });
 }
 
 export default async function FeaturePage({ params }: Props) {

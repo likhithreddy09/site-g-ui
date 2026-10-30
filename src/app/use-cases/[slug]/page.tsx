@@ -14,7 +14,12 @@ export const generateStaticParams = () => USE_CASES.map((u) => ({ slug: u.slug }
 export async function generateMetadata({ params }: Props) {
   const u = getUseCase((await params).slug);
   if (!u) return {};
-  return pageMeta({ title: u.title, description: u.description, path: `/use-cases/${u.slug}` });
+  return pageMeta({
+    title: u.title,
+    description: u.description,
+    path: `/use-cases/${u.slug}`,
+    keywords: [u.name, `website monitoring for ${u.name.toLowerCase()}`, "website monitoring India"],
+  });
 }
 
 export default async function UseCasePage({ params }: Props) {
@@ -26,7 +31,7 @@ export default async function UseCasePage({ params }: Props) {
   return (
     <MarketingShell>
       <JsonLd data={faqLd(u.faqs)} />
-      <PageHero crumbs={[["Home", "/"], [`For ${audience(u)}`, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
+      <PageHero crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [`For ${audience(u)}`, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
         <div className="mt-9 flex flex-wrap items-center gap-6">
           <Link href="/register" className="rounded-full bg-plum px-7 py-3.5 font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start monitoring free</Link>
           <Link href="/pricing" className="link-underline text-plum">See pricing</Link>

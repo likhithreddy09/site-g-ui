@@ -31,7 +31,17 @@ const appLd = {
   applicationSubCategory: "Website monitoring",
   operatingSystem: "Web",
   image: abs("/opengraph-image"),
-  offers: PLANS.filter((p) => p.priceInr > 0).map((p) => ({ "@type": "Offer", name: p.name, price: p.priceInr, priceCurrency: "INR", url: abs("/pricing") })),
+  inLanguage: "en-IN",
+  countriesSupported: "IN",
+  featureList: MODULES.map(([t]) => t),
+  offers: PLANS.filter((p) => p.priceInr > 0).map((p) => ({
+    "@type": "Offer",
+    name: p.name,
+    price: p.priceInr,
+    priceCurrency: "INR",
+    url: abs("/pricing"),
+    availability: "https://schema.org/InStock",
+  })),
 };
 
 export default function Home() {
@@ -42,7 +52,7 @@ export default function Home() {
       <main id="main">
 
       <section className="mx-auto max-w-6xl px-6 pb-10 pt-20">
-        <p className="animate-fade-up text-[15px] text-plum">Website reliability & automated QA for agencies</p>
+        <p className="animate-fade-up text-[15px] text-plum">Website monitoring & automated QA for agencies in India</p>
         <h1 className="mt-4 animate-fade-up text-5xl font-semibold leading-[1.05] tracking-tight text-ink [animation-delay:80ms] md:text-[76px]">
           Know when client sites break<br />
           <span className="hl-underline text-magenta">and why they broke</span>
