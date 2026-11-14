@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Activity, AlertOctagon, Bug, Building2, ChevronDown, CreditCard, FileBarChart, Globe, LayoutDashboard, LogOut, Menu, MousePointerClick,
+  Activity, AlertOctagon, Bug, Building2, ChevronDown, FileBarChart, Globe, LayoutDashboard, LogOut, Menu, MousePointerClick,
   Plug, ScanEye, Search, Settings, TriangleAlert, X,
 } from "lucide-react";
 import Link from "next/link";
@@ -31,7 +31,6 @@ const NAV: NavItem[] = [
   { href: "/app/seo", label: "SEO audits", icon: Search, minRole: "member" },
   { section: "Agency", client: false },
   { href: "/app/reports", label: "Reports", icon: FileBarChart },
-  { href: "/app/billing", label: "Billing", icon: CreditCard, minRole: "owner" },
   { href: "/app/settings", label: "Settings", icon: Settings, minRole: "member" },
 ];
 
@@ -49,7 +48,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const openCount = inc ? (inc.counts?.open || 0) + (inc.counts?.investigating || 0) : 0;
   const locked = isTrialLocked(ws);
   const reason = lockReason(ws);
-  const onBilling = path.startsWith("/app/billing");
 
   useEffect(() => {
     setNavPending(false);
@@ -155,15 +153,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Logo href="/app" />
         </div>
         <TrialBanner ws={ws} />
-        {locked && !onBilling && (
+        {locked && (
           <div className="flex flex-col gap-2 bg-bad/15 px-4 py-2.5 text-sm text-bad sm:flex-row sm:items-center sm:gap-3 sm:px-6">
             <span>
-              <b>{reason === "subscription_ended" ? "Plan expired." : "Trial ended."}</b>
-              {" "}Dashboard is view-only until payment unlocks another 30 days.
+              <b>{reason === "subscription_ended" ? "Access ended." : "Trial ended."}</b>
+              {" "}Monitoring is paused and the dashboard is view-only. Join the waitlist to continue.
             </span>
-            <Link href="/app/billing" className="link-underline font-medium sm:ml-auto shrink-0">
-              {reason === "subscription_ended" ? "Renew →" : "Unlock →"}
-            </Link>
           </div>
         )}
         {health?.degraded && (
@@ -183,7 +178,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </span>
             </div>
           )}
-          {locked && !onBilling ? <TrialLockOverlay reason={reason}>{children}</TrialLockOverlay> : children}
+          {locked ? <TrialLockOverlay reason={reason}>{children}</TrialLockOverlay> : children}
         </main>
         <footer className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 pb-8 text-[11px] text-plum/40 md:px-8">
           <Activity className="h-3 w-3" /> Monitoring workers {health?.workers?.length ? `online (${health.workers.length})` : "offline"} · Watchfront

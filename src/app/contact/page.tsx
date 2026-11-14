@@ -125,8 +125,6 @@ export default function ContactPage() {
           <Link href="/refund" className="link-underline font-medium text-plum">Refunds</Link>
           {" · "}
           <Link href="/shipping" className="link-underline font-medium text-plum">Delivery</Link>
-          {" · "}
-          <Link href="/pricing" className="link-underline font-medium text-plum">Pricing</Link>
           <ContactAuthPrompt />
         </div>
       </MotionSection>

@@ -1,9 +1,11 @@
 "use client";
 
-import { Lock, Sparkles } from "lucide-react";
+import { Check, Lock, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui";
+import { Button, cn } from "@/components/ui";
+import { formatApiError, post } from "@/lib/api";
+import { useApi } from "@/lib/hooks";
 
 export type WorkspaceAccess = {
   locked?: boolean;
@@ -71,6 +73,42 @@ function formatRemaining(total: number): string {
   return `${Math.max(total, 0)}s`;
 }
 
+export function WaitlistButton({ className, size = "lg", variant = "primary" }: { className?: string; size?: "sm" | "md" | "lg"; variant?: "primary" | "secondary" }) {
+  const { data, error, setData } = useApi<{ joined: boolean; joined_at: string | null }>("/api/workspace/waitlist");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const ready = !!data || !!error;
+
+  if (data?.joined) {
+    return (
+      <div className={cn("flex items-center justify-center gap-2 rounded-full bg-ok/10 px-4 py-2.5 text-sm font-medium text-ok", className)}>
+        <Check className="h-4 w-4" /> You&apos;re on the waitlist - we&apos;ll be in touch
+      </div>
+    );
+  }
+
+  const join = async () => {
+    setBusy(true);
+    setErr(null);
+    try {
+      setData(await post("/api/workspace/waitlist"));
+    } catch (e) {
+      setErr(formatApiError(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className={className}>
+      <Button onClick={join} loading={busy} disabled={!ready} className="w-full" size={size} variant={variant}>
+        Join the waitlist
+      </Button>
+      {err && <p className="mt-2 text-center text-xs text-bad">{err}</p>}
+    </div>
+  );
+}
+
 /** Slim banner while trial or paid period is running. */
 export function TrialBanner({ ws }: { ws: WorkspaceAccess | null | undefined }) {
   const [left, setLeft] = useState(() => secondsLeft(ws));
@@ -92,12 +130,10 @@ export function TrialBanner({ ws }: { ws: WorkspaceAccess | null | undefined }) 
         <div className="flex items-start gap-2 sm:items-center">
           <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-gold sm:mt-0" />
           <span>
-            <b>Free trial</b> - {formatRemaining(left)} left. Add websites and explore; unlock to keep monitoring after 24 hours.
+            <b>3-day free trial</b> - {formatRemaining(left)} left. Add websites and explore everything. Loving it? Join the waitlist.
           </span>
         </div>
-        <Link href="/app/billing" className="shrink-0 rounded-full bg-cream px-3 py-1 text-xs font-medium text-ink hover:bg-sky sm:ml-auto">
-          See plans
-        </Link>
+        <TrialBannerWaitlist />
       </div>
     );
   }
@@ -116,6 +152,26 @@ export function TrialBanner({ ws }: { ws: WorkspaceAccess | null | undefined }) 
   return null;
 }
 
+function TrialBannerWaitlist() {
+  const { data, error, setData } = useApi<{ joined: boolean }>("/api/workspace/waitlist");
+  const [busy, setBusy] = useState(false);
+  if (data?.joined) {
+    return <span className="shrink-0 rounded-full bg-cream/15 px-3 py-1 text-xs font-medium text-cream sm:ml-auto">✓ On the waitlist</span>;
+  }
+  return (
+    <button
+      disabled={(!data && !error) || busy}
+      onClick={async () => {
+        setBusy(true);
+        try { setData(await post("/api/workspace/waitlist")); } catch { /* retry from the button */ } finally { setBusy(false); }
+      }}
+      className="shrink-0 rounded-full bg-cream px-3 py-1 text-xs font-medium text-ink hover:bg-sky disabled:opacity-60 sm:ml-auto"
+    >
+      {busy ? "Joining…" : "Join waitlist"}
+    </button>
+  );
+}
+
 /** Blurred dashboard + unlock card when trial or subscription period ended. */
 export function TrialLockOverlay({ children, reason }: { children: React.ReactNode; reason?: string | null }) {
   const expiredSub = reason === "subscription_ended";
@@ -130,27 +186,20 @@ export function TrialLockOverlay({ children, reason }: { children: React.ReactNo
             <Lock className="h-7 w-7" />
           </div>
           <h2 className="mt-5 text-center text-xl font-semibold tracking-tight text-ink sm:text-2xl">
-            {expiredSub ? "Your month has ended" : "Your free day is over"}
+            {expiredSub ? "Your access has ended" : "Your 3-day trial is over"}
           </h2>
           <p className="mt-2 text-center text-sm leading-relaxed text-plum-2">
-            {expiredSub
-              ? "You can still see your dashboard, but monitoring is locked until payment is received for the next 30 days."
-              : "You can still see your dashboard, but monitoring stays locked until you choose a plan. Keep what you set up - pick Starter, Growth, or Agency to unlock."}
+            Monitoring and alerts are paused, but everything you set up is saved. Loved Watchfront? Join the waitlist and we&apos;ll reach out personally to get you going again.
           </p>
           <ul className="mt-5 space-y-2 text-sm text-plum">
-            {(expiredSub
-              ? ["Restore checks & alerts", "Keep websites and history", "Each payment unlocks 30 more days"]
-              : ["Continue checks & alerts", "Keep your websites and history", "30 days of access per payment"]
-            ).map((t) => (
+            {["Your websites and history are kept", "Checks & alerts resume when you're back", "Early waitlist members get first access"].map((t) => (
               <li key={t} className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-magenta" />
                 {t}
               </li>
             ))}
           </ul>
-          <Button href="/app/billing" className="mt-6 w-full" size="lg">
-            {expiredSub ? "Renew for 30 days" : "Unlock with a plan"}
-          </Button>
+          <WaitlistButton className="mt-6" />
           <p className="mt-3 text-center text-xs text-plum/50">
             Questions? <Link href="/contact#book" className="underline hover:text-magenta">Book a call</Link>
           </p>

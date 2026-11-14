@@ -184,7 +184,6 @@ export function collectionPageLd({
 /** Primary marketing destinations Google may promote as sitelinks. */
 export const SITE_NAV: [string, string][] = [
   ["Features", "/features"],
-  ["Pricing", "/pricing"],
   ["Use cases", "/use-cases"],
   ["Security", "/security"],
   ["About", "/about"],

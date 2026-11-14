@@ -46,7 +46,7 @@ export default async function UseCasePage({ params }: Props) {
       <PageHero crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [u.name, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start monitoring free</Link>
-          <Link href="/pricing" className="link-underline text-[15px] text-plum">See pricing</Link>
+          <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
         </div>
       </PageHero>
 

@@ -1,29 +1,18 @@
 "use client";
 
-import { Suspense } from "react";
-import { BillingPanel } from "@/components/BillingPanel";
-import { Loading, PageHeader } from "@/components/ui";
-import { useApi } from "@/lib/hooks";
-
-function BillingInner() {
-  const { data: ws, setData } = useApi<any>("/api/workspace");
-  if (!ws) return <Loading rows={4} />;
-  return (
-    <div>
-      <PageHeader
-        eyebrow="Billing"
-        title="Plan & billing"
-        subtitle={`${ws.name} · ${ws.limits?.name || ws.plan} plan`}
-      />
-      <BillingPanel ws={ws} onSaved={setData} />
-    </div>
-  );
-}
+import { WaitlistButton } from "@/components/TrialLock";
+import { Card, PageHeader } from "@/components/ui";
 
 export default function BillingPage() {
   return (
-    <Suspense fallback={<Loading rows={4} />}>
-      <BillingInner />
-    </Suspense>
+    <div>
+      <PageHeader eyebrow="Access" title="Join the waitlist" subtitle="Paid plans aren't open yet. Tell us you want Watchfront and we'll reach out personally." />
+      <Card className="max-w-md p-6">
+        <p className="text-sm leading-relaxed text-plum-2">
+          Every workspace gets a 3-day free trial with every feature. If it earns its place, join the waitlist - early members get first access when we open up.
+        </p>
+        <WaitlistButton className="mt-5" />
+      </Card>
+    </div>
   );
 }

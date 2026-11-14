@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { hierarchicalTitle, organizationLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
@@ -62,8 +61,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-xl font-medium tracking-tight text-ink md:text-2xl">Products &amp; services</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-plum-2">
-              We sell digital SaaS subscriptions for website monitoring and automated QA. Pricing is published in INR on our{" "}
-              <Link href="/pricing" className="link-underline text-plum">pricing page</Link>.
+              We sell digital SaaS subscriptions for website monitoring and automated QA. New workspaces get a 3-day free trial.
             </p>
             <ul className="mt-4 space-y-2 text-[15px] text-plum-2">
               {SERVICES.map((s) => <li key={s} className="flex gap-2"><span className="text-magenta">•</span>{s}</li>)}

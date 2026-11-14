@@ -6,7 +6,7 @@ import { HomeHero } from "@/components/landing/HomeHero";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { ScrollStage } from "@/components/landing/ScrollStage";
 import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/Site";
-import { HOME_FAQS, PLANS, USE_CASES, audience } from "@/lib/marketing";
+import { HOME_FAQS, USE_CASES, audience } from "@/lib/marketing";
 import { faqLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
@@ -37,14 +37,6 @@ const appLd = {
   inLanguage: "en-IN",
   countriesSupported: "IN",
   featureList: MODULES.map(([t]) => t),
-  offers: PLANS.filter((p) => p.priceInr > 0).map((p) => ({
-    "@type": "Offer",
-    name: p.name,
-    price: p.priceInr,
-    priceCurrency: "INR",
-    url: abs("/pricing"),
-    availability: "https://schema.org/InStock",
-  })),
 };
 
 export default function Home() {
@@ -130,35 +122,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="pricing" className="mx-auto mt-28 max-w-6xl px-6">
+      <section id="trial" className="mx-auto mt-28 max-w-6xl px-6">
         <Reveal>
-          <h2 className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Fair INR pricing for Indian teams.</h2>
-          <p className="mt-4 max-w-2xl text-base text-plum-2">Starter ₹999 · Growth ₹2,499 · Agency ₹4,999. Enterprise is a booked call - no surprise fees.</p>
+          <div className="flex flex-col gap-8 rounded-3xl bg-ink p-8 text-cream md:flex-row md:items-center md:p-12">
+            <div className="flex-1">
+              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">Try everything free for 3 days.</h2>
+              <p className="mt-4 max-w-xl text-base text-cream/70">Every feature, no card required. If Watchfront earns its place, join the waitlist from your dashboard and we&apos;ll keep you going.</p>
+              <ul className="mt-6 grid gap-2.5 text-sm sm:grid-cols-2">
+                {["Uptime, SSL & domain checks", "User journeys & form tests", "Browser error monitoring", "Client-ready reports"].map((f) => (
+                  <li key={f} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-sky" />{f}</li>
+                ))}
+              </ul>
+            </div>
+            <Link href="/register" className="shrink-0 rounded-full bg-cream px-8 py-3.5 text-center text-sm font-medium text-ink transition hover:bg-sky">
+              Start your free trial
+            </Link>
+          </div>
         </Reveal>
-        <Stagger className="mt-12 grid gap-5 md:grid-cols-4" stagger={0.07}>
-          {PLANS.map((p) => (
-            <StaggerItem key={p.name} variant="scale">
-              <div className={`flex h-full flex-col rounded-3xl p-7 transition hover:-translate-y-1 ${p.featured ? "bg-ink text-cream shadow-2xl" : "bg-cream text-ink"}`}>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-medium">{p.name}</h3>
-                  {p.featured && <span className="rounded-md bg-gold px-2 py-0.5 text-xs font-medium text-ink">Popular</span>}
-                </div>
-                <p className={`mt-1 text-sm ${p.featured ? "text-cream/60" : "text-plum-2"}`}>{p.note}</p>
-                <div className="mt-6 text-3xl font-medium">
-                  {p.priceLabel || `₹${p.priceInr.toLocaleString("en-IN")}`}
-                  {!p.priceLabel && <span className="text-sm font-normal opacity-60">/mo</span>}
-                </div>
-                <ul className="mt-6 flex-1 space-y-2.5 text-sm">
-                  {p.features.map((f) => <li key={f} className="flex gap-2"><Check className={`mt-0.5 h-4 w-4 shrink-0 ${p.featured ? "text-sky" : "text-magenta"}`} />{f}</li>)}
-                </ul>
-                <Link href={p.href || "/register"} className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition ${p.featured ? "bg-cream text-ink hover:bg-sky" : "bg-plum text-cream hover:bg-ink"}`}>
-                  {p.cta || `Start with ${p.name}`}
-                </Link>
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
-        <p className="mt-6 text-sm text-plum-2">Need SSO or a large portfolio? <Link className="link-underline" href="/contact">Book an Enterprise call</Link>. <Link className="link-underline ml-1" href="/pricing">Compare all plans</Link></p>
       </section>
 
       <section id="use-cases" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="use-cases-title">
@@ -191,7 +171,7 @@ export default function Home() {
         <Stagger className="mt-10 grid gap-5 md:grid-cols-3" stagger={0.1}>
           {[
             ["Your portfolio", "Start monitoring free", "Add websites, group them by client, and get alerts that come with evidence.", "/register"],
-            ["Agencies with 10-50 sites", "Start free trial", "24 hours on the full product - continue on a paid plan if it fits.", "/register"],
+            ["Agencies with 10-50 sites", "Start free trial", "3 days on the full product - join the waitlist if it fits.", "/register"],
             ["Already have an account", "Open your dashboard", "Pick up where you left off.", "/login"],
           ].map(([k, t, d, h]) => (
             <StaggerItem key={t} variant="scale">

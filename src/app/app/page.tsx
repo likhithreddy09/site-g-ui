@@ -67,8 +67,6 @@ export default function Dashboard() {
   ];
 
   const planCap = data.plan?.websites;
-  const planName = data.plan?.name || "Free";
-
   return (
     <SoftBusy busy={refreshing} label="Refreshing…">
     <div>
@@ -102,9 +100,7 @@ export default function Dashboard() {
       ) : (
         <>
           <p className="mb-4 text-xs text-plum/55">
-            Plan · {planName} · {total}/{planCap ?? "-"} sites
-            {" · "}
-            <Link href="/app/billing" className="text-magenta hover:underline">Manage →</Link>
+            {total}/{planCap ?? "-"} sites
           </p>
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

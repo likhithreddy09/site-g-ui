@@ -1,11 +1,10 @@
 # Watchfront
 
-> Website monitoring software for agencies in India — uptime monitoring, SSL, forms, APIs, JS errors and client reports (INR pricing).
+> Website monitoring software for agencies in India — uptime monitoring, SSL, forms, APIs, JS errors and client reports.
 
 Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, and white-label client website uptime reports.
 
 Website: https://watchfront.in
-Pricing: https://watchfront.in/pricing
 Features: https://watchfront.in/features
 Contact: https://watchfront.in/contact
 Start free: https://watchfront.in/register
@@ -27,11 +26,9 @@ Start free: https://watchfront.in/register
 - [Marketing agencies](https://watchfront.in/use-cases/marketing-agencies)
 - [Freelance developers](https://watchfront.in/use-cases/freelancers)
 
-## Pricing (INR via Cashfree)
+## Access
 
-- Free: up to 3 websites
-- Starter: ₹999/mo (1–3 websites)
-- Growth: ₹2,499/mo (4–10 websites)
-- Agency: ₹4,999/mo (up to 50 websites)
+- 3-day free trial with every feature, no card required
+- After the trial, join the waitlist from the dashboard
 
 Alerts today: email. WhatsApp notifications: coming soon.

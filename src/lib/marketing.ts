@@ -145,7 +145,7 @@ export const USE_CASES: UseCase[] = [
     pains: ["Clients report broken forms before you notice", "Checking 40 sites by hand every Monday", "Expired SSL certificates on sites you thought were fine", "Hours spent writing monthly reports"],
     outcomes: [["One portfolio view", "Every client's websites grouped, with health at a glance."], ["Evidence, not guesswork", "Screenshots, console logs and timelines on every incident."], ["Reports in one click", "Uptime and fixes turned into a link your client can open."]],
     features: ["uptime-monitoring", "form-journey-testing", "seo-audit", "client-reports", "visual-regression-testing"],
-    faqs: [{ q: "How many client websites can I monitor?", a: "Starter covers 1-3 sites (₹999), Growth 4-10 (₹2,499), Agency up to 50 (₹4,999). Enterprise is custom - book a call." }, { q: "Can I give clients access?", a: "Yes - invite clients with a read-only role scoped to their own websites, or share report links." }],
+    faqs: [{ q: "How many client websites can I monitor?", a: "As many as your portfolio needs - try it free for 3 days, and book a call if you manage 50+ sites." }, { q: "Can I give clients access?", a: "Yes - invite clients with a read-only role scoped to their own websites, or share report links." }],
   },
   {
     slug: "wordpress-maintenance", name: "WordPress maintenance",
@@ -237,9 +237,9 @@ export const COMPARISON: [string, string, string, string, string][] = [
 export const HOME_FAQS: Faq[] = [
   { q: "What is Watchfront?", a: "Watchfront is website monitoring software for agencies and freelancers in India. It monitors client website uptime, SSL certificates, domain expiry, SEO hygiene, content, contact forms, APIs and JavaScript errors - then turns failures into incidents with evidence and client-ready uptime reports." },
   { q: "How is Watchfront different from UptimeRobot or basic uptime tools?", a: "Basic uptime monitors only ask if the homepage responds. A site can be “up” while its contact form, booking flow or layout is broken. Watchfront adds form and journey testing, visual checks, SEO audits, API monitoring and JS error tracking - with screenshots and logs on every incident." },
-  { q: "Is Watchfront built for Indian agencies?", a: "Yes. Plans are priced in INR via Dodo Payments, support is India-friendly, and workflows are designed for agencies managing many client websites - including client grouping and shareable reports." },
+  { q: "Is Watchfront built for Indian agencies?", a: "Yes. Support is India-friendly, and workflows are designed for agencies managing many client websites - including client grouping and shareable reports." },
   { q: "Do I need to install anything?", a: "No. Uptime, SSL, SEO, content, journey and API checks work from the outside. An optional lightweight script adds real-visitor JavaScript error monitoring." },
-  { q: "Is there a free plan?", a: "Yes. Start free to evaluate, then paid plans from ₹999/month for up to 3 websites - cheaper than stitching together separate uptime, SSL and form tools." },
+  { q: "Is there a free trial?", a: "Yes. Every new workspace gets 3 days with every feature, no card required. If you love it, join the waitlist from your dashboard and we'll reach out to keep you going." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
 ];
 

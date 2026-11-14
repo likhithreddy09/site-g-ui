@@ -33,7 +33,6 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
     changeFrequency: "weekly" as const,
     seo: u.title,
   })),
-  { path: "/pricing", priority: 0.95, changeFrequency: "weekly", seo: "INR pricing" },
   { path: "/security", priority: 0.7, changeFrequency: "monthly", seo: "Security / trust" },
   { path: "/about", priority: 0.55, changeFrequency: "monthly", seo: "About brand" },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly", seo: "Contact / book call" },

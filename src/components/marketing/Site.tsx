@@ -46,7 +46,6 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
         <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
-          <Link href="/pricing" className="hover:text-magenta">Pricing</Link>
           <Link href="/security" className="hover:text-magenta">Security</Link>
           <Link href="/about" className="hover:text-magenta">About</Link>
           <Link href="/contact" className="hover:text-magenta">Contact</Link>
@@ -56,7 +55,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
             <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Features", "/features"], ["Pricing", "/pricing"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
+              {[["Features", "/features"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
                 <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
               <div className="my-1 border-t border-plum/10" />
@@ -67,7 +66,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       </div>
       {banner && (
         <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
-          1-day free trial - try Watchfront, keep going on a paid plan if you like it.{" "}
+          3-day free trial - every feature, no card required.{" "}
           <Link href="/register" className="link-underline ml-1 font-medium">Start free →</Link>
         </div>
       )}
@@ -77,7 +76,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
 
 export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
-    ["Product", [["All features", "/features"], ...FEATURES.filter((f) => f.slug !== "client-reports").map((f) => [f.name, `/features/${f.slug}`] as [string, string]), ["Pricing", "/pricing"]]],
+    ["Product", [["All features", "/features"], ...FEATURES.filter((f) => f.slug !== "client-reports").map((f) => [f.name, `/features/${f.slug}`] as [string, string])]],
     ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [
