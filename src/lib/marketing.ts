@@ -181,57 +181,8 @@ export const USE_CASES: UseCase[] = [
     pains: ["No time to check client sites manually", "Finding out about downtime from an angry email", "Renewals and certificates slipping through", "Hard to show the value of a maintenance fee"],
     outcomes: [["Start free", "Monitor 3 websites free, forever."], ["Alerts you can trust", "Retries and thresholds mean no 3 a.m. false alarms."], ["Professional reports", "Share uptime and fixes with clients in one click."]],
     features: ["uptime-monitoring", "ssl-domain-monitoring", "seo-audit", "form-journey-testing", "client-reports"],
-    faqs: [{ q: "Is there really a free plan?", a: "Yes - 3 websites with 5-minute checks and email alerts, no credit card required." }],
+    faqs: [{ q: "Is there a free trial?", a: "Yes - 3 days with every feature, no credit card required." }],
   },
-];
-
-export type MarketingPlan = {
-  name: string;
-  price: number;
-  priceInr: number;
-  note: string;
-  features: string[];
-  featured?: boolean;
-  /** Custom price label (e.g. Enterprise) */
-  priceLabel?: string;
-  cta?: string;
-  href?: string;
-};
-
-export const PLANS: MarketingPlan[] = [
-  {
-    name: "Starter", price: 12, priceInr: 999, note: "1-3 websites",
-    features: ["Up to 3 websites", "1-minute checks", "SSL & domain monitoring", "SEO audit (10 pages)", "Content checks", "Email alerts", "WhatsApp alerts - coming soon", "30-day history"],
-  },
-  {
-    name: "Growth", price: 30, priceInr: 2499, note: "4-10 websites", featured: true,
-    features: ["Up to 10 websites", "Client grouping", "API & JS monitoring", "SEO audit (25 pages)", "120 browser-test min", "Email alerts", "Scheduled reports", "WhatsApp alerts - coming soon"],
-  },
-  {
-    name: "Agency", price: 60, priceInr: 4999, note: "10+ websites",
-    features: ["Up to 50 websites", "White-label reports", "SEO audit (50 pages)", "400 browser-test min", "10 team members", "Email alerts", "WhatsApp alerts - coming soon"],
-  },
-  {
-    name: "Enterprise", price: 0, priceInr: 0, note: "Large portfolios & custom needs",
-    priceLabel: "Custom", cta: "Book a call", href: "/contact#book",
-    features: ["Unlimited scale", "SSO & audit needs", "Custom retention", "Dedicated support", "SLA options", "Onboarding help"],
-  },
-];
-
-export const COMPARISON: [string, string, string, string, string][] = [
-  ["Websites", "3", "10", "50", "Custom"],
-  ["Best for", "Freelancers", "Growing teams", "Agencies", "Enterprise"],
-  ["Price / month", "₹999", "₹2,499", "₹4,999", "Custom"],
-  ["Check interval", "1 min", "1 min", "1 min", "Custom"],
-  ["SSL & domain monitoring", "✓", "✓", "✓", "✓"],
-  ["SEO audit pages", "10", "25", "50", "Custom"],
-  ["Content & visual checks", "✓", "✓", "✓", "✓"],
-  ["Browser-test minutes / month", "30", "120", "400", "Custom"],
-  ["JavaScript & API monitoring", "-", "✓", "✓", "✓"],
-  ["Client / white-label reports", "-", "✓", "✓ white-label", "✓"],
-  ["Email alerts", "✓", "✓", "✓", "✓"],
-  ["WhatsApp alerts", "Coming soon", "Coming soon", "Coming soon", "Coming soon"],
-  ["Team members", "1", "3", "10", "Custom"],
 ];
 
 export const HOME_FAQS: Faq[] = [
@@ -242,18 +193,6 @@ export const HOME_FAQS: Faq[] = [
   { q: "Is there a free trial?", a: "Yes. Every new workspace gets 3 days with every feature, no card required. If you love it, join the waitlist from your dashboard and we'll reach out to keep you going." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
 ];
-
-export const PRICING_FAQS: Faq[] = [
-  { q: "How much does website monitoring cost in India?", a: "Watchfront plans are in INR: Starter ₹999/mo (up to 3 sites), Growth ₹2,499/mo (up to 10), Agency ₹4,999/mo (up to 50). Start free to evaluate - billed via Dodo Payments (UPI, cards, netbanking)." },
-  { q: "Can I change plans later?", a: "Yes, upgrade or downgrade at any time. Changes take effect immediately and are prorated." },
-  { q: "What currency do you charge in?", a: "Subscriptions are billed in Indian Rupees (INR) via Dodo Payments. Starter ₹999, Growth ₹2,499, Agency ₹4,999 per month." },
-  { q: "What is your refund policy?", a: "You can cancel anytime. First paid purchase may be refundable within 7 days if unused; see our Refund & Cancellation Policy." },
-  { q: "What are browser-test minutes?", a: "Journey tests, visual checks and re-checks run in a real browser. Minutes measure that browser time and are shown before you run anything." },
-  { q: "Is this cheaper than buying separate uptime, SSL and form tools?", a: "Usually yes. One Watchfront workspace covers uptime monitoring, SSL/domain expiry, form journeys, APIs, JS errors and client reports - instead of stacking basic uptime tools plus manual QA." },
-  { q: "Do you offer discounts for agencies?", a: "Annual billing saves two months. For larger portfolios, book an Enterprise call." },
-  { q: "Do you offer enterprise plans?", a: "Yes - custom limits, SSO, audit requirements and dedicated support. Book a call from the pricing page." },
-];
-
 
 export const featureBySlug = (s: string) => FEATURES.find((f) => f.slug === s);
 export const getUseCase = (s: string) => USE_CASES.find((u) => u.slug === s);
