@@ -120,7 +120,7 @@ export function FaqList({ faqs, title = "Frequently asked questions" }: { faqs: 
 
 export function CtaBand({
   title = "Start with one website.",
-  body = "Free for 3 websites. No credit card, nothing to install.",
+  body = "Free for 3 days. No credit card, nothing to install.",
 }: {
   title?: string;
   body?: string;

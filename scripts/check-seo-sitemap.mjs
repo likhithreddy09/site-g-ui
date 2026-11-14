@@ -27,6 +27,11 @@ const useCasesBlock = marketing.slice(useCasesIdx);
 const features = [...featuresBlock.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
 const useCases = [...useCasesBlock.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
 
+const slugsIn = (file) => [...fs.readFileSync(path.join(src, file), "utf8").matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)].map((m) => m[1]);
+const tools = slugsIn("lib/tools.ts");
+const guides = slugsIn("lib/guides.ts");
+const compares = slugsIn("lib/compare.ts");
+
 const sitemapSrc = fs.readFileSync(path.join(src, "lib/sitemapPages.ts"), "utf8");
 const staticPaths = [...sitemapSrc.matchAll(/path:\s*"(\/[^"]*)"/g)].map((m) => m[1]);
 
@@ -36,6 +41,12 @@ const expected = new Set([
   ...features.map((s) => `/features/${s}`),
   "/use-cases",
   ...useCases.map((s) => `/use-cases/${s}`),
+  "/tools",
+  ...tools.map((s) => `/tools/${s}`),
+  "/guides",
+  ...guides.map((s) => `/guides/${s}`),
+  "/compare",
+  ...compares.map((s) => `/compare/${s}`),
   "/security",
   "/about",
   "/contact",
@@ -53,6 +64,11 @@ const pageExists = (p) => {
   }
   if (p.startsWith("/use-cases/") && p !== "/use-cases") {
     return useCases.includes(p.replace("/use-cases/", ""));
+  }
+  for (const [prefix, list] of [["/tools/", tools], ["/guides/", guides], ["/compare/", compares]]) {
+    if (p.startsWith(prefix)) {
+      return list.includes(p.slice(prefix.length)) && fs.existsSync(path.join(src, "app", prefix.slice(1, -1), "[slug]", "page.tsx"));
+    }
   }
   const file = path.join(src, "app", p.slice(1), "page.tsx");
   const layout = path.join(src, "app", p.slice(1), "layout.tsx");
@@ -94,6 +110,12 @@ const metaRoutes = [
   ["app/features/[slug]/page.tsx", "generateMetadata"],
   ["app/use-cases/page.tsx", "pageMeta"],
   ["app/use-cases/[slug]/page.tsx", "generateMetadata"],
+  ["app/tools/page.tsx", "pageMeta"],
+  ["app/tools/[slug]/page.tsx", "generateMetadata"],
+  ["app/guides/page.tsx", "pageMeta"],
+  ["app/guides/[slug]/page.tsx", "generateMetadata"],
+  ["app/compare/page.tsx", "pageMeta"],
+  ["app/compare/[slug]/page.tsx", "generateMetadata"],
   ["app/security/page.tsx", "pageMeta"],
   ["app/about/page.tsx", "pageMeta"],
   ["app/contact/page.tsx", "pageMeta"],
@@ -121,23 +143,24 @@ for (const [rel, kind] of metaRoutes) {
 
 // Also emit a static public/sitemap.xml (fallback if the App Router route misbehaves on host).
 const now = new Date().toISOString();
-// Rank money pages first: home → features hub → SEO audit → pricing → rest
-const rankFirst = ["/", "/features", "/features/seo-audit", "/pricing", "/use-cases"];
+// Rank money pages first: home → features hub → SEO audit → free tools → rest
+const rankFirst = ["/", "/features", "/features/seo-audit", "/tools", "/use-cases"];
 const ordered = [
   ...rankFirst.filter((p) => expected.has(p)),
   ...[...expected].filter((p) => !rankFirst.includes(p)),
 ];
 const pri = (p) =>
   p === "/" ? 1 :
-  ["/features", "/pricing", "/features/seo-audit"].includes(p) ? 0.95 :
+  ["/features", "/features/seo-audit"].includes(p) ? 0.95 :
   p === "/features/uptime-monitoring" ? 0.9 :
-  p === "/use-cases" ? 0.9 :
+  p === "/use-cases" || p === "/tools" || p.startsWith("/tools/") ? 0.9 :
+  p.startsWith("/guides") || p.startsWith("/compare") ? 0.8 :
   p.startsWith("/features/") || p.startsWith("/use-cases/") ? 0.85 :
   ["/security", "/contact"].includes(p) ? 0.7 :
   p === "/register" ? 0.65 :
   p === "/about" ? 0.55 : 0.2;
 const freq = (p) =>
-  ["/", "/features", "/pricing", "/use-cases"].includes(p) || p.startsWith("/features/") || p.startsWith("/use-cases/")
+  ["/", "/features", "/use-cases", "/guides"].includes(p) || p.startsWith("/features/") || p.startsWith("/use-cases/") || p.startsWith("/tools")
     ? "weekly"
     : ["/privacy", "/terms", "/refund", "/shipping"].includes(p)
       ? "yearly"
@@ -147,7 +170,7 @@ const xml = [
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
   ...ordered.flatMap((p) => [
     `<url>`,
-    `<loc>https://watchfront.in${p}</loc>`,
+    `<loc>https://www.watchfront.in${p}</loc>`,
     `<lastmod>${now}</lastmod>`,
     `<changefreq>${freq(p)}</changefreq>`,
     `<priority>${pri(p)}</priority>`,

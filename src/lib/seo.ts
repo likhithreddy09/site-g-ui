@@ -181,10 +181,46 @@ export function collectionPageLd({
   };
 }
 
+export function articleLd({ title, description, path, published, updated }: { title: string; description: string; path: string; published: string; updated: string }) {
+  const url = abs(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: title,
+    description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: published,
+    dateModified: updated,
+    inLanguage: "en-IN",
+    image: abs("/opengraph-image"),
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: { "@id": `${SITE.url}/#organization`, "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: abs("/logo.png") } },
+  };
+}
+
+export function webAppLd({ name, description, path }: { name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    url: abs(path),
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: 0, priceCurrency: "INR" },
+    provider: { "@type": "Organization", name: SITE.name, url: SITE.url },
+  };
+}
+
 /** Primary marketing destinations Google may promote as sitelinks. */
 export const SITE_NAV: [string, string][] = [
   ["Features", "/features"],
   ["Use cases", "/use-cases"],
+  ["Free tools", "/tools"],
+  ["Guides", "/guides"],
   ["Security", "/security"],
   ["About", "/about"],
   ["Contact", "/contact"],

@@ -5,6 +5,7 @@ import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
 import { faqLd, hierarchicalTitle, pageMeta, webPageLd } from "@/lib/seo";
+import { TOOLS } from "@/lib/tools";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -31,6 +32,7 @@ export default async function FeaturePage({ params }: Props) {
   const Icon = FEATURE_ICONS[f.slug];
   const related = f.related.map(featureBySlug).filter((r) => r !== undefined);
   const forWho = USE_CASES.filter((u) => u.features.includes(f.slug));
+  const tool = TOOLS.find((t) => t.feature === f.slug);
 
   return (
     <MarketingShell>
@@ -47,7 +49,11 @@ export default async function FeaturePage({ params }: Props) {
       <PageHero crumbs={[["Home", "/"], ["Features", "/features"], [f.name, `/features/${f.slug}`]]} eyebrow={f.name} title={f.h1} intro={f.intro}>
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start free - no card needed</Link>
-          <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
+          {tool ? (
+            <Link href={`/tools/${tool.slug}`} className="link-underline text-[15px] text-plum">Try the free {tool.name.toLowerCase()}</Link>
+          ) : (
+            <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
+          )}
         </div>
       </PageHero>
 

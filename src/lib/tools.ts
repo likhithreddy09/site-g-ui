@@ -1,0 +1,150 @@
+import type { Faq } from "./marketing";
+
+export type ToolKind = "website-status" | "ssl" | "seo";
+
+export type Tool = {
+  slug: string;
+  kind: ToolKind;
+  name: string;
+  short: string;
+  title: string;
+  description: string;
+  h1: string;
+  intro: string;
+  keywords: string[];
+  placeholder: string;
+  button: string;
+  sections: { h: string; p: string[] }[];
+  faqs: Faq[];
+  feature: string;
+};
+
+export const TOOLS: Tool[] = [
+  {
+    slug: "website-down-checker",
+    kind: "website-status",
+    name: "Website down checker",
+    short: "Is it down for everyone or just you? Check any site's status, response time and redirects.",
+    title: "Is My Website Down? Free Website Down Checker | Watchfront",
+    description: "Check if a website is down for everyone or just you. Free, instant status check with HTTP code, response time and redirect chain - no signup.",
+    keywords: ["is my website down", "website down checker", "check if website is down", "website status checker", "is it down right now"],
+    h1: "Is my website down? Check it instantly",
+    intro: "Enter any URL and we'll request it from our servers - not your network - and show the HTTP status, response time and every redirect. If it loads here but not for you, the problem is probably local.",
+    placeholder: "example.com",
+    button: "Check status",
+    sections: [
+      {
+        h: "How this website down checker works",
+        p: [
+          "We send a real HTTP request to the address you enter from our monitoring servers, follow up to five redirects, and record the final status code and how long the response took. Because the request comes from outside your network, it separates \"the site is down\" from \"my Wi-Fi, DNS or browser cache is broken\".",
+          "A 2xx or 3xx response means the server is answering. A 4xx usually means the page is missing or blocked, and a 5xx means the server itself is failing. Timeouts, DNS failures and refused connections are reported in plain English so you know where to look.",
+        ],
+      },
+      {
+        h: "Website is down for me but up here - what now?",
+        p: [
+          "Clear your browser cache or try a private window, switch from Wi-Fi to mobile data, and flush your DNS cache. Corporate firewalls, VPNs and ad blockers can also block specific sites. If only some visitors are affected, a CDN or regional DNS issue is a common cause.",
+        ],
+      },
+      {
+        h: "Website is down everywhere - common causes",
+        p: [
+          "Expired domains and SSL certificates, hosting outages, a failed deploy, a full disk, an overloaded database, or a plugin update that broke the site are the usual suspects. Check your hosting status page first, then recent changes.",
+          "A one-off check tells you what's happening now. To find out the moment it happens again - before a client or customer tells you - set up continuous uptime monitoring that retries before alerting so you don't get false alarms.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this website down checker free?", a: "Yes. You can run checks without an account. There's a fair-use limit per hour to keep the tool fast for everyone." },
+      { q: "Why does a site load for me but show as down here?", a: "Some sites block automated requests or specific regions. If you get a 403 here but the site works in your browser, it's likely bot protection rather than an outage." },
+      { q: "What is a good website response time?", a: "Under about 500 ms for the first byte is good, under 200 ms is excellent. Consistently above 1-2 seconds hurts conversions and search rankings." },
+      { q: "How can I get alerted when my website goes down?", a: "Use an uptime monitor. Watchfront checks every minute, retries before alerting, and emails you with the status code, error and timeline - free for 3 days." },
+    ],
+    feature: "uptime-monitoring",
+  },
+  {
+    slug: "ssl-checker",
+    kind: "ssl",
+    name: "SSL certificate checker",
+    short: "See who issued a certificate, when it expires, which domains it covers and whether browsers trust it.",
+    title: "Free SSL Checker - Check SSL Certificate Expiry Date | Watchfront",
+    description: "Check any website's SSL certificate: expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Free and instant.",
+    keywords: ["ssl checker", "ssl certificate checker", "check ssl certificate expiry", "ssl expiry checker", "https certificate check"],
+    h1: "Free SSL certificate checker",
+    intro: "Enter a domain to see its SSL/TLS certificate in seconds: issuer, expiry date and days left, the domains it covers, the TLS version negotiated, and whether a standard browser would trust it.",
+    placeholder: "example.com",
+    button: "Check SSL",
+    sections: [
+      {
+        h: "What this SSL checker tests",
+        p: [
+          "We open a TLS connection to the domain on port 443, read the certificate the server presents, and then validate it the same way a browser does. You'll see the subject, issuer, validity window, Subject Alternative Names (every hostname the certificate covers), the protocol version and any verification error.",
+        ],
+      },
+      {
+        h: "Why SSL certificates expire - and why it hurts",
+        p: [
+          "Certificates are valid for a limited time - free Let's Encrypt certificates last 90 days, and the industry is moving to even shorter lifetimes. Auto-renewal fails more often than people expect: a DNS change, a moved server, a firewall rule or a billing issue at the host can quietly stop it.",
+          "When a certificate expires, browsers show a full-page security warning. Most visitors leave immediately, forms stop converting, and APIs that call the site start failing. It's one of the most avoidable outages there is.",
+        ],
+      },
+      {
+        h: "Common SSL errors explained",
+        p: [
+          "\"Hostname mismatch\" means the certificate doesn't list the domain you visited - often www vs non-www. \"Unable to get local issuer certificate\" usually means the server isn't sending the intermediate chain. \"Certificate has expired\" is exactly what it sounds like. Each of these is shown in the result above when it applies.",
+          "To avoid surprises, monitor certificates continuously and get warned 30, 14 and 7 days before expiry - especially across many client sites where renewals are easy to lose track of.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How do I check when an SSL certificate expires?", a: "Enter the domain above. The result shows the exact expiry date and the number of days left." },
+      { q: "Does this check the full certificate chain?", a: "Yes. We validate the certificate against standard trusted roots, so a missing intermediate certificate shows up as a verification error." },
+      { q: "Why does my certificate show as valid in my browser but fail here?", a: "Browsers sometimes fetch missing intermediates or cache them. Many API clients and older devices don't, so a chain problem flagged here is worth fixing." },
+      { q: "Can I get alerts before my SSL certificate expires?", a: "Yes. Watchfront checks SSL and domain expiry for every site you add and warns you well before anything lapses." },
+    ],
+    feature: "ssl-domain-monitoring",
+  },
+  {
+    slug: "seo-checker",
+    kind: "seo",
+    name: "SEO checker",
+    short: "Score any page 0-100 on titles, meta description, headings, canonical, indexing and social tags.",
+    title: "Free SEO Checker - On-Page SEO Audit Tool | Watchfront",
+    description: "Free on-page SEO checker. Score any URL 0-100 on title, meta description, H1, canonical, robots, viewport, Open Graph, Twitter card and image alt text.",
+    keywords: ["free seo checker", "seo checker", "on page seo checker", "meta tag checker", "website seo audit free"],
+    h1: "Free on-page SEO checker",
+    intro: "Paste a URL to get an instant on-page SEO audit: a 0-100 score, a letter grade, and a plain-English list of what to fix - from titles and meta descriptions to canonicals, indexing rules and social share tags.",
+    placeholder: "example.com/page",
+    button: "Run SEO check",
+    sections: [
+      {
+        h: "What the SEO checker looks at",
+        p: [
+          "HTTPS, page title length, meta description, a single clear H1, canonical URL, meta robots (so you catch accidental noindex), mobile viewport, html lang, Open Graph title/description/image, Twitter card, image alt text coverage and character encoding. Each check is weighted into the overall score.",
+        ],
+      },
+      {
+        h: "The on-page basics that still matter",
+        p: [
+          "Titles and meta descriptions decide whether someone clicks your result. A missing or duplicated H1 muddies what a page is about. A stray noindex - often left over from a staging site - can remove a page from Google entirely. Missing Open Graph tags make links look broken when shared on WhatsApp, LinkedIn or X.",
+          "None of this replaces great content or backlinks, but these are the cheapest wins in SEO and the easiest things to break during a redesign or plugin update.",
+        ],
+      },
+      {
+        h: "Audit one page here, or a whole site automatically",
+        p: [
+          "This free tool checks a single URL. Agencies usually need more: every important page from the sitemap, re-checked on a schedule, with an alert when a deploy removes a title or flips a page to noindex. That's what Watchfront's SEO audit does across all your client sites.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this SEO checker really free?", a: "Yes. No signup is needed to audit a page. There's an hourly fair-use limit per visitor." },
+      { q: "What is a good SEO score?", a: "80+ (grade A or B) means the on-page basics are in good shape. Below 60 usually means missing titles, descriptions or indexing problems worth fixing first." },
+      { q: "Does a high score guarantee rankings?", a: "No. This checks on-page hygiene. Rankings also depend on content quality, search intent, backlinks and site speed." },
+      { q: "Can I audit every page on my site?", a: "Watchfront's SEO audit crawls the sitemap and internal links, scores each page, and re-runs on a schedule. Try it free for 3 days." },
+    ],
+    feature: "seo-audit",
+  },
+];
+
+export const toolBySlug = (s: string) => TOOLS.find((t) => t.slug === s);

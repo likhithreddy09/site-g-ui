@@ -1,4 +1,7 @@
+import { COMPARISONS } from "./compare";
+import { GUIDES } from "./guides";
 import { FEATURES, USE_CASES } from "./marketing";
+import { TOOLS } from "./tools";
 
 export type SitemapEntry = {
   path: string;
@@ -33,6 +36,12 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
     changeFrequency: "weekly" as const,
     seo: u.title,
   })),
+  { path: "/tools", priority: 0.9, changeFrequency: "weekly", seo: "Free tools hub" },
+  ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, priority: 0.9, changeFrequency: "weekly" as const, seo: t.title })),
+  { path: "/guides", priority: 0.8, changeFrequency: "weekly", seo: "Guides hub" },
+  ...GUIDES.map((g) => ({ path: `/guides/${g.slug}`, priority: 0.8, changeFrequency: "monthly" as const, seo: g.title })),
+  { path: "/compare", priority: 0.8, changeFrequency: "monthly", seo: "Comparisons hub" },
+  ...COMPARISONS.map((c) => ({ path: `/compare/${c.slug}`, priority: 0.8, changeFrequency: "monthly" as const, seo: c.title })),
   { path: "/security", priority: 0.7, changeFrequency: "monthly", seo: "Security / trust" },
   { path: "/about", priority: 0.55, changeFrequency: "monthly", seo: "About brand" },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly", seo: "Contact / book call" },

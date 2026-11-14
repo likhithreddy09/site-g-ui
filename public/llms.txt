@@ -1,30 +1,55 @@
 # Watchfront
 
-> Website monitoring software for agencies in India — uptime monitoring, SSL, forms, APIs, JS errors and client reports.
+> Website monitoring software for agencies in India — uptime monitoring, SSL, forms, APIs, JS errors, SEO audits and client reports.
 
-Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, and white-label client website uptime reports.
+Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, SEO audits, and white-label client website uptime reports.
 
-Website: https://watchfront.in
-Features: https://watchfront.in/features
-Contact: https://watchfront.in/contact
-Start free: https://watchfront.in/register
+Website: https://www.watchfront.in
+Features: https://www.watchfront.in/features
+Free tools: https://www.watchfront.in/tools
+Guides: https://www.watchfront.in/guides
+Contact: https://www.watchfront.in/contact
+Start free: https://www.watchfront.in/register
+
+## Free tools (no signup)
+
+- [Website down checker](https://www.watchfront.in/tools/website-down-checker): check if a site is down for everyone, with HTTP status, response time and redirects
+- [SSL certificate checker](https://www.watchfront.in/tools/ssl-checker): expiry date, days left, issuer, covered domains and browser trust
+- [SEO checker](https://www.watchfront.in/tools/seo-checker): on-page SEO score 0-100 with a fix list
 
 ## Primary product pages
 
-- [Uptime monitoring](https://watchfront.in/features/uptime-monitoring): 1-minute checks, retries, confirmed-outage email alerts
-- [SSL & domain expiry](https://watchfront.in/features/ssl-domain-monitoring): certificate and registry expiry warnings
-- [Visual & content checks](https://watchfront.in/features/visual-regression-testing): missing text, broken links, screenshot baselines
-- [Form & journey testing](https://watchfront.in/features/form-journey-testing): Real-browser journeys for contact forms and bookings
-- [API monitoring](https://watchfront.in/features/api-monitoring): scheduled endpoint checks with assertions
-- [JavaScript error monitoring](https://watchfront.in/features/javascript-error-monitoring): real-visitor errors grouped by fingerprint
-- [Client reports](https://watchfront.in/features/client-reports): shareable uptime and incident reports
+- [Uptime monitoring](https://www.watchfront.in/features/uptime-monitoring): 1-minute checks, retries, confirmed-outage email alerts
+- [SSL & domain expiry](https://www.watchfront.in/features/ssl-domain-monitoring): certificate and registry expiry warnings
+- [SEO audit](https://www.watchfront.in/features/seo-audit): multi-page on-page SEO audits with scores and fix lists
+- [Visual & content checks](https://www.watchfront.in/features/visual-regression-testing): missing text, broken links, screenshot baselines
+- [Form & journey testing](https://www.watchfront.in/features/form-journey-testing): real-browser journeys for contact forms and bookings
+- [API monitoring](https://www.watchfront.in/features/api-monitoring): scheduled endpoint checks with assertions
+- [JavaScript error monitoring](https://www.watchfront.in/features/javascript-error-monitoring): real-visitor errors grouped by fingerprint
+- [Client reports](https://www.watchfront.in/features/client-reports): shareable uptime and incident reports
+
+## Guides
+
+- [What is uptime monitoring?](https://www.watchfront.in/guides/what-is-uptime-monitoring)
+- [Website down? Step-by-step checklist](https://www.watchfront.in/guides/website-down-what-to-do)
+- [How to stop SSL certificates expiring](https://www.watchfront.in/guides/ssl-certificate-expiry)
+- [Contact form not working](https://www.watchfront.in/guides/contact-form-not-working)
+- [Monthly website maintenance checklist](https://www.watchfront.in/guides/website-maintenance-checklist)
+
+## Comparisons
+
+- [UptimeRobot alternative](https://www.watchfront.in/compare/uptimerobot-alternative)
+- [Pingdom alternative](https://www.watchfront.in/compare/pingdom-alternative)
+- [StatusCake alternative](https://www.watchfront.in/compare/statuscake-alternative)
+- [Better Stack alternative](https://www.watchfront.in/compare/better-stack-alternative)
+- [Site24x7 alternative](https://www.watchfront.in/compare/site24x7-alternative)
 
 ## Who it is for
 
-- [Web agencies](https://watchfront.in/use-cases/web-agencies)
-- [WordPress maintenance](https://watchfront.in/use-cases/wordpress-maintenance)
-- [Marketing agencies](https://watchfront.in/use-cases/marketing-agencies)
-- [Freelance developers](https://watchfront.in/use-cases/freelancers)
+- [Web agencies](https://www.watchfront.in/use-cases/web-agencies)
+- [WordPress maintenance](https://www.watchfront.in/use-cases/wordpress-maintenance)
+- [Marketing agencies](https://www.watchfront.in/use-cases/marketing-agencies)
+- [Freelance developers](https://www.watchfront.in/use-cases/freelancers)
 
 ## Access
 

@@ -17,9 +17,9 @@ export const FEATURES: Feature[] = [
     h1: "Uptime monitoring that only wakes you for real outages",
     intro: "Watchfront is an uptime monitoring tool built for agencies that look after many client sites. We check each website as often as every minute, retry failures before alerting, and open incidents only for real downtime - not a single slow request.",
     steps: [["Add a website", "Paste the address. We start checking it straight away - no code or plugin needed."], ["We retry before alerting", "A failure is confirmed with an automatic retry and a failure threshold you control."], ["Get an incident with evidence", "Status code, response time, error and timeline are attached, and recovery closes it automatically."]],
-    benefits: ["Checks every 1-5 minutes depending on your plan", "Retries and failure thresholds prevent false alarms", "Response-time history and 24h / 7d / 30d uptime", "Email alerts today · WhatsApp coming soon", "Uptime figures flow straight into client reports"],
+    benefits: ["Checks as often as every minute", "Retries and failure thresholds prevent false alarms", "Response-time history and 24h / 7d / 30d uptime", "Email alerts today · WhatsApp coming soon", "Uptime figures flow straight into client reports"],
     faqs: [
-      { q: "How often does Watchfront check my websites?", a: "Every 5 minutes on the Free plan and as often as every minute on paid plans. You can set a different interval per website." },
+      { q: "How often does Watchfront check my websites?", a: "As often as every minute. You can set a different interval per website." },
       { q: "How do you avoid false alarms?", a: "Every failure is retried, and an incident only opens after the number of consecutive failures you choose. Short blips are recorded as transient instead of paging your team." },
       { q: "Do I need to install anything on the website?", a: "No. Uptime, SSL and domain checks work from the outside. The optional error script is only needed for real-visitor JavaScript errors." },
     ],
@@ -32,11 +32,11 @@ export const FEATURES: Feature[] = [
     keywords: ["SEO audit", "on-page SEO check", "website SEO audit", "meta title checker"],
     h1: "SEO audits that cover the whole site, not just the homepage",
     intro: "A strong homepage can hide thin titles and missing meta on the pages that actually get traffic. Watchfront’s SEO audit crawls the sitemap and internal links, scores each page 0-100, and lists what to fix in plain English.",
-    steps: [["We find the pages", "Sitemap.xml plus important internal links - up to your plan’s page limit."], ["Each page is scored", "HTTPS, title, meta description, H1, canonical, robots, viewport, language, Open Graph, Twitter card, image alt text and charset."], ["You get a grade and a list", "Site score, letter grade, and failed or warned items with tips - scheduled daily or run on demand."]],
+    steps: [["We find the pages", "Sitemap.xml plus important internal links - up to dozens of pages per site."], ["Each page is scored", "HTTPS, title, meta description, H1, canonical, robots, viewport, language, Open Graph, Twitter card, image alt text and charset."], ["You get a grade and a list", "Site score, letter grade, and failed or warned items with tips - scheduled daily or run on demand."]],
     benefits: ["Multi-page crawl from sitemap and links", "On-page checks weighted into a 0-100 score and A-F grade", "Titles, meta, H1, canonical and indexing rules", "Open Graph and Twitter / X card tags", "Image alt coverage and mobile viewport", "Incidents when SEO needs attention", "Per-page results in the dashboard"],
     faqs: [
       { q: "Is this a ranking tool or keyword research?", a: "No. Watchfront audits on-page SEO hygiene across your client’s pages - titles, meta, structure and share tags - so agencies catch basics before they hurt search or social." },
-      { q: "How many pages are checked?", a: "Depends on plan: Starter up to 10 pages, Growth 25, Agency 50. We prioritise the sitemap and important internal links within that budget." },
+      { q: "How many pages are checked?", a: "Up to dozens of pages per site. We prioritise the sitemap and important internal links. Want to check a single page right now? Use the free SEO checker." },
       { q: "Do I need to install a plugin?", a: "No. Audits run from the outside like uptime and SSL - nothing to install on the client site." },
     ],
     related: ["uptime-monitoring", "visual-regression-testing", "client-reports"],
@@ -120,7 +120,7 @@ export const FEATURES: Feature[] = [
   {
     slug: "client-reports", name: "Client reports", short: "Turn monitoring into reports clients actually read.",
     title: "Client reports | Features | Watchfront",
-    description: "Share uptime, incidents and fixes in a report clients can open without an account. Brand it with your agency name on the Agency plan.",
+    description: "Share uptime, incidents and fixes in a report clients can open without an account. Brand it with your agency name.",
     keywords: ["client website reports", "uptime reports", "white label monitoring reports", "agency monitoring reports"],
     h1: "Client reports that prove the value of your retainer",
     intro: "Turn monitoring into client website uptime reports your clients actually open - branded with your agency’s name (white-label on Agency), honest about coverage, and shareable without a login.",
@@ -128,7 +128,7 @@ export const FEATURES: Feature[] = [
     benefits: ["Uptime, response time and incident summaries", "Resolution notes from your team", "White-label branding on Agency", "Secure shareable links - no client login needed", "Scheduled monthly delivery"],
     faqs: [
       { q: "Do clients need an account?", a: "No. Reports open from a secure, unguessable link. You can revoke a link at any time." },
-      { q: "Can I put my agency's branding on reports?", a: "Yes, white-label branding is available on the Agency plan." },
+      { q: "Can I put my agency's branding on reports?", a: "Yes, white-label branding with your agency name and logo is available." },
     ],
     related: ["uptime-monitoring", "ssl-domain-monitoring", "visual-regression-testing"],
   },

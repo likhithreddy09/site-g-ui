@@ -9,6 +9,7 @@ import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/
 import { HOME_FAQS, USE_CASES, audience } from "@/lib/marketing";
 import { faqLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
+import { TOOLS } from "@/lib/tools";
 
 const MODULES = [
   ["Portfolio & client management", "/use-cases/web-agencies", "Group every client website in one workspace with labels, notes, and per-client health."],
@@ -139,6 +140,25 @@ export default function Home() {
             </Link>
           </div>
         </Reveal>
+      </section>
+
+      <section id="free-tools" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="free-tools-title">
+        <Reveal>
+          <h2 id="free-tools-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Free website checkers</h2>
+          <p className="mt-4 max-w-2xl text-base text-plum-2">Run a one-off check right now - no signup. The same engines power Watchfront&apos;s 24/7 monitoring.</p>
+        </Reveal>
+        <Stagger className="mt-10 grid gap-5 md:grid-cols-3" stagger={0.08}>
+          {TOOLS.map((t) => (
+            <StaggerItem key={t.slug} variant="scale">
+              <Link href={`/tools/${t.slug}`} className="group flex h-full flex-col rounded-3xl bg-cream p-7 transition hover:-translate-y-1 hover:shadow-xl">
+                <h3 className="text-lg font-medium text-ink group-hover:text-magenta">{t.name}</h3>
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-plum-2">{t.short}</p>
+                <span className="mt-6 text-sm text-plum"><span className="link-underline">Try it free</span> <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
+        <p className="mt-6 text-sm text-plum-2">New to monitoring? Start with <Link href="/guides/what-is-uptime-monitoring" className="link-underline">what uptime monitoring is</Link> or <Link href="/guides" className="link-underline">browse all guides</Link>.</p>
       </section>
 
       <section id="use-cases" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="use-cases-title">

@@ -3,8 +3,11 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
+import { COMPARISONS } from "@/lib/compare";
+import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES, audience } from "@/lib/marketing";
 import { SITE } from "@/lib/site";
+import { TOOLS } from "@/lib/tools";
 
 export { JsonLd } from "@/components/marketing/SiteJsonLd";
 export {
@@ -46,6 +49,8 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
         <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
+          <NavMenu label="Free tools" items={TOOLS.map((t) => ({ href: `/tools/${t.slug}`, name: t.name, short: t.short }))} all={["All free tools", "/tools"]} />
+          <Link href="/guides" className="hover:text-magenta">Guides</Link>
           <Link href="/security" className="hover:text-magenta">Security</Link>
           <Link href="/about" className="hover:text-magenta">About</Link>
           <Link href="/contact" className="hover:text-magenta">Contact</Link>
@@ -55,7 +60,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
             <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Features", "/features"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
+              {[["Features", "/features"], ["Free tools", "/tools"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
                 <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
               <div className="my-1 border-t border-plum/10" />
@@ -78,6 +83,8 @@ export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
     ["Product", [["All features", "/features"], ...FEATURES.filter((f) => f.slug !== "client-reports").map((f) => [f.name, `/features/${f.slug}`] as [string, string])]],
     ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
+    ["Free tools", [["All free tools", "/tools"], ...TOOLS.map((t) => [t.name, `/tools/${t.slug}`] as [string, string])]],
+    ["Resources", [["Guides", "/guides"], ...GUIDES.map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]), ["Compare tools", "/compare"], ...COMPARISONS.map((c) => [`${c.competitor} alternative`, `/compare/${c.slug}`] as [string, string])]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [
       ["Privacy policy", "/privacy"],
@@ -88,8 +95,8 @@ export function SiteFooter() {
   ];
   return (
     <footer className="mt-28 bg-ink py-14 text-cream">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1.3fr_repeat(4,1fr)]">
-        <div>
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-6 md:grid-cols-3 lg:grid-cols-[1.3fr_repeat(6,1fr)]">
+        <div className="col-span-2 md:col-span-3 lg:col-span-1">
           <Logo light />
           <p className="mt-3 max-w-xs text-sm text-cream/60">{SITE.tagline}. Monitor every client website, catch broken forms and errors, and share reports clients understand.</p>
           <a href={`mailto:${SITE.email.hello}`} className="mt-4 block text-sm text-sky hover:underline">{SITE.email.hello}</a>
