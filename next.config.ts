@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
 
 const nextConfig: NextConfig = {
+  // Isolated build output so e2e testing does not clash with `npm run dev` on :3000.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
   async headers() {
     const faviconFresh = [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }];
