@@ -105,6 +105,10 @@ export default function RefundPage() {
               <Link href="/contact">Contact us</Link>
               {" · "}
               <Link href="/terms">Terms of service</Link>
+              {" · "}
+              <Link href="/shipping">Shipping &amp; delivery</Link>
+              {" · "}
+              <Link href="/privacy">Privacy policy</Link>
             </p>
           ),
         },

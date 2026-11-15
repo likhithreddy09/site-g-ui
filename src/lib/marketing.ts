@@ -11,7 +11,7 @@ export type UseCase = {
 export const FEATURES: Feature[] = [
   {
     slug: "uptime-monitoring", name: "Uptime & response time", short: "Know within a minute when a client site goes down - without false alarms.",
-    title: "Uptime & response time | Features | Watchfront",
+    title: "Uptime Monitoring with 1-Minute Checks | Watchfront",
     description: "Check client sites as often as every minute. We retry before alerting, so you get real downtime notices - with response times and history included.",
     keywords: ["uptime monitoring", "website downtime alerts", "monitor client websites", "response time monitoring"],
     h1: "Uptime monitoring that only wakes you for real outages",
@@ -27,7 +27,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "seo-audit", name: "SEO audit", short: "Score titles, meta, headings and social tags across sitemap pages - not just the homepage.",
-    title: "SEO audit | Features | Watchfront",
+    title: "Website SEO Audit Tool for Agencies | Watchfront",
     description: "Crawl sitemap pages and check titles, meta, headings, canonicals and share tags. Get a clear score and a fix list - not just a homepage glance.",
     keywords: ["SEO audit", "on-page SEO check", "website SEO audit", "meta title checker"],
     h1: "SEO audits that cover the whole site, not just the homepage",
@@ -43,7 +43,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "ssl-domain-monitoring", name: "SSL & domain expiry", short: "Never let a certificate or domain expire on a client again.",
-    title: "SSL & domain expiry | Features | Watchfront",
+    title: "SSL Certificate & Domain Expiry Monitoring | Watchfront",
     description: "Track certificate and domain expiry on every client site. Get warned before something lapses - and see HTTPS redirect issues early.",
     keywords: ["SSL certificate monitoring", "domain expiry monitoring", "HTTPS redirect check", "SSL expiry alerts"],
     h1: "SSL and domain expiry monitoring for every client",
@@ -58,7 +58,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "visual-regression-testing", name: "Content & visual checks", short: "Spot missing content, broken links and unexpected visual changes.",
-    title: "Content & visual checks | Features | Watchfront",
+    title: "Visual Regression & Content Monitoring | Watchfront",
     description: "Watch important text and layout on a schedule. Catch missing content, broken links and unexpected screenshot changes - without writing selectors.",
     keywords: ["visual regression testing", "broken link checker", "content monitoring", "website screenshot comparison"],
     h1: "Content and visual checks without writing a single selector",
@@ -73,7 +73,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "form-journey-testing", name: "Form & journey testing", short: "Prove contact forms, logins and booking flows still work.",
-    title: "Form & journey testing | Features | Watchfront",
+    title: "Contact Form & User Journey Monitoring | Watchfront",
     description: "Record a form or booking flow once, then replay it in a real browser. When a step fails, you get the screenshot and logs - not a vague “site is up”.",
     keywords: ["contact form monitoring", "journey testing", "form monitoring", "booking flow test"],
     h1: "Test the forms and journeys that bring in leads",
@@ -88,7 +88,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "api-monitoring", name: "API monitoring", short: "Check backend endpoints and integrations, not just the homepage.",
-    title: "API monitoring | Features | Watchfront",
+    title: "API Monitoring for Endpoints & Integrations | Watchfront",
     description: "Schedule checks on the endpoints that matter. Import Postman or OpenAPI, assert status and body, and catch API failures the homepage never shows.",
     keywords: ["API monitoring", "endpoint monitoring", "Postman monitoring", "OpenAPI checks"],
     h1: "API monitoring that's easy to set up - for developers and everyone else",
@@ -103,7 +103,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "javascript-error-monitoring", name: "JavaScript error monitoring", short: "See the errors real visitors hit - with the steps they took before it broke.",
-    title: "JavaScript error monitoring | Features | Watchfront",
+    title: "JavaScript Error Monitoring for Websites | Watchfront",
     description: "See crashes and failed requests from real visitors. Errors are grouped across browsers, with the clicks that led up to the bug.",
     keywords: ["JavaScript error monitoring", "JS error tracking", "client-side error monitoring", "browser error monitoring"],
     h1: "JavaScript error monitoring that shows what the visitor did",
@@ -119,7 +119,7 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "client-reports", name: "Client reports", short: "Turn monitoring into reports clients actually read.",
-    title: "Client reports | Features | Watchfront",
+    title: "White-Label Website Uptime Reports | Watchfront",
     description: "Share uptime, incidents and fixes in a report clients can open without an account. Brand it with your agency name.",
     keywords: ["client website reports", "uptime reports", "white label monitoring reports", "agency monitoring reports"],
     h1: "Client reports that prove the value of your retainer",
@@ -137,7 +137,7 @@ export const FEATURES: Feature[] = [
 export const USE_CASES: UseCase[] = [
   {
     slug: "web-agencies", name: "Web agencies",
-    title: "Web agencies | Use cases | Watchfront",
+    title: "Website Monitoring for Web Agencies | Watchfront",
     description: "One place for every client site: uptime, SSL, forms, SEO and errors. Your team sees the problem first - with evidence and a report you can share.",
     keywords: ["website monitoring for agencies", "agency website monitoring", "monitor client websites", "web agency monitoring"],
     h1: "Website monitoring built for web agencies",
@@ -149,7 +149,7 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "wordpress-maintenance", name: "WordPress maintenance",
-    title: "WordPress maintenance | Use cases | Watchfront",
+    title: "WordPress Site Monitoring for Maintenance | Watchfront",
     description: "Catch what plugin and theme updates break - forms, layouts and JS errors - before the client notices. No WordPress plugin to install.",
     keywords: ["WordPress website monitoring", "WordPress maintenance monitoring", "plugin update monitoring", "WordPress form monitoring"],
     h1: "Catch what plugin updates break - before your client does",
@@ -161,7 +161,7 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "marketing-agencies", name: "Marketing agencies",
-    title: "Marketing agencies | Use cases | Watchfront",
+    title: "Website Monitoring for Marketing Agencies | Watchfront",
     description: "Watch campaign pages and lead forms. Get alerted when a page goes down or a form stops converting - before ad spend is wasted.",
     keywords: ["landing page monitoring", "lead form monitoring", "marketing agency monitoring", "campaign page uptime"],
     h1: "Protect campaign spend with landing page monitoring",
@@ -173,7 +173,7 @@ export const USE_CASES: UseCase[] = [
   },
   {
     slug: "freelancers", name: "Freelancers",
-    title: "Freelancers | Use cases | Watchfront",
+    title: "Website Monitoring for Freelancers | Watchfront",
     description: "Affordable uptime, SSL and form checks for the sites you maintain. Start free, and share a clean report with each client.",
     keywords: ["website monitoring for freelancers", "freelancer uptime monitoring", "client site monitoring", "solo developer monitoring"],
     h1: "Look after every client site like a full agency would",

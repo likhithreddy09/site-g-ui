@@ -3,16 +3,16 @@ import Link from "next/link";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { FEATURES } from "@/lib/marketing";
-import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
+import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("Features"),
+  title: "Website Monitoring Features: Uptime, SSL, SEO | Watchfront",
   description: "See what Watchfront checks: uptime, SSL, SEO, forms, APIs, JS errors and client reports - built for agencies looking after many sites.",
   path: "/features",
   keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit"],
-  ogTitle: hierarchicalTitle("Features"),
   ogDescription: "Uptime, SSL, SEO, forms, APIs, JS errors and client reports - one toolkit for agency portfolios.",
+  image: "/features/opengraph-image",
 });
 
 const EXTRAS = [

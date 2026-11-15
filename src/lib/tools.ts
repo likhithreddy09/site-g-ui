@@ -67,7 +67,7 @@ export const TOOLS: Tool[] = [
     kind: "ssl",
     name: "SSL certificate checker",
     short: "See who issued a certificate, when it expires, which domains it covers and whether browsers trust it.",
-    title: "Free SSL Checker - Check SSL Certificate Expiry Date | Watchfront",
+    title: "Free SSL Checker - Check Certificate Expiry | Watchfront",
     description: "Check any website's SSL certificate: expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Free and instant.",
     keywords: ["ssl checker", "ssl certificate checker", "check ssl certificate expiry", "ssl expiry checker", "https certificate check"],
     h1: "Free SSL certificate checker",

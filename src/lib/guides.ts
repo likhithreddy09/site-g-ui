@@ -24,7 +24,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "what-is-uptime-monitoring",
     nav: "What is uptime monitoring?",
-    title: "What Is Uptime Monitoring? A Plain-English Guide | Watchfront",
+    title: "What Is Uptime Monitoring? Plain-English Guide | Watchfront",
     description: "What uptime monitoring is, how it works, what 99.9% uptime really means, and how to set it up without drowning in false alarms.",
     h1: "What is uptime monitoring? A plain-English guide",
     intro: "Uptime monitoring is an automated service that visits your website on a schedule and alerts you when it stops responding properly. Here's how it works, what the numbers mean, and how to set it up so it only wakes you for real problems.",
@@ -88,7 +88,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "website-down-what-to-do",
     nav: "Website down checklist",
-    title: "Website Down? A Step-by-Step Checklist to Fix It Fast | Watchfront",
+    title: "Website Down? Step-by-Step Fix Checklist | Watchfront",
     description: "Your website is down. Follow this step-by-step checklist to confirm the outage, find the cause (DNS, SSL, hosting, deploy) and get back online fast.",
     h1: "Website down? A step-by-step checklist to fix it fast",
     intro: "When a site goes down, the first ten minutes decide how bad it gets. Work through this checklist in order - it's the same sequence experienced agency developers use to go from \"it's broken\" to \"it's fixed\".",
@@ -143,7 +143,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "ssl-certificate-expiry",
     nav: "Stop SSL expiry",
-    title: "How to Stop SSL Certificates Expiring (Agency Guide) | Watchfront",
+    title: "How to Stop SSL Certificates Expiring | Watchfront",
     description: "Why SSL certificates expire, why auto-renewal fails, how to check expiry dates, and a simple system to never let a client's certificate lapse again.",
     h1: "How to stop SSL certificates expiring on client sites",
     intro: "An expired SSL certificate turns a working website into a full-page browser warning. It's one of the most common - and most avoidable - outages agencies deal with. Here's why it happens and how to make sure it doesn't.",
@@ -192,7 +192,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "contact-form-not-working",
     nav: "Contact form not working",
-    title: "Contact Form Not Working? How to Detect It Before Clients Do | Watchfront",
+    title: "Contact Form Not Working? How to Detect It | Watchfront",
     description: "Broken contact forms silently lose leads. Learn the common causes, how to test forms safely on live sites, and how to get alerted when a form breaks.",
     h1: "Contact form not working? Catch it before your client does",
     intro: "A broken contact form is the worst kind of outage: the site looks fine, uptime is 100%, and leads quietly disappear for weeks. Here's why forms break and how to know the moment one does.",
@@ -241,7 +241,7 @@ export const GUIDES: Guide[] = [
   {
     slug: "website-maintenance-checklist",
     nav: "Maintenance checklist",
-    title: "Website Maintenance Checklist for Agencies (Monthly) | Watchfront",
+    title: "Website Maintenance Checklist for Agencies | Watchfront",
     description: "A practical monthly website maintenance checklist for agencies and freelancers: uptime, SSL, domains, forms, SEO, errors, backups and client reporting.",
     h1: "The monthly website maintenance checklist for agencies",
     intro: "Maintenance retainers are only valuable if the work is consistent and visible. Use this checklist every month for each client site - and automate as much of it as you can.",
@@ -297,6 +297,144 @@ export const GUIDES: Guide[] = [
     ],
     tool: "seo-checker",
     feature: "client-reports",
+  },
+  {
+    slug: "monitor-multiple-client-websites",
+    nav: "Multi-client monitoring",
+    title: "How to Monitor Multiple Client Websites | Watchfront",
+    description: "A practical system for agencies: group sites by client, pick the right checks, cut false alarms and send monthly reports clients understand.",
+    h1: "How to monitor multiple client websites without drowning in alerts",
+    intro: "Once you look after more than a handful of sites, ad-hoc checks stop working. You need a repeatable system: group by client, choose the checks that matter, and turn results into reports - not a flood of emails.",
+    keywords: ["monitor multiple websites", "agency website monitoring", "multi client website monitoring", "website portfolio monitoring"],
+    readMins: 6,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "Group every site by client",
+        p: [
+          "Flat lists of 40 URLs hide ownership. Create a client (or workspace group) per account, then attach their domains. When something breaks, you immediately know who to tell and which report to update.",
+          "Invite the client as read-only if they want visibility, or keep reports shareable via a link so they never need a login.",
+        ],
+      },
+      {
+        h: "Pick checks that match real failures",
+        list: [
+          "Uptime every minute on the homepage and key landing pages",
+          "SSL and domain expiry on every hostname you manage",
+          "Journey tests on contact forms, booking and login flows",
+          "Scheduled SEO audits on money pages",
+          "Optional JS error tracking on high-traffic marketing sites",
+        ],
+      },
+      {
+        h: "Cut noise before it trains people to ignore alerts",
+        p: [
+          "Confirm consecutive failures before paging someone, use quiet hours for non-critical checks, and escalate only when an incident stays open. Alerts should include evidence - status code, screenshot, console log - so the first person who sees it can act.",
+        ],
+      },
+      {
+        h: "Close the loop with a monthly report",
+        p: [
+          "Clients renew retainers when they see work. A short monthly report - uptime, incidents fixed, certificates renewed, forms tested - turns invisible monitoring into visible value. Automate the data collection; write the narrative yourself.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How many websites can an agency monitor?", a: "As many as your plan and workflow allow. The hard part is organisation: group by client and standardise which checks every site gets." },
+      { q: "What should I monitor on every client site?", a: "At minimum: uptime, SSL expiry, domain expiry and the primary contact form. Add SEO and JS errors for sites that drive leads or revenue." },
+    ],
+    tool: "website-down-checker",
+    feature: "client-reports",
+  },
+  {
+    slug: "reduce-false-uptime-alerts",
+    nav: "False uptime alerts",
+    title: "How to Reduce False Uptime Alerts | Watchfront",
+    description: "Why uptime monitors cry wolf, how to tell a real outage from a blip, and the settings that keep agency teams from ignoring alerts.",
+    h1: "How to reduce false uptime alerts (without missing real outages)",
+    intro: "False alarms are worse than silence - teams mute them and then miss the real outage. Most “false” uptime alerts are configuration problems: one location, one fail, or checking a page that rate-limits bots.",
+    keywords: ["false uptime alerts", "reduce monitoring false positives", "uptime alert fatigue", "website monitoring false alarms"],
+    readMins: 5,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "Why monitors false-alarm",
+        list: [
+          "A single failed probe from one network path",
+          "CDN or WAF briefly challenging automated traffic",
+          "Maintenance windows you forgot to mute",
+          "Checking a URL that redirects, requires cookies, or returns 403 to datacenter IPs",
+        ],
+      },
+      {
+        h: "Confirm before you wake someone",
+        p: [
+          "Require consecutive failures, or agreement across locations, before opening an incident. A one-second blip should not page a developer at 2am. Real outages almost always fail more than once.",
+        ],
+      },
+      {
+        h: "Check what users actually hit",
+        p: [
+          "Monitor the public homepage and key landing pages over HTTPS, follow redirects, and accept the status codes your site intentionally returns. If a page needs a login, use a dedicated journey test instead of a bare HTTP check.",
+        ],
+      },
+      {
+        h: "Keep evidence in the alert",
+        p: [
+          "When an alert includes the status code, response time and a screenshot, people can tell a WAF challenge from a real 500 in seconds - and stop guessing.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Should I turn off uptime alerts?", a: "No. Fix the check configuration and confirmation rules. Silent monitoring is how clients become your alert system." },
+      { q: "How many failures before an incident?", a: "Two or three consecutive failures is a common starting point for marketing sites. Lower it for checkout or payment pages." },
+    ],
+    tool: "website-down-checker",
+    feature: "uptime-monitoring",
+  },
+  {
+    slug: "website-monitoring-india-agencies",
+    nav: "India agency guide",
+    title: "Agency Website Monitoring Guide for India | Watchfront",
+    description: "What Indian web and marketing agencies should monitor on client sites, how to price retainers around it, and how to prove value every month.",
+    h1: "Agency website monitoring in India: a practical stack",
+    intro: "Indian agencies often run dozens of WordPress and marketing sites for clients across time zones. Manual Monday checks do not scale. Here is a practical monitoring stack that fits agency retainers.",
+    keywords: ["website monitoring india", "website monitoring for agencies india", "uptime monitoring india", "agency website monitoring india"],
+    readMins: 6,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "The failure modes Indian agencies see most",
+        list: [
+          "Hosting or DNS outages overnight",
+          "SSL certificates that auto-renew fails to renew",
+          "Contact forms that stop emailing after a plugin update",
+          "Landing pages broken by theme or builder edits",
+          "SEO titles and meta tags overwritten during content updates",
+        ],
+      },
+      {
+        h: "A stack that fits a retainer",
+        p: [
+          "Bundle continuous monitoring into care plans: uptime and SSL for every site, form journeys on lead pages, monthly SEO audits, and a short client report. That is easier to sell than “we will check your site when we remember”.",
+        ],
+      },
+      {
+        h: "Support and billing that match how you work",
+        p: [
+          "Pick tools that speak your language, invoice cleanly, and do not need a DevOps hire to configure. Watchfront is built and supported from India for this workflow - start with a 3-day trial on a real client portfolio.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is website monitoring worth it for small Indian agencies?", a: "Yes if you manage more than a few client sites. One missed outage or expired SSL usually costs more trust than a monitoring tool." },
+      { q: "What should I include in a maintenance retainer?", a: "Updates, backups, uptime/SSL monitoring, form tests and a monthly report are a solid baseline." },
+    ],
+    tool: "website-down-checker",
+    feature: "uptime-monitoring",
   },
 ];
 

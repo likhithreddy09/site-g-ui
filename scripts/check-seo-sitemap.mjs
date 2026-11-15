@@ -142,7 +142,11 @@ for (const [rel, kind] of metaRoutes) {
 }
 
 // Also emit a static public/sitemap.xml (fallback if the App Router route misbehaves on host).
-const now = new Date().toISOString();
+const contentUpdated = sitemapSrc.match(/CONTENT_UPDATED\s*=\s*"([^"]+)"/)?.[1] ?? new Date().toISOString().slice(0, 10);
+const guideUpdated = Object.fromEntries(
+  [...fs.readFileSync(path.join(src, "lib/guides.ts"), "utf8").matchAll(/^\s{4}slug:\s*"([^"]+)"[\s\S]*?^\s{4}updated:\s*"([^"]+)"/gm)].map((m) => [`/guides/${m[1]}`, m[2]]),
+);
+const lastmod = (p) => guideUpdated[p] ?? contentUpdated;
 // Rank money pages first: home → features hub → SEO audit → free tools → rest
 const rankFirst = ["/", "/features", "/features/seo-audit", "/tools", "/use-cases"];
 const ordered = [
@@ -165,15 +169,35 @@ const freq = (p) =>
     : ["/privacy", "/terms", "/refund", "/shipping"].includes(p)
       ? "yearly"
       : "monthly";
+const hubImage = {
+  "/": "/opengraph-image",
+  "/features": "/features/opengraph-image",
+  "/use-cases": "/use-cases/opengraph-image",
+  "/tools": "/tools/opengraph-image",
+  "/guides": "/guides/opengraph-image",
+  "/compare": "/compare/opengraph-image",
+  "/security": "/security/opengraph-image",
+  "/about": "/about/opengraph-image",
+  "/contact": "/contact/opengraph-image",
+  "/register": "/register/opengraph-image",
+};
+const imageFor = (p) => {
+  if (hubImage[p]) return hubImage[p];
+  for (const prefix of ["/features/", "/use-cases/", "/tools/", "/guides/", "/compare/"]) {
+    if (p.startsWith(prefix) && p.length > prefix.length) return `${p}/opengraph-image`;
+  }
+  return "/opengraph-image";
+};
 const xml = [
   `<?xml version="1.0" encoding="UTF-8"?>`,
-  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`,
   ...ordered.flatMap((p) => [
     `<url>`,
     `<loc>https://www.watchfront.in${p}</loc>`,
-    `<lastmod>${now}</lastmod>`,
+    `<lastmod>${lastmod(p)}</lastmod>`,
     `<changefreq>${freq(p)}</changefreq>`,
     `<priority>${pri(p)}</priority>`,
+    `<image:image><image:loc>https://www.watchfront.in${imageFor(p)}</image:loc></image:image>`,
     `</url>`,
   ]),
   `</urlset>`,

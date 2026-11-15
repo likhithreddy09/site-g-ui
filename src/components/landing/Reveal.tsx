@@ -1,31 +1,48 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const INSTANT = { duration: 0 };
 
 const variants: Record<string, Variants> = {
   up: {
-    hidden: { opacity: 0, y: 36 },
+    hidden: { opacity: 0, y: 36, transition: INSTANT },
     show: { opacity: 1, y: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: -32 },
+    hidden: { opacity: 0, x: -32, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: 32 },
+    hidden: { opacity: 0, x: 32, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.94, y: 20 },
+    hidden: { opacity: 0, scale: 0.94, y: 20, transition: INSTANT },
     show: { opacity: 1, scale: 1, y: 0 },
   },
   fade: {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, transition: INSTANT },
     show: { opacity: 1 },
   },
 };
+
+/**
+ * Server HTML always renders content visible (crawlers, no-JS, fast LCP).
+ * After hydration, only elements below the fold are hidden - before paint - and revealed on scroll.
+ */
+function useScrollReveal(once: boolean, margin: string, amount: number) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once, margin: margin as never, amount });
+  const [belowFold, setBelowFold] = useState(false);
+  useLayoutEffect(() => {
+    const top = ref.current?.getBoundingClientRect().top ?? 0;
+    if (top > window.innerHeight) setBelowFold(true);
+  }, []);
+  return { ref, state: !belowFold || inView ? "show" : "hidden" };
+}
 
 export function Reveal({
   children,
@@ -45,6 +62,7 @@ export function Reveal({
   id?: string;
 }) {
   const reduce = useReducedMotion();
+  const { ref, state } = useScrollReveal(once, "-80px 0px -10% 0px", 0.2);
   const MotionTag = motion[Tag];
 
   if (reduce) {
@@ -53,12 +71,12 @@ export function Reveal({
 
   return (
     <MotionTag
+      ref={ref as never}
       id={id}
       className={className}
       variants={variants[variant]}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once, margin: "-80px 0px -10% 0px", amount: 0.2 }}
+      initial={false}
+      animate={state}
       transition={{ duration: 0.75, delay, ease: EASE }}
     >
       {children}
@@ -78,14 +96,15 @@ export function Stagger({
   delay?: number;
 }) {
   const reduce = useReducedMotion();
+  const { ref, state } = useScrollReveal(true, "-60px 0px -8% 0px", 0.15);
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
+      ref={ref as never}
       className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-60px 0px -8% 0px", amount: 0.15 }}
+      initial={false}
+      animate={state}
       variants={{
         hidden: {},
         show: {

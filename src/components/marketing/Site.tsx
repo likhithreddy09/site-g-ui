@@ -5,7 +5,7 @@ import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
 import { COMPARISONS } from "@/lib/compare";
 import { GUIDES } from "@/lib/guides";
-import { FEATURES, USE_CASES, audience } from "@/lib/marketing";
+import { FEATURES, USE_CASES } from "@/lib/marketing";
 import { SITE } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 

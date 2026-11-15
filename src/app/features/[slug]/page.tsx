@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
-import { faqLd, hierarchicalTitle, pageMeta, webPageLd } from "@/lib/seo";
+import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+import { GUIDES } from "@/lib/guides";
 import { TOOLS } from "@/lib/tools";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -15,7 +16,7 @@ export const generateStaticParams = () => FEATURES.map((f) => ({ slug: f.slug })
 export async function generateMetadata({ params }: Props) {
   const f = featureBySlug((await params).slug);
   if (!f) return {};
-  const title = hierarchicalTitle(f.name, "Features");
+  const title = f.title;
   return pageMeta({
     title,
     description: f.description,
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: Props) {
     keywords: f.keywords,
     ogTitle: title,
     ogDescription: f.description,
+    image: `/features/${f.slug}/opengraph-image`,
   });
 }
 
@@ -33,6 +35,7 @@ export default async function FeaturePage({ params }: Props) {
   const related = f.related.map(featureBySlug).filter((r) => r !== undefined);
   const forWho = USE_CASES.filter((u) => u.features.includes(f.slug));
   const tool = TOOLS.find((t) => t.feature === f.slug);
+  const guides = GUIDES.filter((g) => g.feature === f.slug);
 
   return (
     <MarketingShell>
@@ -89,6 +92,9 @@ export default async function FeaturePage({ params }: Props) {
               ))}.
             </p>
           )}
+          <p className="mt-4 text-[15px] text-plum-2">
+            Part of the full Watchfront toolkit - <Link href="/features" className="link-underline text-plum">see all features</Link> or browse <Link href="/use-cases" className="link-underline text-plum">use cases</Link>.
+          </p>
         </div>
         <ul className="space-y-3">
           {f.benefits.map((b) => (
@@ -121,6 +127,26 @@ export default async function FeaturePage({ params }: Props) {
               );
             })}
           </MotionGrid>
+        </section>
+      )}
+
+      {guides.length > 0 && (
+        <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="guides">
+          <h2 id="guides" className="text-2xl font-medium tracking-tight text-ink">Related guides</h2>
+          <ul className="mt-6 grid gap-4 md:grid-cols-2">
+            {guides.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/guides/${g.slug}`} className="group block rounded-2xl bg-cream p-5 ring-1 ring-plum/8 transition hover:bg-white hover:ring-magenta/20">
+                  <span className="text-xs text-plum/55">{g.readMins} min read</span>
+                  <h3 className="mt-1 font-medium text-ink group-hover:text-magenta">{g.h1}</h3>
+                  <p className="mt-1 text-sm text-plum-2">{g.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-[15px] text-plum-2">
+            Weighing up options? <Link href="/compare" className="link-underline text-plum">See how Watchfront compares with other monitoring tools</Link>.
+          </p>
         </section>
       )}
       <CtaBand title="Try it on your own website." />

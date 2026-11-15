@@ -2,13 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
 import { COMPARISONS } from "@/lib/compare";
-import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
+import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("Compare website monitoring tools"),
+  title: "Website Monitoring Tools Compared | Watchfront",
   description: "Compare Watchfront with UptimeRobot, Pingdom, StatusCake, Better Stack and Site24x7 - honest notes on who each tool suits best.",
   path: "/compare",
   keywords: ["website monitoring tools comparison", "uptimerobot alternative", "pingdom alternative", "best uptime monitoring tool"],
+  image: "/compare/opengraph-image",
 });
 
 export default function ComparePage() {
@@ -37,6 +38,21 @@ export default function ComparePage() {
           </MotionTile>
         ))}
       </MotionGrid>
+      <section className="mx-auto mt-20 max-w-3xl px-6 text-[16px] leading-relaxed text-plum-2">
+        <h2 className="text-2xl font-medium text-ink">How to choose a website monitoring tool</h2>
+        <p className="mt-4">
+          Most monitoring tools check whether a URL answers. That catches full outages but misses the problems clients actually notice: an expired SSL certificate, a contact form that silently stops sending, a layout broken by a theme update, or a page that lost its title tag. Before you pick a tool, list what has gone wrong on your sites in the last year and check which tool would have caught it.
+        </p>
+        <ul className="mt-4 list-disc space-y-2 pl-5">
+          <li><strong className="text-ink">Check frequency and locations</strong> - how quickly you hear about downtime, and whether false alarms are filtered out.</li>
+          <li><strong className="text-ink">Depth of checks</strong> - SSL and domain expiry, <Link href="/features/form-journey-testing" className="link-underline text-plum">form and journey testing</Link>, visual changes, APIs and JavaScript errors.</li>
+          <li><strong className="text-ink">Multi-client workflow</strong> - grouping sites by client and sending <Link href="/features/client-reports" className="link-underline text-plum">client-ready reports</Link>.</li>
+          <li><strong className="text-ink">Alert channels</strong> - email, Slack or WhatsApp, with enough evidence to fix the problem fast.</li>
+        </ul>
+        <p className="mt-4">
+          Watchfront is built for <Link href="/use-cases/web-agencies" className="link-underline text-plum">agencies looking after many client websites</Link>. If you only need a ping check on one personal site, a simpler tool may suit you better, and the comparisons above say so. You can also try our <Link href="/tools" className="link-underline text-plum">free website checkers</Link> first.
+        </p>
+      </section>
       <CtaBand />
     </MarketingShell>
   );

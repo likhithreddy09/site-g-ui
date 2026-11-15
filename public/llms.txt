@@ -35,6 +35,9 @@ Start free: https://www.watchfront.in/register
 - [How to stop SSL certificates expiring](https://www.watchfront.in/guides/ssl-certificate-expiry)
 - [Contact form not working](https://www.watchfront.in/guides/contact-form-not-working)
 - [Monthly website maintenance checklist](https://www.watchfront.in/guides/website-maintenance-checklist)
+- [Monitor multiple client websites](https://www.watchfront.in/guides/monitor-multiple-client-websites)
+- [Reduce false uptime alerts](https://www.watchfront.in/guides/reduce-false-uptime-alerts)
+- [Website monitoring for agencies in India](https://www.watchfront.in/guides/website-monitoring-india-agencies)
 
 ## Comparisons
 
@@ -43,6 +46,9 @@ Start free: https://www.watchfront.in/register
 - [StatusCake alternative](https://www.watchfront.in/compare/statuscake-alternative)
 - [Better Stack alternative](https://www.watchfront.in/compare/better-stack-alternative)
 - [Site24x7 alternative](https://www.watchfront.in/compare/site24x7-alternative)
+- [Freshping alternative](https://www.watchfront.in/compare/freshping-alternative)
+- [HetrixTools alternative](https://www.watchfront.in/compare/hetrixtools-alternative)
+- [Cronitor alternative](https://www.watchfront.in/compare/cronitor-alternative)
 
 ## Who it is for
 

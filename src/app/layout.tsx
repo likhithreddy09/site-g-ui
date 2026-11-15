@@ -17,7 +17,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"],
 
 const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} - ${SITE.tagline}` };
 
-const HOME_TITLE = "Watchfront | Website monitoring for agencies in India";
+const HOME_TITLE = "Website Monitoring for Agencies in India | Watchfront";
 const HOME_DESC = SITE.description;
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   classification: "Website monitoring software",
   alternates: {
     canonical: "/",
-    languages: { "en-IN": "/", en: "/" },
+    languages: { "en-IN": "/", en: "/", "x-default": "/" },
   },
   openGraph: {
     type: "website",
@@ -52,7 +52,6 @@ export const metadata: Metadata = {
     site: SITE.twitter,
     title: HOME_TITLE,
     description: HOME_DESC,
-    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
@@ -101,6 +100,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="icon" href={abs("/favicon-48.png")} type="image/png" sizes="48x48" />
         <link rel="icon" href={abs("/favicon.ico")} sizes="any" />
         <link rel="apple-touch-icon" href={abs("/apple-touch-icon.png")} sizes="180x180" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <BrandJsonLd />
         {/* Raw <script> tags (not next/script) so Google's detector sees G-2KJ7JC3FP6 in HTML source */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />

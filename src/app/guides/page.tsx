@@ -2,13 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
 import { GUIDES } from "@/lib/guides";
-import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
+import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("Website monitoring guides"),
+  title: "Website Monitoring Guides & Checklists | Watchfront",
   description: "Practical guides on uptime monitoring, fixing a down website, SSL expiry, broken contact forms and monthly website maintenance for agencies.",
   path: "/guides",
   keywords: ["website monitoring guide", "uptime monitoring guide", "website maintenance checklist", "agency guides"],
+  image: "/guides/opengraph-image",
 });
 
 export default function GuidesPage() {

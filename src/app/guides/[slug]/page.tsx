@@ -15,7 +15,7 @@ export const generateStaticParams = () => GUIDES.map((g) => ({ slug: g.slug }));
 export async function generateMetadata({ params }: Props) {
   const g = guideBySlug((await params).slug);
   if (!g) return {};
-  const meta = pageMeta({ title: g.title, description: g.description, path: `/guides/${g.slug}`, keywords: g.keywords });
+  const meta = pageMeta({ title: g.title, description: g.description, path: `/guides/${g.slug}`, keywords: g.keywords, image: `/guides/${g.slug}/opengraph-image` });
   return { ...meta, openGraph: { ...meta.openGraph, type: "article", publishedTime: g.published, modifiedTime: g.updated } };
 }
 
@@ -51,6 +51,15 @@ export default async function GuidePage({ params }: Props) {
               )}
             </section>
           ))}
+          <div className="rounded-[1.5rem] bg-cream p-6 text-[15px] leading-relaxed text-plum-2 ring-1 ring-plum/8">
+            <div className="font-medium text-ink">Written by the Watchfront team</div>
+            <p className="mt-2">
+              We build website monitoring for agencies in India. This guide reflects what we see running uptime, SSL, form and SEO checks on client websites.{" "}
+              <Link href="/guides" className="link-underline text-plum">More guides</Link> ·{" "}
+              <Link href="/about" className="link-underline text-plum">About us</Link> ·{" "}
+              <Link href="/security" className="link-underline text-plum">How we handle your data</Link>
+            </p>
+          </div>
         </article>
 
         <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">

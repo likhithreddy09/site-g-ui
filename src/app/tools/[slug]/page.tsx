@@ -16,7 +16,7 @@ export const generateStaticParams = () => TOOLS.map((t) => ({ slug: t.slug }));
 export async function generateMetadata({ params }: Props) {
   const t = toolBySlug((await params).slug);
   if (!t) return {};
-  return pageMeta({ title: t.title, description: t.description, path: `/tools/${t.slug}`, keywords: t.keywords });
+  return pageMeta({ title: t.title, description: t.description, path: `/tools/${t.slug}`, keywords: t.keywords, image: `/tools/${t.slug}/opengraph-image` });
 }
 
 export default async function ToolPage({ params }: Props) {

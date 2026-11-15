@@ -6,10 +6,10 @@ import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// Transform-only entrance: text stays visible in server HTML so the H1 can be the LCP element immediately.
 const line = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { y: 18 },
   show: (i: number) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.8, delay: 0.08 + i * 0.09, ease: EASE },
   }),
@@ -63,7 +63,7 @@ export function HomeHero() {
             variants={line}
             className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink sm:mt-7 sm:text-base md:text-lg"
           >
-            Watchfront is website monitoring software for Indian agencies - uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and INR-priced client reports.
+            Watchfront is website monitoring software for Indian agencies - uptime monitoring, SSL & domain expiry, contact form checks, APIs and JavaScript errors across every client website, with evidence to fix fast and client-ready reports.
           </motion.p>
           <motion.p custom={3} variants={line} className="mt-3 text-[13px] text-plum-2">
             Built for web agencies, marketing agencies, WordPress maintenance providers, and freelancers.

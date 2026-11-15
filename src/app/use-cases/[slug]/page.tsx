@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
-import { faqLd, hierarchicalTitle, pageMeta, webPageLd } from "@/lib/seo";
+import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,7 +14,7 @@ export const generateStaticParams = () => USE_CASES.map((u) => ({ slug: u.slug }
 export async function generateMetadata({ params }: Props) {
   const u = getUseCase((await params).slug);
   if (!u) return {};
-  const title = hierarchicalTitle(u.name, "Use cases");
+  const title = u.title;
   return pageMeta({
     title,
     description: u.description,
@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props) {
     keywords: u.keywords,
     ogTitle: title,
     ogDescription: u.description,
+    image: `/use-cases/${u.slug}/opengraph-image`,
   });
 }
 
@@ -110,6 +111,11 @@ export default async function UseCasePage({ params }: Props) {
             </Link>
           ))}
         </div>
+        <p className="mt-8 text-[15px] leading-relaxed text-plum-2">
+          Browse <Link href="/use-cases" className="link-underline text-plum">all use cases</Link> and <Link href="/features" className="link-underline text-plum">every monitoring feature</Link>. Not sure yet? Run a <Link href="/tools" className="link-underline text-plum">free website check</Link> on a client site, read our{" "}
+          <Link href="/guides/website-maintenance-checklist" className="link-underline text-plum">monthly website maintenance checklist</Link>, or{" "}
+          <Link href="/compare" className="link-underline text-plum">compare Watchfront with other monitoring tools</Link>.
+        </p>
       </MotionSection>
       <CtaBand />
     </MarketingShell>

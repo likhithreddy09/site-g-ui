@@ -4,8 +4,8 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Terms of service | Watchfront",
-  description: "The terms that apply when you create a Watchfront account or use the service, including billing in INR.",
+  title: "Terms of Service - Using Watchfront",
+  description: "The terms that apply when you create a Watchfront account or use the service: your account, acceptable use, monitoring permissions, data and billing.",
   path: "/terms",
   keywords: ["Watchfront terms", "terms of service"],
 });

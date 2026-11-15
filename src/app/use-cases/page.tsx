@@ -2,11 +2,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
 import { USE_CASES, audience } from "@/lib/marketing";
-import { collectionPageLd, hierarchicalTitle, pageMeta } from "@/lib/seo";
+import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("Use cases"),
+  title: "Website Monitoring Use Cases for Agencies | Watchfront",
   description: "Built for web agencies, WordPress maintainers, marketing teams and freelancers who look after client websites every week.",
   path: "/use-cases",
   keywords: [
@@ -15,8 +15,8 @@ export const metadata = pageMeta({
     "landing page monitoring",
     "website monitoring for freelancers",
   ],
-  ogTitle: hierarchicalTitle("Use cases"),
   ogDescription: "Web agencies, WordPress care plans, marketing teams and freelancers - monitor client sites without the Monday manual check.",
+  image: "/use-cases/opengraph-image",
 });
 
 export default function UseCasesPage() {
@@ -71,7 +71,20 @@ export default function UseCasesPage() {
           </MotionTile>
         ))}
       </MotionGrid>
-      <CtaBand title="Start with one client website." body="Free for 3 websites. No credit card, nothing to install on client sites." />
+      <section className="mx-auto mt-20 max-w-3xl px-6 text-[16px] leading-relaxed text-plum-2">
+        <h2 className="text-2xl font-medium text-ink">Why agencies need more than a ping check</h2>
+        <p className="mt-4">
+          Client websites fail in ways a basic uptime tool never sees: an SSL certificate that expires overnight, a contact form that stops sending mail after a plugin update, a landing page that loses its title tag, or a JavaScript error that breaks checkout for mobile visitors. Watchfront is built for people who look after other people&apos;s sites - not for a single product engineering team watching one app.
+        </p>
+        <p className="mt-4">
+          Start with the use case that matches your work, then explore the matching{" "}
+          <Link href="/features" className="link-underline text-plum">monitoring features</Link>, try a{" "}
+          <Link href="/tools" className="link-underline text-plum">free website check</Link>, or follow the{" "}
+          <Link href="/guides/website-maintenance-checklist" className="link-underline text-plum">monthly maintenance checklist</Link>. If you already use another tool,{" "}
+          <Link href="/compare" className="link-underline text-plum">see how Watchfront compares</Link>.
+        </p>
+      </section>
+      <CtaBand title="Start with one client website." body="Free for 3 days. No credit card, nothing to install on client sites." />
     </MarketingShell>
   );
 }

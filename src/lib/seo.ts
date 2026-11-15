@@ -23,6 +23,8 @@ type PageMetaInput = {
   ogTitle?: string;
   /** Defaults to description when omitted. */
   ogDescription?: string;
+  /** Social image route. Config metadata beats file-based opengraph-image, so detail pages must pass theirs. */
+  image?: string;
   noindex?: boolean;
 };
 
@@ -37,8 +39,10 @@ export function pageMeta({
   keywords = [],
   ogTitle,
   ogDescription,
+  image,
   noindex,
 }: PageMetaInput): Metadata {
+  const ogImage = image ? { ...OG_IMAGE, url: image, alt: ogTitle || title } : OG_IMAGE;
   const socialTitle = ogTitle || title;
   const socialDesc = ogDescription || description;
   const kw = [...new Set(keywords.map((k) => k.trim()).filter(Boolean))].slice(0, 8);
@@ -50,7 +54,7 @@ export function pageMeta({
     keywords: kw,
     alternates: {
       canonical: path,
-      languages: { "en-IN": path, en: path },
+      languages: { "en-IN": path, en: path, "x-default": path },
     },
     openGraph: {
       type: "website",
@@ -59,14 +63,14 @@ export function pageMeta({
       title: socialTitle,
       description: socialDesc,
       locale: "en_IN",
-      images: [OG_IMAGE],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description: socialDesc,
       site: SITE.twitter,
-      images: [OG_IMAGE.url],
+      images: [ogImage.url],
     },
     robots: noindex
       ? { index: false, follow: true }
@@ -194,7 +198,7 @@ export function articleLd({ title, description, path, published, updated }: { ti
     datePublished: published,
     dateModified: updated,
     inLanguage: "en-IN",
-    image: abs("/opengraph-image"),
+    image: abs(`${path}/opengraph-image`),
     author: { "@type": "Organization", name: SITE.name, url: SITE.url },
     publisher: { "@id": `${SITE.url}/#organization`, "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: abs("/logo.png") } },
   };

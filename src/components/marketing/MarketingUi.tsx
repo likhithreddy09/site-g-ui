@@ -79,8 +79,8 @@ export function PageHero({
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14">
         {crumbs && <Breadcrumbs items={crumbs} />}
         <motion.div
-          initial={reduce ? false : { opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reduce ? false : { y: 14 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
         >
           {eyebrow && <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-magenta">{eyebrow}</p>}

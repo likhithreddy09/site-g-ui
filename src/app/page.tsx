@@ -158,7 +158,7 @@ export default function Home() {
             </StaggerItem>
           ))}
         </Stagger>
-        <p className="mt-6 text-sm text-plum-2">New to monitoring? Start with <Link href="/guides/what-is-uptime-monitoring" className="link-underline">what uptime monitoring is</Link> or <Link href="/guides" className="link-underline">browse all guides</Link>.</p>
+        <p className="mt-6 text-sm text-plum-2">New to monitoring? Start with <Link href="/guides/what-is-uptime-monitoring" className="link-underline">what uptime monitoring is</Link>, <Link href="/guides" className="link-underline">browse all guides</Link>, or see <Link href="/compare" className="link-underline">how Watchfront compares</Link> with UptimeRobot, Pingdom and others.</p>
       </section>
 
       <section id="use-cases" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="use-cases-title">
@@ -177,6 +177,7 @@ export default function Home() {
             </StaggerItem>
           ))}
         </Stagger>
+        <p className="mt-6 text-sm text-plum-2"><Link href="/use-cases" className="link-underline">See every use case</Link> or <Link href="/features" className="link-underline">compare all monitoring features</Link>.</p>
       </section>
 
       <Reveal>

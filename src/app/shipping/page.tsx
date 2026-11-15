@@ -4,8 +4,8 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Shipping and delivery | Watchfront",
-  description: "Watchfront is software delivered online. There is no physical shipping - this page explains how access works after you subscribe.",
+  title: "Shipping & Delivery Policy | Watchfront",
+  description: "Watchfront is software delivered online. There is no physical shipping - this page explains how digital access works after you subscribe or start a trial.",
   path: "/shipping",
   keywords: ["Watchfront delivery", "digital delivery"],
 });
@@ -67,7 +67,9 @@ export default function ShippingPage() {
           body: (
             <p>
               If you paid but cannot access paid features, email <a href={`mailto:${SITE.email.billing}`}>{SITE.email.billing}</a> or call{" "}
-              <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>. See also our <Link href="/refund">refund &amp; cancellation policy</Link>.
+              <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>. See also our <Link href="/refund">refund &amp; cancellation policy</Link>,{" "}
+              <Link href="/privacy">privacy policy</Link>, <Link href="/security">security practices</Link> and{" "}
+              <Link href="/contact">contact page</Link>. New accounts start with a <Link href="/register">free 3-day trial</Link>.
             </p>
           ),
         },

@@ -13,7 +13,7 @@ export const generateStaticParams = () => COMPARISONS.map((c) => ({ slug: c.slug
 export async function generateMetadata({ params }: Props) {
   const c = comparisonBySlug((await params).slug);
   if (!c) return {};
-  return pageMeta({ title: c.title, description: c.description, path: `/compare/${c.slug}`, keywords: c.keywords });
+  return pageMeta({ title: c.title, description: c.description, path: `/compare/${c.slug}`, keywords: c.keywords, image: `/compare/${c.slug}/opengraph-image` });
 }
 
 export default async function ComparisonPage({ params }: Props) {

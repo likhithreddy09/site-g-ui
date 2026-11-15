@@ -3,16 +3,16 @@ import Link from "next/link";
 import { BookCallForm } from "@/components/BookCallForm";
 import { ContactAuthPrompt } from "@/components/marketing/AuthCtas";
 import { JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
-import { hierarchicalTitle, pageMeta } from "@/lib/seo";
+import { pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("Contact"),
-  description: "Talk to us about plans, setup, billing or a short demo. Email, phone, or book a call - we reply from India.",
+  title: "Contact Watchfront - Sales, Support & Demo Calls",
+  description: "Talk to the Watchfront team about setup, agency portfolios, support or a short demo. Email, phone, or book a call - we reply from India.",
   path: "/contact",
   keywords: ["contact Watchfront", "Watchfront support", "book a demo"],
-  ogTitle: hierarchicalTitle("Contact"),
   ogDescription: "Sales, support and billing for Watchfront website monitoring.",
+  image: "/contact/opengraph-image",
 });
 
 const TOPICS = [

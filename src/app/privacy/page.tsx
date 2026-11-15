@@ -4,7 +4,7 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Privacy policy | Watchfront",
+  title: "Privacy Policy - How We Handle Data | Watchfront",
   description: "What data Watchfront collects, why we need it, how long we keep it, and how payments through Dodo Payments are handled.",
   path: "/privacy",
   keywords: ["Watchfront privacy policy", "privacy"],
@@ -127,8 +127,9 @@ export default function PrivacyPage() {
           body: (
             <p>
               Questions about this policy? Email <a href={`mailto:${SITE.email.privacy}`}>{SITE.email.privacy}</a>,
-              call <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>, or see our <Link href="/security">security page</Link> and{" "}
-              <Link href="/contact">contact page</Link>.
+              call <a href={`tel:${SITE.phoneHref}`}>{SITE.phone}</a>, or see our <Link href="/security">security page</Link>,{" "}
+              <Link href="/terms">terms of service</Link>, <Link href="/shipping">shipping &amp; delivery</Link>,{" "}
+              <Link href="/about">about Watchfront</Link> and <Link href="/contact">contact page</Link>.
             </p>
           ),
         },

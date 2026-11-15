@@ -3,12 +3,12 @@ import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Security | Watchfront",
+  title: "Security & Data Protection | Watchfront",
   description: "How we protect secrets, keep live-site tests safe, and lock down workers. Read our practices and how to report a security issue.",
   path: "/security",
   keywords: ["Watchfront security", "monitoring security", "safe form testing"],
-  ogTitle: "Security | Watchfront",
   ogDescription: "Encrypted secrets, safe live tests, and workers that refuse private network targets.",
+  image: "/security/opengraph-image",
 });
 
 export default function SecurityPage() {

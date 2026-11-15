@@ -1,14 +1,15 @@
+import Link from "next/link";
 import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
-import { hierarchicalTitle, organizationLd, pageMeta } from "@/lib/seo";
+import { organizationLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: hierarchicalTitle("About"),
+  title: "About Watchfront - Website Monitoring Built in India",
   description: "Watchfront is website monitoring for Indian agencies. We help you spot broken client sites before clients do - with clear evidence, not noise.",
   path: "/about",
   keywords: ["about Watchfront", "Watchfront India", "website monitoring company"],
-  ogTitle: hierarchicalTitle("About"),
   ogDescription: "We build website monitoring for Indian agencies who manage many client sites.",
+  image: "/about/opengraph-image",
 });
 
 const PRINCIPLES = [
@@ -79,6 +80,16 @@ export default function AboutPage() {
             </dl>
           </div>
         </div>
+      </MotionSection>
+
+      <MotionSection className="mx-auto mt-16 max-w-3xl px-6 text-[16px] leading-relaxed text-plum-2">
+        <h2 className="text-2xl font-medium text-ink">Who writes our guides</h2>
+        <p className="mt-4">
+          Guides and checklists on Watchfront are written by the product team that builds and runs the monitoring checks - the same people who see SSL failures, broken forms and SEO regressions across client portfolios every day. We update them when the product or common failure patterns change. Read our{" "}
+          <Link href="/guides" className="link-underline text-plum">website monitoring guides</Link>, how we handle{" "}
+          <Link href="/security" className="link-underline text-plum">security and safe live tests</Link>, or{" "}
+          <Link href="/contact" className="link-underline text-plum">talk to us</Link> about your portfolio.
+        </p>
       </MotionSection>
       <CtaBand title="See it on your own portfolio." />
     </MarketingShell>
