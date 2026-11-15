@@ -17,19 +17,18 @@ export function HeroDesk() {
       className="relative mx-auto w-full max-w-md lg:max-w-none"
       initial={reduce ? false : { opacity: 0, y: 28, rotate: 1.5 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
-      transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 1.05, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Soft orbit glow behind the desk */}
       {!reduce && (
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-[radial-gradient(circle_at_70%_20%,rgba(143,211,244,0.35),transparent_55%),radial-gradient(circle_at_20%_80%,rgba(155,27,103,0.18),transparent_50%)]"
-          animate={{ opacity: [0.55, 0.9, 0.55] }}
-          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-[radial-gradient(circle_at_70%_20%,rgba(143,211,244,0.4),transparent_55%),radial-gradient(circle_at_20%_80%,rgba(155,27,103,0.22),transparent_50%)]"
+          animate={{ opacity: [0.55, 0.95, 0.55], scale: [1, 1.03, 1] }}
+          transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
         />
       )}
 
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-ink text-cream shadow-[0_30px_80px_-28px_rgba(28,15,24,0.55)] ring-1 ring-ink/20">
+      <div className="relative overflow-hidden rounded-[1.75rem] bg-ink text-cream shadow-[0_36px_90px_-28px_rgba(28,15,24,0.6)] ring-1 ring-white/10">
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-5">
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-bad" />

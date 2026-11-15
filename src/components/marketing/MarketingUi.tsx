@@ -5,11 +5,14 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
 import { Reveal, Stagger, StaggerItem } from "@/components/landing/Reveal";
+import { MediaFrame } from "@/components/marketing/MediaFrame";
 import { JsonLd } from "@/components/marketing/SiteJsonLd";
 import type { Faq } from "@/lib/marketing";
 import { breadcrumbLd } from "@/lib/seo";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+export type HeroImage = { src: string; alt: string };
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Breadcrumbs({ items }: { items: [string, string][] }) {
   return (
@@ -41,12 +44,14 @@ export function PageHero({
   title,
   intro,
   crumbs,
+  image,
   children,
 }: {
   eyebrow?: string;
   title: string;
   intro: string;
   crumbs?: [string, string][];
+  image?: HeroImage;
   children?: React.ReactNode;
 }) {
   const reduce = useReducedMotion();
@@ -78,20 +83,69 @@ export function PageHero({
 
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14">
         {crumbs && <Breadcrumbs items={crumbs} />}
-        <motion.div
-          initial={reduce ? false : { y: 14 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-        >
-          {eyebrow && <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-magenta">{eyebrow}</p>}
-          <h1 className="mt-3 max-w-4xl text-[2rem] font-medium leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-[3.25rem]">
-            {title}
-          </h1>
-          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-plum-2 sm:mt-5 sm:text-base md:text-lg">{intro}</p>
-          {children}
-        </motion.div>
+        <div className={image ? "grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12" : undefined}>
+          <motion.div
+            initial={reduce ? false : { y: 14 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
+            {eyebrow && <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-magenta">{eyebrow}</p>}
+            <h1 className="mt-3 max-w-4xl text-[2rem] font-medium leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-[3.25rem]">
+              {title}
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-plum-2 sm:mt-5 sm:text-base md:text-lg">{intro}</p>
+            {children}
+          </motion.div>
+
+          {image && (
+            <div className="relative lg:pl-2">
+              <MediaFrame
+                src={image.src}
+                alt={image.alt}
+                priority
+                drift
+                sizes="(max-width: 1024px) 100vw, 480px"
+              />
+            </div>
+          )}
+        </div>
       </div>
     </section>
+  );
+}
+
+/** Mid-page full-width visual for marketing pages (not the homepage). */
+export function VisualBand({
+  src,
+  alt,
+  caption,
+  dark = false,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  dark?: boolean;
+}) {
+  return (
+    <Reveal as="section" className="mx-auto mt-16 max-w-6xl px-4 sm:mt-20 sm:px-6" variant="scale">
+      <figure>
+        <MediaFrame
+          src={src}
+          alt={alt}
+          parallax
+          drift={false}
+          aspect="aspect-[21/9] min-h-[12rem] sm:min-h-[16rem]"
+          sizes="(max-width: 1152px) 100vw, 1152px"
+        />
+        {caption && (
+          <figcaption
+            className={`mt-4 px-1 text-[14px] leading-relaxed ${dark ? "text-cream/65" : "text-plum-2"}`}
+          >
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+    </Reveal>
   );
 }
 
@@ -125,11 +179,26 @@ export function CtaBand({
   title?: string;
   body?: string;
 }) {
+  const reduce = useReducedMotion();
   return (
     <Reveal as="section" className="mx-auto mt-24 max-w-6xl px-6 pb-4" variant="scale">
       <div className="relative overflow-hidden rounded-[2rem] bg-ink px-8 py-14 text-cream md:px-14">
-        <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-magenta/45 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-sky/25 blur-3xl" />
+        {!reduce && (
+          <>
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-magenta/45 blur-3xl"
+              animate={{ x: [0, -12, 0], y: [0, 16, 0], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-sky/25 blur-3xl"
+              animate={{ x: [0, 18, 0], y: [0, -10, 0] }}
+              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </>
+        )}
         <div className="pointer-events-none absolute left-8 top-8 h-40 w-40 rounded-full bg-gold/15 blur-3xl" />
         <div className="relative flex flex-wrap items-center justify-between gap-8">
           <div>
@@ -137,10 +206,10 @@ export function CtaBand({
             <p className="mt-3 max-w-md text-[15px] text-cream/70 md:text-base">{body}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <CtaPrimaryLink className="rounded-full bg-cream px-7 py-3.5 text-[15px] font-medium text-ink transition hover:-translate-y-0.5 hover:bg-sky" />
+            <CtaPrimaryLink className="rounded-full bg-cream px-7 py-3.5 text-[15px] font-medium text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-sky hover:shadow-[0_12px_40px_-12px_rgba(143,211,244,0.55)]" />
             <Link
               href="/contact#book"
-              className="rounded-full px-7 py-3.5 text-[15px] font-medium text-cream ring-1 ring-cream/30 transition hover:bg-white/10"
+              className="rounded-full px-7 py-3.5 text-[15px] font-medium text-cream ring-1 ring-cream/30 transition duration-300 hover:bg-white/10"
             >
               Book a call
             </Link>

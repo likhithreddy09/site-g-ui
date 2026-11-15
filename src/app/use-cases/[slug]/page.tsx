@@ -2,7 +2,14 @@ import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, VisualBand } from "@/components/marketing/Site";
+
+const USE_CASE_IMAGE: Record<string, { src: string; alt: string }> = {
+  "web-agencies": { src: "/marketing/agency-team.jpg", alt: "Web agency team collaborating on client website care" },
+  "wordpress-maintenance": { src: "/marketing/form-evidence.jpg", alt: "Evidence from a broken WordPress contact form" },
+  "marketing-agencies": { src: "/marketing/agency-desk.jpg", alt: "Marketing agency desk watching landing page health" },
+  freelancers: { src: "/marketing/checks-stack.jpg", alt: "Solo freelancer monitoring stack for client sites" },
+};
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
 
@@ -31,6 +38,7 @@ export default async function UseCasePage({ params }: Props) {
   if (!u) notFound();
   const features = u.features.map(featureBySlug).filter((f) => f !== undefined);
   const others = USE_CASES.filter((o) => o.slug !== u.slug);
+  const heroImage = USE_CASE_IMAGE[u.slug];
 
   return (
     <MarketingShell>
@@ -44,14 +52,28 @@ export default async function UseCasePage({ params }: Props) {
           parentPath: "/use-cases",
         }),
       ]} />
-      <PageHero crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [u.name, `/use-cases/${u.slug}`]]} eyebrow={`For ${audience(u)}`} title={u.h1} intro={u.intro}>
+      <PageHero
+        crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [u.name, `/use-cases/${u.slug}`]]}
+        eyebrow={`For ${audience(u)}`}
+        title={u.h1}
+        intro={u.intro}
+        image={heroImage}
+      >
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start monitoring free</Link>
           <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
         </div>
       </PageHero>
 
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-2" stagger={0.12}>
+      {u.slug === "web-agencies" && (
+        <VisualBand
+          src="/marketing/agency-desk.jpg"
+          alt="Portfolio monitoring open on an agency laptop"
+          caption="When you manage dozens of sites, the desk check has to be automatic — with evidence when something fails."
+        />
+      )}
+
+      <MotionGrid className="mx-auto mt-16 grid max-w-6xl gap-5 px-6 md:grid-cols-2" stagger={0.12}>
         <MotionTile>
           <div className="h-full rounded-[2rem] bg-cream p-8 ring-1 ring-plum/8 md:p-10">
             <h2 className="text-2xl font-medium tracking-tight text-ink">Sound familiar?</h2>

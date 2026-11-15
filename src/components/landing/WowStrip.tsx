@@ -15,23 +15,31 @@ export function WowStrip() {
   return (
     <section id="wow" ref={ref} className="relative mt-24 overflow-hidden bg-ink py-20 text-cream sm:mt-28 sm:py-28">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(155,27,103,0.35),transparent_50%),radial-gradient(ellipse_at_90%_80%,rgba(143,211,244,0.2),transparent_45%)]" />
+      {!reduce && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-magenta/20 blur-3xl"
+          animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.35, 0.55, 0.35] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+      )}
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
         <motion.p
           style={{ x: xLeft }}
-          className="font-display text-[clamp(2.5rem,8vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.06em] text-cream/15"
+          className="font-brand text-[clamp(2.5rem,8vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.06em] text-cream/15"
         >
           Uptime was green.
         </motion.p>
         <motion.p
           style={{ x: xRight }}
-          className="mt-2 font-display text-[clamp(2.5rem,8vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.06em] text-sky/80"
+          className="mt-2 font-brand text-[clamp(2.5rem,8vw,5.5rem)] font-extrabold leading-[0.9] tracking-[-0.06em] text-sky/80"
         >
           The form was not.
         </motion.p>
 
         <motion.div style={{ scale }} className="mx-auto mt-12 grid max-w-4xl gap-4 sm:mt-16 sm:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl bg-cream/5 p-4 ring-1 ring-white/10 sm:p-5">
+          <div className="overflow-hidden rounded-2xl bg-cream/5 p-4 ring-1 ring-white/10 backdrop-blur-sm transition duration-500 hover:bg-cream/10 sm:p-5">
             <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-cream/45">
               <span className="h-2 w-2 rounded-full bg-ok" /> Homepage
             </div>
@@ -44,7 +52,7 @@ export function WowStrip() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl bg-cream/5 p-4 ring-1 ring-bad/35 sm:p-5">
+          <div className="overflow-hidden rounded-2xl bg-cream/5 p-4 ring-1 ring-bad/35 backdrop-blur-sm transition duration-500 hover:bg-bad/10 sm:p-5">
             <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-cream/45">
               <span className="relative flex h-2 w-2">
                 {!reduce && (

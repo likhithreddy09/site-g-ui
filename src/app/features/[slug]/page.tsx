@@ -3,6 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
+
+const FEATURE_IMAGE: Record<string, { src: string; alt: string }> = {
+  "uptime-monitoring": { src: "/marketing/agency-desk.jpg", alt: "Uptime monitoring view on an agency desk" },
+  "ssl-domain-monitoring": { src: "/marketing/checks-stack.jpg", alt: "SSL and domain expiry monitoring cards" },
+  "form-journey-testing": { src: "/marketing/form-evidence.jpg", alt: "Form journey failure evidence on a desk" },
+  "javascript-error-monitoring": { src: "/marketing/checks-stack.jpg", alt: "Monitoring cards including browser error signals" },
+  "client-reports": { src: "/marketing/agency-team.jpg", alt: "Agency team preparing client-ready monitoring reports" },
+};
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
 import { GUIDES } from "@/lib/guides";
@@ -36,6 +44,7 @@ export default async function FeaturePage({ params }: Props) {
   const forWho = USE_CASES.filter((u) => u.features.includes(f.slug));
   const tool = TOOLS.find((t) => t.feature === f.slug);
   const guides = GUIDES.filter((g) => g.feature === f.slug);
+  const heroImage = FEATURE_IMAGE[f.slug];
 
   return (
     <MarketingShell>
@@ -49,7 +58,13 @@ export default async function FeaturePage({ params }: Props) {
           parentPath: "/features",
         }),
       ]} />
-      <PageHero crumbs={[["Home", "/"], ["Features", "/features"], [f.name, `/features/${f.slug}`]]} eyebrow={f.name} title={f.h1} intro={f.intro}>
+      <PageHero
+        crumbs={[["Home", "/"], ["Features", "/features"], [f.name, `/features/${f.slug}`]]}
+        eyebrow={f.name}
+        title={f.h1}
+        intro={f.intro}
+        image={heroImage}
+      >
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start free - no card needed</Link>
           {tool ? (

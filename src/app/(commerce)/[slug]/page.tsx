@@ -1,7 +1,27 @@
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, VisualBand } from "@/components/marketing/Site";
+
+const PRODUCT_VISUAL: Record<string, { hero: { src: string; alt: string }; band?: { src: string; alt: string; caption: string } }> = {
+  "website-monitoring": {
+    hero: { src: "/marketing/checks-stack.jpg", alt: "Website monitoring checks for uptime, SSL and forms" },
+    band: {
+      src: "/marketing/agency-desk.jpg",
+      alt: "Agency laptop showing a live client portfolio health view",
+      caption: "One portfolio desk for every client site — uptime, SSL, journeys and errors in the same place.",
+    },
+  },
+  "contact-form-monitoring": {
+    hero: { src: "/marketing/form-evidence.jpg", alt: "Evidence desk for a broken contact form with screenshot and status notes" },
+  },
+  "uptime-monitoring-tool": {
+    hero: { src: "/marketing/agency-desk.jpg", alt: "Monitoring dashboard open on an agency desk" },
+  },
+  "ssl-certificate-monitoring": {
+    hero: { src: "/marketing/checks-stack.jpg", alt: "SSL and uptime monitoring cards" },
+  },
+};
 import { featureBySlug, USE_CASES, audience } from "@/lib/marketing";
 import { PRODUCTS, productBySlug } from "@/lib/products";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
@@ -33,6 +53,7 @@ export default async function ProductPage({ params }: Props) {
   const tool = p.tool ? toolBySlug(p.tool) : undefined;
   const guide = p.guide ? guideBySlug(p.guide) : undefined;
   const audiences = USE_CASES.slice(0, 4);
+  const visual = PRODUCT_VISUAL[p.slug];
 
   return (
     <MarketingShell>
@@ -64,6 +85,7 @@ export default async function ProductPage({ params }: Props) {
         eyebrow={p.nav}
         title={p.h1}
         intro={p.intro}
+        image={visual?.hero}
       >
         <div className="mt-8 flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">
@@ -81,7 +103,11 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </PageHero>
 
-      <MotionSection className="mx-auto max-w-6xl px-6" variant="up">
+      {visual?.band && (
+        <VisualBand src={visual.band.src} alt={visual.band.alt} caption={visual.band.caption} />
+      )}
+
+      <MotionSection className="mx-auto mt-16 max-w-6xl px-6" variant="up">
         <div className="grid gap-10 md:grid-cols-[1fr_1.1fr]">
           <div>
             <h2 className="text-2xl font-medium tracking-tight text-ink md:text-3xl">What you get</h2>

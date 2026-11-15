@@ -3,24 +3,25 @@
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { useLayoutEffect, useRef, useState } from "react";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+/** Expo-out — Linear / Vercel style settle */
+const EASE = [0.16, 1, 0.3, 1] as const;
 const INSTANT = { duration: 0 };
 
 const variants: Record<string, Variants> = {
   up: {
-    hidden: { opacity: 0, y: 36, transition: INSTANT },
+    hidden: { opacity: 0, y: 28, transition: INSTANT },
     show: { opacity: 1, y: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: -32, transition: INSTANT },
+    hidden: { opacity: 0, x: -24, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: 32, transition: INSTANT },
+    hidden: { opacity: 0, x: 24, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.94, y: 20, transition: INSTANT },
+    hidden: { opacity: 0, scale: 0.96, y: 16, transition: INSTANT },
     show: { opacity: 1, scale: 1, y: 0 },
   },
   fade: {
@@ -62,11 +63,15 @@ export function Reveal({
   id?: string;
 }) {
   const reduce = useReducedMotion();
-  const { ref, state } = useScrollReveal(once, "-80px 0px -10% 0px", 0.2);
+  const { ref, state } = useScrollReveal(once, "-12% 0px -8% 0px", 0.18);
   const MotionTag = motion[Tag];
 
   if (reduce) {
-    return <Tag id={id} className={className}>{children}</Tag>;
+    return (
+      <Tag id={id} className={className}>
+        {children}
+      </Tag>
+    );
   }
 
   return (
@@ -77,7 +82,7 @@ export function Reveal({
       variants={variants[variant]}
       initial={false}
       animate={state}
-      transition={{ duration: 0.75, delay, ease: EASE }}
+      transition={{ duration: 0.85, delay, ease: EASE }}
     >
       {children}
     </MotionTag>
@@ -87,7 +92,7 @@ export function Reveal({
 export function Stagger({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.06,
   delay = 0,
 }: {
   children: React.ReactNode;
@@ -96,7 +101,7 @@ export function Stagger({
   delay?: number;
 }) {
   const reduce = useReducedMotion();
-  const { ref, state } = useScrollReveal(true, "-60px 0px -8% 0px", 0.15);
+  const { ref, state } = useScrollReveal(true, "-10% 0px -6% 0px", 0.12);
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
@@ -130,11 +135,7 @@ export function StaggerItem({
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
-    <motion.div
-      className={className}
-      variants={variants[variant]}
-      transition={{ duration: 0.7, ease: EASE }}
-    >
+    <motion.div className={className} variants={variants[variant]} transition={{ duration: 0.8, ease: EASE }}>
       {children}
     </motion.div>
   );

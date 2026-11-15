@@ -108,7 +108,7 @@ export default function Home() {
             ["03", "Share evidence", "Screenshots and timelines that clients actually understand."],
           ].map(([n, t, d]) => (
             <StaggerItem key={n} variant="scale">
-              <div className="h-full rounded-3xl bg-cream p-7 transition hover:-translate-y-1 hover:shadow-xl">
+              <div className="tile-lift h-full rounded-3xl bg-cream p-7 ring-1 ring-plum/5">
                 <div className="font-mono text-sm text-magenta">{n}</div>
                 <h3 className="mt-5 text-xl font-medium leading-tight text-ink">{t}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-plum-2">{d}</p>
@@ -131,7 +131,7 @@ export default function Home() {
               ["3", "Resolved", "Fix lands, monitoring confirms, report updates."],
             ].map(([n, t, d]) => (
               <StaggerItem key={n} variant="scale">
-                <div className="h-full rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 transition hover:bg-white/10">
+                <div className="h-full rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 transition duration-500 hover:-translate-y-1 hover:bg-white/10">
                   <div className="flex items-center gap-3"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold font-semibold text-ink">{n}</span><span className="text-lg font-medium">{t}</span></div>
                   <p className="mt-3 text-[15px] leading-relaxed text-cream/75">{d}</p>
                 </div>
@@ -168,10 +168,10 @@ export default function Home() {
         <Stagger className="mt-8 grid gap-4 md:grid-cols-3" stagger={0.08}>
           {TOOLS.map((t) => (
             <StaggerItem key={t.slug} variant="scale">
-              <Link href={`/tools/${t.slug}`} className="group flex h-full flex-col rounded-3xl bg-cream p-6 transition hover:-translate-y-1 hover:shadow-xl">
-                <h3 className="text-lg font-medium text-ink group-hover:text-magenta">{t.name}</h3>
+              <Link href={`/tools/${t.slug}`} className="tile-lift group flex h-full flex-col rounded-3xl bg-cream p-6 ring-1 ring-plum/5">
+                <h3 className="text-lg font-medium text-ink transition group-hover:text-magenta">{t.name}</h3>
                 <p className="mt-2 flex-1 text-[14px] leading-relaxed text-plum-2">{t.short}</p>
-                <span className="mt-5 text-sm text-plum"><span className="link-underline">Try free</span> <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" /></span>
+                <span className="mt-5 text-sm text-plum"><span className="link-underline">Try free</span> <ArrowRight className="inline h-4 w-4 transition duration-300 group-hover:translate-x-1" /></span>
               </Link>
             </StaggerItem>
           ))}
@@ -210,11 +210,13 @@ export default function Home() {
 
       <section className="mx-auto mt-24 max-w-6xl px-6 pb-12 sm:mt-28">
         <Reveal>
-          <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-cream via-white to-sky/20 px-8 py-12 text-center sm:px-12 sm:py-16">
-            <h2 className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Start with one website.</h2>
-            <p className="mx-auto mt-3 max-w-md text-base text-plum-2">Then add the journey that matters most to your client.</p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:bg-ink">
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-cream via-white to-sky/25 px-8 py-12 text-center ring-1 ring-plum/5 sm:px-12 sm:py-16">
+            <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-magenta/10 blur-3xl" />
+            <div aria-hidden className="pointer-events-none absolute -bottom-12 left-10 h-36 w-36 rounded-full bg-sky/30 blur-3xl" />
+            <h2 className="relative text-3xl font-medium tracking-tight text-ink md:text-4xl">Start with one website.</h2>
+            <p className="relative mx-auto mt-3 max-w-md text-base text-plum-2">Then add the journey that matters most to your client.</p>
+            <div className="relative mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream shadow-[0_12px_32px_-14px_rgba(75,36,64,0.55)] transition duration-300 hover:-translate-y-0.5 hover:bg-ink">
                 Start monitoring free
               </Link>
               <Link href="/login" className="link-underline text-[15px] text-plum">

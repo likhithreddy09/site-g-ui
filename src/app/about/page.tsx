@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
+import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, VisualBand } from "@/components/marketing/Site";
 import { organizationLd, pageMeta } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
@@ -36,8 +36,17 @@ export default function AboutPage() {
         eyebrow="About us"
         title="Clients shouldn't be your monitoring system."
         intro="Most agencies find out a site is broken when a client emails to ask why the leads stopped. We built Watchfront so your team is always the first to know - and knows why."
+        image={{
+          src: "/marketing/agency-desk.jpg",
+          alt: "Agency desk with a laptop showing a portfolio monitoring dashboard",
+        }}
       />
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-2" stagger={0.1}>
+      <VisualBand
+        src="/marketing/agency-team.jpg"
+        alt="Agency collaborators working through client site issues in a sunlit studio"
+        caption="Built in India for teams who manage many client websites — and can’t afford Monday surprises."
+      />
+      <MotionGrid className="mx-auto mt-16 grid max-w-6xl gap-5 px-6 md:grid-cols-2" stagger={0.1}>
         <MotionTile>
           <div className="h-full space-y-4 rounded-[2rem] bg-ink p-8 text-cream md:p-10">
             <h2 className="text-2xl font-medium tracking-tight">Why Watchfront exists</h2>

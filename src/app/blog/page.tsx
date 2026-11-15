@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { CtaBand, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, JsonLd, MarketingShell, PageHero, VisualBand } from "@/components/marketing/Site";
 import { BLOG_CATEGORIES, BLOG_POSTS } from "@/lib/blog";
 import { GUIDES } from "@/lib/guides";
 import { collectionPageLd, pageMeta } from "@/lib/seo";
@@ -38,9 +38,19 @@ export default function BlogIndexPage() {
         eyebrow="Blog & resources"
         title="Field notes for agencies who keep sites alive"
         intro="Not generic “10 tips” filler. Practical posts on monitoring, care plans and client reports — written the way agency teams actually work."
+        image={{
+          src: "/marketing/form-evidence.jpg",
+          alt: "Desk evidence of a broken website form ready for an agency post-mortem",
+        }}
       />
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 pb-8 sm:px-6 lg:grid-cols-[1fr_280px]">
+      <VisualBand
+        src="/marketing/agency-desk.jpg"
+        alt="Laptop on an agency desk showing portfolio monitoring status"
+        caption="Written for the Monday desk check — not for generic SEO filler."
+      />
+
+      <div className="mx-auto mt-16 grid max-w-6xl gap-10 px-5 pb-8 sm:px-6 lg:grid-cols-[1fr_280px]">
         <div className="min-w-0 space-y-6">
           {posts.map((p, i) => (
             <article

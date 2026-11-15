@@ -42,6 +42,10 @@ export default function FeaturesPage() {
         eyebrow="Features"
         title="Everything that can break on a client website - checked for you."
         intro="Uptime, SSL, forms, APIs, visual checks and JS errors - seven kinds of website monitoring in one record. Set up in minutes by anyone on your team."
+        image={{
+          src: "/marketing/checks-stack.jpg",
+          alt: "Illustration of uptime, SSL and form checks stacked as monitoring cards",
+        }}
       />
       <p className="mx-auto -mt-6 mb-10 max-w-6xl px-6 text-[15px] text-plum-2">
         Searching by product? Start with{" "}
@@ -54,7 +58,7 @@ export default function FeaturesPage() {
           const Icon = FEATURE_ICONS[f.slug];
           return (
             <MotionTile key={f.slug}>
-              <Link href={`/features/${f.slug}`} className="group flex h-full flex-col rounded-[1.75rem] bg-cream p-7 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:ring-magenta/20">
+              <Link href={`/features/${f.slug}`} className="tile-lift group flex h-full flex-col rounded-[1.75rem] bg-cream p-7 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-sky"><Icon className="h-5 w-5" /></span>
                 <h2 className="mt-5 text-lg font-medium text-ink group-hover:text-magenta">{f.name}</h2>
                 <p className="mt-2 flex-1 text-[15px] leading-relaxed text-plum-2">{f.short}</p>

@@ -49,13 +49,17 @@ export default function UseCasesPage() {
         eyebrow="Use cases"
         title="Built for teams who look after other people’s websites."
         intro="Same product, different workflows - pick the path that matches how you work with clients."
+        image={{
+          src: "/marketing/agency-team.jpg",
+          alt: "Agency team reviewing client websites together at a bright studio desk",
+        }}
       />
       <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2" stagger={0.1}>
         {USE_CASES.map((u, i) => (
           <MotionTile key={u.slug}>
             <Link
               href={`/use-cases/${u.slug}`}
-              className={`group flex h-full flex-col rounded-[1.75rem] p-8 ring-1 transition hover:-translate-y-1 hover:shadow-xl ${
+              className={`tile-lift group flex h-full flex-col rounded-[1.75rem] p-8 ring-1 ${
                 i % 2 === 0
                   ? "bg-cream text-ink ring-plum/8 hover:ring-magenta/20"
                   : "bg-ink text-cream ring-ink hover:ring-sky/40"
