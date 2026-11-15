@@ -4,7 +4,6 @@ import { Logo } from "@/components/Logo";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
 import { BLOG_POSTS } from "@/lib/blog";
-import { COMPARISONS } from "@/lib/compare";
 import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES } from "@/lib/marketing";
 import { PRODUCTS } from "@/lib/products";
