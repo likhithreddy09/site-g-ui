@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Syne } from "next/font/google";
 import Script from "next/script";
 import { AuthProvider } from "@/lib/auth";
 import { ToastProvider } from "@/components/toast";
@@ -14,6 +14,7 @@ const RUM_SITE_KEY =
   process.env.NEXT_PUBLIC_WATCHFRONT_SITE_KEY || "sg_q_7bXnpS-63hVDdr";
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jbmono", display: "swap" });
+const display = Syne({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-syne", display: "swap" });
 
 const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} - ${SITE.tagline}` };
 
@@ -111,7 +112,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
       </head>
-      <body className={`${mono.variable} antialiased`}>
+      <body className={`${mono.variable} ${display.variable} antialiased`}>
         <AuthProvider>
           <ToastProvider>{children}</ToastProvider>
         </AuthProvider>

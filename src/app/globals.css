@@ -20,6 +20,7 @@
 
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-syne), "Syne", Arial, Helvetica, sans-serif;
 
   /* Softer than Tailwind defaults - less heavy type across the site */
   --font-weight-medium: 400;
@@ -65,6 +66,10 @@
     from { background-position: -400px 0; }
     to { background-position: 400px 0; }
   }
+}
+
+.font-brand {
+  font-family: var(--font-syne), "Syne", Arial, Helvetica, sans-serif;
 }
 
 html {
