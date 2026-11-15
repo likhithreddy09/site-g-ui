@@ -21,20 +21,44 @@ export {
   MotionSection,
 } from "@/components/marketing/MarketingUi";
 
-function NavMenu({ label, items, all }: { label: string; items: { href: string; name: string; short?: string }[]; all?: [string, string] }) {
+function NavMenu({
+  label,
+  items,
+  all,
+  wide = true,
+}: {
+  label: string;
+  items: { href: string; name: string; short?: string }[];
+  all?: [string, string];
+  wide?: boolean;
+}) {
   return (
     <div className="group relative">
-      <button className="flex items-center gap-1 py-5 hover:text-magenta" aria-haspopup="true">{label} <ChevronDown className="h-3.5 w-3.5 transition group-hover:rotate-180" /></button>
-      <div className="invisible absolute left-1/2 top-full w-[520px] -translate-x-1/2 translate-y-1 rounded-2xl bg-white p-3 opacity-0 shadow-2xl ring-1 ring-plum/10 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-        <div className="grid grid-cols-2 gap-1">
+      <button
+        type="button"
+        className="flex items-center gap-1 whitespace-nowrap text-[14px] hover:text-magenta"
+        aria-haspopup="true"
+      >
+        {label} <ChevronDown className="h-3.5 w-3.5 transition group-hover:rotate-180" />
+      </button>
+      <div
+        className={`invisible absolute top-full z-50 mt-3 translate-y-1 rounded-2xl bg-white p-2 opacity-0 shadow-2xl ring-1 ring-plum/10 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 ${
+          wide ? "left-1/2 w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2" : "left-0 w-56"
+        }`}
+      >
+        <div className={wide ? "grid grid-cols-2 gap-0.5" : "grid gap-0.5"}>
           {items.map((i) => (
-            <Link key={i.href} href={i.href} className="rounded-xl p-3 hover:bg-cream">
+            <Link key={i.href} href={i.href} className="rounded-xl px-3 py-2.5 hover:bg-cream">
               <div className="text-sm font-medium text-ink">{i.name}</div>
               {i.short && <div className="mt-0.5 text-xs leading-snug text-plum-2">{i.short}</div>}
             </Link>
           ))}
         </div>
-        {all && <Link href={all[1]} className="mt-1 flex items-center gap-1 rounded-xl px-3 py-2 text-sm text-magenta hover:bg-cream">{all[0]} <ArrowRight className="h-3.5 w-3.5" /></Link>}
+        {all && (
+          <Link href={all[1]} className="mt-0.5 flex items-center gap-1 rounded-xl px-3 py-2 text-sm text-magenta hover:bg-cream">
+            {all[0]} <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -43,32 +67,67 @@ function NavMenu({ label, items, all }: { label: string; items: { href: string; 
 export function SiteHeader({ banner = true }: { banner?: boolean }) {
   const features = FEATURES.map((f) => ({ href: `/features/${f.slug}`, name: f.name, short: f.short }));
   const cases = USE_CASES.map((u) => ({ href: `/use-cases/${u.slug}`, name: u.name, short: u.intro.split(".")[0] + "." }));
+  const resources = [
+    { href: "/tools", name: "Free tools", short: "One-off uptime, SSL and SEO checks." },
+    { href: "/blog", name: "Blog", short: "Agency monitoring notes and playbooks." },
+    { href: "/guides", name: "Guides", short: "How uptime, SSL and incidents work." },
+    { href: "/compare", name: "Compare", short: "Watchfront vs UptimeRobot, Pingdom and more." },
+    { href: "/security", name: "Security", short: "How we handle checks and data." },
+    { href: "/about", name: "About", short: "Why we built Watchfront." },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
-        <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
+    <header className="sticky top-0 z-40 border-b border-plum/5 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:h-16 sm:px-6">
+        <div className="shrink-0">
+          <Logo />
+        </div>
+
+        <nav
+          aria-label="Main"
+          className="ml-2 hidden min-w-0 flex-1 items-center justify-center gap-5 text-plum lg:flex xl:gap-7"
+        >
           <NavMenu
             label="Product"
-            items={PRODUCTS.map((p) => ({ href: `/${p.slug}`, name: p.nav, short: p.description.split(".")[0] + "." }))}
-            all={["Website monitoring", "/website-monitoring"]}
+            items={PRODUCTS.map((p) => ({ href: `/${p.slug}`, name: p.nav }))}
+            all={["Website monitoring overview", "/website-monitoring"]}
           />
-          <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
-          <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
-          <NavMenu label="Free tools" items={TOOLS.map((t) => ({ href: `/tools/${t.slug}`, name: t.name, short: t.short }))} all={["All free tools", "/tools"]} />
-          <Link href="/blog" className="hover:text-magenta">Blog</Link>
-          <Link href="/guides" className="hover:text-magenta">Guides</Link>
-          <Link href="/security" className="hover:text-magenta">Security</Link>
-          <Link href="/about" className="hover:text-magenta">About</Link>
-          <Link href="/contact" className="hover:text-magenta">Contact</Link>
+          <NavMenu label="Features" items={features} all={["All features", "/features"]} />
+          <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} wide={false} />
+          <NavMenu label="Resources" items={resources} wide />
+          <Link href="/contact" className="whitespace-nowrap text-[14px] hover:text-magenta">
+            Contact
+          </Link>
         </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
+
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
           <HeaderAuthCtas />
-          <details className="relative md:hidden">
-            <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
-            <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Website monitoring", "/website-monitoring"], ["Features", "/features"], ["Free tools", "/tools"], ["Blog", "/blog"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
-                <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
+          <details className="relative lg:hidden">
+            <summary
+              className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </summary>
+            <nav
+              aria-label="Mobile"
+              className="absolute right-0 top-full z-50 mt-2 max-h-[min(70vh,28rem)] w-[min(18rem,calc(100vw-2rem))] space-y-0.5 overflow-y-auto rounded-2xl bg-white p-2 text-sm shadow-2xl ring-1 ring-plum/10"
+            >
+              {[
+                ["Website monitoring", "/website-monitoring"],
+                ["Features", "/features"],
+                ["Use cases", "/use-cases"],
+                ["Free tools", "/tools"],
+                ["Blog", "/blog"],
+                ["Guides", "/guides"],
+                ["Compare", "/compare"],
+                ["Security", "/security"],
+                ["About", "/about"],
+                ["Contact", "/contact"],
+              ].map(([l, h]) => (
+                <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">
+                  {l}
+                </Link>
               ))}
               <div className="my-1 border-t border-plum/10" />
               <MobileAuthLinks />
@@ -79,7 +138,9 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       {banner && (
         <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
           3-day free trial - every feature, no card required.{" "}
-          <Link href="/register" className="link-underline ml-1 font-medium">Start free →</Link>
+          <Link href="/register" className="link-underline ml-1 font-medium">
+            Start free →
+          </Link>
         </div>
       )}
     </header>
