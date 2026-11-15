@@ -82,7 +82,7 @@ export function Reveal({
       variants={variants[variant]}
       initial={false}
       animate={state}
-      transition={{ duration: 0.75, delay, ease: EASE }}
+      transition={{ duration: 0.55, delay: delay * 0.7, ease: EASE }}
     >
       {children}
     </MotionTag>
@@ -135,7 +135,7 @@ export function StaggerItem({
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
-    <motion.div className={className} variants={variants[variant]} transition={{ duration: 0.7, ease: EASE }}>
+    <motion.div className={className} variants={variants[variant]} transition={{ duration: 0.5, ease: EASE }}>
       {children}
     </motion.div>
   );

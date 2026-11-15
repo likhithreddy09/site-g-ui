@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Eye, EyeOff, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useId, useState, type InputHTMLAttributes, type ReactNode } from "react";
+import { useLiteMotion } from "@/lib/motion";
 import { Logo } from "./Logo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -104,6 +105,8 @@ export function AuthLayout({
   footer?: React.ReactNode;
 }) {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
+  const light = !!reduce || lite;
 
   return (
     <div className="relative grid min-h-screen overflow-hidden bg-cream lg:grid-cols-2">
@@ -168,13 +171,13 @@ export function AuthLayout({
         <motion.div
           aria-hidden
           className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-magenta/30 blur-3xl"
-          animate={reduce ? undefined : { x: [0, 18, 0], y: [0, 12, 0] }}
+          animate={light ? undefined : { x: [0, 18, 0], y: [0, 12, 0] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           aria-hidden
           className="pointer-events-none absolute -right-16 bottom-20 h-80 w-80 rounded-full bg-sky/20 blur-3xl"
-          animate={reduce ? undefined : { x: [0, -14, 0], y: [0, -16, 0] }}
+          animate={light ? undefined : { x: [0, -14, 0], y: [0, -16, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
 

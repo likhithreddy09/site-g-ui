@@ -160,9 +160,9 @@ export function OrbitalScene({ className = "" }: { className?: string }) {
       }}
     >
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, 1.25]}
         camera={{ position: [0, 0.35, 4.2], fov: 38 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >
         <Scene pointer={pointer} reduce={!!reduce} />

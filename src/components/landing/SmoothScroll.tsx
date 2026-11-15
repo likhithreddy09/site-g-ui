@@ -3,18 +3,22 @@
 import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
+import { useLiteMotion } from "@/lib/motion";
 
-/** Butter-smooth wheel scroll — Otherspace / studio feel. */
+/** Desktop-only smooth wheel — skip on touch to avoid mobile scroll lag. */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || lite) return;
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.05,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.4,
+      // Never smooth touch — native scroll is faster on phones
+      syncTouch: false,
+      touchMultiplier: 1,
     });
     let raf = 0;
     const loop = (time: number) => {
@@ -26,7 +30,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       cancelAnimationFrame(raf);
       lenis.destroy();
     };
-  }, [reduce]);
+  }, [reduce, lite]);
 
   return <>{children}</>;
 }

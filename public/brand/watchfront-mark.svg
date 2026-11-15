@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="Watchfront">
+  <polyline
+    points="14,28 32,72 50,44 68,72 80,43"
+    stroke="#4b2440"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="86" cy="28" r="7" fill="#1D9E75"/>
+</svg>

@@ -1,61 +1,43 @@
-import Image from "next/image";
 import Link from "next/link";
 
-/** Radar mark — one desk watching many sites. */
+/** Exact Watchfront signal: pulse polyline + green live beacon. */
+const SIGNAL_POINTS = "14,28 32,72 50,44 68,72 80,43";
+const BEACON = { cx: 86, cy: 28, r: 7 } as const;
+const BEACON_COLOR = "#1D9E75";
+
 export function LogoMark({ light = false, className = "h-7 w-7" }: { light?: boolean; className?: string }) {
-  const ink = light ? "#faf6ed" : "#4b2440";
-  const accent = light ? "#f8e8f1" : "#9b1b67";
-  const sky = light ? "#8fd3f4" : "#8fd3f4";
+  const stroke = light ? "#faf6ed" : "#4b2440";
   return (
-    <svg viewBox="0 0 36 36" className={className} aria-hidden>
-      <path
-        d="M18 3a15 15 0 0 1 15 15"
-        fill="none"
-        stroke={ink}
-        strokeWidth="2.35"
+    <svg viewBox="0 0 100 100" className={className} aria-hidden fill="none">
+      <polyline
+        points={SIGNAL_POINTS}
+        stroke={stroke}
+        strokeWidth="8"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <path
-        d="M18 7.6a10.4 10.4 0 0 1 10.4 10.4"
-        fill="none"
-        stroke={ink}
-        strokeWidth="2.35"
-        strokeLinecap="round"
-      />
-      <path
-        d="M18 12.4a5.6 5.6 0 0 1 5.6 5.6"
-        fill="none"
-        stroke={ink}
-        strokeWidth="2.35"
-        strokeLinecap="round"
-      />
-      <path
-        d="M25.4 29.6a15 15 0 0 1-11.7 3.3"
-        fill="none"
-        stroke={ink}
-        strokeWidth="2.35"
-        strokeLinecap="round"
-        opacity="0.45"
-      />
-      <circle cx="18" cy="3" r="2.1" fill={accent} />
-      <circle cx="33" cy="18" r="2.1" fill={accent} />
-      <circle cx="27.2" cy="30.2" r="2.1" fill={sky} />
-      <circle cx="18" cy="18" r="3.25" fill={ink} />
+      <circle cx={BEACON.cx} cy={BEACON.cy} r={BEACON.r} fill={BEACON_COLOR} />
     </svg>
   );
 }
 
-/** Raster mark (transparent PNG) — emails / places that need a bitmap. */
-export function BrandMark({ className = "h-8 w-8" }: { className?: string }) {
+/** App / favicon tile — plum square with cream signal. */
+export function LogoTile({ className = "h-8 w-8" }: { className?: string }) {
   return (
-    <Image
-      src="/brand/watchfront-logo-mark.png"
-      alt=""
-      width={72}
-      height={72}
-      className={`object-contain ${className}`}
-      priority
-    />
+    <svg viewBox="0 0 48 48" className={className} aria-hidden>
+      <rect width="48" height="48" rx="11" fill="#4b2440" />
+      <g transform="translate(2.5 2.5) scale(0.43)">
+        <polyline
+          points={SIGNAL_POINTS}
+          fill="none"
+          stroke="#faf6ed"
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx={BEACON.cx} cy={BEACON.cy} r={BEACON.r} fill={BEACON_COLOR} />
+      </g>
+    </svg>
   );
 }
 

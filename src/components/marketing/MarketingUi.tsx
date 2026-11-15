@@ -4,6 +4,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
+import { useLiteMotion } from "@/lib/motion";
 import { Reveal, Stagger, StaggerItem } from "@/components/landing/Reveal";
 import { MediaFrame } from "@/components/marketing/MediaFrame";
 import { JsonLd } from "@/components/marketing/SiteJsonLd";
@@ -102,10 +103,12 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
+  const light = !!reduce || lite;
 
   return (
     <section className="relative overflow-x-clip">
-      {!reduce && (
+      {!light && (
         <>
           <motion.div
             aria-hidden
@@ -133,9 +136,9 @@ export function PageHero({
         >
           <motion.div
             className="min-w-0"
-            initial={reduce ? false : { y: 14, opacity: 0 }}
+            initial={light ? false : { y: 14, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.75, ease: EASE }}
+            transition={{ duration: light ? 0.4 : 0.75, ease: EASE }}
           >
             {eyebrow && (
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-magenta sm:text-[12px]">
@@ -231,10 +234,12 @@ export function CtaBand({
   body?: string;
 }) {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
+  const light = !!reduce || lite;
   return (
     <Reveal as="section" className="mx-auto mt-16 max-w-6xl px-5 pb-4 sm:mt-20 sm:px-6" variant="scale">
       <div className="relative overflow-hidden rounded-[1.5rem] bg-ink px-6 py-10 text-cream sm:rounded-[2rem] sm:px-10 sm:py-14 md:px-14">
-        {!reduce && (
+        {!light && (
           <>
             <motion.div
               aria-hidden
@@ -250,7 +255,7 @@ export function CtaBand({
             />
           </>
         )}
-        <div className="pointer-events-none absolute left-8 top-8 h-40 w-40 rounded-full bg-gold/15 blur-3xl" />
+        <div className={`pointer-events-none absolute left-8 top-8 h-40 w-40 rounded-full bg-gold/15 ${light ? "" : "blur-3xl"}`} />
         <div className="relative flex flex-wrap items-center justify-between gap-8">
           <div>
             <h2 className="text-2xl font-medium tracking-tight md:text-3xl">{title}</h2>

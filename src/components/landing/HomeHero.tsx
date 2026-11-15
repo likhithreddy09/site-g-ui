@@ -6,18 +6,21 @@ import Link from "next/link";
 import { useRef } from "react";
 import { CtaPrimaryLink } from "@/components/marketing/AuthCtas";
 import { OrbitalSculpture } from "@/components/landing/OrbitalSculpture";
+import { useLiteMotion } from "@/lib/motion";
 import { SITE } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function HomeHero() {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
+  const light = !!reduce || lite;
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const orbitalY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 140]);
-  const orbitalScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 0.78]);
-  const orbitalOpacity = useTransform(scrollYProgress, [0, 0.75], reduce ? [1, 1] : [1, 0.25]);
-  const copyY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -60]);
+  const orbitalY = useTransform(scrollYProgress, [0, 1], light ? [0, 0] : [0, 140]);
+  const orbitalScale = useTransform(scrollYProgress, [0, 1], light ? [1, 1] : [1, 0.78]);
+  const orbitalOpacity = useTransform(scrollYProgress, [0, 0.75], light ? [1, 1] : [1, 0.25]);
+  const copyY = useTransform(scrollYProgress, [0, 1], light ? [0, 0] : [0, -60]);
 
   return (
     <section ref={ref} className="relative flex min-h-[100svh] flex-col overflow-hidden bg-ink text-cream">
@@ -36,11 +39,11 @@ export function HomeHero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col px-5 pb-5 pt-6 sm:px-6 sm:pt-8">
         {/* copy block — top of composition */}
-        <motion.div style={reduce ? undefined : { y: copyY }} className="mx-auto max-w-3xl text-center">
+        <motion.div style={light ? undefined : { y: copyY }} className="mx-auto max-w-3xl text-center">
           <motion.p
-            initial={reduce ? false : { opacity: 0, y: 12 }}
+            initial={light ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
+            transition={{ duration: light ? 0.4 : 0.7, ease: EASE }}
             className="font-brand text-[clamp(1.45rem,3vw,1.85rem)] font-extrabold tracking-[-0.04em] text-cream"
           >
             {SITE.name}
@@ -110,10 +113,10 @@ export function HomeHero() {
 
         {/* orbital — dominant lower plane */}
         <motion.div
-          initial={reduce ? false : { opacity: 0, scale: 0.92, y: 28 }}
+          initial={light ? false : { opacity: 0, scale: 0.92, y: 28 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.15, delay: 0.2, ease: EASE }}
-          style={reduce ? undefined : { y: orbitalY, scale: orbitalScale, opacity: orbitalOpacity }}
+          transition={{ duration: light ? 0.5 : 1.15, delay: light ? 0 : 0.2, ease: EASE }}
+          style={light ? undefined : { y: orbitalY, scale: orbitalScale, opacity: orbitalOpacity }}
           className="relative mt-2 flex flex-1 items-center justify-center sm:mt-1"
         >
           <OrbitalSculpture className="max-w-[min(78vw,24rem)] sm:max-w-[min(52vw,26rem)]" />

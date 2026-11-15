@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useLiteMotion } from "@/lib/motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -34,20 +35,23 @@ export function MediaFrame({
   flush = false,
 }: Props) {
   const reduce = useReducedMotion();
+  const lite = useLiteMotion();
+  const light = !!reduce || lite;
+  const doParallax = parallax && !light;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], reduce || !parallax ? [0, 0] : [-12, 12]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], reduce || !parallax ? [1, 1, 1] : [1.04, 1, 1.03]);
+  const y = useTransform(scrollYProgress, [0, 1], doParallax ? [-12, 12] : [0, 0]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], doParallax ? [1.04, 1, 1.03] : [1, 1, 1]);
 
   return (
     <motion.div
       ref={ref}
       className={`group relative min-w-0 ${className}`}
-      initial={reduce ? false : { opacity: 0, y: 20 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      initial={light ? false : { opacity: 0, y: 16 }}
+      whileInView={light ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, ease: EASE }}
     >
@@ -65,12 +69,12 @@ export function MediaFrame({
             : "rounded-2xl bg-cream-2 ring-1 ring-plum/10 sm:rounded-[1.35rem]"
         }`}
       >
-        <motion.div style={{ y: parallax ? y : undefined }} className="absolute inset-0">
+        <motion.div style={{ y: doParallax ? y : undefined }} className="absolute inset-0">
           <motion.div
             className={`absolute inset-0 ${fit === "contain" ? "p-3 sm:p-5" : ""}`}
-            style={parallax ? { scale: imgScale } : undefined}
-            animate={!reduce && drift && !parallax ? { scale: [1, 1.02, 1] } : undefined}
-            transition={!reduce && drift && !parallax ? { duration: 20, repeat: Infinity, ease: "easeInOut" } : undefined}
+            style={doParallax ? { scale: imgScale } : undefined}
+            animate={!light && drift && !doParallax ? { scale: [1, 1.02, 1] } : undefined}
+            transition={!light && drift && !doParallax ? { duration: 20, repeat: Infinity, ease: "easeInOut" } : undefined}
           >
             <div className="relative h-full w-full">
               <Image
