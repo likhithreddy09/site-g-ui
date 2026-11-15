@@ -5,11 +5,26 @@
 Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, SEO audits, and white-label client website uptime reports.
 
 Website: https://www.watchfront.in
+Website monitoring: https://www.watchfront.in/website-monitoring
+Uptime monitoring tool: https://www.watchfront.in/uptime-monitoring-tool
+SSL certificate monitoring: https://www.watchfront.in/ssl-certificate-monitoring
+Website monitoring software: https://www.watchfront.in/website-monitoring-software
+Website downtime monitoring: https://www.watchfront.in/website-downtime-monitoring
+Contact form monitoring: https://www.watchfront.in/contact-form-monitoring
 Features: https://www.watchfront.in/features
 Free tools: https://www.watchfront.in/tools
 Guides: https://www.watchfront.in/guides
 Contact: https://www.watchfront.in/contact
 Start free: https://www.watchfront.in/register
+
+## Product pages (non-brand search)
+
+- [Website monitoring](https://www.watchfront.in/website-monitoring): website monitoring tool for agencies
+- [Uptime monitoring tool](https://www.watchfront.in/uptime-monitoring-tool): 1-minute checks and downtime alerts
+- [SSL certificate monitoring](https://www.watchfront.in/ssl-certificate-monitoring): expiry alerts and HTTPS checks
+- [Website monitoring software](https://www.watchfront.in/website-monitoring-software): full platform overview
+- [Website downtime monitoring](https://www.watchfront.in/website-downtime-monitoring): outage detection and incidents
+- [Contact form monitoring](https://www.watchfront.in/contact-form-monitoring): real-browser form journeys
 
 ## Free tools (no signup)
 

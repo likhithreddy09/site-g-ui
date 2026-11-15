@@ -1,6 +1,7 @@
 import { COMPARISONS } from "./compare";
 import { GUIDES } from "./guides";
 import { FEATURES, USE_CASES } from "./marketing";
+import { PRODUCTS } from "./products";
 import { TOOLS } from "./tools";
 
 export type SitemapEntry = {
@@ -28,6 +29,13 @@ const featurePriority = (slug: string) =>
 
 export const SITEMAP_PAGES: SitemapEntry[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", seo: "Brand + agency website monitoring", image: "/opengraph-image" },
+  ...PRODUCTS.map((p) => ({
+    path: `/${p.slug}`,
+    priority: 0.98,
+    changeFrequency: "weekly" as const,
+    seo: p.title,
+    image: `/${p.slug}/opengraph-image`,
+  })),
   { path: "/features", priority: 0.95, changeFrequency: "weekly", seo: "All monitoring features hub", image: "/features/opengraph-image" },
   { path: "/features/seo-audit", priority: 0.95, changeFrequency: "weekly", seo: "Website SEO audit - multi-page on-page checks", image: "/features/seo-audit/opengraph-image" },
   ...FEATURES.filter((f) => f.slug !== "seo-audit").map((f) => ({

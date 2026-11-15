@@ -31,12 +31,14 @@ const slugsIn = (file) => [...fs.readFileSync(path.join(src, file), "utf8").matc
 const tools = slugsIn("lib/tools.ts");
 const guides = slugsIn("lib/guides.ts");
 const compares = slugsIn("lib/compare.ts");
+const products = slugsIn("lib/products.ts");
 
 const sitemapSrc = fs.readFileSync(path.join(src, "lib/sitemapPages.ts"), "utf8");
 const staticPaths = [...sitemapSrc.matchAll(/path:\s*"(\/[^"]*)"/g)].map((m) => m[1]);
 
 const expected = new Set([
   "/",
+  ...products.map((s) => `/${s}`),
   "/features",
   ...features.map((s) => `/features/${s}`),
   "/use-cases",
@@ -59,6 +61,9 @@ const expected = new Set([
 
 const pageExists = (p) => {
   if (p === "/") return fs.existsSync(path.join(src, "app/page.tsx"));
+  if (products.includes(p.slice(1)) && !p.slice(1).includes("/")) {
+    return fs.existsSync(path.join(src, "app/(commerce)/[slug]/page.tsx"));
+  }
   if (p.startsWith("/features/") && p !== "/features") {
     return features.includes(p.replace("/features/", ""));
   }
@@ -106,6 +111,7 @@ for (const f of forbidden) {
 // Ensure pageMeta (or generateMetadata) exists for top-level routes
 const metaRoutes = [
   ["app/page.tsx", "home (layout defaults + JsonLd)"],
+  ["app/(commerce)/[slug]/page.tsx", "generateMetadata"],
   ["app/features/page.tsx", "pageMeta"],
   ["app/features/[slug]/page.tsx", "generateMetadata"],
   ["app/use-cases/page.tsx", "pageMeta"],
@@ -148,13 +154,14 @@ const guideUpdated = Object.fromEntries(
 );
 const lastmod = (p) => guideUpdated[p] ?? contentUpdated;
 // Rank money pages first: home → features hub → SEO audit → free tools → rest
-const rankFirst = ["/", "/features", "/features/seo-audit", "/tools", "/use-cases"];
+const rankFirst = ["/", "/website-monitoring", "/uptime-monitoring-tool", "/ssl-certificate-monitoring", "/features", "/features/seo-audit", "/tools", "/use-cases"];
 const ordered = [
   ...rankFirst.filter((p) => expected.has(p)),
   ...[...expected].filter((p) => !rankFirst.includes(p)),
 ];
 const pri = (p) =>
   p === "/" ? 1 :
+  products.includes(p.slice(1)) ? 0.98 :
   ["/features", "/features/seo-audit"].includes(p) ? 0.95 :
   p === "/features/uptime-monitoring" ? 0.9 :
   p === "/use-cases" || p === "/tools" || p.startsWith("/tools/") ? 0.9 :
@@ -171,6 +178,7 @@ const freq = (p) =>
       : "monthly";
 const hubImage = {
   "/": "/opengraph-image",
+  ...Object.fromEntries(products.map((s) => [`/${s}`, `/${s}/opengraph-image`])),
   "/features": "/features/opengraph-image",
   "/use-cases": "/use-cases/opengraph-image",
   "/tools": "/tools/opengraph-image",

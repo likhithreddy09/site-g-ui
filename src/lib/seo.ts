@@ -221,6 +221,9 @@ export function webAppLd({ name, description, path }: { name: string; descriptio
 
 /** Primary marketing destinations Google may promote as sitelinks. */
 export const SITE_NAV: [string, string][] = [
+  ["Website monitoring", "/website-monitoring"],
+  ["Uptime monitoring", "/uptime-monitoring-tool"],
+  ["SSL monitoring", "/ssl-certificate-monitoring"],
   ["Features", "/features"],
   ["Use cases", "/use-cases"],
   ["Free tools", "/tools"],

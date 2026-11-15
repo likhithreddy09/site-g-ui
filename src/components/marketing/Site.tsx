@@ -6,6 +6,7 @@ import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/m
 import { COMPARISONS } from "@/lib/compare";
 import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES } from "@/lib/marketing";
+import { PRODUCTS } from "@/lib/products";
 import { SITE } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 
@@ -47,6 +48,11 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6">
         <Logo />
         <nav aria-label="Main" className="hidden items-center gap-7 text-[15px] text-plum md:flex">
+          <NavMenu
+            label="Product"
+            items={PRODUCTS.map((p) => ({ href: `/${p.slug}`, name: p.nav, short: p.description.split(".")[0] + "." }))}
+            all={["Website monitoring", "/website-monitoring"]}
+          />
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
           <NavMenu label="Free tools" items={TOOLS.map((t) => ({ href: `/tools/${t.slug}`, name: t.name, short: t.short }))} all={["All free tools", "/tools"]} />
@@ -60,7 +66,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
             <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Features", "/features"], ["Free tools", "/tools"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
+              {[["Website monitoring", "/website-monitoring"], ["Features", "/features"], ["Free tools", "/tools"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
                 <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
               <div className="my-1 border-t border-plum/10" />
@@ -81,10 +87,18 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
 
 export function SiteFooter() {
   const cols: [string, [string, string][]][] = [
-    ["Product", [["All features", "/features"], ...FEATURES.filter((f) => f.slug !== "client-reports").map((f) => [f.name, `/features/${f.slug}`] as [string, string])]],
+    ["Product", [
+      ...PRODUCTS.map((p) => [p.nav, `/${p.slug}`] as [string, string]),
+      ["All features", "/features"],
+    ]],
     ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
     ["Free tools", [["All free tools", "/tools"], ...TOOLS.map((t) => [t.name, `/tools/${t.slug}`] as [string, string])]],
-    ["Resources", [["Guides", "/guides"], ...GUIDES.map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]), ["Compare tools", "/compare"], ...COMPARISONS.map((c) => [`${c.competitor} alternative`, `/compare/${c.slug}`] as [string, string])]],
+    ["Resources", [
+      ["Guides", "/guides"],
+      ...GUIDES.slice(0, 4).map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]),
+      ["Compare tools", "/compare"],
+      ...COMPARISONS.slice(0, 3).map((c) => [`${c.competitor} alternative`, `/compare/${c.slug}`] as [string, string]),
+    ]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [
       ["Privacy policy", "/privacy"],
@@ -94,28 +108,61 @@ export function SiteFooter() {
     ]],
   ];
   return (
-    <footer className="mt-28 bg-ink py-14 text-cream">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-6 md:grid-cols-3 lg:grid-cols-[1.3fr_repeat(6,1fr)]">
-        <div className="col-span-2 md:col-span-3 lg:col-span-1">
-          <Logo light />
-          <p className="mt-3 max-w-xs text-sm text-cream/60">{SITE.tagline}. Monitor every client website, catch broken forms and errors, and share reports clients understand.</p>
-          <a href={`mailto:${SITE.email.hello}`} className="mt-4 block text-sm text-sky hover:underline">{SITE.email.hello}</a>
-          <a href={`tel:${SITE.phoneHref}`} className="mt-1 block text-sm text-sky hover:underline">{SITE.phone}</a>
+    <footer className="mt-28 overflow-hidden bg-ink text-cream">
+      <div className="mx-auto max-w-6xl px-5 pt-12 sm:px-6 sm:pt-16">
+        <div className="grid gap-10 border-b border-cream/10 pb-12 lg:grid-cols-[minmax(14rem,17rem)_minmax(0,1fr)] lg:gap-14 xl:gap-16">
+          <div>
+            <Logo light />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/60">
+              {SITE.tagline}. Monitor every client website, catch broken forms and errors, and share reports clients understand.
+            </p>
+            <div className="mt-5 space-y-1.5 text-sm">
+              <a href={`mailto:${SITE.email.hello}`} className="block text-sky hover:underline">{SITE.email.hello}</a>
+              <a href={`tel:${SITE.phoneHref}`} className="block text-sky hover:underline">{SITE.phone}</a>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-10">
+            {[cols.slice(0, 3), cols.slice(3)].map((row, i) => (
+              <div key={i} className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-8">
+                {row.map(([title, links]) => (
+                  <nav key={title} aria-label={title} className="min-w-0">
+                    <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-cream/45">{title}</div>
+                    <ul className="mt-3 space-y-2.5 text-sm leading-snug text-cream/70">
+                      {links.map(([l, h]) => (
+                        <li key={h}>
+                          <Link href={h} className="transition hover:text-sky">{l}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {title === "Company" && (
+                      <div className="mt-2.5 space-y-2.5 text-sm leading-snug text-cream/70">
+                        <FooterAuthLinks />
+                      </div>
+                    )}
+                  </nav>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
-        {cols.map(([title, links]) => (
-          <nav key={title} aria-label={title} className="space-y-2 text-sm text-cream/70">
-            <div className="font-medium text-cream">{title}</div>
-            {links.map(([l, h]) => <Link key={h} href={h} className="block hover:text-sky">{l}</Link>)}
-            {title === "Company" && <FooterAuthLinks />}
-          </nav>
-        ))}
+
+        <div className="flex flex-col gap-3 py-7 text-xs leading-relaxed text-cream/40 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:py-8">
+          <p>
+            © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
+            {SITE.gstin ? ` · GSTIN ${SITE.gstin}` : ""}
+          </p>
+          <p className="sm:max-w-sm sm:text-right">We don&apos;t promise zero downtime - we promise you&apos;ll know first.</p>
+        </div>
       </div>
-      <div className="mx-auto mt-10 flex max-w-6xl flex-wrap justify-between gap-2 px-6 text-xs text-cream/40">
-        <span>
-          © {new Date().getFullYear()} {SITE.legalName}. All rights reserved.
-          {SITE.gstin ? ` · GSTIN ${SITE.gstin}` : ""}
-        </span>
-        <span>We don&apos;t promise zero downtime - we promise you&apos;ll know first.</span>
+
+      <div className="relative border-t border-cream/10" aria-hidden>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[radial-gradient(ellipse_at_70%_120%,rgba(155,27,103,0.4),transparent_55%)]" />
+        <div className="relative mx-auto max-w-6xl overflow-hidden px-5 sm:px-6">
+          <p className="font-brand select-none whitespace-nowrap pb-0 pt-6 text-[clamp(4.5rem,22vw,12rem)] font-extrabold leading-[0.78] tracking-[-0.08em] text-cream/30 sm:pb-1 sm:pt-8 sm:tracking-[-0.09em]">
+            Watchfront
+          </p>
+        </div>
       </div>
     </footer>
   );

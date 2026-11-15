@@ -10,7 +10,7 @@ export const metadata = pageMeta({
   title: "Website Monitoring Features: Uptime, SSL, SEO | Watchfront",
   description: "See what Watchfront checks: uptime, SSL, SEO, forms, APIs, JS errors and client reports - built for agencies looking after many sites.",
   path: "/features",
-  keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit"],
+  keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit", "website monitoring tool"],
   ogDescription: "Uptime, SSL, SEO, forms, APIs, JS errors and client reports - one toolkit for agency portfolios.",
   image: "/features/opengraph-image",
 });
@@ -43,6 +43,12 @@ export default function FeaturesPage() {
         title="Everything that can break on a client website - checked for you."
         intro="Uptime, SSL, forms, APIs, visual checks and JS errors - seven kinds of website monitoring in one record. Set up in minutes by anyone on your team."
       />
+      <p className="mx-auto -mt-6 mb-10 max-w-6xl px-6 text-[15px] text-plum-2">
+        Searching by product? Start with{" "}
+        <Link href="/website-monitoring" className="link-underline text-plum">website monitoring</Link>, the{" "}
+        <Link href="/uptime-monitoring-tool" className="link-underline text-plum">uptime monitoring tool</Link>, or{" "}
+        <Link href="/ssl-certificate-monitoring" className="link-underline text-plum">SSL certificate monitoring</Link>.
+      </p>
       <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f) => {
           const Icon = FEATURE_ICONS[f.slug];

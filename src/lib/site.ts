@@ -10,12 +10,17 @@ export const SITE = {
   description:
     "Website monitoring for Indian agencies: catch downtime, SSL expiry, broken forms, SEO issues and JS errors on client sites, then share clear reports.",
   keywords: [
+    "website monitoring",
+    "website monitoring tool",
+    "website monitoring software",
     "website monitoring for agencies",
     "website monitoring India",
     "uptime monitoring",
-    "monitor client websites",
-    "SSL monitoring",
+    "uptime monitoring tool",
+    "website downtime monitoring",
+    "SSL certificate monitoring",
     "contact form monitoring",
+    "monitor client websites",
   ],
   email: {
     hello: process.env.NEXT_PUBLIC_EMAIL_HELLO || "likhith.reddy@watchfront.in",

@@ -7,20 +7,21 @@ import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { ScrollStage } from "@/components/landing/ScrollStage";
 import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/Site";
 import { HOME_FAQS, USE_CASES, audience } from "@/lib/marketing";
+import { PRODUCTS } from "@/lib/products";
 import { faqLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 
 const MODULES = [
   ["Portfolio & client management", "/use-cases/web-agencies", "Group every client website in one workspace with labels, notes, and per-client health."],
-  ["Uptime & response time", "/features/uptime-monitoring", "Scheduled HTTP checks with retries, failure thresholds, and confirmed-outage incidents."],
+  ["Uptime & response time", "/uptime-monitoring-tool", "Scheduled HTTP checks with retries, failure thresholds, and confirmed-outage incidents."],
   ["SEO audit", "/features/seo-audit", "Multi-page crawl of titles, meta, headings, canonicals and social tags - scored with a fix list."],
-  ["SSL & domain expiry", "/features/ssl-domain-monitoring", "Certificate validity, HTTPS redirects, and registry expiry - unknown is shown as unknown."],
+  ["SSL & domain expiry", "/ssl-certificate-monitoring", "Certificate validity, HTTPS redirects, and registry expiry - unknown is shown as unknown."],
   ["Content & visual changes", "/features/visual-regression-testing", "Expected text, required elements, broken links, and screenshot baselines with ignored regions."],
   ["Browser error monitoring", "/features/javascript-error-monitoring", "A lightweight script groups JavaScript errors by fingerprint, page, browser, and release."],
   ["API monitoring", "/features/api-monitoring", "Scheduled endpoint checks with encrypted secrets and assertions, plus real-visitor API failures."],
-  ["Form & journey testing", "/features/form-journey-testing", "Real-browser journeys that fill forms, click, and assert outcomes - with safety guards."],
-  ["Incident management", "/features", "Grouping, severity, assignment, notes, reopen-on-recurrence, and false-positive review."],
+  ["Form & journey testing", "/contact-form-monitoring", "Real-browser journeys that fill forms, click, and assert outcomes - with safety guards."],
+  ["Incident management", "/website-downtime-monitoring", "Grouping, severity, assignment, notes, reopen-on-recurrence, and false-positive review."],
   ["AI-assisted diagnosis", "/features", "Evidence-grounded summaries that separate observations from hypotheses."],
   ["Client reporting", "/features/client-reports", "Branded, shareable reports with uptime, incidents, actions taken, and explicit coverage."],
 ];
@@ -60,7 +61,7 @@ export default function Home() {
         <Reveal className="border-l-4 border-teal pl-6" variant="left">
           <h2 className="max-w-2xl text-3xl font-medium leading-tight tracking-tight text-ink md:text-4xl">Every check works from the same website record.</h2>
           <p className="mt-4 max-w-2xl text-base text-plum-2">Monitoring, testing, incidents, and reports connected in one place, so developers, marketers, and clients see the same facts.</p>
-          <Link href="/features" className="link-underline mt-5 inline-block text-plum">Explore every feature <ArrowRight className="inline h-4 w-4" /></Link>
+          <Link href="/website-monitoring" className="link-underline mt-5 inline-block text-plum">Explore website monitoring <ArrowRight className="inline h-4 w-4" /></Link>
         </Reveal>
         <Stagger className="mt-14 grid gap-x-12 gap-y-1 md:grid-cols-2" stagger={0.05}>
           {MODULES.map(([t, href, d], i) => (
@@ -71,6 +72,26 @@ export default function Home() {
                   <h3 className="text-base font-medium text-ink transition group-hover:text-magenta">{t}</h3>
                   <p className="mt-1 text-[15px] leading-relaxed text-plum-2">{d}</p>
                 </div>
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </section>
+
+      <section id="products" className="mx-auto mt-28 max-w-6xl px-6" aria-labelledby="products-title">
+        <Reveal>
+          <h2 id="products-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Searching for a monitoring product?</h2>
+          <p className="mt-4 max-w-2xl text-base text-plum-2">
+            Jump straight to the product page that matches what you need - website monitoring, uptime, SSL, downtime alerts or contact form checks.
+          </p>
+        </Reveal>
+        <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
+          {PRODUCTS.map((p) => (
+            <StaggerItem key={p.slug} variant="scale">
+              <Link href={`/${p.slug}`} className="group flex h-full flex-col rounded-3xl bg-cream p-7 transition hover:-translate-y-1 hover:shadow-xl">
+                <h3 className="text-lg font-medium text-ink group-hover:text-magenta">{p.nav}</h3>
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-plum-2">{p.description}</p>
+                <span className="mt-6 text-sm text-plum"><span className="link-underline">Open product page</span> <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" /></span>
               </Link>
             </StaggerItem>
           ))}
