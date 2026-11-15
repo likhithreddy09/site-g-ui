@@ -5,9 +5,17 @@ const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
+    const faviconFresh = [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }];
     return [
       { source: "/app/:path*", headers: noindex },
       { source: "/r/:path*", headers: noindex },
+      { source: "/favicon.ico", headers: faviconFresh },
+      { source: "/favicon.svg", headers: faviconFresh },
+      { source: "/favicon.png", headers: faviconFresh },
+      { source: "/favicon-:size.png", headers: faviconFresh },
+      { source: "/brand/favicon-:name*", headers: faviconFresh },
+      { source: "/apple-touch-icon.png", headers: faviconFresh },
+      { source: "/brand/apple-touch-icon-v2.png", headers: faviconFresh },
       {
         source: "/:path*",
         headers: [

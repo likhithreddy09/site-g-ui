@@ -67,19 +67,18 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    // Google SERP favicon: square ≥48px PNG first (stable URL)
+    // v2 paths bust sticky browser favicon caches (old radar mark)
     icon: [
-      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
-      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon-v2.svg", type: "image/svg+xml" },
+      { url: "/brand/favicon-48-v2.png", sizes: "48x48", type: "image/png" },
+      { url: "/brand/favicon-32-v2.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon-v2.ico", sizes: "48x48" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    shortcut: ["/favicon.ico"],
+    shortcut: ["/brand/favicon-v2.ico"],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/brand/apple-touch-icon-v2.png", sizes: "180x180", type: "image/png" },
       { url: "/apple-icon", sizes: "180x180", type: "image/png" },
     ],
   },
@@ -98,10 +97,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-IN">
       <head>
-        {/* Explicit favicon links - Google looks for rel=icon on the homepage */}
-        <link rel="icon" href={abs("/favicon-48.png")} type="image/png" sizes="48x48" />
-        <link rel="icon" href={abs("/favicon.ico")} sizes="any" />
-        <link rel="apple-touch-icon" href={abs("/apple-touch-icon.png")} sizes="180x180" />
+        {/* Relative v2 paths — absolute prod URLs kept browsers on the cached radar favicon */}
+        <link rel="icon" href="/brand/favicon-v2.svg" type="image/svg+xml" />
+        <link rel="icon" href="/brand/favicon-48-v2.png" type="image/png" sizes="48x48" />
+        <link rel="shortcut icon" href="/brand/favicon-v2.ico" />
+        <link rel="apple-touch-icon" href="/brand/apple-touch-icon-v2.png" sizes="180x180" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <BrandJsonLd />
