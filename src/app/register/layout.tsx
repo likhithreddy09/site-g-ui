@@ -8,6 +8,8 @@ export const metadata = pageMeta({
   ogTitle: "Start free with Watchfront",
   ogDescription: "Add a client site in minutes. No card required to evaluate.",
   image: "/register/opengraph-image",
+  // Signup URLs rarely rank; keep crawl budget for money pages.
+  noindex: true,
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {

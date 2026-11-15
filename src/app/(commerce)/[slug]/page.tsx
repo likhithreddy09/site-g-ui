@@ -41,6 +41,8 @@ export async function generateMetadata({ params }: Props) {
     description: p.description,
     path: `/${p.slug}`,
     keywords: p.keywords,
+    ogTitle: p.title,
+    ogDescription: p.description,
     image: `/${p.slug}/opengraph-image`,
   });
 }

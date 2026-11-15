@@ -11,6 +11,7 @@ export const metadata = pageMeta({
   description: "See what Watchfront checks: uptime, SSL, SEO, forms, APIs, JS errors and client reports - built for agencies looking after many sites.",
   path: "/features",
   keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit", "website monitoring tool"],
+  ogTitle: "Website Monitoring Features: Uptime, SSL, SEO | Watchfront",
   ogDescription: "Uptime, SSL, SEO, forms, APIs, JS errors and client reports - one toolkit for agency portfolios.",
   image: "/features/opengraph-image",
 });

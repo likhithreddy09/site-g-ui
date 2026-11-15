@@ -8,6 +8,7 @@ export const metadata = pageMeta({
   description: "Watchfront is website monitoring for Indian agencies. We help you spot broken client sites before clients do - with clear evidence, not noise.",
   path: "/about",
   keywords: ["about Watchfront", "Watchfront India", "website monitoring company"],
+  ogTitle: "About Watchfront - Website Monitoring Built in India",
   ogDescription: "We build website monitoring for Indian agencies who manage many client sites.",
   image: "/about/opengraph-image",
 });

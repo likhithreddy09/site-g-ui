@@ -160,7 +160,7 @@ export const PRODUCTS: ProductPage[] = [
     feature: "ssl-domain-monitoring",
     features: ["ssl-domain-monitoring", "uptime-monitoring", "client-reports"],
     tool: "ssl-checker",
-    guide: "ssl-certificate-expiry",
+    guide: "ssl-expiry-alerts-for-client-websites",
     bullets: [
       "Daily certificate chain validation",
       "Days-left and issuer visibility per hostname",
@@ -273,7 +273,7 @@ export const PRODUCTS: ProductPage[] = [
     feature: "uptime-monitoring",
     features: ["uptime-monitoring", "api-monitoring", "form-journey-testing", "client-reports"],
     tool: "website-down-checker",
-    guide: "website-down-what-to-do",
+    guide: "website-down-for-everyone-or-just-me",
     bullets: [
       "Fast detection with confirmation rules",
       "Incidents you can assign and resolve",
@@ -329,7 +329,7 @@ export const PRODUCTS: ProductPage[] = [
     feature: "form-journey-testing",
     features: ["form-journey-testing", "uptime-monitoring", "javascript-error-monitoring"],
     tool: "website-down-checker",
-    guide: "contact-form-not-working",
+    guide: "contact-form-monitoring-for-agencies",
     bullets: [
       "Real-browser form fills and submits",
       "Assert thank-you or success states",

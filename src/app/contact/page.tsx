@@ -11,6 +11,7 @@ export const metadata = pageMeta({
   description: "Talk to the Watchfront team about setup, agency portfolios, support or a short demo. Email, phone, or book a call - we reply from India.",
   path: "/contact",
   keywords: ["contact Watchfront", "Watchfront support", "book a demo"],
+  ogTitle: "Contact Watchfront - Sales, Support & Demo Calls",
   ogDescription: "Sales, support and billing for Watchfront website monitoring.",
   image: "/contact/opengraph-image",
 });

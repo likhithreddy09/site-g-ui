@@ -15,7 +15,15 @@ export const generateStaticParams = () => GUIDES.map((g) => ({ slug: g.slug }));
 export async function generateMetadata({ params }: Props) {
   const g = guideBySlug((await params).slug);
   if (!g) return {};
-  const meta = pageMeta({ title: g.title, description: g.description, path: `/guides/${g.slug}`, keywords: g.keywords, image: `/guides/${g.slug}/opengraph-image` });
+  const meta = pageMeta({
+    title: g.title,
+    description: g.description,
+    path: `/guides/${g.slug}`,
+    keywords: g.keywords,
+    ogTitle: g.title,
+    ogDescription: g.description,
+    image: `/guides/${g.slug}/opengraph-image`,
+  });
   return { ...meta, openGraph: { ...meta.openGraph, type: "article", publishedTime: g.published, modifiedTime: g.updated } };
 }
 

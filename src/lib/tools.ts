@@ -16,7 +16,10 @@ export type Tool = {
   button: string;
   sections: { h: string; p: string[] }[];
   faqs: Faq[];
+  /** Marketing feature slug under /features/... */
   feature: string;
+  /** Money page under /{slug} for stronger SEO CTAs */
+  product: string;
 };
 
 export const TOOLS: Tool[] = [
@@ -61,6 +64,7 @@ export const TOOLS: Tool[] = [
       { q: "How can I get alerted when my website goes down?", a: "Use an uptime monitor. Watchfront checks every minute, retries before alerting, and emails you with the status code, error and timeline - free for 3 days." },
     ],
     feature: "uptime-monitoring",
+    product: "uptime-monitoring-tool",
   },
   {
     slug: "ssl-checker",
@@ -103,6 +107,7 @@ export const TOOLS: Tool[] = [
       { q: "Can I get alerts before my SSL certificate expires?", a: "Yes. Watchfront checks SSL and domain expiry for every site you add and warns you well before anything lapses." },
     ],
     feature: "ssl-domain-monitoring",
+    product: "ssl-certificate-monitoring",
   },
   {
     slug: "seo-checker",
@@ -144,6 +149,7 @@ export const TOOLS: Tool[] = [
       { q: "Can I audit every page on my site?", a: "Watchfront's SEO audit crawls the sitemap and internal links, scores each page, and re-runs on a schedule. Try it free for 3 days." },
     ],
     feature: "seo-audit",
+    product: "website-monitoring",
   },
 ];
 

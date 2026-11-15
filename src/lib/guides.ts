@@ -436,6 +436,176 @@ export const GUIDES: Guide[] = [
     tool: "website-down-checker",
     feature: "uptime-monitoring",
   },
+  {
+    slug: "contact-form-monitoring-for-agencies",
+    nav: "Form monitoring for agencies",
+    title: "Contact Form Monitoring for Agencies | Watchfront",
+    description: "How agencies catch broken contact forms on client sites before leads disappear. Real-browser form checks, safe testing on live sites, and what to put in a retainer.",
+    h1: "Contact form monitoring for agencies",
+    intro: "Uptime can be green while the contact form silently fails. For agencies, that means lost leads and an awkward client call. This guide covers how form monitoring works, how to test safely on live sites, and how to sell it inside a maintenance retainer.",
+    keywords: [
+      "contact form monitoring",
+      "contact form monitoring for agencies",
+      "marketing agency form monitoring",
+      "monitor contact form",
+      "broken contact form detection",
+    ],
+    readMins: 7,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "Why agencies miss broken forms",
+        p: [
+          "Homepage uptime only proves the server answered. A form can return 200 while the mail plugin is misconfigured, CAPTCHA keys expired, or a redesign removed the success state. Clients notice weeks later when the inbox is empty.",
+          "Manual “submit a test lead on Monday” checks do not scale across twenty WordPress sites. You need an automated journey that fills the form like a real browser and asserts a success message or thank-you URL.",
+        ],
+      },
+      {
+        h: "What good form monitoring checks",
+        list: [
+          "The form page loads over HTTPS",
+          "Required fields accept input without JS errors",
+          "Submit produces the expected success message or redirect",
+          "No unexpected 4xx/5xx on the form endpoint",
+          "Optional: spam traps and honeypots still behave",
+        ],
+      },
+      {
+        h: "How to test live client sites safely",
+        p: [
+          "Use a clearly labelled test payload (for example “Watchfront form check - ignore”) so real sales teams can filter it. Prefer a staging copy when clients insist, but most lead forms need a production check because staging mail and CAPTCHA differ.",
+          "Run checks after deploys and on a daily or hourly schedule for high-value landing pages. Alert on consecutive failures so a single flaky CAPTCHA does not wake the team.",
+        ],
+      },
+      {
+        h: "Packaging it in a retainer",
+        p: [
+          "Bundle form journeys with uptime and SSL: “we watch the pages that make you money.” Show clients a monthly count of successful checks and any incidents. That proof is easier to renew than a vague maintenance line item.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is contact form monitoring different from uptime monitoring?", a: "Yes. Uptime checks whether the page responds. Form monitoring submits the form in a real browser and verifies the success path." },
+      { q: "Will form checks create spam leads?", a: "Use a labelled test identity and tell the client once. Filters or a dedicated test inbox keep noise low." },
+      { q: "Which forms should agencies monitor first?", a: "Homepage contact, paid landing pages, and booking or demo request forms. Start where lead value is highest." },
+    ],
+    tool: "website-down-checker",
+    feature: "form-journey-testing",
+  },
+  {
+    slug: "ssl-expiry-alerts-for-client-websites",
+    nav: "SSL expiry alerts",
+    title: "SSL Expiry Alerts for Client Websites | Watchfront",
+    description: "Set up SSL expiry alerts across every client domain. Why auto-renewal fails, when to warn (30/14/7 days), and how agencies stop certificate outages.",
+    h1: "SSL expiry alerts for client websites",
+    intro: "An expired certificate is a full-page browser warning. Agencies that manage many client domains need expiry alerts in one place - not calendar reminders that get missed.",
+    keywords: [
+      "ssl expiry alerts",
+      "ssl certificate expiry alerts",
+      "ssl expiry monitoring",
+      "client website ssl monitoring",
+      "certificate expiry warning",
+    ],
+    readMins: 6,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "Why client certificates still expire",
+        p: [
+          "Let’s Encrypt lasts 90 days. Auto-renewal fails after DNS moves, host migrations, firewall changes, or a failed billing event. www and apex can use different certificates. Someone who left the agency still owns the renewal email.",
+        ],
+      },
+      {
+        h: "Alert timing that actually helps",
+        list: [
+          "30 days - enough time to fix DNS or hosting issues",
+          "14 days - escalate if renewal still failing",
+          "7 days - treat as urgent; manually issue if needed",
+          "Also watch domain registration expiry - a lapsed domain takes HTTPS with it",
+        ],
+      },
+      {
+        h: "What to monitor beyond the expiry date",
+        p: [
+          "Hostname match (www vs non-www), intermediate chain completeness, and HTTP→HTTPS redirects. A certificate can be “valid” in one browser and fail for API clients if the chain is incomplete.",
+        ],
+      },
+      {
+        h: "Agency workflow",
+        p: [
+          "Add every client hostname once. Route SSL alerts to the person who can renew. Include “certificates checked / days to next expiry” in the monthly client report so renewals feel proactive instead of reactive.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How do I check SSL expiry right now?", a: "Use a free SSL checker for a one-off lookup, then put continuous alerts on every client domain." },
+      { q: "Should I monitor staging certificates too?", a: "Optional. Prioritise production hostnames clients and Googlebot hit." },
+      { q: "What is a good warning window?", a: "30, 14 and 7 days covers most renewal failures without alert fatigue." },
+    ],
+    tool: "ssl-checker",
+    feature: "ssl-domain-monitoring",
+  },
+  {
+    slug: "website-down-for-everyone-or-just-me",
+    nav: "Down for everyone?",
+    title: "Website Down for Everyone or Just Me? | Watchfront",
+    description: "How to tell if a website is down for everyone or just you. Free checks, common local causes, and how to get alerted when it is down for real.",
+    h1: "Is the website down for everyone or just me?",
+    intro: "When a site fails on your laptop, the first question is whether it is a real outage or a local glitch. Here is how to separate the two in under a minute - and how to know next time without refreshing manually.",
+    keywords: [
+      "website down for everyone or just me",
+      "is the website down for everyone",
+      "down for everyone or just me",
+      "website down checker",
+      "is my website down",
+    ],
+    readMins: 5,
+    published: "2026-11-15",
+    updated: "2026-11-15",
+    sections: [
+      {
+        h: "Check from outside your network",
+        p: [
+          "Use a website down checker that requests the URL from datacenter servers, not your Wi-Fi. If it succeeds there, the site is up for the internet and your problem is local. If it fails there too, treat it as a real outage and note the HTTP status or error.",
+        ],
+      },
+      {
+        h: "Common “just me” causes",
+        list: [
+          "Browser cache or a stuck service worker",
+          "DNS cache still pointing at an old IP",
+          "VPN, corporate firewall or school/office filter",
+          "ISP routing issues on one network",
+          "Ad blockers or privacy extensions blocking the domain",
+        ],
+      },
+      {
+        h: "Common “everyone” causes",
+        list: [
+          "Hosting or cloud provider outage",
+          "Expired domain or SSL certificate",
+          "Failed deploy or plugin update",
+          "Overloaded origin or database",
+          "CDN misconfiguration",
+        ],
+      },
+      {
+        h: "Stop checking by hand",
+        p: [
+          "A one-off checker answers “is it down now?” Continuous uptime monitoring answers “tell me the moment it is down for everyone,” with retries so brief blips do not become false alarms. That is what agencies need across a client portfolio.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Why does a site work on mobile data but not Wi-Fi?", a: "Usually DNS or a network filter on Wi-Fi. Compare both networks and an external checker." },
+      { q: "What does HTTP 502 or 503 mean?", a: "The edge or proxy could not get a good response from the origin - often a hosting or application crash." },
+      { q: "How fast should I be alerted?", a: "One-minute checks with a short consecutive-failure threshold balance speed and noise for most business sites." },
+    ],
+    tool: "website-down-checker",
+    feature: "uptime-monitoring",
+  },
 ];
 
 export const guideBySlug = (s: string) => GUIDES.find((g) => g.slug === s);

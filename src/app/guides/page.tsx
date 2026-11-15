@@ -6,9 +6,17 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Website Monitoring Guides & Checklists | Watchfront",
-  description: "Practical guides on uptime monitoring, fixing a down website, SSL expiry, broken contact forms and monthly website maintenance for agencies.",
+  description: "Practical guides on uptime, SSL expiry alerts, contact form monitoring for agencies, website-down checks and monthly maintenance checklists.",
   path: "/guides",
-  keywords: ["website monitoring guide", "uptime monitoring guide", "website maintenance checklist", "agency guides"],
+  keywords: [
+    "website monitoring guide",
+    "uptime monitoring guide",
+    "contact form monitoring",
+    "ssl expiry alerts",
+    "website down for everyone or just me",
+  ],
+  ogTitle: "Website Monitoring Guides & Checklists | Watchfront",
+  ogDescription: "Guides for agencies: form monitoring, SSL alerts, downtime triage and retainer checklists.",
   image: "/guides/opengraph-image",
 });
 

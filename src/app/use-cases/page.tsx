@@ -15,6 +15,7 @@ export const metadata = pageMeta({
     "landing page monitoring",
     "website monitoring for freelancers",
   ],
+  ogTitle: "Website Monitoring Use Cases for Agencies | Watchfront",
   ogDescription: "Web agencies, WordPress care plans, marketing teams and freelancers - monitor client sites without the Monday manual check.",
   image: "/use-cases/opengraph-image",
 });

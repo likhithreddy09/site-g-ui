@@ -7,7 +7,10 @@ export const metadata = pageMeta({
   title: "Terms of Service - Using Watchfront",
   description: "The terms that apply when you create a Watchfront account or use the service: your account, acceptable use, monitoring permissions, data and billing.",
   path: "/terms",
-  keywords: ["Watchfront terms", "terms of service"],
+  keywords: ["Watchfront terms", "terms of service", "SaaS terms India"],
+  ogTitle: "Terms of service | Watchfront",
+  ogDescription: "Account rules, acceptable use, monitoring permissions and billing terms for Watchfront.",
+  image: "/opengraph-image",
 });
 
 export default function TermsPage() {

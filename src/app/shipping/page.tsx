@@ -7,7 +7,10 @@ export const metadata = pageMeta({
   title: "Shipping & Delivery Policy | Watchfront",
   description: "Watchfront is software delivered online. There is no physical shipping - this page explains how digital access works after you subscribe or start a trial.",
   path: "/shipping",
-  keywords: ["Watchfront delivery", "digital delivery"],
+  keywords: ["Watchfront delivery", "digital delivery", "SaaS access"],
+  ogTitle: "Shipping & delivery | Watchfront",
+  ogDescription: "Watchfront is delivered online. How access works after trial or subscription.",
+  image: "/opengraph-image",
 });
 
 export default function ShippingPage() {

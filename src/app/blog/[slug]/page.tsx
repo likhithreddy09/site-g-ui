@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: Props) {
     description: post.description,
     path: `/blog/${post.slug}`,
     keywords: post.keywords,
+    ogTitle: post.title,
+    ogDescription: post.description,
     image: `/blog/${post.slug}/opengraph-image`,
   });
   return {

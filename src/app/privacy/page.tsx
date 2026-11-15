@@ -7,7 +7,10 @@ export const metadata = pageMeta({
   title: "Privacy Policy - How We Handle Data | Watchfront",
   description: "What data Watchfront collects, why we need it, how long we keep it, and how payments through Dodo Payments are handled.",
   path: "/privacy",
-  keywords: ["Watchfront privacy policy", "privacy"],
+  keywords: ["Watchfront privacy policy", "data privacy Watchfront", "GDPR India SaaS"],
+  ogTitle: "Privacy policy | Watchfront",
+  ogDescription: "How Watchfront collects, stores and protects account and monitoring data.",
+  image: "/opengraph-image",
 });
 
 export default function PrivacyPage() {

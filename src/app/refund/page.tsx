@@ -7,7 +7,10 @@ export const metadata = pageMeta({
   title: "Refund and cancellation policy | Watchfront",
   description: "How cancellations, refunds and failed payments work for Watchfront subscriptions billed through Dodo Payments.",
   path: "/refund",
-  keywords: ["Watchfront refund policy", "cancellation"],
+  keywords: ["Watchfront refund policy", "cancellation", "subscription refund"],
+  ogTitle: "Refund & cancellation | Watchfront",
+  ogDescription: "How Watchfront handles cancellations, refunds and failed subscription payments.",
+  image: "/opengraph-image",
 });
 
 export default function RefundPage() {

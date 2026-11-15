@@ -54,6 +54,7 @@ export const metadata: Metadata = {
     site: SITE.twitter,
     title: HOME_TITLE,
     description: HOME_DESC,
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,

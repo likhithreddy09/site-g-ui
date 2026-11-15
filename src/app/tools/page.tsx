@@ -9,6 +9,8 @@ export const metadata = pageMeta({
   description: "Free website tools: check if a site is down, check SSL certificate expiry, and run an on-page SEO audit. Instant results, no signup.",
   path: "/tools",
   keywords: ["free website tools", "website checker", "ssl checker", "seo checker", "website down checker"],
+  ogTitle: "Free Website Tools: Down, SSL & SEO Checker | Watchfront",
+  ogDescription: "Free website down, SSL expiry and on-page SEO checkers. Instant results, no signup.",
   image: "/tools/opengraph-image",
 });
 

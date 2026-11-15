@@ -104,7 +104,19 @@ function SeoResult({ r }: { r: any }) {
   );
 }
 
-export function ToolWidget({ kind, placeholder, button, feature }: { kind: ToolKind; placeholder: string; button: string; feature: string }) {
+export function ToolWidget({
+  kind,
+  placeholder,
+  button,
+  feature,
+  product,
+}: {
+  kind: ToolKind;
+  placeholder: string;
+  button: string;
+  feature: string;
+  product?: string;
+}) {
   const [url, setUrl] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -157,7 +169,16 @@ export function ToolWidget({ kind, placeholder, button, feature }: { kind: ToolK
               Monitor it free <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <Link href={`/features/${feature}`} className="link-underline mt-3 inline-block text-xs text-plum-2">How continuous monitoring works →</Link>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            {product && (
+              <Link href={`/${product}`} className="link-underline text-plum-2">
+                Full product page →
+              </Link>
+            )}
+            <Link href={`/features/${feature}`} className="link-underline text-plum-2">
+              How continuous monitoring works →
+            </Link>
+          </div>
         </div>
       )}
     </div>

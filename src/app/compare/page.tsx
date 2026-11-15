@@ -9,6 +9,8 @@ export const metadata = pageMeta({
   description: "Compare Watchfront with UptimeRobot, Pingdom, StatusCake, Better Stack and Site24x7 - honest notes on who each tool suits best.",
   path: "/compare",
   keywords: ["website monitoring tools comparison", "uptimerobot alternative", "pingdom alternative", "best uptime monitoring tool"],
+  ogTitle: "Website Monitoring Tools Compared | Watchfront",
+  ogDescription: "Honest comparisons of Watchfront vs UptimeRobot, Pingdom, StatusCake and more.",
   image: "/compare/opengraph-image",
 });
 

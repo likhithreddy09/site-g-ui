@@ -42,9 +42,13 @@ export function pageMeta({
   image,
   noindex,
 }: PageMetaInput): Metadata {
-  const ogImage = image ? { ...OG_IMAGE, url: image, alt: ogTitle || title } : OG_IMAGE;
-  const socialTitle = ogTitle || title;
-  const socialDesc = ogDescription || description;
+  const socialTitle = (ogTitle || title).trim();
+  const socialDesc = (ogDescription || description).trim();
+  const ogImage = {
+    ...OG_IMAGE,
+    url: image || OG_IMAGE.url,
+    alt: socialTitle,
+  };
   const kw = [...new Set(keywords.map((k) => k.trim()).filter(Boolean))].slice(0, 8);
   const canonical = abs(path);
 

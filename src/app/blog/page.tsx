@@ -18,6 +18,8 @@ export const metadata = pageMeta({
     "client uptime report",
     "website monitoring for agencies",
   ],
+  ogTitle: "Watchfront Blog - Agency Monitoring Resources",
+  ogDescription: "Practical posts for agencies: care-plan monitoring, broken forms and client uptime reports.",
   image: "/blog/opengraph-image",
 });
 

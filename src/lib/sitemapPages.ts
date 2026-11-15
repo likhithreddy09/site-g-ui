@@ -18,7 +18,7 @@ export type SitemapEntry = {
 };
 
 /** Bump when marketing copy changes site-wide; a constant date keeps lastmod trustworthy for crawlers. */
-export const CONTENT_UPDATED = "2026-11-15";
+export const CONTENT_UPDATED = "2026-11-15"; // bumped with long-tail guides + meta pass
 
 /**
  * Single source of truth for public indexable routes.
@@ -72,12 +72,11 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
   { path: "/security", priority: 0.7, changeFrequency: "monthly", seo: "Security / trust", image: "/security/opengraph-image" },
   { path: "/about", priority: 0.55, changeFrequency: "monthly", seo: "About brand", image: "/about/opengraph-image" },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly", seo: "Contact / book call", image: "/contact/opengraph-image" },
-  { path: "/register", priority: 0.65, changeFrequency: "monthly", seo: "Start free CTA", image: "/register/opengraph-image" },
-  { path: "/privacy", priority: 0.2, changeFrequency: "yearly", seo: "Legal" },
-  { path: "/terms", priority: 0.2, changeFrequency: "yearly", seo: "Legal" },
-  { path: "/refund", priority: 0.2, changeFrequency: "yearly", seo: "Legal" },
-  { path: "/shipping", priority: 0.2, changeFrequency: "yearly", seo: "Legal" },
+  { path: "/privacy", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
+  { path: "/terms", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
+  { path: "/refund", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
+  { path: "/shipping", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
 ];
 
 /** Paths that must never appear in the sitemap. */
-export const SITEMAP_EXCLUDED = ["/app", "/login", "/r", "/api"] as const;
+export const SITEMAP_EXCLUDED = ["/app", "/login", "/register", "/r", "/api", "/check-active-user"] as const;
