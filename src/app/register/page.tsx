@@ -1,10 +1,17 @@
 "use client";
 
+import { Building2, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AuthLayout } from "@/components/AuthLayout";
-import { Button, ErrorBox, Input } from "@/components/ui";
+import {
+  AuthError,
+  AuthFieldMotion,
+  AuthFormMotion,
+  AuthInput,
+  AuthLayout,
+  AuthSubmit,
+} from "@/components/AuthLayout";
 import { useAuth } from "@/lib/auth";
 
 export default function RegisterPage() {
@@ -29,30 +36,78 @@ export default function RegisterPage() {
   };
 
   return (
-    <AuthLayout title="Start monitoring" subtitle="Create your workspace. Full access free for 3 days - no card required.">
-      <form onSubmit={submit} className="space-y-4">
-        <ErrorBox error={error} />
-        <Input label="Your name" required value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} placeholder="Priya Sharma" />
-        <Input label="Agency / workspace name" required value={f.workspace_name} onChange={(e) => setF({ ...f, workspace_name: e.target.value })} placeholder="Northline Digital" />
-        <Input label="Work email" type="email" required value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} placeholder="you@agency.com" />
-        <Input label="Password" type="password" required minLength={8} value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} hint="At least 8 characters" />
-        <Button type="submit" loading={loading} className="w-full" size="lg">Create workspace</Button>
-        <p className="text-center text-sm text-plum-2">Already have an account? <Link href="/login" className="link-underline text-magenta">Sign in</Link></p>
+    <AuthLayout
+      eyebrow="3-day free trial"
+      title="Start monitoring"
+      subtitle="Create your agency workspace. Every feature free for 3 days — no card required."
+    >
+      <form onSubmit={submit}>
+        <AuthFormMotion>
+          <AuthFieldMotion>
+            <AuthError error={error} />
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <AuthInput
+              label="Your name"
+              icon={User}
+              required
+              autoComplete="name"
+              value={f.name}
+              onChange={(e) => setF({ ...f, name: e.target.value })}
+              placeholder="Priya Sharma"
+            />
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <AuthInput
+              label="Agency / workspace"
+              icon={Building2}
+              required
+              autoComplete="organization"
+              value={f.workspace_name}
+              onChange={(e) => setF({ ...f, workspace_name: e.target.value })}
+              placeholder="Northline Digital"
+            />
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <AuthInput
+              label="Work email"
+              type="email"
+              icon={Mail}
+              required
+              autoComplete="email"
+              inputMode="email"
+              value={f.email}
+              onChange={(e) => setF({ ...f, email: e.target.value })}
+              placeholder="you@agency.com"
+            />
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <AuthInput
+              label="Password"
+              type="password"
+              icon={Lock}
+              required
+              minLength={8}
+              autoComplete="new-password"
+              value={f.password}
+              onChange={(e) => setF({ ...f, password: e.target.value })}
+              placeholder="At least 8 characters"
+              hint="Use 8+ characters. You’ll need this to sign back in."
+            />
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <AuthSubmit loading={loading}>Create workspace</AuthSubmit>
+          </AuthFieldMotion>
+          <AuthFieldMotion>
+            <p className="pt-1 text-center text-[13px] text-plum-2 sm:text-sm">
+              Already have an account?{" "}
+              <Link href="/login" className="font-medium text-magenta underline-offset-2 hover:underline">
+                Sign in
+              </Link>
+            </p>
+          </AuthFieldMotion>
+        </AuthFormMotion>
       </form>
-      <div className="mt-10 space-y-3 border-t border-plum/10 pt-8 text-[13px] leading-relaxed text-plum-2">
-        <p className="font-medium text-ink">What you get in the 3-day trial</p>
-        <ul className="list-disc space-y-1.5 pl-4">
-          <li><Link href="/features/uptime-monitoring" className="link-underline text-plum">1-minute uptime checks</Link> with evidence when a client site goes down</li>
-          <li><Link href="/features/ssl-domain-monitoring" className="link-underline text-plum">SSL and domain expiry</Link> alerts before certificates fail</li>
-          <li><Link href="/features/form-journey-testing" className="link-underline text-plum">Contact form journeys</Link>, <Link href="/features/seo-audit" className="link-underline text-plum">SEO audits</Link> and <Link href="/features/client-reports" className="link-underline text-plum">client reports</Link></li>
-        </ul>
-        <p>
-          Prefer to try without an account first? Use the{" "}
-          <Link href="/tools" className="link-underline text-plum">free website checkers</Link>, read our{" "}
-          <Link href="/guides" className="link-underline text-plum">monitoring guides</Link>, or{" "}
-          <Link href="/compare" className="link-underline text-plum">compare Watchfront</Link> with other tools.
-        </p>
-      </div>
     </AuthLayout>
   );
 }

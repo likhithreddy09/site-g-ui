@@ -2,19 +2,29 @@ import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
-
-const FEATURE_IMAGE: Record<string, { src: string; alt: string }> = {
-  "uptime-monitoring": { src: "/marketing/agency-desk.jpg", alt: "Uptime monitoring view on an agency desk" },
-  "ssl-domain-monitoring": { src: "/marketing/checks-stack.jpg", alt: "SSL and domain expiry monitoring cards" },
-  "form-journey-testing": { src: "/marketing/form-evidence.jpg", alt: "Form journey failure evidence on a desk" },
-  "javascript-error-monitoring": { src: "/marketing/checks-stack.jpg", alt: "Monitoring cards including browser error signals" },
-  "client-reports": { src: "/marketing/agency-team.jpg", alt: "Agency team preparing client-ready monitoring reports" },
-};
+import {
+  CtaBand,
+  FaqList,
+  JsonLd,
+  MarketingShell,
+  MotionGrid,
+  MotionSection,
+  MotionTile,
+  PageHero,
+  SectionHeader,
+} from "@/components/marketing/Site";
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
 import { GUIDES } from "@/lib/guides";
 import { TOOLS } from "@/lib/tools";
+
+const FEATURE_IMAGE: Record<string, { src: string; alt: string }> = {
+  "uptime-monitoring": { src: "/marketing/agency-desk.jpg", alt: "Illustration of an uptime monitoring desk" },
+  "ssl-domain-monitoring": { src: "/marketing/signal-abstract.jpg", alt: "Abstract illustration for SSL and domain signals" },
+  "form-journey-testing": { src: "/marketing/form-evidence.jpg", alt: "Illustration of a broken form being caught" },
+  "javascript-error-monitoring": { src: "/marketing/checks-stack.jpg", alt: "Illustrated monitoring check cards" },
+  "client-reports": { src: "/marketing/agency-team.jpg", alt: "Illustrated team preparing client reports" },
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -24,13 +34,12 @@ export const generateStaticParams = () => FEATURES.map((f) => ({ slug: f.slug })
 export async function generateMetadata({ params }: Props) {
   const f = featureBySlug((await params).slug);
   if (!f) return {};
-  const title = f.title;
   return pageMeta({
-    title,
+    title: f.title,
     description: f.description,
     path: `/features/${f.slug}`,
     keywords: f.keywords,
-    ogTitle: title,
+    ogTitle: f.title,
     ogDescription: f.description,
     image: `/features/${f.slug}/opengraph-image`,
   });
@@ -48,16 +57,19 @@ export default async function FeaturePage({ params }: Props) {
 
   return (
     <MarketingShell>
-      <JsonLd data={[
-        faqLd(f.faqs),
-        webPageLd({
-          name: f.name,
-          description: f.description,
-          path: `/features/${f.slug}`,
-          parentName: "Features",
-          parentPath: "/features",
-        }),
-      ]} />
+      <JsonLd
+        data={[
+          faqLd(f.faqs),
+          webPageLd({
+            name: f.name,
+            description: f.description,
+            path: `/features/${f.slug}`,
+            parentName: "Features",
+            parentPath: "/features",
+          }),
+        ]}
+      />
+
       <PageHero
         crumbs={[["Home", "/"], ["Features", "/features"], [f.name, `/features/${f.slug}`]]}
         eyebrow={f.name}
@@ -65,78 +77,103 @@ export default async function FeaturePage({ params }: Props) {
         intro={f.intro}
         image={heroImage}
       >
-        <div className="mt-8 flex flex-wrap items-center gap-5">
-          <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start free - no card needed</Link>
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <Link
+            href="/register"
+            className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition duration-300 hover:-translate-y-0.5 hover:bg-ink"
+          >
+            Start free - no card needed
+          </Link>
           {tool ? (
-            <Link href={`/tools/${tool.slug}`} className="link-underline text-[15px] text-plum">Try the free {tool.name.toLowerCase()}</Link>
+            <Link href={`/tools/${tool.slug}`} className="link-underline text-[15px] text-plum">
+              Try the free {tool.name.toLowerCase()}
+            </Link>
           ) : (
-            <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
+            <Link href="/contact#book" className="link-underline text-[15px] text-plum">
+              Book a demo
+            </Link>
           )}
         </div>
       </PageHero>
 
-      <MotionSection className="mx-auto max-w-6xl px-6" aria-labelledby="how" variant="up">
-        <div className="relative overflow-hidden rounded-[2rem] bg-cream p-8 ring-1 ring-plum/8 md:p-12">
-          <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-magenta/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-12 left-1/4 h-36 w-36 rounded-full bg-sky/20 blur-3xl" />
-          <div className="relative flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-sky"><Icon className="h-5 w-5" /></span>
-            <h2 id="how" className="text-2xl font-medium tracking-tight text-ink md:text-3xl">How it works</h2>
-          </div>
-          <ol className="relative mt-8 grid gap-5 md:grid-cols-3">
-            {f.steps.map(([t, d], i) => (
-              <li key={t} className="rounded-2xl bg-white p-6 ring-1 ring-plum/8">
-                <span className="font-mono text-sm text-magenta">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-3 text-base font-medium text-ink">{t}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-plum-2">{d}</p>
-              </li>
-            ))}
-          </ol>
+      <MotionSection className="mx-auto max-w-6xl px-5 sm:px-6" variant="up">
+        <div className="flex items-start gap-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
+            <Icon className="h-5 w-5" />
+          </span>
+          <SectionHeader
+            id="how"
+            title="How it works"
+            description="Three steps from setup to evidence — no engineering sprint required."
+          />
         </div>
-      </MotionSection>
-
-      <MotionSection className="mx-auto mt-24 grid max-w-6xl gap-12 px-6 md:grid-cols-[1fr_1.15fr]" variant="left">
-        <div>
-          <h2 className="text-2xl font-medium tracking-tight text-ink md:text-3xl">What you get</h2>
-          <p className="mt-4 text-base text-plum-2">{f.short}</p>
-          {forWho.length > 0 && (
-            <p className="mt-6 text-[15px] text-plum-2">
-              Popular with{" "}
-              {forWho.map((u, i) => (
-                <span key={u.slug}>{i > 0 && (i === forWho.length - 1 ? " and " : ", ")}<Link href={`/use-cases/${u.slug}`} className="link-underline text-plum">{audience(u)}</Link></span>
-              ))}.
-            </p>
-          )}
-          <p className="mt-4 text-[15px] text-plum-2">
-            Part of the full Watchfront toolkit - <Link href="/features" className="link-underline text-plum">see all features</Link> or browse <Link href="/use-cases" className="link-underline text-plum">use cases</Link>.
-          </p>
-        </div>
-        <ul className="space-y-3">
-          {f.benefits.map((b) => (
-            <li key={b} className="flex gap-3 rounded-2xl bg-cream p-4 text-[15px] text-ink ring-1 ring-plum/8">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />{b}
+        <ol className="mt-8 grid gap-6 border-t border-plum/10 pt-8 sm:grid-cols-3 sm:gap-8">
+          {f.steps.map(([t, d], i) => (
+            <li key={t} className="min-w-0">
+              <span className="font-mono text-sm text-magenta">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="mt-3 text-base font-medium text-ink">{t}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-plum-2">{d}</p>
             </li>
           ))}
-        </ul>
+        </ol>
+      </MotionSection>
+
+      <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="left">
+        <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12">
+          <SectionHeader title="What you get" description={f.short} />
+          <ul className="divide-y divide-plum/10 border-y border-plum/10">
+            {f.benefits.map((b) => (
+              <li key={b} className="flex gap-3 py-4 text-[15px] text-ink">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />
+                <span className="min-w-0">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {forWho.length > 0 && (
+          <p className="mt-8 text-[14px] text-plum-2">
+            Popular with{" "}
+            {forWho.map((u, i) => (
+              <span key={u.slug}>
+                {i > 0 && (i === forWho.length - 1 ? " and " : ", ")}
+                <Link href={`/use-cases/${u.slug}`} className="link-underline text-plum">
+                  {audience(u)}
+                </Link>
+              </span>
+            ))}
+            .
+          </p>
+        )}
       </MotionSection>
 
       <FaqList faqs={f.faqs} />
 
       {related.length > 0 && (
-        <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="related">
+        <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" aria-labelledby="related">
           <MotionSection>
-            <h2 id="related" className="text-2xl font-medium tracking-tight text-ink">Works well with</h2>
+            <SectionHeader
+              id="related"
+              title="Works well with"
+              description="Pair this check with the rest of your monitoring stack."
+            />
           </MotionSection>
-          <MotionGrid className="mt-6 grid gap-5 md:grid-cols-3">
+          <MotionGrid className="mt-6 divide-y divide-plum/10 border-y border-plum/10" stagger={0.05}>
             {related.map((r) => {
               const RIcon = FEATURE_ICONS[r.slug];
               return (
                 <MotionTile key={r.slug}>
-                  <Link href={`/features/${r.slug}`} className="group block h-full rounded-[1.75rem] bg-cream p-6 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:ring-magenta/20">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-ink text-sky"><RIcon className="h-4 w-4" /></span>
-                    <h3 className="mt-4 font-medium text-ink group-hover:text-magenta">{r.name}</h3>
-                    <p className="mt-1 text-sm text-plum-2">{r.short}</p>
-                    <ArrowRight className="mt-4 h-4 w-4 text-plum transition group-hover:translate-x-1" />
+                  <Link
+                    href={`/features/${r.slug}`}
+                    className="group flex items-start gap-4 py-5"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
+                      <RIcon className="h-4 w-4" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-medium text-ink transition group-hover:text-magenta">{r.name}</h3>
+                      <p className="mt-1 line-clamp-2 text-sm text-plum-2">{r.short}</p>
+                    </div>
+                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-plum transition duration-300 group-hover:translate-x-1" />
                   </Link>
                 </MotionTile>
               );
@@ -146,24 +183,31 @@ export default async function FeaturePage({ params }: Props) {
       )}
 
       {guides.length > 0 && (
-        <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="guides">
-          <h2 id="guides" className="text-2xl font-medium tracking-tight text-ink">Related guides</h2>
-          <ul className="mt-6 grid gap-4 md:grid-cols-2">
+        <section className="mx-auto mt-20 max-w-6xl px-6 md:mt-24" aria-labelledby="guides">
+          <MotionSection>
+            <SectionHeader
+              id="guides"
+              title="Related guides"
+              description="Short reads that pair with this feature."
+            />
+          </MotionSection>
+          <MotionGrid className="mt-8 grid gap-4 md:grid-cols-2">
             {guides.map((g) => (
-              <li key={g.slug}>
-                <Link href={`/guides/${g.slug}`} className="group block rounded-2xl bg-cream p-5 ring-1 ring-plum/8 transition hover:bg-white hover:ring-magenta/20">
+              <MotionTile key={g.slug}>
+                <Link
+                  href={`/guides/${g.slug}`}
+                  className="tile-lift group block rounded-2xl bg-cream p-5 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20"
+                >
                   <span className="text-xs text-plum/55">{g.readMins} min read</span>
                   <h3 className="mt-1 font-medium text-ink group-hover:text-magenta">{g.h1}</h3>
-                  <p className="mt-1 text-sm text-plum-2">{g.description}</p>
+                  <p className="mt-1 line-clamp-2 text-sm text-plum-2">{g.description}</p>
                 </Link>
-              </li>
+              </MotionTile>
             ))}
-          </ul>
-          <p className="mt-6 text-[15px] text-plum-2">
-            Weighing up options? <Link href="/compare" className="link-underline text-plum">See how Watchfront compares with other monitoring tools</Link>.
-          </p>
+          </MotionGrid>
         </section>
       )}
+
       <CtaBand title="Try it on your own website." />
     </MarketingShell>
   );

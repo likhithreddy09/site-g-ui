@@ -9,19 +9,19 @@ const INSTANT = { duration: 0 };
 
 const variants: Record<string, Variants> = {
   up: {
-    hidden: { opacity: 0, y: 28, transition: INSTANT },
+    hidden: { opacity: 0, y: 22, transition: INSTANT },
     show: { opacity: 1, y: 0 },
   },
   left: {
-    hidden: { opacity: 0, x: -24, transition: INSTANT },
+    hidden: { opacity: 0, x: -18, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   right: {
-    hidden: { opacity: 0, x: 24, transition: INSTANT },
+    hidden: { opacity: 0, x: 18, transition: INSTANT },
     show: { opacity: 1, x: 0 },
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.96, y: 16, transition: INSTANT },
+    hidden: { opacity: 0, scale: 0.97, y: 16, transition: INSTANT },
     show: { opacity: 1, scale: 1, y: 0 },
   },
   fade: {
@@ -82,7 +82,7 @@ export function Reveal({
       variants={variants[variant]}
       initial={false}
       animate={state}
-      transition={{ duration: 0.85, delay, ease: EASE }}
+      transition={{ duration: 0.75, delay, ease: EASE }}
     >
       {children}
     </MotionTag>
@@ -135,7 +135,7 @@ export function StaggerItem({
   if (reduce) return <div className={className}>{children}</div>;
 
   return (
-    <motion.div className={className} variants={variants[variant]} transition={{ duration: 0.8, ease: EASE }}>
+    <motion.div className={className} variants={variants[variant]} transition={{ duration: 0.7, ease: EASE }}>
       {children}
     </motion.div>
   );

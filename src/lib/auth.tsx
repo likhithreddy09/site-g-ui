@@ -1,7 +1,11 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { api, storage } from "./api";
+import { ApiError, api, storage } from "./api";
+
+function notifyAuthChanged() {
+  if (typeof window !== "undefined") window.dispatchEvent(new Event("watchfront:auth"));
+}
 
 export type WorkspaceRef = { id: string; name: string; role: "owner" | "admin" | "member" | "client"; plan: string };
 export type User = { id: string; email: string; name?: string };
@@ -38,14 +42,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refresh = useCallback(async () => {
     if (!storage.token) {
+      setUser(null);
+      setWorkspaces([]);
       setReady(true);
       return;
     }
     try {
       const me = await api<{ user: User; workspaces: WorkspaceRef[] }>("/api/auth/me");
       apply(me.user, me.workspaces);
-    } catch {
-      storage.token = null;
+    } catch (e) {
+      // Only drop the session on real auth failure — keep token on network/API outages
+      // so marketing nav still shows Dashboard when the user is logged in.
+      if (e instanceof ApiError && e.status === 401) {
+        storage.token = null;
+        setUser(null);
+        setWorkspaces([]);
+        notifyAuthChanged();
+      }
     } finally {
       setReady(true);
     }
@@ -59,12 +72,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const s = await api<any>("/api/auth/login", { method: "POST", body: { email, password }, auth: false });
     storage.token = s.token;
     apply(s.user, s.workspaces);
+    notifyAuthChanged();
   };
 
   const register = async (data: { email: string; password: string; name: string; workspace_name: string }) => {
     const s = await api<any>("/api/auth/register", { method: "POST", body: data, auth: false });
     storage.token = s.token;
     apply(s.user, s.workspaces);
+    notifyAuthChanged();
   };
 
   const logout = () => {
@@ -72,6 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     storage.workspace = null;
     setUser(null);
     setWorkspaces([]);
+    notifyAuthChanged();
     location.href = "/login";
   };
 

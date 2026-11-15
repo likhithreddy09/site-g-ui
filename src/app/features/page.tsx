@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
-import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero } from "@/components/marketing/Site";
+import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, SectionHeader } from "@/components/marketing/Site";
 import { FEATURES } from "@/lib/marketing";
 import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
@@ -16,10 +16,10 @@ export const metadata = pageMeta({
 });
 
 const EXTRAS = [
-  ["Incident management", "Related failures grouped into one incident with severity, owner, notes and a full timeline. Recurring problems reopen automatically."],
-  ["AI-assisted diagnosis", "Plain-English summaries grounded in captured evidence, keeping what was observed separate from what is suspected."],
-  ["Alerts where you work", "Email alerts today, with quiet hours and routing. WhatsApp notifications coming soon."],
-  ["Team & client roles", "Owners, admins, developers and read-only client access scoped to their own websites."],
+  ["Incident management", "Related failures grouped into one incident with severity, owner, notes and a full timeline."],
+  ["AI-assisted diagnosis", "Plain-English summaries grounded in captured evidence — observed vs suspected."],
+  ["Alerts where you work", "Email alerts today, with quiet hours and routing. WhatsApp coming soon."],
+  ["Team & client roles", "Owners, admins, developers and read-only client access scoped to their sites."],
 ];
 
 export default function FeaturesPage() {
@@ -40,43 +40,69 @@ export default function FeaturesPage() {
       <PageHero
         crumbs={[["Home", "/"], ["Features", "/features"]]}
         eyebrow="Features"
-        title="Everything that can break on a client website - checked for you."
-        intro="Uptime, SSL, forms, APIs, visual checks and JS errors - seven kinds of website monitoring in one record. Set up in minutes by anyone on your team."
+        title="Every check that keeps client sites honest."
+        intro="Uptime, SSL, forms, APIs, visual checks and JS errors — one toolkit. Set up in minutes."
         image={{
-          src: "/marketing/checks-stack.jpg",
-          alt: "Illustration of uptime, SSL and form checks stacked as monitoring cards",
+          src: "/marketing/signal-abstract.jpg",
+          alt: "Abstract illustration of monitoring signals in plum, magenta and sky",
         }}
       />
-      <p className="mx-auto -mt-6 mb-10 max-w-6xl px-6 text-[15px] text-plum-2">
-        Searching by product? Start with{" "}
-        <Link href="/website-monitoring" className="link-underline text-plum">website monitoring</Link>, the{" "}
-        <Link href="/uptime-monitoring-tool" className="link-underline text-plum">uptime monitoring tool</Link>, or{" "}
-        <Link href="/ssl-certificate-monitoring" className="link-underline text-plum">SSL certificate monitoring</Link>.
+
+      <p className="mx-auto -mt-2 mb-6 max-w-6xl px-5 text-[14px] text-plum-2 sm:px-6">
+        Jump to{" "}
+        <Link href="/website-monitoring" className="link-underline text-plum">website monitoring</Link>,{" "}
+        <Link href="/uptime-monitoring-tool" className="link-underline text-plum">uptime</Link>, or{" "}
+        <Link href="/ssl-certificate-monitoring" className="link-underline text-plum">SSL monitoring</Link>.
       </p>
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURES.map((f) => {
-          const Icon = FEATURE_ICONS[f.slug];
-          return (
-            <MotionTile key={f.slug}>
-              <Link href={`/features/${f.slug}`} className="tile-lift group flex h-full flex-col rounded-[1.75rem] bg-cream p-7 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-sky"><Icon className="h-5 w-5" /></span>
-                <h2 className="mt-5 text-lg font-medium text-ink group-hover:text-magenta">{f.name}</h2>
-                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-plum-2">{f.short}</p>
-                <span className="mt-6 text-sm text-plum"><span className="link-underline">Learn more</span> <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" /></span>
-              </Link>
-            </MotionTile>
-          );
-        })}
+
+      {/* Editorial list — not a soft card grid */}
+      <MotionGrid className="mx-auto max-w-6xl px-5 sm:px-6" stagger={0.05}>
+        <div className="divide-y divide-plum/10 border-y border-plum/10">
+          {FEATURES.map((f, i) => {
+            const Icon = FEATURE_ICONS[f.slug];
+            return (
+              <MotionTile key={f.slug}>
+                <Link
+                  href={`/features/${f.slug}`}
+                  className="group grid gap-3 py-6 transition sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:items-start sm:gap-5 sm:py-7"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink text-sky">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <span className="font-mono text-[12px] text-mauve">{String(i + 1).padStart(2, "0")}</span>
+                      <h2 className="text-lg font-medium text-ink transition group-hover:text-magenta sm:text-xl">
+                        {f.name}
+                      </h2>
+                    </div>
+                    <p className="mt-1.5 max-w-2xl text-[14px] leading-relaxed text-plum-2 sm:text-[15px]">
+                      {f.short}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-sm text-plum sm:pt-1">
+                    <span className="link-underline">Learn more</span>
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </MotionTile>
+            );
+          })}
+        </div>
       </MotionGrid>
 
-      <MotionSection className="mx-auto mt-24 max-w-6xl px-6" variant="left">
-        <div className="rounded-[2rem] bg-ink px-8 py-12 text-cream md:px-12">
-          <h2 className="text-2xl font-medium tracking-tight md:text-3xl">And the parts that tie it together</h2>
-          <div className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
+      <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="left">
+        <div className="rounded-[1.5rem] bg-ink px-6 py-10 text-cream sm:rounded-[2rem] sm:px-10 sm:py-12">
+          <SectionHeader
+            dark
+            title="What ties it together"
+            description="Incidents, diagnosis, alerts and roles — so checks become a workflow."
+          />
+          <div className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
             {EXTRAS.map(([t, d]) => (
-              <div key={t} className="border-t border-white/15 pt-6">
+              <div key={t} className="border-t border-white/15 pt-5">
                 <h3 className="text-base font-medium text-sky">{t}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-cream/70">{d}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-cream/70">{d}</p>
               </div>
             ))}
           </div>

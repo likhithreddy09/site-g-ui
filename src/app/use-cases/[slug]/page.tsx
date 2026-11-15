@@ -2,16 +2,26 @@ import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, VisualBand } from "@/components/marketing/Site";
-
-const USE_CASE_IMAGE: Record<string, { src: string; alt: string }> = {
-  "web-agencies": { src: "/marketing/agency-team.jpg", alt: "Web agency team collaborating on client website care" },
-  "wordpress-maintenance": { src: "/marketing/form-evidence.jpg", alt: "Evidence from a broken WordPress contact form" },
-  "marketing-agencies": { src: "/marketing/agency-desk.jpg", alt: "Marketing agency desk watching landing page health" },
-  freelancers: { src: "/marketing/checks-stack.jpg", alt: "Solo freelancer monitoring stack for client sites" },
-};
+import {
+  CtaBand,
+  FaqList,
+  JsonLd,
+  MarketingShell,
+  MotionGrid,
+  MotionSection,
+  MotionTile,
+  PageHero,
+  SectionHeader,
+} from "@/components/marketing/Site";
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+
+const USE_CASE_IMAGE: Record<string, { src: string; alt: string }> = {
+  "web-agencies": { src: "/marketing/agency-team.jpg", alt: "Illustrated agency team collaborating on website care" },
+  "wordpress-maintenance": { src: "/marketing/form-evidence.jpg", alt: "Illustration of catching a broken WordPress form" },
+  "marketing-agencies": { src: "/marketing/agency-desk.jpg", alt: "Illustrated desk watching landing page health" },
+  freelancers: { src: "/marketing/signal-abstract.jpg", alt: "Abstract illustration for solo developer monitoring" },
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -21,13 +31,12 @@ export const generateStaticParams = () => USE_CASES.map((u) => ({ slug: u.slug }
 export async function generateMetadata({ params }: Props) {
   const u = getUseCase((await params).slug);
   if (!u) return {};
-  const title = u.title;
   return pageMeta({
-    title,
+    title: u.title,
     description: u.description,
     path: `/use-cases/${u.slug}`,
     keywords: u.keywords,
-    ogTitle: title,
+    ogTitle: u.title,
     ogDescription: u.description,
     image: `/use-cases/${u.slug}/opengraph-image`,
   });
@@ -42,16 +51,19 @@ export default async function UseCasePage({ params }: Props) {
 
   return (
     <MarketingShell>
-      <JsonLd data={[
-        faqLd(u.faqs),
-        webPageLd({
-          name: u.name,
-          description: u.description,
-          path: `/use-cases/${u.slug}`,
-          parentName: "Use cases",
-          parentPath: "/use-cases",
-        }),
-      ]} />
+      <JsonLd
+        data={[
+          faqLd(u.faqs),
+          webPageLd({
+            name: u.name,
+            description: u.description,
+            path: `/use-cases/${u.slug}`,
+            parentName: "Use cases",
+            parentPath: "/use-cases",
+          }),
+        ]}
+      />
+
       <PageHero
         crumbs={[["Home", "/"], ["Use cases", "/use-cases"], [u.name, `/use-cases/${u.slug}`]]}
         eyebrow={`For ${audience(u)}`}
@@ -59,40 +71,39 @@ export default async function UseCasePage({ params }: Props) {
         intro={u.intro}
         image={heroImage}
       >
-        <div className="mt-8 flex flex-wrap items-center gap-5">
-          <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">Start monitoring free</Link>
-          <Link href="/contact#book" className="link-underline text-[15px] text-plum">Book a demo</Link>
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <Link
+            href="/register"
+            className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition duration-300 hover:-translate-y-0.5 hover:bg-ink"
+          >
+            Start monitoring free
+          </Link>
+          <Link href="/contact#book" className="link-underline text-[15px] text-plum">
+            Book a demo
+          </Link>
         </div>
       </PageHero>
 
-      {u.slug === "web-agencies" && (
-        <VisualBand
-          src="/marketing/agency-desk.jpg"
-          alt="Portfolio monitoring open on an agency laptop"
-          caption="When you manage dozens of sites, the desk check has to be automatic — with evidence when something fails."
-        />
-      )}
-
-      <MotionGrid className="mx-auto mt-16 grid max-w-6xl gap-5 px-6 md:grid-cols-2" stagger={0.12}>
+      <MotionGrid className="mx-auto mt-12 grid max-w-6xl gap-10 px-5 sm:mt-16 sm:px-6 md:grid-cols-2 md:gap-12" stagger={0.1}>
         <MotionTile>
-          <div className="h-full rounded-[2rem] bg-cream p-8 ring-1 ring-plum/8 md:p-10">
-            <h2 className="text-2xl font-medium tracking-tight text-ink">Sound familiar?</h2>
-            <ul className="mt-6 space-y-4">
-              {u.pains.map((p) => (
-                <li key={p} className="flex gap-3 text-[15px] text-ink"><X className="mt-0.5 h-5 w-5 shrink-0 text-bad" />{p}</li>
-              ))}
-            </ul>
-          </div>
+          <SectionHeader title="Sound familiar?" description="The Monday surprises most teams still discover the hard way." />
+          <ul className="mt-6 divide-y divide-plum/10 border-y border-plum/10">
+            {u.pains.map((p) => (
+              <li key={p} className="flex gap-3 py-3.5 text-[15px] text-ink">
+                <X className="mt-0.5 h-5 w-5 shrink-0 text-bad" />
+                <span className="min-w-0">{p}</span>
+              </li>
+            ))}
+          </ul>
         </MotionTile>
         <MotionTile>
-          <div className="relative h-full overflow-hidden rounded-[2rem] bg-ink p-8 text-cream md:p-10">
-            <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-magenta/30 blur-3xl" />
-            <h2 className="relative text-2xl font-medium tracking-tight">With Watchfront</h2>
-            <dl className="relative mt-6 space-y-5">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-ink p-7 text-cream sm:rounded-[1.75rem] sm:p-9">
+            <SectionHeader dark title="With Watchfront" description="Same portfolio — clearer signal, faster recovery." />
+            <dl className="relative mt-6 space-y-4 border-t border-white/15 pt-5">
               {u.outcomes.map(([t, d]) => (
                 <div key={t}>
                   <dt className="font-medium text-sky">{t}</dt>
-                  <dd className="mt-1 text-[15px] leading-relaxed text-cream/75">{d}</dd>
+                  <dd className="mt-1 text-[14px] leading-relaxed text-cream/75">{d}</dd>
                 </div>
               ))}
             </dl>
@@ -100,21 +111,28 @@ export default async function UseCasePage({ params }: Props) {
         </MotionTile>
       </MotionGrid>
 
-      <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="features">
+      <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" aria-labelledby="features">
         <MotionSection>
-          <h2 id="features" className="text-2xl font-medium tracking-tight text-ink md:text-3xl">The features {audience(u)} use most</h2>
+          <SectionHeader
+            id="features"
+            title={`Features ${audience(u)} use most`}
+            description="The checks that stop client calls before they start."
+          />
         </MotionSection>
-        <MotionGrid className="mt-10 grid gap-5 sm:grid-cols-2">
+        <MotionGrid className="mt-6 divide-y divide-plum/10 border-y border-plum/10" stagger={0.05}>
           {features.map((f) => {
             const Icon = FEATURE_ICONS[f.slug];
             return (
               <MotionTile key={f.slug}>
-                <Link href={`/features/${f.slug}`} className="group flex h-full gap-5 rounded-[1.75rem] bg-cream p-6 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:ring-magenta/20">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-sky"><Icon className="h-5 w-5" /></span>
-                  <div>
-                    <h3 className="font-medium text-ink group-hover:text-magenta">{f.name}</h3>
-                    <p className="mt-1 text-[15px] text-plum-2">{f.short}</p>
+                <Link href={`/features/${f.slug}`} className="group flex items-start gap-4 py-5">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="font-medium text-ink transition group-hover:text-magenta">{f.name}</h3>
+                    <p className="mt-1 line-clamp-2 text-[14px] text-plum-2">{f.short}</p>
                   </div>
+                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-plum transition group-hover:translate-x-1" />
                 </Link>
               </MotionTile>
             );
@@ -124,21 +142,21 @@ export default async function UseCasePage({ params }: Props) {
 
       <FaqList faqs={u.faqs} />
 
-      <MotionSection className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="others">
-        <h2 id="others" className="text-2xl font-medium tracking-tight text-ink">Watchfront is also used by</h2>
-        <div className="mt-6 flex flex-wrap gap-3">
+      <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="up">
+        <SectionHeader title="Also used by" description="Same product, different workflows." />
+        <div className="mt-5 flex flex-wrap gap-2.5">
           {others.map((o) => (
-            <Link key={o.slug} href={`/use-cases/${o.slug}`} className="group flex items-center gap-2 rounded-full bg-cream px-5 py-2.5 text-[15px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream hover:ring-ink">
-              {o.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            <Link
+              key={o.slug}
+              href={`/use-cases/${o.slug}`}
+              className="group inline-flex items-center gap-2 border-b border-plum/20 pb-0.5 text-[14px] text-plum transition hover:border-magenta hover:text-magenta"
+            >
+              {o.name} <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
             </Link>
           ))}
         </div>
-        <p className="mt-8 text-[15px] leading-relaxed text-plum-2">
-          Browse <Link href="/use-cases" className="link-underline text-plum">all use cases</Link> and <Link href="/features" className="link-underline text-plum">every monitoring feature</Link>. Not sure yet? Run a <Link href="/tools" className="link-underline text-plum">free website check</Link> on a client site, read our{" "}
-          <Link href="/guides/website-maintenance-checklist" className="link-underline text-plum">monthly website maintenance checklist</Link>, or{" "}
-          <Link href="/compare" className="link-underline text-plum">compare Watchfront with other monitoring tools</Link>.
-        </p>
       </MotionSection>
+
       <CtaBand />
     </MarketingShell>
   );

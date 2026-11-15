@@ -10,7 +10,7 @@ export function PageCheckForm({ initial, onSaved }: { initial?: any; onSaved: (c
   const [f, setF] = useState({
     name: initial?.name || "", url: initial?.url || "", website_id: initial?.website_id || "",
     expected_texts: initial?.expected_texts || [], required_selectors: initial?.required_selectors || [], ignore_selectors: initial?.ignore_selectors || [],
-    threshold_pct: initial?.threshold_pct ?? 1, interval_sec: initial?.interval_sec || 3600, visual_enabled: initial?.visual_enabled ?? true, check_links: initial?.check_links ?? false,
+    threshold_pct: initial?.threshold_pct ?? 2, interval_sec: initial?.interval_sec || 3600, visual_enabled: initial?.visual_enabled ?? true, check_links: initial?.check_links ?? false,
   });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);

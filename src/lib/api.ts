@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://site-g-backend-production.up.railway.app";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.watchfront.in";
 
 export class ApiError extends Error {
   status: number;

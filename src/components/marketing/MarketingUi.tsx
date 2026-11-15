@@ -38,7 +38,54 @@ export function Breadcrumbs({ items }: { items: [string, string][] }) {
   );
 }
 
-/** Shared subpage hero - same atmosphere / motion language as the homepage. */
+/**
+ * Shared section title block — titles ≤2 lines, descriptions 2–3 lines.
+ * Use on every marketing content section for consistent structure.
+ */
+export function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  id,
+  dark = false,
+  className = "",
+}: {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  id?: string;
+  dark?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`max-w-2xl ${className}`}>
+      {eyebrow && (
+        <p className={`text-[13px] font-medium uppercase tracking-[0.14em] ${dark ? "text-sky" : "text-magenta"}`}>
+          {eyebrow}
+        </p>
+      )}
+      <h2
+        id={id}
+        className={`max-w-xl text-balance text-2xl font-medium leading-[1.15] tracking-tight sm:text-3xl ${
+          eyebrow ? "mt-3" : ""
+        } ${dark ? "text-cream" : "text-ink"}`}
+      >
+        {title}
+      </h2>
+      {description && (
+        <p
+          className={`mt-3 max-w-xl text-pretty text-[15px] leading-relaxed sm:text-base ${
+            dark ? "text-cream/70" : "text-plum-2"
+          }`}
+        >
+          {description}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** Shared subpage hero — clean, responsive, no overflow. */
 export function PageHero({
   eyebrow,
   title,
@@ -57,53 +104,61 @@ export function PageHero({
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-x-clip">
       {!reduce && (
         <>
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-magenta/10 blur-3xl"
-            animate={{ x: [0, 18, 0], y: [0, 12, 0] }}
+            className="pointer-events-none absolute -left-24 top-0 h-56 w-56 rounded-full bg-magenta/8 blur-3xl"
+            animate={{ x: [0, 14, 0], y: [0, 10, 0] }}
             transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute -right-20 top-16 h-72 w-72 rounded-full bg-sky/20 blur-3xl"
-            animate={{ x: [0, -16, 0], y: [0, 20, 0] }}
+            className="pointer-events-none absolute -right-16 top-20 h-64 w-64 rounded-full bg-sky/15 blur-3xl"
+            animate={{ x: [0, -12, 0], y: [0, 14, 0] }}
             transition={{ duration: 17, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute bottom-0 left-1/3 h-48 w-48 rounded-full bg-gold/15 blur-3xl"
-            animate={{ opacity: [0.45, 0.8, 0.45] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           />
         </>
       )}
 
-      <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14">
+      <div className="relative mx-auto max-w-6xl px-5 pb-10 pt-8 sm:px-6 sm:pb-14 sm:pt-12">
         {crumbs && <Breadcrumbs items={crumbs} />}
-        <div className={image ? "grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12" : undefined}>
+        <div
+          className={
+            image
+              ? "grid items-center gap-8 md:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12"
+              : undefined
+          }
+        >
           <motion.div
-            initial={reduce ? false : { y: 14 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
+            className="min-w-0"
+            initial={reduce ? false : { y: 14, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.75, ease: EASE }}
           >
-            {eyebrow && <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-magenta">{eyebrow}</p>}
-            <h1 className="mt-3 max-w-4xl text-[2rem] font-medium leading-[1.1] tracking-tight text-ink sm:text-4xl md:text-[3.25rem]">
+            {eyebrow && (
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-magenta sm:text-[12px]">
+                {eyebrow}
+              </p>
+            )}
+            <h1 className="mt-3 max-w-2xl text-balance text-[1.75rem] font-medium leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[2.6rem]">
               {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-plum-2 sm:mt-5 sm:text-base md:text-lg">{intro}</p>
+            <p className="mt-4 max-w-xl text-pretty text-[15px] leading-relaxed text-plum-2 sm:text-base">
+              {intro}
+            </p>
             {children}
           </motion.div>
 
           {image && (
-            <div className="relative lg:pl-2">
+            <div className="relative min-w-0 lg:justify-self-end lg:w-full">
               <MediaFrame
                 src={image.src}
                 alt={image.alt}
                 priority
-                drift
+                fit="contain"
+                aspect="aspect-[16/11] sm:aspect-[5/4]"
                 sizes="(max-width: 1024px) 100vw, 480px"
               />
             </div>
@@ -114,7 +169,7 @@ export function PageHero({
   );
 }
 
-/** Mid-page full-width visual for marketing pages (not the homepage). */
+/** Mid-page visual — 16:9 contain so illustrations stay sharp and whole. */
 export function VisualBand({
   src,
   alt,
@@ -127,19 +182,19 @@ export function VisualBand({
   dark?: boolean;
 }) {
   return (
-    <Reveal as="section" className="mx-auto mt-16 max-w-6xl px-4 sm:mt-20 sm:px-6" variant="scale">
-      <figure>
+    <Reveal as="section" className="mx-auto mt-12 max-w-6xl px-5 sm:mt-16 sm:px-6" variant="scale">
+      <figure className="min-w-0">
         <MediaFrame
           src={src}
           alt={alt}
+          fit="contain"
           parallax
-          drift={false}
-          aspect="aspect-[21/9] min-h-[12rem] sm:min-h-[16rem]"
+          aspect="aspect-[16/9] min-h-[11rem] sm:min-h-[14rem]"
           sizes="(max-width: 1152px) 100vw, 1152px"
         />
         {caption && (
           <figcaption
-            className={`mt-4 px-1 text-[14px] leading-relaxed ${dark ? "text-cream/65" : "text-plum-2"}`}
+            className={`mt-3 px-1 text-[14px] leading-relaxed ${dark ? "text-cream/65" : "text-plum-2"}`}
           >
             {caption}
           </figcaption>
@@ -151,22 +206,18 @@ export function VisualBand({
 
 export function FaqList({ faqs, title = "Frequently asked questions" }: { faqs: Faq[]; title?: string }) {
   return (
-    <Reveal as="section" className="mx-auto mt-24 max-w-3xl px-6" variant="up">
-      <div className="rounded-[2rem] bg-cream px-6 py-10 sm:px-10">
-        <h2 id="faq" className="text-2xl font-medium tracking-tight text-ink md:text-3xl">
-          {title}
-        </h2>
-        <div className="mt-6 divide-y divide-plum/10 border-y border-plum/10">
-          {faqs.map((f) => (
-            <details key={f.q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-medium text-ink md:text-lg [&::-webkit-details-marker]:hidden">
-                <h3>{f.q}</h3>
-                <ChevronDown className="h-5 w-5 shrink-0 text-plum/50 transition group-open:rotate-180" />
-              </summary>
-              <p className="mt-3 text-[15px] leading-relaxed text-plum-2">{f.a}</p>
-            </details>
-          ))}
-        </div>
+    <Reveal as="section" className="mx-auto mt-16 max-w-3xl px-5 sm:mt-20 sm:px-6" variant="up">
+      <SectionHeader id="faq" title={title} description="Straight answers — no sales fog." />
+      <div className="mt-6 divide-y divide-plum/10 border-y border-plum/10">
+        {faqs.map((f) => (
+          <details key={f.q} className="group py-5">
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-base font-medium text-ink sm:text-lg [&::-webkit-details-marker]:hidden">
+              <h3 className="min-w-0 text-left leading-snug">{f.q}</h3>
+              <ChevronDown className="mt-1 h-5 w-5 shrink-0 text-plum/50 transition duration-300 group-open:rotate-180" />
+            </summary>
+            <p className="mt-3 text-[15px] leading-relaxed text-plum-2">{f.a}</p>
+          </details>
+        ))}
       </div>
     </Reveal>
   );
@@ -181,8 +232,8 @@ export function CtaBand({
 }) {
   const reduce = useReducedMotion();
   return (
-    <Reveal as="section" className="mx-auto mt-24 max-w-6xl px-6 pb-4" variant="scale">
-      <div className="relative overflow-hidden rounded-[2rem] bg-ink px-8 py-14 text-cream md:px-14">
+    <Reveal as="section" className="mx-auto mt-16 max-w-6xl px-5 pb-4 sm:mt-20 sm:px-6" variant="scale">
+      <div className="relative overflow-hidden rounded-[1.5rem] bg-ink px-6 py-10 text-cream sm:rounded-[2rem] sm:px-10 sm:py-14 md:px-14">
         {!reduce && (
           <>
             <motion.div

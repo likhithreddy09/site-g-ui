@@ -1,0 +1,47 @@
+---
+description: Thumb rule for Watchfront marketing page structure, copy length, and motion
+globs: frontend/src/app/**/*.tsx,frontend/src/components/marketing/**/*.tsx,frontend/src/lib/marketing.ts,frontend/src/lib/products.ts,frontend/src/lib/blog.ts,frontend/src/lib/guides.ts
+alwaysApply: false
+---
+
+# Marketing page thumb rule
+
+Every feature, use-case, product, guide, blog, compare, tools, about, and similar marketing page must share the same structure and motion language.
+
+## Page skeleton (in order)
+
+1. `MarketingShell` + JSON-LD
+2. `PageHero` — eyebrow, **title ≤ 2 lines**, **intro 2–3 lines**, optional CTAs, optional illustration
+3. Optional `VisualBand` (one image moment max near the top)
+4. Repeating content blocks via `SectionHeader` + `MotionSection` / `MotionGrid` / `MotionTile`
+5. `FaqList` when FAQs exist
+6. Related links (compact)
+7. `CtaBand`
+
+## Copy limits
+
+- **H1 / section H2**: max **2 lines** visually. Prefer ≤ ~10–12 words. Never a paragraph as a title.
+- **Hero intro / section description**: **2–3 lines** max. One job: clarify who it’s for or what you get.
+- **Card body**: 1–2 short sentences.
+- Avoid India-only framing unless the page is explicitly India-specific SEO.
+- Prefer scannable bullets over long prose walls.
+
+## Visual / motion
+
+- Use shared components: `PageHero`, `SectionHeader`, `VisualBand`, `MotionSection`, `MotionGrid`, `MotionTile`, `MediaFrame`, `CtaBand`, `FaqList`.
+- Animate with framer-motion via `Reveal` / stagger — expo-out easing (`[0.16, 1, 0.3, 1]`).
+- Respect `useReducedMotion`.
+- Illustrations only (flat editorial), never photo mockups of code/dashboards in heroes unless intentional product UI.
+- Landing homepage may stay text-led; other marketing pages may use illustrations.
+
+## SectionHeader usage
+
+```tsx
+<SectionHeader
+  eyebrow="Optional"
+  title="Short two-line max title"
+  description="Two to three lines that explain the section."
+/>
+```
+
+Do not invent one-off section title styles. Reuse `SectionHeader` + `tile-lift` for cards.

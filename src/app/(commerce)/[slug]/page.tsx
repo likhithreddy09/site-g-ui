@@ -1,25 +1,25 @@
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, VisualBand } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, SectionHeader, VisualBand } from "@/components/marketing/Site";
 
 const PRODUCT_VISUAL: Record<string, { hero: { src: string; alt: string }; band?: { src: string; alt: string; caption: string } }> = {
   "website-monitoring": {
-    hero: { src: "/marketing/checks-stack.jpg", alt: "Website monitoring checks for uptime, SSL and forms" },
+    hero: { src: "/marketing/signal-abstract.jpg", alt: "Abstract illustration of website monitoring signals" },
     band: {
       src: "/marketing/agency-desk.jpg",
-      alt: "Agency laptop showing a live client portfolio health view",
+      alt: "Illustrated desk with soft status signals for client sites",
       caption: "One portfolio desk for every client site — uptime, SSL, journeys and errors in the same place.",
     },
   },
   "contact-form-monitoring": {
-    hero: { src: "/marketing/form-evidence.jpg", alt: "Evidence desk for a broken contact form with screenshot and status notes" },
+    hero: { src: "/marketing/form-evidence.jpg", alt: "Illustration of catching a broken contact form" },
   },
   "uptime-monitoring-tool": {
-    hero: { src: "/marketing/agency-desk.jpg", alt: "Monitoring dashboard open on an agency desk" },
+    hero: { src: "/marketing/agency-desk.jpg", alt: "Illustrated monitoring desk with uptime signals" },
   },
   "ssl-certificate-monitoring": {
-    hero: { src: "/marketing/checks-stack.jpg", alt: "SSL and uptime monitoring cards" },
+    hero: { src: "/marketing/checks-stack.jpg", alt: "Illustrated cards for SSL and uptime checks" },
   },
 };
 import { featureBySlug, USE_CASES, audience } from "@/lib/marketing";
@@ -108,13 +108,11 @@ export default async function ProductPage({ params }: Props) {
       )}
 
       <MotionSection className="mx-auto mt-16 max-w-6xl px-6" variant="up">
-        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr]">
-          <div>
-            <h2 className="text-2xl font-medium tracking-tight text-ink md:text-3xl">What you get</h2>
-            <p className="mt-4 text-base text-plum-2">
-              Product search is how most agencies find monitoring tools - this page is built for that intent, then connects you to the full Watchfront feature set.
-            </p>
-          </div>
+        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-12">
+          <SectionHeader
+            title="What you get"
+            description="The checks and evidence that make this product useful from day one."
+          />
           <ul className="space-y-3">
             {p.bullets.map((b) => (
               <li key={b} className="flex gap-3 rounded-2xl bg-cream p-4 text-[15px] text-ink ring-1 ring-plum/8">
@@ -127,29 +125,33 @@ export default async function ProductPage({ params }: Props) {
       </MotionSection>
 
       {p.sections.map((s) => (
-        <MotionSection key={s.h} className="mx-auto mt-20 max-w-3xl px-6" variant="up">
-          <h2 className="text-2xl font-medium tracking-tight text-ink">{s.h}</h2>
-          {s.p.map((para) => (
-            <p key={para.slice(0, 40)} className="mt-4 text-[16px] leading-relaxed text-plum-2">
+        <MotionSection key={s.h} className="mx-auto mt-16 max-w-3xl px-6 md:mt-20" variant="up">
+          <SectionHeader title={s.h} description={s.p[0]} />
+          {s.p.slice(1).map((para) => (
+            <p key={para.slice(0, 40)} className="mt-4 text-[15px] leading-relaxed text-plum-2">
               {para}
             </p>
           ))}
         </MotionSection>
       ))}
 
-      <section className="mx-auto mt-24 max-w-6xl px-6" aria-labelledby="related-features">
-        <h2 id="related-features" className="text-2xl font-medium tracking-tight text-ink">
-          Related Watchfront features
-        </h2>
-        <MotionGrid className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto mt-20 max-w-6xl px-6 md:mt-24" aria-labelledby="related-features">
+        <MotionSection>
+          <SectionHeader
+            id="related-features"
+            title="Related features"
+            description="Connect this product to the rest of your monitoring stack."
+          />
+        </MotionSection>
+        <MotionGrid className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <MotionTile key={f.slug}>
               <Link
                 href={`/features/${f.slug}`}
-                className="group flex h-full flex-col rounded-[1.75rem] bg-cream p-6 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:ring-magenta/20"
+                className="tile-lift group flex h-full flex-col rounded-[1.75rem] bg-cream p-6 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20"
               >
                 <h3 className="font-medium text-ink group-hover:text-magenta">{f.name}</h3>
-                <p className="mt-2 flex-1 text-[15px] text-plum-2">{f.short}</p>
+                <p className="mt-2 line-clamp-2 flex-1 text-[14px] text-plum-2">{f.short}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm text-plum">
                   Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </span>
@@ -159,16 +161,16 @@ export default async function ProductPage({ params }: Props) {
         </MotionGrid>
       </section>
 
-      <section className="mx-auto mt-20 max-w-6xl px-6" aria-labelledby="who">
-        <h2 id="who" className="text-2xl font-medium tracking-tight text-ink">
-          Who this is for
-        </h2>
+      <section className="mx-auto mt-16 max-w-6xl px-6 md:mt-20" aria-labelledby="who">
+        <MotionSection>
+          <SectionHeader id="who" title="Who this is for" description="Teams that look after more than one website." />
+        </MotionSection>
         <div className="mt-6 flex flex-wrap gap-3">
           {audiences.map((u) => (
             <Link
               key={u.slug}
               href={`/use-cases/${u.slug}`}
-              className="rounded-full bg-cream px-5 py-2.5 text-[15px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream hover:ring-ink"
+              className="rounded-full bg-cream px-5 py-2.5 text-[14px] text-plum ring-1 ring-plum/10 transition duration-300 hover:bg-ink hover:text-cream hover:ring-ink"
             >
               {audience(u)}
             </Link>

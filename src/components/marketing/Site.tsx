@@ -2,7 +2,7 @@ import { ArrowRight, ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
-import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
+import { BannerAuthCta, FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
 import { BLOG_POSTS } from "@/lib/blog";
 import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES } from "@/lib/marketing";
@@ -14,6 +14,7 @@ export { JsonLd } from "@/components/marketing/SiteJsonLd";
 export {
   Breadcrumbs,
   PageHero,
+  SectionHeader,
   VisualBand,
   FaqList,
   CtaBand,
@@ -65,7 +66,8 @@ function NavMenu({
   );
 }
 
-export function SiteHeader({ banner = true }: { banner?: boolean }) {
+export function SiteHeader({ banner = true, tone = "light" }: { banner?: boolean; tone?: "light" | "ink" }) {
+  const ink = tone === "ink";
   const features = FEATURES.map((f) => ({ href: `/features/${f.slug}`, name: f.name, short: f.short }));
   const cases = USE_CASES.map((u) => ({ href: `/use-cases/${u.slug}`, name: u.name, short: u.intro.split(".")[0] + "." }));
   const resources = [
@@ -78,15 +80,21 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-plum/5 bg-white/90 backdrop-blur">
+    <header
+      className={`sticky top-0 z-40 border-b backdrop-blur ${
+        ink ? "border-cream/10 bg-ink/80" : "border-plum/5 bg-white/90"
+      }`}
+    >
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:h-16 sm:px-6">
         <div className="shrink-0">
-          <Logo />
+          <Logo light={ink} />
         </div>
 
         <nav
           aria-label="Main"
-          className="ml-2 hidden min-w-0 flex-1 items-center justify-center gap-5 text-plum lg:flex xl:gap-7"
+          className={`ml-2 hidden min-w-0 flex-1 items-center justify-center gap-5 lg:flex xl:gap-7 ${
+            ink ? "text-cream/70" : "text-plum"
+          }`}
         >
           <NavMenu
             label="Product"
@@ -96,16 +104,16 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <NavMenu label="Features" items={features} all={["All features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} wide={false} />
           <NavMenu label="Resources" items={resources} wide />
-          <Link href="/contact" className="whitespace-nowrap text-[14px] hover:text-magenta">
+          <Link href="/contact" className={`whitespace-nowrap text-[14px] ${ink ? "hover:text-cream" : "hover:text-magenta"}`}>
             Contact
           </Link>
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-          <HeaderAuthCtas />
+        <div className="ml-auto flex shrink-0 items-center gap-2.5 sm:gap-3">
+          <HeaderAuthCtas tone={tone} />
           <details className="relative lg:hidden">
             <summary
-              className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden"
+              className={`list-none rounded-lg p-2 [&::-webkit-details-marker]:hidden ${ink ? "text-cream" : "text-plum"}`}
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -139,9 +147,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
       {banner && (
         <div className="bg-magenta px-3 py-2 text-center text-xs text-cream sm:py-2.5 sm:text-sm">
           3-day free trial - every feature, no card required.{" "}
-          <Link href="/register" className="link-underline ml-1 font-medium">
-            Start free →
-          </Link>
+          <BannerAuthCta />
         </div>
       )}
     </header>
@@ -235,15 +241,15 @@ export function SiteFooter() {
 
 export function MarketingShell({ children, banner = false }: { children: React.ReactNode; banner?: boolean }) {
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen overflow-x-clip bg-cream">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(155,27,103,0.1),transparent_55%),radial-gradient(ellipse_at_90%_20%,rgba(143,211,244,0.16),transparent_45%),radial-gradient(ellipse_at_10%_40%,rgba(253,185,19,0.06),transparent_40%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(155,27,103,0.08),transparent_55%),radial-gradient(ellipse_at_90%_20%,rgba(143,211,244,0.12),transparent_45%)]"
       />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-plum focus:px-4 focus:py-2 focus:text-cream">Skip to content</a>
       <ScrollProgress />
       <SiteHeader banner={banner} />
-      <main id="main" className="pb-20">{children}</main>
+      <main id="main" className="pb-16 sm:pb-20">{children}</main>
       <SiteFooter />
     </div>
   );

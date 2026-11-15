@@ -22,6 +22,8 @@ export type BlogPost = {
   category: "ops" | "clients" | "stack";
   author: string;
   authorRole: string;
+  /** One featured illustration for the article */
+  image: { src: string; alt: string };
   product?: string;
   feature?: string;
   tool?: string;
@@ -53,6 +55,10 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "ops",
     author: "Watchfront team",
     authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/form-evidence.jpg",
+      alt: "Illustration of catching a broken contact form before the client does",
+    },
     product: "contact-form-monitoring",
     feature: "form-journey-testing",
     tool: "website-down-checker",
@@ -162,6 +168,10 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "clients",
     author: "Watchfront team",
     authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/checks-stack.jpg",
+      alt: "Illustration of monitoring checks stacked into a care-plan stack",
+    },
     product: "website-monitoring",
     feature: "ssl-domain-monitoring",
     tool: "ssl-checker",
@@ -264,6 +274,10 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "clients",
     author: "Watchfront team",
     authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/agency-desk.jpg",
+      alt: "Illustration of a desk preparing a clear client uptime report",
+    },
     product: "website-monitoring-software",
     feature: "client-reports",
     guide: "monitor-multiple-client-websites",

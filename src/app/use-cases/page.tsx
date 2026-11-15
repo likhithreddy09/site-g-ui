@@ -47,45 +47,49 @@ export default function UseCasesPage() {
       <PageHero
         crumbs={[["Home", "/"], ["Use cases", "/use-cases"]]}
         eyebrow="Use cases"
-        title="Built for teams who look after other people’s websites."
-        intro="Same product, different workflows - pick the path that matches how you work with clients."
+        title="Built for people who look after websites."
+        intro="Same product, different workflows — agencies, startups, freelancers and more."
         image={{
           src: "/marketing/agency-team.jpg",
-          alt: "Agency team reviewing client websites together at a bright studio desk",
+          alt: "Illustrated team reviewing client websites together",
         }}
       />
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2" stagger={0.1}>
-        {USE_CASES.map((u, i) => (
-          <MotionTile key={u.slug}>
-            <Link
-              href={`/use-cases/${u.slug}`}
-              className={`tile-lift group flex h-full flex-col rounded-[1.75rem] p-8 ring-1 ${
-                i % 2 === 0
-                  ? "bg-cream text-ink ring-plum/8 hover:ring-magenta/20"
-                  : "bg-ink text-cream ring-ink hover:ring-sky/40"
-              }`}
-            >
-              <p className={`text-sm font-medium ${i % 2 === 0 ? "text-magenta" : "text-sky"}`}>For {audience(u)}</p>
-              <h2 className={`mt-2 text-2xl font-medium tracking-tight ${i % 2 === 0 ? "group-hover:text-magenta" : "group-hover:text-sky"}`}>{u.name}</h2>
-              <p className={`mt-3 flex-1 text-[15px] leading-relaxed ${i % 2 === 0 ? "text-plum-2" : "text-cream/70"}`}>{u.description}</p>
-              <span className={`mt-6 inline-flex items-center gap-1 text-sm font-medium ${i % 2 === 0 ? "text-plum" : "text-sky"}`}>
-                Read use case <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-              </span>
-            </Link>
-          </MotionTile>
-        ))}
+
+      <MotionGrid className="mx-auto max-w-6xl px-5 sm:px-6" stagger={0.08}>
+        <div className="divide-y divide-plum/10 border-y border-plum/10">
+          {USE_CASES.map((u, i) => (
+            <MotionTile key={u.slug}>
+              <Link
+                href={`/use-cases/${u.slug}`}
+                className="group grid gap-2 py-7 sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:items-start sm:gap-6 sm:py-8"
+              >
+                <span className="font-mono text-sm text-mauve">{String(i + 1).padStart(2, "0")}</span>
+                <div className="min-w-0">
+                  <p className="text-[13px] font-medium text-magenta">For {audience(u)}</p>
+                  <h2 className="mt-1 text-xl font-medium tracking-tight text-ink transition group-hover:text-magenta sm:text-2xl">
+                    {u.name}
+                  </h2>
+                  <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-plum-2">{u.description}</p>
+                </div>
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-plum sm:pt-6">
+                  Read use case <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            </MotionTile>
+          ))}
+        </div>
       </MotionGrid>
-      <section className="mx-auto mt-20 max-w-3xl px-6 text-[16px] leading-relaxed text-plum-2">
-        <h2 className="text-2xl font-medium text-ink">Why agencies need more than a ping check</h2>
-        <p className="mt-4">
-          Client websites fail in ways a basic uptime tool never sees: an SSL certificate that expires overnight, a contact form that stops sending mail after a plugin update, a landing page that loses its title tag, or a JavaScript error that breaks checkout for mobile visitors. Watchfront is built for people who look after other people&apos;s sites - not for a single product engineering team watching one app.
+
+      <section className="mx-auto mt-16 max-w-3xl px-5 sm:mt-20 sm:px-6">
+        <h2 className="text-2xl font-medium tracking-tight text-ink">Why agencies need more than a ping check</h2>
+        <p className="mt-4 text-[15px] leading-relaxed text-plum-2 sm:text-base">
+          Client websites fail in ways a basic uptime tool never sees: SSL that expires overnight, a form that stops sending after a plugin update, a landing page that loses its title tag, or a JS error that breaks checkout on mobile. Watchfront is built for people who look after other people&apos;s sites.
         </p>
-        <p className="mt-4">
-          Start with the use case that matches your work, then explore the matching{" "}
-          <Link href="/features" className="link-underline text-plum">monitoring features</Link>, try a{" "}
-          <Link href="/tools" className="link-underline text-plum">free website check</Link>, or follow the{" "}
-          <Link href="/guides/website-maintenance-checklist" className="link-underline text-plum">monthly maintenance checklist</Link>. If you already use another tool,{" "}
-          <Link href="/compare" className="link-underline text-plum">see how Watchfront compares</Link>.
+        <p className="mt-4 text-[15px] leading-relaxed text-plum-2 sm:text-base">
+          Start with the use case that matches your work, then explore{" "}
+          <Link href="/features" className="link-underline text-plum">features</Link>, try a{" "}
+          <Link href="/tools" className="link-underline text-plum">free check</Link>, or{" "}
+          <Link href="/compare" className="link-underline text-plum">compare tools</Link>.
         </p>
       </section>
       <CtaBand title="Start with one client website." body="Free for 3 days. No credit card, nothing to install on client sites." />
