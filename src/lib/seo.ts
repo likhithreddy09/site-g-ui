@@ -227,6 +227,7 @@ export const SITE_NAV: [string, string][] = [
   ["Features", "/features"],
   ["Use cases", "/use-cases"],
   ["Free tools", "/tools"],
+  ["Blog", "/blog"],
   ["Guides", "/guides"],
   ["Security", "/security"],
   ["About", "/about"],

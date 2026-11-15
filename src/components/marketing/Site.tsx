@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
+import { BLOG_POSTS } from "@/lib/blog";
 import { COMPARISONS } from "@/lib/compare";
 import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES } from "@/lib/marketing";
@@ -56,6 +57,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <NavMenu label="Features" items={features} all={["See all features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} />
           <NavMenu label="Free tools" items={TOOLS.map((t) => ({ href: `/tools/${t.slug}`, name: t.name, short: t.short }))} all={["All free tools", "/tools"]} />
+          <Link href="/blog" className="hover:text-magenta">Blog</Link>
           <Link href="/guides" className="hover:text-magenta">Guides</Link>
           <Link href="/security" className="hover:text-magenta">Security</Link>
           <Link href="/about" className="hover:text-magenta">About</Link>
@@ -66,7 +68,7 @@ export function SiteHeader({ banner = true }: { banner?: boolean }) {
           <details className="relative md:hidden">
             <summary className="list-none rounded-lg p-2 text-plum [&::-webkit-details-marker]:hidden" aria-label="Open menu"><Menu className="h-5 w-5" /></summary>
             <nav aria-label="Mobile" className="absolute right-0 top-full z-50 mt-2 max-h-[70vh] w-[min(18rem,calc(100vw-2rem))] space-y-1 overflow-y-auto rounded-2xl bg-white p-3 text-sm shadow-2xl ring-1 ring-plum/10">
-              {[["Website monitoring", "/website-monitoring"], ["Features", "/features"], ["Free tools", "/tools"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
+              {[["Website monitoring", "/website-monitoring"], ["Features", "/features"], ["Free tools", "/tools"], ["Blog", "/blog"], ["Guides", "/guides"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`]), ["Security", "/security"], ["About", "/about"], ["Contact", "/contact"], ["Book a call", "/contact#book"]].map(([l, h]) => (
                 <Link key={h} href={h} className="block rounded-lg px-3 py-2.5 text-plum hover:bg-cream">{l}</Link>
               ))}
               <div className="my-1 border-t border-plum/10" />
@@ -94,10 +96,11 @@ export function SiteFooter() {
     ["Use cases", [["All use cases", "/use-cases"], ...USE_CASES.map((u) => [u.name, `/use-cases/${u.slug}`] as [string, string])]],
     ["Free tools", [["All free tools", "/tools"], ...TOOLS.map((t) => [t.name, `/tools/${t.slug}`] as [string, string])]],
     ["Resources", [
+      ["Blog", "/blog"],
+      ...BLOG_POSTS.map((p) => [p.nav, `/blog/${p.slug}`] as [string, string]),
       ["Guides", "/guides"],
-      ...GUIDES.slice(0, 4).map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]),
+      ...GUIDES.slice(0, 3).map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]),
       ["Compare tools", "/compare"],
-      ...COMPARISONS.slice(0, 3).map((c) => [`${c.competitor} alternative`, `/compare/${c.slug}`] as [string, string]),
     ]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [

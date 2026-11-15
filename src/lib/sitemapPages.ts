@@ -1,3 +1,4 @@
+import { BLOG_POSTS } from "./blog";
 import { COMPARISONS } from "./compare";
 import { GUIDES } from "./guides";
 import { FEATURES, USE_CASES } from "./marketing";
@@ -55,6 +56,15 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
   })),
   { path: "/tools", priority: 0.9, changeFrequency: "weekly", seo: "Free tools hub", image: "/tools/opengraph-image" },
   ...TOOLS.map((t) => ({ path: `/tools/${t.slug}`, priority: 0.9, changeFrequency: "weekly" as const, seo: t.title, image: `/tools/${t.slug}/opengraph-image` })),
+  { path: "/blog", priority: 0.85, changeFrequency: "weekly", seo: "Blog & resources hub", image: "/blog/opengraph-image" },
+  ...BLOG_POSTS.map((p) => ({
+    path: `/blog/${p.slug}`,
+    priority: 0.85,
+    changeFrequency: "monthly" as const,
+    seo: p.title,
+    lastmod: p.updated,
+    image: `/blog/${p.slug}/opengraph-image`,
+  })),
   { path: "/guides", priority: 0.8, changeFrequency: "weekly", seo: "Guides hub", image: "/guides/opengraph-image" },
   ...GUIDES.map((g) => ({ path: `/guides/${g.slug}`, priority: 0.8, changeFrequency: "monthly" as const, seo: g.title, lastmod: g.updated, image: `/guides/${g.slug}/opengraph-image` })),
   { path: "/compare", priority: 0.8, changeFrequency: "monthly", seo: "Comparisons hub", image: "/compare/opengraph-image" },

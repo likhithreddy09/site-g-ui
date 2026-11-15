@@ -13,9 +13,16 @@ Website downtime monitoring: https://www.watchfront.in/website-downtime-monitori
 Contact form monitoring: https://www.watchfront.in/contact-form-monitoring
 Features: https://www.watchfront.in/features
 Free tools: https://www.watchfront.in/tools
+Blog: https://www.watchfront.in/blog
 Guides: https://www.watchfront.in/guides
 Contact: https://www.watchfront.in/contact
 Start free: https://www.watchfront.in/register
+
+## Blog
+
+- [Monday site checks miss broken forms](https://www.watchfront.in/blog/agency-monday-site-check-still-misses-broken-forms)
+- [WordPress care plan monitoring checklist](https://www.watchfront.in/blog/wordpress-care-plan-monitoring-checklist-india)
+- [What to put in a client uptime report](https://www.watchfront.in/blog/what-to-put-in-client-uptime-report)
 
 ## Product pages (non-brand search)
 

@@ -32,6 +32,7 @@ const tools = slugsIn("lib/tools.ts");
 const guides = slugsIn("lib/guides.ts");
 const compares = slugsIn("lib/compare.ts");
 const products = slugsIn("lib/products.ts");
+const blogs = slugsIn("lib/blog.ts");
 
 const sitemapSrc = fs.readFileSync(path.join(src, "lib/sitemapPages.ts"), "utf8");
 const staticPaths = [...sitemapSrc.matchAll(/path:\s*"(\/[^"]*)"/g)].map((m) => m[1]);
@@ -45,6 +46,8 @@ const expected = new Set([
   ...useCases.map((s) => `/use-cases/${s}`),
   "/tools",
   ...tools.map((s) => `/tools/${s}`),
+  "/blog",
+  ...blogs.map((s) => `/blog/${s}`),
   "/guides",
   ...guides.map((s) => `/guides/${s}`),
   "/compare",
@@ -69,6 +72,10 @@ const pageExists = (p) => {
   }
   if (p.startsWith("/use-cases/") && p !== "/use-cases") {
     return useCases.includes(p.replace("/use-cases/", ""));
+  }
+  if (p === "/blog") return fs.existsSync(path.join(src, "app/blog/page.tsx"));
+  if (p.startsWith("/blog/")) {
+    return blogs.includes(p.replace("/blog/", "")) && fs.existsSync(path.join(src, "app/blog/[slug]/page.tsx"));
   }
   for (const [prefix, list] of [["/tools/", tools], ["/guides/", guides], ["/compare/", compares]]) {
     if (p.startsWith(prefix)) {
@@ -112,6 +119,8 @@ for (const f of forbidden) {
 const metaRoutes = [
   ["app/page.tsx", "home (layout defaults + JsonLd)"],
   ["app/(commerce)/[slug]/page.tsx", "generateMetadata"],
+  ["app/blog/page.tsx", "pageMeta"],
+  ["app/blog/[slug]/page.tsx", "generateMetadata"],
   ["app/features/page.tsx", "pageMeta"],
   ["app/features/[slug]/page.tsx", "generateMetadata"],
   ["app/use-cases/page.tsx", "pageMeta"],
@@ -165,6 +174,7 @@ const pri = (p) =>
   ["/features", "/features/seo-audit"].includes(p) ? 0.95 :
   p === "/features/uptime-monitoring" ? 0.9 :
   p === "/use-cases" || p === "/tools" || p.startsWith("/tools/") ? 0.9 :
+  p.startsWith("/blog") ? 0.85 :
   p.startsWith("/guides") || p.startsWith("/compare") ? 0.8 :
   p.startsWith("/features/") || p.startsWith("/use-cases/") ? 0.85 :
   ["/security", "/contact"].includes(p) ? 0.7 :
@@ -179,6 +189,7 @@ const freq = (p) =>
 const hubImage = {
   "/": "/opengraph-image",
   ...Object.fromEntries(products.map((s) => [`/${s}`, `/${s}/opengraph-image`])),
+  "/blog": "/blog/opengraph-image",
   "/features": "/features/opengraph-image",
   "/use-cases": "/use-cases/opengraph-image",
   "/tools": "/tools/opengraph-image",
@@ -191,7 +202,7 @@ const hubImage = {
 };
 const imageFor = (p) => {
   if (hubImage[p]) return hubImage[p];
-  for (const prefix of ["/features/", "/use-cases/", "/tools/", "/guides/", "/compare/"]) {
+  for (const prefix of ["/features/", "/use-cases/", "/tools/", "/guides/", "/compare/", "/blog/"]) {
     if (p.startsWith(prefix) && p.length > prefix.length) return `${p}/opengraph-image`;
   }
   return "/opengraph-image";
