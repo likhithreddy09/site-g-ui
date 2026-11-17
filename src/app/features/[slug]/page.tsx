@@ -13,10 +13,21 @@ import {
   PageHero,
   SectionHeader,
 } from "@/components/marketing/Site";
+import { TopicClusterNav } from "@/components/marketing/TopicCluster";
 import { FEATURES, USE_CASES, audience, featureBySlug } from "@/lib/marketing";
 import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+import { clusterById } from "@/lib/seoClusters";
 import { GUIDES } from "@/lib/guides";
 import { TOOLS } from "@/lib/tools";
+
+const FEATURE_CLUSTER: Record<string, string> = {
+  "uptime-monitoring": "uptime",
+  "ssl-domain-monitoring": "ssl",
+  "form-journey-testing": "forms",
+  "seo-audit": "seo-hygiene",
+  "api-monitoring": "synthetic",
+  "javascript-error-monitoring": "synthetic",
+};
 
 const FEATURE_IMAGE: Record<string, { src: string; alt: string }> = {
   "uptime-monitoring": { src: "/marketing/agency-desk.jpg", alt: "Illustration of an uptime monitoring desk" },
@@ -54,6 +65,7 @@ export default async function FeaturePage({ params }: Props) {
   const tool = TOOLS.find((t) => t.feature === f.slug);
   const guides = GUIDES.filter((g) => g.feature === f.slug);
   const heroImage = FEATURE_IMAGE[f.slug];
+  const cluster = clusterById(FEATURE_CLUSTER[f.slug] || "");
 
   return (
     <MarketingShell>
@@ -208,12 +220,18 @@ export default async function FeaturePage({ params }: Props) {
         </section>
       )}
 
+      {cluster ? <TopicClusterNav cluster={cluster} currentPath={`/features/${f.slug}`} /> : null}
+
       <p className="mx-auto mt-12 max-w-6xl px-6 text-sm text-plum-2">
         Confused by a term?{" "}
         <Link href="/glossary" className="link-underline text-plum">
           Open the monitoring glossary
         </Link>{" "}
-        — uptime, SSL, synthetic monitoring, noindex and more.
+        — uptime, SSL, synthetic monitoring, noindex and more. Linkable ops assets live in{" "}
+        <Link href="/resources" className="link-underline text-plum">
+          Resources
+        </Link>
+        .
       </p>
 
       <CtaBand title="Try it on your own website." />

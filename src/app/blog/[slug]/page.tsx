@@ -85,8 +85,11 @@ export default async function BlogPostPage({ params }: Props) {
         intro={post.excerpt}
       >
         <p className="mt-5 font-mono text-[12px] text-plum/60">
-          By {post.author} · {post.authorRole} · Updated{" "}
-          <time dateTime={post.updated}>{publishedLabel}</time>
+          By{" "}
+          <Link href="/about/editorial" className="link-underline">
+            {post.author}
+          </Link>{" "}
+          · {post.authorRole} · Updated <time dateTime={post.updated}>{publishedLabel}</time>
         </p>
       </PageHero>
 

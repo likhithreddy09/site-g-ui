@@ -29,6 +29,20 @@ export function GET() {
       date: t.updated,
       category: "Glossary",
     })),
+    {
+      title: "Sample client uptime report template",
+      description: "Free sample client uptime report outline for agencies.",
+      path: "/resources/sample-client-uptime-report",
+      date: "2026-11-17",
+      category: "Resource",
+    },
+    {
+      title: "Agency website monitoring playbook for India",
+      description: "Operating playbook for Indian agencies running website retainers.",
+      path: "/resources/agency-monitoring-playbook-india",
+      date: "2026-11-17",
+      category: "Resource",
+    },
   ].sort((a, b) => b.date.localeCompare(a.date));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -26,6 +26,11 @@ type PageMetaInput = {
   /** Social image route. Config metadata beats file-based opengraph-image, so detail pages must pass theirs. */
   image?: string;
   noindex?: boolean;
+  /**
+   * Optional canonical override for true duplicates only.
+   * Prefer unique content + cluster linking over consolidating distinct angles.
+   */
+  canonicalPath?: string;
 };
 
 /**
@@ -41,6 +46,7 @@ export function pageMeta({
   ogDescription,
   image,
   noindex,
+  canonicalPath,
 }: PageMetaInput): Metadata {
   const socialTitle = (ogTitle || title).trim();
   const socialDesc = (ogDescription || description).trim();
@@ -50,15 +56,16 @@ export function pageMeta({
     alt: socialTitle,
   };
   const kw = [...new Set(keywords.map((k) => k.trim()).filter(Boolean))].slice(0, 8);
-  const canonical = abs(path);
+  const canonPath = canonicalPath || path;
+  const canonical = abs(canonPath);
 
   return {
     title: { absolute: title },
     description,
     keywords: kw,
     alternates: {
-      canonical: path,
-      languages: { "en-IN": path, en: path, "x-default": path },
+      canonical: canonPath,
+      languages: { "en-IN": canonPath, en: canonPath, "x-default": canonPath },
     },
     openGraph: {
       type: "website",
@@ -218,7 +225,7 @@ export function articleLd({
     inLanguage: "en-IN",
     isAccessibleForFree: true,
     image: abs(`${path}/opengraph-image`),
-    author: { "@id": `${SITE.url}/#editorial-team`, "@type": "Person", name: "Watchfront editorial team", url: abs("/about") },
+    author: { "@id": `${SITE.url}/#editorial-team`, "@type": "Person", name: "Watchfront editorial team", url: abs("/about/editorial") },
     publisher: { "@id": `${SITE.url}/#organization`, "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: abs("/logo.png") } },
     ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
     speakable: {
@@ -273,12 +280,14 @@ export const editorialPersonLd = {
   name: "Watchfront editorial team",
   jobTitle: "Product + support",
   worksFor: { "@id": `${SITE.url}/#organization` },
-  url: abs("/about"),
+  url: abs("/about/editorial"),
+  sameAs: [SITE.url, abs("/about"), abs("/security")],
   knowsAbout: [
     "Website monitoring",
     "Uptime monitoring",
     "SSL certificate monitoring",
     "Agency website operations",
+    "WordPress care plans",
   ],
 };
 
@@ -311,6 +320,7 @@ export const SITE_NAV: [string, string][] = [
   ["Blog", "/blog"],
   ["Guides", "/guides"],
   ["Glossary", "/glossary"],
+  ["Resources", "/resources"],
   ["Compare", "/compare"],
   ["Security", "/security"],
   ["About", "/about"],

@@ -201,6 +201,10 @@ export default function Home() {
               {" · "}
               <Link href="/glossary" className="link-underline">Glossary</Link>
               {" · "}
+              <Link href="/resources" className="link-underline">Resources</Link>
+              {" · "}
+              <Link href="/resources/agency-monitoring-playbook-india" className="link-underline">India playbook</Link>
+              {" · "}
               <Link href="/guides" className="link-underline">Guides</Link>
               {" · "}
               <Link href="/blog" className="link-underline">Blog</Link>

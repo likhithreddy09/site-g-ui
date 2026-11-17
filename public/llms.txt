@@ -9,6 +9,10 @@ Start free: https://www.watchfront.in/register
 Contact: https://www.watchfront.in/contact
 Full index: https://www.watchfront.in/llms-full.txt
 Glossary: https://www.watchfront.in/glossary
+Resources: https://www.watchfront.in/resources
+India playbook: https://www.watchfront.in/resources/agency-monitoring-playbook-india
+Sample report: https://www.watchfront.in/resources/sample-client-uptime-report
+Editorial: https://www.watchfront.in/about/editorial
 RSS: https://www.watchfront.in/feed.xml
 
 ## Product pages (non-brand search)

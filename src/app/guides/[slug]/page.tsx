@@ -74,9 +74,10 @@ export default async function GuidePage({ params }: Props) {
             <div className="font-medium text-ink">Written by the Watchfront team</div>
             <p className="mt-2">
               We build website monitoring for agencies in India. This guide reflects what we see running uptime, SSL, form and SEO checks on client websites.{" "}
+              <Link href="/about/editorial" className="link-underline text-plum">Editorial standards</Link> ·{" "}
               <Link href="/guides" className="link-underline text-plum">More guides</Link> ·{" "}
-              <Link href="/about" className="link-underline text-plum">About us</Link> ·{" "}
-              <Link href="/security" className="link-underline text-plum">How we handle your data</Link>
+              <Link href="/resources" className="link-underline text-plum">Resources</Link> ·{" "}
+              <Link href="/security" className="link-underline text-plum">Security</Link>
             </p>
           </div>
         </article>

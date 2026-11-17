@@ -22,10 +22,12 @@ const PRODUCT_VISUAL: Record<string, { hero: { src: string; alt: string }; band?
     hero: { src: "/marketing/checks-stack.jpg", alt: "Illustrated cards for SSL and uptime checks" },
   },
 };
+import { TopicClusterNav } from "@/components/marketing/TopicCluster";
 import { GLOSSARY } from "@/lib/glossary";
 import { featureBySlug, USE_CASES, audience } from "@/lib/marketing";
 import { PRODUCTS, productBySlug } from "@/lib/products";
 import { breadcrumbLd, faqLd, pageMeta, softwareAppLd, webPageLd } from "@/lib/seo";
+import { PRODUCT_CLUSTER, clusterById } from "@/lib/seoClusters";
 import { guideBySlug } from "@/lib/guides";
 import { toolBySlug } from "@/lib/tools";
 
@@ -57,6 +59,7 @@ export default async function ProductPage({ params }: Props) {
   const guide = p.guide ? guideBySlug(p.guide) : undefined;
   const audiences = USE_CASES.slice(0, 4);
   const visual = PRODUCT_VISUAL[p.slug];
+  const cluster = clusterById(PRODUCT_CLUSTER[p.slug] || "");
 
   return (
     <MarketingShell>
@@ -198,6 +201,8 @@ export default async function ProductPage({ params }: Props) {
           .
         </p>
       </section>
+
+      {cluster ? <TopicClusterNav cluster={cluster} currentPath={`/${p.slug}`} /> : null}
 
       <section className="mx-auto mt-16 max-w-6xl px-6" aria-labelledby="glossary-terms">
         <h2 id="glossary-terms" className="text-2xl font-medium tracking-tight text-ink">

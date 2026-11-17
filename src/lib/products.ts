@@ -30,17 +30,17 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-monitoring",
     nav: "Website monitoring",
-    title: "Website Monitoring Tool for Agencies in India | Watchfront",
+    title: "Website Monitoring Tool (Uptime + Forms + SSL) | Watchfront",
     description:
-      "Best-fit website monitoring tool for Indian agencies: uptime, SSL, forms, SEO and JS errors on every client site - with alerts and reports. Free 3-day trial.",
+      "Website monitoring tool that covers uptime, SSL, forms, SEO and JS errors — not just a homepage ping. Free 3-day trial.",
     h1: "Website monitoring that catches more than downtime",
     intro:
-      "A homepage can return 200 while the contact form is dead, the SSL certificate is about to expire, or a plugin update broke the layout. Watchfront is website monitoring software built for agencies looking after many client websites - not a single ping check on one URL.",
+      "A homepage can return 200 while the contact form is dead, the SSL certificate is about to expire, or a plugin update broke the layout. This page is the product overview for “website monitoring tool” searches. For retainer/SOW workflow language, see website monitoring for agencies.",
     keywords: [
       "website monitoring",
       "website monitoring tool",
-      "website monitoring for agencies",
       "monitor client websites",
+      "website monitoring beyond uptime",
       "website monitoring India",
     ],
     feature: "uptime-monitoring",
@@ -125,6 +125,12 @@ export const PRODUCTS: ProductPage[] = [
           "Confirm consecutive failures, check the URLs users actually hit, and keep evidence in the alert. That is how agency teams stop muting notifications - and still catch real outages.",
         ],
       },
+      {
+        h: "Primary page for “uptime monitoring tool” intent",
+        p: [
+          "This is the ranking page for tool/comparison queries. Supporting pages cover how monitors work, availability/SLA reporting and downtime incident workflows — linked in the topic cluster below so they do not dilute this intent.",
+        ],
+      },
     ],
     faqs: [
       {
@@ -138,6 +144,10 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "Is Watchfront only an uptime tool?",
         a: "No. Uptime is the foundation - Watchfront also monitors SSL, forms, SEO, APIs and JS errors, and produces client reports.",
+      },
+      {
+        q: "How is this different from availability monitoring?",
+        a: "This page is the productised alerting tool. Availability monitoring focuses on SLA-style reachability proof and reporting language.",
       },
     ],
   },
@@ -200,18 +210,18 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-monitoring-software",
     nav: "Monitoring software",
-    title: "Website Monitoring Software for Client Sites | Watchfront",
+    title: "Website Monitoring Software Platform | Watchfront",
     description:
-      "Website monitoring software for agencies: uptime, SSL, journey tests, SEO audits, JS errors and client reports in one product. Free 3-day trial.",
-    h1: "Website monitoring software for people who manage other people’s sites",
+      "Website monitoring software platform: one workspace for uptime, SSL, journeys, SEO, JS errors and client reports across a portfolio. Free 3-day trial.",
+    h1: "Website monitoring software as a platform — not a single ping product",
     intro:
-      "Most website monitoring software is built for engineering teams watching one product. Watchfront is website monitoring software for agencies and freelancers - many clients, many WordPress and marketing sites, one desk.",
+      "Category buyers search “website monitoring software” when they want a platform, not a one-check gadget. Watchfront is that platform for agencies: many clients, many WordPress and marketing sites, shared incidents and reports.",
     keywords: [
       "website monitoring software",
       "website monitoring platform",
-      "best website monitoring software",
-      "website monitoring SaaS",
-      "agency monitoring software",
+      "website monitoring SaaS platform",
+      "agency monitoring software platform",
+      "client website monitoring software",
     ],
     feature: "client-reports",
     features: ["uptime-monitoring", "form-journey-testing", "seo-audit", "javascript-error-monitoring", "client-reports"],
@@ -257,18 +267,18 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-downtime-monitoring",
     nav: "Downtime monitoring",
-    title: "Website Downtime Monitoring & Alerts | Watchfront",
+    title: "Website Downtime Monitoring & Incident Alerts | Watchfront",
     description:
-      "Website downtime monitoring with fast alerts, retries and evidence for agencies. Know before clients ask why the site is down. Free 3-day trial.",
-    h1: "Website downtime monitoring that tells you first",
+      "Website downtime monitoring focused on incidents: detect outages, open evidence-backed alerts, track downtime minutes for agency reports.",
+    h1: "Website downtime monitoring for incidents — not vanity uptime charts",
     intro:
-      "Website downtime monitoring should mean you hear about an outage before the client’s email lands. Watchfront confirms the failure, opens an incident with evidence, and keeps a history you can put in the monthly report.",
+      "When searchers want “downtime monitoring,” they mean outages and aftermath: who got alerted, how long it lasted, what proof you have. This page is the incident workflow. For the continuous checking product, use the uptime monitoring tool.",
     keywords: [
       "website downtime monitoring",
       "website downtime alerts",
-      "downtime monitoring",
-      "website down monitoring",
-      "outage monitoring",
+      "downtime incident monitoring",
+      "website outage monitoring",
+      "downtime minutes report",
     ],
     feature: "uptime-monitoring",
     features: ["uptime-monitoring", "api-monitoring", "form-journey-testing", "client-reports"],
@@ -592,18 +602,18 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-uptime-monitor",
     nav: "Uptime monitor",
-    title: "Website Uptime Monitor with Instant Alerts | Watchfront",
+    title: "How a Website Uptime Monitor Works | Watchfront",
     description:
-      "Website uptime monitor with 1-minute checks, retries and confirmed-outage alerts for agencies. Free 3-day trial.",
-    h1: "Website uptime monitor that confirms before it pages you",
+      "How a website uptime monitor works: probes, retries, confirmation thresholds and evidence. Built for agencies who need clarity, not noise.",
+    h1: "How a website uptime monitor actually works",
     intro:
-      "Looking for a website uptime monitor that does not cry wolf? Watchfront checks every minute, confirms consecutive failures, and attaches status codes and timing so the first person who sees the alert can act.",
+      "An uptime monitor is not a vibe check. It is a scheduled probe with retries, thresholds and a paper trail. This page explains the mechanics — for the productised tool with alerts and portfolio workflow, see our uptime monitoring tool.",
     keywords: [
       "website uptime monitor",
-      "uptime monitor",
-      "best website uptime monitor",
-      "website uptime checker",
-      "online uptime monitor",
+      "how uptime monitor works",
+      "uptime monitor probes",
+      "uptime monitor retries",
+      "online uptime monitor explained",
     ],
     feature: "uptime-monitoring",
     features: ["uptime-monitoring", "ssl-domain-monitoring", "api-monitoring", "client-reports"],
@@ -736,9 +746,22 @@ export const PRODUCTS: ProductPage[] = [
         ],
       },
       {
+        h: "The agency stack (name it in the SOW)",
+        p: [
+          "Uptime on money URLs. SSL and domain expiry. One real-browser form journey per lead-gen site. SEO hygiene on campaign pages. A monthly report with one recommended next step.",
+          "Steal the operating rhythm from the free India agency monitoring playbook, then automate it here.",
+        ],
+      },
+      {
         h: "Sell monitoring as a line item",
         p: [
           "Name the checks in the SOW. Price them. Automate them. Then the monthly PDF is proof — not theatre. Start free for 3 days on a real portfolio.",
+        ],
+      },
+      {
+        h: "How this differs from “uptime tool” pages",
+        p: [
+          "Uptime tools answer “is it up?” This page is about the agency workflow: clients, retainers, forms, reports and SOWs. Use the uptime monitoring tool page when the search intent is purely uptime product comparison.",
         ],
       },
     ],
@@ -754,6 +777,10 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "Is Watchfront only for India?",
         a: "It is built and supported for Indian agencies, but any English-speaking agency portfolio can use it.",
+      },
+      {
+        q: "Where is a sample report?",
+        a: "Use the free sample client uptime report under Resources, then generate live reports from Watchfront.",
       },
     ],
   },
@@ -815,18 +842,18 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-availability-monitoring",
     nav: "Availability monitoring",
-    title: "Website Availability Monitoring | Watchfront",
+    title: "Website Availability & SLA Monitoring | Watchfront",
     description:
-      "Website availability monitoring with 1-minute checks, confirmation rules and evidence for agencies. Know when client sites stop responding. Free trial.",
-    h1: "Website availability monitoring that confirms before it alerts",
+      "Website availability monitoring for SLA conversations: measure reachability over time, confirm outages, and prove availability % in client reports.",
+    h1: "Website availability monitoring for SLA-grade proof",
     intro:
-      "Availability monitoring answers a simple question: can visitors reach this URL right now? Watchfront checks every minute, confirms consecutive failures, and keeps history for client reports — then layers SSL, forms and SEO on the same desk.",
+      "Availability is the business word for “could customers reach us?” This page is about measuring and reporting availability percentages for retainers and host SLA disputes — not a generic uptime product tour. For the alerting tool itself, use the uptime monitoring tool.",
     keywords: [
       "website availability monitoring",
-      "availability monitoring",
-      "website availability checker",
+      "availability SLA monitoring",
+      "website availability percentage",
       "site availability monitoring",
-      "availability monitoring tool",
+      "availability monitoring for agencies",
     ],
     feature: "uptime-monitoring",
     features: ["uptime-monitoring", "ssl-domain-monitoring", "api-monitoring", "client-reports"],
@@ -871,18 +898,18 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-health-monitoring",
     nav: "Health monitoring",
-    title: "Website Health Monitoring for Agencies | Watchfront",
+    title: "Website Health Monitoring (Multi-Signal) | Watchfront",
     description:
-      "Website health monitoring beyond ping: availability, SSL, forms, SEO and JS errors with client reports. Free 3-day trial for agencies.",
-    h1: "Website health monitoring that means more than a green dot",
+      "Multi-signal website health monitoring: combine availability, SSL, forms, SEO and JS errors into one portfolio health view for agencies.",
+    h1: "Website health monitoring as a multi-signal score — not a green ping",
     intro:
-      "“Site health” should mean visitors can reach the URL, trust the certificate, complete the form and land on indexable pages. Watchfront website health monitoring bundles those checks for agency portfolios — with evidence and reports.",
+      "Health is plural. One green ping is not healthy if SSL is dying, the form is broken or the landing page is noindex. This page is about composing those signals into a single agency health view — distinct from a pure uptime tool.",
     keywords: [
       "website health monitoring",
-      "website health check",
-      "site health monitoring",
-      "website health monitoring tool",
-      "website health checker",
+      "multi signal website health",
+      "site health monitoring agencies",
+      "website health score monitoring",
+      "portfolio website health",
     ],
     feature: "uptime-monitoring",
     features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "seo-audit", "javascript-error-monitoring", "client-reports"],
