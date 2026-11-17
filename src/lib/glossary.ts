@@ -37,6 +37,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     body: [
       "If a site answers correctly for 43,170 minutes in a 43,200-minute month, uptime is 99.93%. The missing minutes are downtime.",
       "Agencies track uptime per client URL so retainers can prove “we kept you online” with numbers, not vibes.",
+      "How we measure it in Watchfront is documented in the uptime measurement methodology. To price risk for clients, use the cost of downtime calculator.",
     ],
     whyItMatters: [
       "Clients ask “were we down?” — uptime % answers in one number",
@@ -52,6 +53,7 @@ export const GLOSSARY: GlossaryTerm[] = [
     faqs: [
       { q: "Is 100% uptime realistic?", a: "Rarely. Even strong stacks have brief blips — measure honestly and communicate impact." },
       { q: "What does 99.9% uptime mean?", a: "About 43 minutes of downtime per month." },
+      { q: "How should agencies define uptime in a SOW?", a: "Name the URLs, check interval, confirmation rules and exclusions — see the monitoring SOW template and methodology pages." },
     ],
   },
   {
@@ -76,6 +78,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedFeature: "uptime-monitoring",
     relatedTool: "website-down-checker",
     relatedGuide: "website-down-what-to-do",
+    faqs: [
+      { q: "Is downtime always a full outage?", a: "No. Partial failures (checkout 5xx while homepage is fine) still count as business downtime for that URL." },
+      { q: "How do I estimate downtime cost?", a: "Use a planning estimate — see the cost of downtime calculator — then measure MTTD with real monitors." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -127,6 +133,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-monitoring-software",
     relatedFeature: "seo-audit",
     relatedTool: "meta-tag-checker",
+    faqs: [
+      { q: "What happens with duplicate canonicals?", a: "Search engines get mixed signals. Monitor money pages for canonical regressions after content edits." },
+      { q: "Is canonical the same as redirect?", a: "No. Canonicals are hints for indexing; redirects change what the browser loads." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -150,6 +160,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedFeature: "seo-audit",
     relatedTool: "meta-tag-checker",
     relatedGuide: "how-to-choose-website-monitoring-tool",
+    faqs: [
+      { q: "Can noindex sneak into production?", a: "Yes — staging leftovers and SEO plugins. That is why SEO hygiene checks belong in care plans." },
+      { q: "Does noindex affect uptime?", a: "No. The page can be up and still invisible to Google." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -173,6 +187,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-uptime-monitor",
     relatedTool: "http-status-checker",
     relatedGuide: "website-down-for-everyone-or-just-me",
+    faqs: [
+      { q: "Which statuses count as down?", a: "Usually 5xx and connection failures. Some teams also treat unexpected 3xx/4xx as failures for money URLs." },
+      { q: "Is HTTP 200 always healthy?", a: "No — soft 404s return 200 with empty or error content." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -196,6 +214,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-monitoring",
     relatedFeature: "form-journey-testing",
     relatedGuide: "how-to-choose-website-monitoring-tool",
+    faqs: [
+      { q: "Is synthetic the same as RUM?", a: "No. Synthetics run scripted checks on a schedule; RUM measures real visitors." },
+      { q: "What should agencies synthesise first?", a: "Homepage/checkout availability, SSL, and one lead form journey." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -219,6 +241,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "uptime-monitoring-tool",
     relatedFeature: "uptime-monitoring",
     relatedGuide: "reduce-false-uptime-alerts",
+    faqs: [
+      { q: "How do I cut false positives?", a: "Require consecutive failures, confirm from a second check, and alert on money URLs — not every asset." },
+      { q: "Are zero false positives possible?", a: "Not honestly. Aim for low noise with fast real detection." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -242,6 +268,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-downtime-monitoring",
     relatedFeature: "uptime-monitoring",
     relatedGuide: "website-down-what-to-do",
+    faqs: [
+      { q: "Why does DNS TTL matter in outages?", a: "High TTL slows failover after IP changes. Plan TTL before migrations." },
+      { q: "Does Watchfront change DNS TTL?", a: "No — we monitor availability; you control DNS at the registrar." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -265,6 +295,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-monitoring-software",
     relatedFeature: "client-reports",
     relatedGuide: "monitor-multiple-client-websites",
+    faqs: [
+      { q: "How is MTTR different from MTTD?", a: "MTTD is time to notice; MTTR is time to restore service after you start fixing." },
+      { q: "What lowers MTTR?", a: "Evidence in the alert (status, timing, screenshot) so the first responder can act." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -288,6 +322,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "uptime-monitoring-tool",
     relatedGuide: "what-is-uptime-monitoring",
     relatedTool: "website-down-checker",
+    faqs: [
+      { q: "Is host SLA the same as site SLA?", a: "No. Host uptime can be fine while your WordPress app is broken." },
+      { q: "Should agencies promise 99.99%?", a: "Only if measurement, exclusions and credits are written in the SOW." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -310,6 +348,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     keywords: ["what are Open Graph tags", "og:title", "Open Graph SEO", "WhatsApp link preview"],
     relatedFeature: "seo-audit",
     relatedTool: "meta-tag-checker",
+    faqs: [
+      { q: "Do broken OG tags affect uptime?", a: "No — but they wreck link previews for campaigns. Catch regressions in SEO checks." },
+      { q: "Should every page have Open Graph?", a: "Money and shareable pages should. Templates make it consistent." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -333,6 +375,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "uptime-monitoring-tool",
     relatedFeature: "uptime-monitoring",
     relatedTool: "http-status-checker",
+    faqs: [
+      { q: "Is slow response downtime?", a: "Not by default. Some teams alert on latency thresholds separately from availability." },
+      { q: "What should agencies track?", a: "Trends after updates — sudden jumps often beat absolute targets." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -356,6 +402,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-monitoring-software",
     relatedFeature: "client-reports",
     relatedGuide: "reduce-false-uptime-alerts",
+    faqs: [
+      { q: "What belongs in an incident note?", a: "Detected at, impact, cause or investigating, action taken — same shape as the sample uptime report." },
+      { q: "Should clients see every blip?", a: "Show confirmed incidents. Raw check noise belongs in ops, not the PDF." },
+    ],
     updated: "2026-11-17",
   },
   {
@@ -432,6 +482,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "synthetic-monitoring",
     relatedGuide: "synthetic-monitoring-vs-real-user-monitoring",
     updated: "2026-11-17",
+    faqs: [
+      { q: "Is a status page enough monitoring?", a: "No. It is a communication channel. Monitor client URLs independently." },
+      { q: "Should agencies run client status pages?", a: "Optional for large retainers. Always keep your own checks as the source of truth." },
+    ],
   },
   {
     slug: "time-to-first-byte",
@@ -455,6 +509,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedTool: "http-status-checker",
     relatedFeature: "uptime-monitoring",
     updated: "2026-11-17",
+    faqs: [
+      { q: "Is TTFB a Core Web Vital?", a: "No. LCP, INP and CLS are. TTFB is still a useful synthetic server-responsiveness signal." },
+      { q: "What is a good TTFB?", a: "Context-dependent. Track deltas after plugin updates and host moves rather than chasing a magic number." },
+    ],
   },
   {
     slug: "http-redirect",
@@ -477,6 +535,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedTool: "redirect-checker",
     relatedProduct: "website-monitoring",
     updated: "2026-11-17",
+    faqs: [
+      { q: "Should uptime monitors follow redirects?", a: "Usually yes to the final URL users hit — and separately verify that the redirect chain itself is healthy." },
+      { q: "When do redirect chains hurt SEO?", a: "Long chains and soft-404 targets waste crawl budget and slow pages. Check after migrations." },
+    ],
   },
   {
     slug: "care-plan",
@@ -499,6 +561,10 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-monitoring-for-agencies",
     relatedGuide: "how-to-write-monitoring-into-care-plans",
     updated: "2026-11-17",
+    faqs: [
+      { q: "What belongs in a care plan?", a: "Updates, backups, security basics, named monitors (uptime/SSL/forms) and a monthly report." },
+      { q: "How do I write monitoring into a care plan?", a: "Use the monitoring SOW template and the India agency playbook for operating rhythm." },
+    ],
   },
   {
     slug: "probe",
@@ -521,6 +587,63 @@ export const GLOSSARY: GlossaryTerm[] = [
     relatedProduct: "website-uptime-monitor",
     relatedGuide: "reduce-false-uptime-alerts",
     updated: "2026-11-17",
+    faqs: [
+      { q: "Do I need probes in every city?", a: "Usually no for brochure and lead-gen sites. Confirmation rules beat map theatre." },
+      { q: "Why did one probe fail and another pass?", a: "Transient network blips. That is why consecutive failures matter before paging." },
+    ],
+  },
+  {
+    slug: "mean-time-to-detect",
+    term: "Mean time to detect (MTTD)",
+    title: "What Is Mean Time to Detect (MTTD)? | Watchfront",
+    description:
+      "Mean time to detect (MTTD) is how long it takes to notice an outage. Definition for agencies and how check intervals cut MTTD.",
+    definition:
+      "Mean time to detect (MTTD) is the average time between a failure starting and your team becoming aware of it — usually via monitoring alerts.",
+    body: [
+      "If you only glance at sites on Monday, MTTD can be days. With 1-minute checks and confirmation, MTTD shrinks to minutes.",
+      "MTTD is not MTTR. Detection starts the clock; repair finishes it. Both belong in incident reviews.",
+    ],
+    whyItMatters: [
+      "Sells monitoring as insurance with a measurable outcome",
+      "Explains why check frequency is not vanity",
+      "Pairs with cost-of-downtime conversations",
+    ],
+    keywords: ["mean time to detect", "what is MTTD", "MTTD monitoring", "time to detect outage"],
+    relatedProduct: "uptime-monitoring-tool",
+    relatedGuide: "what-is-uptime-monitoring",
+    updated: "2026-11-17",
+    faqs: [
+      { q: "How do I lower MTTD?", a: "Shorter check intervals, confirmation that still pages quickly, and alerts that reach a human who can act." },
+      { q: "Is MTTD the same as downtime?", a: "No. Downtime is user impact duration. MTTD is how long until you know." },
+    ],
+  },
+  {
+    slug: "soft-404",
+    term: "Soft 404",
+    title: "What Is a Soft 404? | Watchfront",
+    description:
+      "A soft 404 returns HTTP 200 with “not found” content. Definition and why agencies monitor content — not just status codes.",
+    definition:
+      "A soft 404 is a page that tells humans “not found” (or shows empty/error content) while still returning an HTTP 200 success status — so basic uptime checks stay green.",
+    body: [
+      "Common after broken WordPress templates, misconfigured redirects and ecommerce category bugs. Status checkers alone will not catch them.",
+      "Content assertions and visual/content checks exist because soft 404s are silent revenue killers.",
+    ],
+    whyItMatters: [
+      "Explains “uptime green, Google Search Console angry”",
+      "Justifies content checks in the SOW",
+      "Protects ads landing on dead templates",
+    ],
+    keywords: ["what is a soft 404", "soft 404 meaning", "HTTP 200 not found", "soft 404 SEO"],
+    relatedProduct: "website-health-monitoring",
+    relatedFeature: "visual-regression-testing",
+    relatedTool: "seo-checker",
+    updated: "2026-11-17",
+    faqs: [
+      { q: "Will an uptime monitor catch soft 404s?", a: "Not if it only checks status codes. You need content assertions or SEO/content checks." },
+      { q: "Are soft 404s an SEO problem?", a: "Yes — crawlers may index junk URLs and users bounce from ads." },
+    ],
   },
 ];
 

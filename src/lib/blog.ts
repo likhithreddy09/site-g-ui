@@ -895,6 +895,86 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "price-downtime-before-you-price-monitoring",
+    nav: "Price downtime first",
+    title: "Price Downtime Before You Price Monitoring | Watchfront",
+    description:
+      "Agencies sell monitoring too cheap because downtime stays abstract. Use a cost-of-downtime estimate, SOW language and MTTD to price retainers honestly.",
+    h1: "Price the outage. Then the monitor stops looking expensive.",
+    excerpt:
+      "If the client thinks downtime is “annoying,” your ₹2,000 monitoring line item looks optional. Make the risk concrete first.",
+    keywords: [
+      "cost of website downtime",
+      "price website monitoring retainer",
+      "agency monitoring pricing",
+      "downtime cost for clients",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "clients",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/form-evidence.jpg",
+      alt: "Illustration of pricing downtime risk into a retainer",
+    },
+    product: "website-monitoring-for-agencies",
+    feature: "client-reports",
+    guide: "how-to-write-monitoring-into-care-plans",
+    relatedSlugs: [
+      "price-monitoring-into-the-retainer",
+      "what-to-put-in-client-uptime-report",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Most agencies underprice monitoring because the conversation starts with tools, not risk. Flip it. Show what two hours of silence costs, then show how [mean time to detect](/glossary/mean-time-to-detect) collapses with continuous checks.",
+      },
+      {
+        type: "p",
+        text: "Use the free [cost of downtime calculator](/resources/cost-of-downtime) as a planning estimate — monthly revenue ÷ 720 × downtime hours × impact. Say it out loud: this is not accounting; it is a shared language for “why we watch money URLs.”",
+      },
+      {
+        type: "h2",
+        text: "Put the math next to the SOW",
+      },
+      {
+        type: "p",
+        text: "Vague “we monitor your site” invites discounts. Paste scope from the [monitoring SOW template](/resources/monitoring-sow-template): named URLs, confirmation rules, alert routing, monthly report. Then automate it with [website monitoring for agencies](/website-monitoring-for-agencies).",
+      },
+      {
+        type: "ul",
+        items: [
+          "Homepage + lead form / checkout in scope",
+          "SSL days-remaining on every hostname",
+          "One real-browser journey per lead-gen site",
+          "Monthly PDF with one decision prompt",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Define uptime so the PDF cannot lie",
+      },
+      {
+        type: "p",
+        text: "If you and the client disagree on what “up” means, every report becomes a fight. Point them at the [uptime measurement methodology](/resources/uptime-measurement-methodology) and the plain [uptime](/glossary/uptime) definition. Honesty compounds trust.",
+      },
+      {
+        type: "quote",
+        text: "Cheap monitoring is usually unclear monitoring.",
+      },
+      {
+        type: "h2",
+        text: "Close with evidence, not theatre",
+      },
+      {
+        type: "p",
+        text: "After the first month, send a [sample-style client uptime report](/resources/sample-client-uptime-report) with real numbers. That is how the line item renews — not with another vendor comparison table.",
+      },
+    ],
+  },
 ];
 
 export const blogBySlug = (s: string) => BLOG_POSTS.find((p) => p.slug === s);

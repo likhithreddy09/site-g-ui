@@ -52,6 +52,8 @@
 - https://www.watchfront.in/glossary/http-redirect
 - https://www.watchfront.in/glossary/care-plan
 - https://www.watchfront.in/glossary/probe
+- https://www.watchfront.in/glossary/mean-time-to-detect
+- https://www.watchfront.in/glossary/soft-404
 
 ## Tools
 - https://www.watchfront.in/tools
@@ -97,6 +99,7 @@
 - https://www.watchfront.in/blog/synthetic-checks-beat-status-page-theatre
 - https://www.watchfront.in/blog/price-monitoring-into-the-retainer
 - https://www.watchfront.in/blog/availability-is-not-the-same-as-working
+- https://www.watchfront.in/blog/price-downtime-before-you-price-monitoring
 
 ## Compare
 - https://www.watchfront.in/compare/uptimerobot-alternative

@@ -204,6 +204,39 @@ export default async function ProductPage({ params }: Props) {
 
       {cluster ? <TopicClusterNav cluster={cluster} currentPath={`/${p.slug}`} /> : null}
 
+      <section className="mx-auto mt-16 max-w-3xl px-6" aria-labelledby="agency-assets">
+        <h2 id="agency-assets" className="text-2xl font-medium tracking-tight text-ink">
+          Agency assets that support this page
+        </h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] text-plum-2">
+          <li>
+            <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
+              Monitoring SOW template
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/cost-of-downtime" className="link-underline text-plum">
+              Cost of downtime calculator
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
+              Sample client uptime report
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/uptime-measurement-methodology" className="link-underline text-plum">
+              Uptime measurement methodology
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
+              India agency monitoring playbook
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <section className="mx-auto mt-16 max-w-6xl px-6" aria-labelledby="glossary-terms">
         <h2 id="glossary-terms" className="text-2xl font-medium tracking-tight text-ink">
           Key terms

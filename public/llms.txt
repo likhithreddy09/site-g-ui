@@ -64,6 +64,8 @@ RSS: https://www.watchfront.in/feed.xml
 - [Synthetic monitoring](https://www.watchfront.in/glossary/synthetic-monitoring)
 - [Noindex](https://www.watchfront.in/glossary/noindex)
 - [White-label report](https://www.watchfront.in/glossary/white-label-report)
+- [Mean time to detect (MTTD)](https://www.watchfront.in/glossary/mean-time-to-detect)
+- [Soft 404](https://www.watchfront.in/glossary/soft-404)
 
 ## Blog
 
@@ -74,6 +76,7 @@ RSS: https://www.watchfront.in/feed.xml
 - [SEO regressions after WordPress updates](https://www.watchfront.in/blog/seo-regressions-after-wordpress-updates)
 - [Silent form failures kill retainers](https://www.watchfront.in/blog/agencies-lose-retainers-to-silent-form-failures)
 - [Ecommerce checkout needs more than uptime](https://www.watchfront.in/blog/ecommerce-checkout-uptime-is-not-enough)
+- [Price downtime before you price monitoring](https://www.watchfront.in/blog/price-downtime-before-you-price-monitoring)
 
 ## Guides
 

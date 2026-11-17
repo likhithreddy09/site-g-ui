@@ -63,7 +63,12 @@ const nextConfig: NextConfig = {
       { source: "/seo", destination: "/features/seo-audit", permanent: true },
       { source: "/resources/playbook", destination: "/resources/agency-monitoring-playbook-india", permanent: true },
       { source: "/resources/report", destination: "/resources/sample-client-uptime-report", permanent: true },
+      { source: "/resources/sow", destination: "/resources/monitoring-sow-template", permanent: true },
+      { source: "/resources/downtime", destination: "/resources/cost-of-downtime", permanent: true },
+      { source: "/resources/methodology", destination: "/resources/uptime-measurement-methodology", permanent: true },
       { source: "/playbook", destination: "/resources/agency-monitoring-playbook-india", permanent: true },
+      { source: "/downtime-cost", destination: "/resources/cost-of-downtime", permanent: true },
+      { source: "/cost-of-downtime", destination: "/resources/cost-of-downtime", permanent: true },
     ];
   },
 };

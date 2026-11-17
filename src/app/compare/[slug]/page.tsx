@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaBand, FaqList, JsonLd, MarketingShell, MotionSection, PageHero } from "@/components/marketing/Site";
 import { COMPARISONS, comparisonBySlug } from "@/lib/compare";
-import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+import { breadcrumbLd, faqLd, pageMeta, webPageLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,6 +34,11 @@ export default async function ComparisonPage({ params }: Props) {
       <JsonLd data={[
         faqLd(c.faqs),
         webPageLd({ name: `${c.competitor} alternative`, description: c.description, path: `/compare/${c.slug}`, parentName: "Compare", parentPath: "/compare" }),
+        breadcrumbLd([
+          ["Home", "/"],
+          ["Compare", "/compare"],
+          [`${c.competitor} alternative`, `/compare/${c.slug}`],
+        ]),
       ]} />
       <PageHero crumbs={[["Home", "/"], ["Compare", "/compare"], [`${c.competitor} alternative`, `/compare/${c.slug}`]]} eyebrow={`Watchfront vs ${c.competitor}`} title={c.h1} intro={c.intro}>
         <div className="mt-8 flex flex-wrap items-center gap-5">
