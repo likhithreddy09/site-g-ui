@@ -43,6 +43,27 @@ export function GET() {
       date: "2026-11-17",
       category: "Resource",
     },
+    {
+      title: "Cost of website downtime calculator",
+      description: "Estimate revenue at risk from website downtime hours.",
+      path: "/resources/cost-of-downtime",
+      date: "2026-11-17",
+      category: "Resource",
+    },
+    {
+      title: "Website monitoring SOW template for agencies",
+      description: "Copy-ready scope language for care plans and retainers.",
+      path: "/resources/monitoring-sow-template",
+      date: "2026-11-17",
+      category: "Resource",
+    },
+    {
+      title: "How Watchfront measures website uptime",
+      description: "Uptime measurement methodology: checks, confirmation, uptime % and evidence.",
+      path: "/resources/uptime-measurement-methodology",
+      date: "2026-11-17",
+      category: "Resource",
+    },
   ].sort((a, b) => b.date.localeCompare(a.date));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

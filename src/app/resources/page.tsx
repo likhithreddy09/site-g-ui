@@ -15,6 +15,21 @@ const ASSETS = [
     body: "An original operating playbook: stack, SOW language, alert routing and monthly rhythm for Indian agencies.",
   },
   {
+    href: "/resources/cost-of-downtime",
+    title: "Cost of downtime calculator",
+    body: "Turn outage hours into a revenue-at-risk estimate clients understand — planning math, not fake surveys.",
+  },
+  {
+    href: "/resources/monitoring-sow-template",
+    title: "Monitoring SOW template",
+    body: "Copy-ready scope language for care plans: checks, SLAs, reporting cadence and exclusions.",
+  },
+  {
+    href: "/resources/uptime-measurement-methodology",
+    title: "Uptime measurement methodology",
+    body: "How Watchfront defines checks, confirmation, uptime % and evidence — shareable with clients.",
+  },
+  {
     href: "/glossary",
     title: "Monitoring glossary",
     body: "Plain-English definitions for uptime, SSL, noindex, synthetic monitoring and more.",

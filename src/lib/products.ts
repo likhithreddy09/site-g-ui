@@ -131,6 +131,13 @@ export const PRODUCTS: ProductPage[] = [
           "This is the ranking page for tool/comparison queries. Supporting pages cover how monitors work, availability/SLA reporting and downtime incident workflows — linked in the topic cluster below so they do not dilute this intent.",
         ],
       },
+      {
+        h: "Put a rupee number on downtime",
+        p: [
+          "Clients renew when they understand risk. Use the free cost of downtime calculator to estimate revenue at risk from outage hours, then show how 1-minute checks + confirmation cut detection time.",
+          "Close the loop with a sample client uptime report so the monthly PDF matches the SOW language you already sold.",
+        ],
+      },
     ],
     faqs: [
       {
@@ -148,6 +155,10 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "How is this different from availability monitoring?",
         a: "This page is the productised alerting tool. Availability monitoring focuses on SLA-style reachability proof and reporting language.",
+      },
+      {
+        q: "How do I explain downtime cost to a client?",
+        a: "Use a planning estimate: monthly revenue ÷ 720 hours × downtime hours × impact. Our free cost of downtime calculator does the math; pair it with monitoring evidence, not scare tactics.",
       },
     ],
   },
@@ -756,6 +767,7 @@ export const PRODUCTS: ProductPage[] = [
         h: "Sell monitoring as a line item",
         p: [
           "Name the checks in the SOW. Price them. Automate them. Then the monthly PDF is proof — not theatre. Start free for 3 days on a real portfolio.",
+          "Copy scope language from the free monitoring SOW template, price downtime risk with the cost of downtime calculator, and show the monthly deliverable with the sample client uptime report.",
         ],
       },
       {
@@ -781,6 +793,10 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "Where is a sample report?",
         a: "Use the free sample client uptime report under Resources, then generate live reports from Watchfront.",
+      },
+      {
+        q: "Do you have SOW / care-plan language?",
+        a: "Yes — use the free monitoring SOW template for scope, confirmation rules, alert routing and exclusions, then automate those URLs in Watchfront.",
       },
     ],
   },

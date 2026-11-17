@@ -68,6 +68,35 @@ export default async function ComparisonPage({ params }: Props) {
 
       <FaqList faqs={c.faqs} />
 
+      <section className="mx-auto mt-16 max-w-3xl px-6">
+        <h2 className="text-xl font-medium text-ink">Before you switch — useful assets</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] text-plum-2">
+          <li>
+            <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
+              Website monitoring for agencies
+            </Link>{" "}
+            — primary money page for retainer workflows
+          </li>
+          <li>
+            <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
+              Monitoring SOW template
+            </Link>{" "}
+            — scope language to paste into care plans
+          </li>
+          <li>
+            <Link href="/resources/cost-of-downtime" className="link-underline text-plum">
+              Cost of downtime calculator
+            </Link>{" "}
+            — turn outage hours into a client conversation
+          </li>
+          <li>
+            <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
+              Sample client uptime report
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <section className="mx-auto mt-20 max-w-6xl px-6">
         <h2 className="text-xl font-medium text-ink">Other comparisons</h2>
         <div className="mt-4 flex flex-wrap gap-3">

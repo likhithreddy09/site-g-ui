@@ -18,6 +18,16 @@
 - https://www.watchfront.in/website-monitoring-for-agencies
 - https://www.watchfront.in/synthetic-monitoring
 - https://www.watchfront.in/website-availability-monitoring
+- https://www.watchfront.in/website-health-monitoring
+
+## Resources
+- https://www.watchfront.in/resources
+- https://www.watchfront.in/resources/sample-client-uptime-report
+- https://www.watchfront.in/resources/agency-monitoring-playbook-india
+- https://www.watchfront.in/resources/cost-of-downtime
+- https://www.watchfront.in/resources/monitoring-sow-template
+- https://www.watchfront.in/resources/uptime-measurement-methodology
+- https://www.watchfront.in/about/editorial
 
 ## Glossary
 - https://www.watchfront.in/glossary

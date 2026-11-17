@@ -28,6 +28,8 @@ export const TOPIC_CLUSTERS: TopicCluster[] = [
       { href: "/website-downtime-monitoring", label: "Downtime incidents & alerts", role: "supporting" },
       { href: "/features/uptime-monitoring", label: "Uptime feature deep-dive", role: "supporting" },
       { href: "/tools/website-down-checker", label: "Free website down checker", role: "asset" },
+      { href: "/resources/cost-of-downtime", label: "Cost of downtime calculator", role: "asset" },
+      { href: "/resources/uptime-measurement-methodology", label: "Uptime measurement methodology", role: "asset" },
       { href: "/glossary/uptime", label: "What is uptime?", role: "asset" },
       { href: "/guides/what-is-uptime-monitoring", label: "Uptime monitoring guide", role: "asset" },
       { href: "/guides/reduce-false-uptime-alerts", label: "Cut false alerts", role: "asset" },
@@ -48,6 +50,8 @@ export const TOPIC_CLUSTERS: TopicCluster[] = [
       { href: "/guides/how-to-write-monitoring-into-care-plans", label: "Write monitoring into care plans", role: "asset" },
       { href: "/resources/sample-client-uptime-report", label: "Sample client uptime report", role: "asset" },
       { href: "/resources/agency-monitoring-playbook-india", label: "Agency monitoring playbook", role: "asset" },
+      { href: "/resources/monitoring-sow-template", label: "Monitoring SOW template", role: "asset" },
+      { href: "/resources/cost-of-downtime", label: "Cost of downtime calculator", role: "asset" },
     ],
   },
   {
