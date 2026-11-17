@@ -14,7 +14,7 @@ import {
   SectionHeader,
 } from "@/components/marketing/Site";
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
-import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+import { breadcrumbLd, faqLd, pageMeta, webPageLd } from "@/lib/seo";
 
 const USE_CASE_IMAGE: Record<string, { src: string; alt: string }> = {
   "web-agencies": { src: "/marketing/agency-team.jpg", alt: "Illustrated agency team collaborating on website care" },
@@ -61,6 +61,11 @@ export default async function UseCasePage({ params }: Props) {
             parentName: "Use cases",
             parentPath: "/use-cases",
           }),
+          breadcrumbLd([
+            ["Home", "/"],
+            ["Use cases", "/use-cases"],
+            [u.name, `/use-cases/${u.slug}`],
+          ]),
         ]}
       />
 
@@ -141,6 +146,37 @@ export default async function UseCasePage({ params }: Props) {
       </section>
 
       <FaqList faqs={u.faqs} />
+
+      <section className="mx-auto mt-16 max-w-3xl px-5 sm:px-6">
+        <h2 className="text-xl font-medium text-ink">Resources for this workflow</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] text-plum-2">
+          <li>
+            <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
+              Website monitoring for agencies
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
+              India agency monitoring playbook
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
+              Monitoring SOW template
+            </Link>
+          </li>
+          <li>
+            <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
+              Sample client uptime report
+            </Link>
+          </li>
+          <li>
+            <Link href="/guides/reduce-mean-time-to-detect" className="link-underline text-plum">
+              How to reduce MTTD
+            </Link>
+          </li>
+        </ul>
+      </section>
 
       <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="up">
         <SectionHeader title="Also used by" description="Same product, different workflows." />

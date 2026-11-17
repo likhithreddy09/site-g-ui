@@ -118,6 +118,29 @@ export default function FeaturesPage() {
           </div>
         </div>
       </MotionSection>
+
+      <section className="mx-auto mt-16 max-w-3xl px-5 sm:px-6">
+        <h2 className="text-xl font-medium text-ink">Put features into a retainer</h2>
+        <p className="mt-3 text-[15px] leading-relaxed text-plum-2">
+          Scope checks with the{" "}
+          <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
+            monitoring SOW template
+          </Link>
+          , measure detection with the{" "}
+          <Link href="/guides/reduce-mean-time-to-detect" className="link-underline text-plum">
+            MTTD guide
+          </Link>
+          , and show outcomes via the{" "}
+          <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
+            sample client uptime report
+          </Link>
+          . Full stack for agencies:{" "}
+          <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
+            website monitoring for agencies
+          </Link>
+          .
+        </p>
+      </section>
       <CtaBand />
     </MarketingShell>
   );
