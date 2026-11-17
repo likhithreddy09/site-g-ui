@@ -208,6 +208,14 @@ export default async function FeaturePage({ params }: Props) {
         </section>
       )}
 
+      <p className="mx-auto mt-12 max-w-6xl px-6 text-sm text-plum-2">
+        Confused by a term?{" "}
+        <Link href="/glossary" className="link-underline text-plum">
+          Open the monitoring glossary
+        </Link>{" "}
+        — uptime, SSL, synthetic monitoring, noindex and more.
+      </p>
+
       <CtaBand title="Try it on your own website." />
     </MarketingShell>
   );

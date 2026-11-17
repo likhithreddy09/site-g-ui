@@ -105,6 +105,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="apple-touch-icon" href="/brand/apple-touch-icon-v2.png" sizes="180x180" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="alternate" type="application/rss+xml" title={`${SITE.name} resources`} href="/feed.xml" />
         <BrandJsonLd />
         {/* Raw <script> tags (not next/script) so Google's detector sees G-2KJ7JC3FP6 in HTML source */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />

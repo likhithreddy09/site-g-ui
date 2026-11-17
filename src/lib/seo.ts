@@ -189,7 +189,21 @@ export function collectionPageLd({
   };
 }
 
-export function articleLd({ title, description, path, published, updated }: { title: string; description: string; path: string; published: string; updated: string }) {
+export function articleLd({
+  title,
+  description,
+  path,
+  published,
+  updated,
+  keywords = [],
+}: {
+  title: string;
+  description: string;
+  path: string;
+  published: string;
+  updated: string;
+  keywords?: string[];
+}) {
   const url = abs(path);
   return {
     "@context": "https://schema.org",
@@ -198,15 +212,75 @@ export function articleLd({ title, description, path, published, updated }: { ti
     headline: title,
     description,
     url,
-    mainEntityOfPage: url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
     datePublished: published,
     dateModified: updated,
     inLanguage: "en-IN",
+    isAccessibleForFree: true,
     image: abs(`${path}/opengraph-image`),
-    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    author: { "@id": `${SITE.url}/#editorial-team`, "@type": "Person", name: "Watchfront editorial team", url: abs("/about") },
     publisher: { "@id": `${SITE.url}/#organization`, "@type": "Organization", name: SITE.name, logo: { "@type": "ImageObject", url: abs("/logo.png") } },
+    ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "article p:first-of-type", "[data-definition]"],
+    },
   };
 }
+
+/** DefinedTerm for glossary / “what is X” pages (featured-snippet friendly). */
+export function definedTermLd({
+  term,
+  definition,
+  description,
+  path,
+}: {
+  term: string;
+  definition: string;
+  description: string;
+  path: string;
+}) {
+  const url = abs(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name: term,
+    description: definition,
+    url,
+    inDefinedTermSet: {
+      "@type": "DefinedTermSet",
+      name: "Watchfront website monitoring glossary",
+      url: abs("/glossary"),
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+      name: term,
+      description,
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["h1", "[data-definition]"],
+      },
+    },
+  };
+}
+
+/** E-E-A-T author Person node for articles (org-backed editorial). */
+export const editorialPersonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE.url}/#editorial-team`,
+  name: "Watchfront editorial team",
+  jobTitle: "Product + support",
+  worksFor: { "@id": `${SITE.url}/#organization` },
+  url: abs("/about"),
+  knowsAbout: [
+    "Website monitoring",
+    "Uptime monitoring",
+    "SSL certificate monitoring",
+    "Agency website operations",
+  ],
+};
 
 export function webAppLd({ name, description, path }: { name: string; description: string; path: string }) {
   return {
@@ -227,12 +301,17 @@ export function webAppLd({ name, description, path }: { name: string; descriptio
 export const SITE_NAV: [string, string][] = [
   ["Website monitoring", "/website-monitoring"],
   ["Uptime monitoring", "/uptime-monitoring-tool"],
+  ["Website uptime monitor", "/website-uptime-monitor"],
   ["SSL monitoring", "/ssl-certificate-monitoring"],
+  ["WordPress monitoring", "/wordpress-website-monitoring"],
+  ["Contact form monitoring", "/contact-form-monitoring"],
   ["Features", "/features"],
   ["Use cases", "/use-cases"],
   ["Free tools", "/tools"],
   ["Blog", "/blog"],
   ["Guides", "/guides"],
+  ["Glossary", "/glossary"],
+  ["Compare", "/compare"],
   ["Security", "/security"],
   ["About", "/about"],
   ["Contact", "/contact"],
@@ -284,7 +363,18 @@ export const organizationLd = {
       areaServed: "IN",
     },
   ],
-  sameAs: [SITE.twitter.startsWith("http") ? SITE.twitter : `https://x.com/${SITE.twitter.replace(/^@/, "")}`],
+  sameAs: [
+    SITE.twitter.startsWith("http") ? SITE.twitter : `https://x.com/${SITE.twitter.replace(/^@/, "")}`,
+    SITE.url,
+  ],
+  knowsAbout: [
+    "Website monitoring",
+    "Uptime monitoring",
+    "SSL certificate monitoring",
+    "Contact form monitoring",
+    "SEO audits",
+    "Website monitoring for agencies in India",
+  ],
 };
 
 export const websiteLd = {
@@ -302,6 +392,75 @@ export const websiteLd = {
     url: abs(path),
   })),
 };
+
+/** HowTo schema for guide-style playbooks (rich results when content matches). */
+export function howToLd({
+  name,
+  description,
+  path,
+  steps,
+  totalTime,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  steps: { name: string; text: string }[];
+  totalTime?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    url: abs(path),
+    inLanguage: "en-IN",
+    ...(totalTime ? { totalTime } : {}),
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      url: `${abs(path)}#step-${i + 1}`,
+    })),
+  };
+}
+
+/** SoftwareApplication node for money pages / product landers. */
+export function softwareAppLd({
+  name,
+  description,
+  path,
+  category = "BusinessApplication",
+}: {
+  name: string;
+  description: string;
+  path: string;
+  category?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    url: abs(path),
+    applicationCategory: category,
+    operatingSystem: "Web",
+    browserRequirements: "Requires JavaScript",
+    countriesSupported: "IN",
+    inLanguage: "en-IN",
+    isAccessibleForFree: true,
+    offers: {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: "INR",
+      description: "3-day free trial with every feature",
+      availability: "https://schema.org/InStock",
+      url: abs("/register"),
+    },
+    provider: { "@id": `${SITE.url}/#organization` },
+    publisher: { "@id": `${SITE.url}/#organization` },
+  };
+}
 
 /** Helps Google understand primary subpages (sitelinks candidates). */
 export const siteNavLd = {

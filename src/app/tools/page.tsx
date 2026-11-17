@@ -5,12 +5,21 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata = pageMeta({
-  title: "Free Website Tools: Down, SSL & SEO Checker | Watchfront",
-  description: "Free website tools: check if a site is down, check SSL certificate expiry, and run an on-page SEO audit. Instant results, no signup.",
+  title: "Free Website Tools: Down, SSL, SEO, Redirects | Watchfront",
+  description:
+    "Free website tools: down checker, HTTP status, redirect tracer, SSL expiry, SEO and meta tag checkers. Instant results, no signup.",
   path: "/tools",
-  keywords: ["free website tools", "website checker", "ssl checker", "seo checker", "website down checker"],
-  ogTitle: "Free Website Tools: Down, SSL & SEO Checker | Watchfront",
-  ogDescription: "Free website down, SSL expiry and on-page SEO checkers. Instant results, no signup.",
+  keywords: [
+    "free website tools",
+    "website down checker",
+    "http status checker",
+    "redirect checker",
+    "ssl checker",
+    "meta tag checker",
+    "seo checker",
+  ],
+  ogTitle: "Free Website Tools: Down, SSL, SEO & Redirects | Watchfront",
+  ogDescription: "Free down, HTTP status, redirect, SSL, SEO and meta tag checkers. Instant results, no signup.",
   image: "/tools/opengraph-image",
 });
 
@@ -27,9 +36,9 @@ export default function ToolsPage() {
         crumbs={[["Home", "/"], ["Free tools", "/tools"]]}
         eyebrow="Free tools"
         title="Free website checkers. Instant answers, no signup."
-        intro="Check whether a site is down, when its SSL certificate expires, or how its on-page SEO scores - the same engines that power Watchfront monitoring."
+        intro="Check whether a site is down, trace redirects, read HTTP status, inspect SSL expiry, or audit meta tags and on-page SEO - the same engines that power Watchfront monitoring."
       />
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-3">
+      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 md:grid-cols-3">
         {TOOLS.map((t) => (
           <MotionTile key={t.slug}>
             <Link href={`/tools/${t.slug}`} className="group flex h-full flex-col rounded-[1.75rem] bg-cream p-7 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:ring-magenta/20">
@@ -44,9 +53,12 @@ export default function ToolsPage() {
         <h2 className="text-2xl font-medium text-ink">What these free checkers do</h2>
         <p className="mt-4">
           Each tool runs a single live check from our servers, the same way Watchfront monitoring does. The{" "}
-          <Link href="/tools/website-down-checker" className="link-underline text-plum">website down checker</Link> fetches your page and reports the HTTP status, response time and any DNS or TLS errors, so you can tell whether a site is down for everyone or just for you. The{" "}
-          <Link href="/tools/ssl-checker" className="link-underline text-plum">SSL checker</Link> reads the certificate chain and shows the issuer, expiry date and days remaining. The{" "}
-          <Link href="/tools/seo-checker" className="link-underline text-plum">SEO checker</Link> audits titles, meta descriptions, headings, canonical tags, image alt text and structured data on one page.
+          <Link href="/tools/website-down-checker" className="link-underline text-plum">website down checker</Link> and{" "}
+          <Link href="/tools/http-status-checker" className="link-underline text-plum">HTTP status checker</Link> fetch your page and report status, response time and DNS/TLS errors. The{" "}
+          <Link href="/tools/redirect-checker" className="link-underline text-plum">redirect checker</Link> traces every hop after migrations. The{" "}
+          <Link href="/tools/ssl-checker" className="link-underline text-plum">SSL checker</Link> reads issuer, expiry and days remaining. The{" "}
+          <Link href="/tools/seo-checker" className="link-underline text-plum">SEO checker</Link> and{" "}
+          <Link href="/tools/meta-tag-checker" className="link-underline text-plum">meta tag checker</Link> audit titles, descriptions, canonicals, robots and social tags on one page.
         </p>
         <h2 className="mt-10 text-2xl font-medium text-ink">When a one-off check is not enough</h2>
         <p className="mt-4">

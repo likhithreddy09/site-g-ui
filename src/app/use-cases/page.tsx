@@ -7,16 +7,18 @@ import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Website Monitoring Use Cases for Agencies | Watchfront",
-  description: "Built for web agencies, WordPress maintainers, marketing teams and freelancers who look after client websites every week.",
+  description:
+    "Built for web agencies, WordPress maintainers, marketing teams, freelancers and ecommerce stores who look after client websites every week.",
   path: "/use-cases",
   keywords: [
     "website monitoring for agencies",
     "WordPress website monitoring",
     "landing page monitoring",
+    "ecommerce website monitoring",
     "website monitoring for freelancers",
   ],
   ogTitle: "Website Monitoring Use Cases for Agencies | Watchfront",
-  ogDescription: "Web agencies, WordPress care plans, marketing teams and freelancers - monitor client sites without the Monday manual check.",
+  ogDescription: "Web agencies, WordPress, marketing, freelancers and ecommerce - monitor client sites without Monday manual checks.",
   image: "/use-cases/opengraph-image",
 });
 

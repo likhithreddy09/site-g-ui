@@ -28,7 +28,7 @@ export const TOOLS: Tool[] = [
     kind: "website-status",
     name: "Website down checker",
     short: "Is it down for everyone or just you? Check any site's status, response time and redirects.",
-    title: "Is My Website Down? Free Website Down Checker | Watchfront",
+    title: "Is My Website Down? Free Checker (Instant) | Watchfront",
     description: "Check if a website is down for everyone or just you. Free, instant status check with HTTP code, response time and redirect chain - no signup.",
     keywords: ["is my website down", "website down checker", "check if website is down", "website status checker", "is it down right now"],
     h1: "Is my website down? Check it instantly",
@@ -71,7 +71,7 @@ export const TOOLS: Tool[] = [
     kind: "ssl",
     name: "SSL certificate checker",
     short: "See who issued a certificate, when it expires, which domains it covers and whether browsers trust it.",
-    title: "Free SSL Checker - Check Certificate Expiry | Watchfront",
+    title: "Free SSL Checker - Expiry, Issuer & Trust | Watchfront",
     description: "Check any website's SSL certificate: expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Free and instant.",
     keywords: ["ssl checker", "ssl certificate checker", "check ssl certificate expiry", "ssl expiry checker", "https certificate check"],
     h1: "Free SSL certificate checker",
@@ -150,6 +150,150 @@ export const TOOLS: Tool[] = [
     ],
     feature: "seo-audit",
     product: "website-monitoring",
+  },
+  {
+    slug: "http-status-checker",
+    kind: "website-status",
+    name: "HTTP status checker",
+    short: "See the live HTTP status code, response time and redirect chain for any URL.",
+    title: "Free HTTP Status Code Checker | Watchfront",
+    description:
+      "Free HTTP status checker. Instantly see status code, response time and redirects for any URL - from our servers, not your Wi-Fi.",
+    keywords: [
+      "http status checker",
+      "http status code checker",
+      "check http status",
+      "website status code",
+      "http response checker",
+    ],
+    h1: "Free HTTP status code checker",
+    intro:
+      "Paste a URL to see the live HTTP status, how long the response took, and every redirect hop - requested from our monitoring servers so local network issues do not confuse the result.",
+    placeholder: "example.com/page",
+    button: "Check HTTP status",
+    sections: [
+      {
+        h: "What the status codes mean",
+        p: [
+          "2xx means success. 3xx means a redirect (we show the chain). 4xx usually means the page is missing, blocked or unauthorised. 5xx means the server or upstream failed. Timeouts and DNS errors are reported in plain English.",
+        ],
+      },
+      {
+        h: "Why check from outside your network",
+        p: [
+          "Your laptop can cache DNS, hit a VPN filter, or use a different route than your visitors. An external HTTP status checker separates “down for everyone” from “down for me.”",
+        ],
+      },
+      {
+        h: "From one-off status to continuous monitoring",
+        p: [
+          "Use this tool when someone says the site is broken. Then put a website uptime monitor on the URLs that matter so you are alerted automatically next time.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this HTTP status checker free?", a: "Yes. No signup required. Fair-use limits apply per hour." },
+      { q: "Does it follow redirects?", a: "Yes. We follow up to five redirects and show each hop with its status." },
+      { q: "What is a good response time?", a: "Under ~500 ms to first byte is good for marketing sites. Consistently above 1–2 seconds hurts conversions." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-uptime-monitor",
+  },
+  {
+    slug: "redirect-checker",
+    kind: "website-status",
+    name: "Redirect checker",
+    short: "Trace every redirect hop, final URL and status codes for any link.",
+    title: "Free Redirect Checker - Trace URL Redirects | Watchfront",
+    description:
+      "Free redirect checker. Trace HTTP redirects, final URL and status codes for any link - catch chains, loops and mixed-content hops.",
+    keywords: [
+      "redirect checker",
+      "url redirect checker",
+      "http redirect checker",
+      "check redirects",
+      "redirect chain checker",
+    ],
+    h1: "Free URL redirect checker",
+    intro:
+      "Enter any URL to see the full redirect chain: each status code, each Location hop, and the final URL our servers land on. Useful after migrations, HTTPS cutovers and campaign link changes.",
+    placeholder: "https://example.com/old-page",
+    button: "Trace redirects",
+    sections: [
+      {
+        h: "Why redirect chains hurt",
+        p: [
+          "Long chains slow pages, confuse analytics, and dilute link equity. Mixed HTTP→HTTPS hops still surprise teams after a domain move. A redirect checker makes the path visible in seconds.",
+        ],
+      },
+      {
+        h: "Common agency use cases",
+        p: [
+          "Verify www vs apex, force-HTTPS, vanity campaign URLs, and post-migration maps before you tell the client “everything redirects correctly.”",
+        ],
+      },
+      {
+        h: "Keep watching after go-live",
+        p: [
+          "One check proves today’s chain. Continuous uptime and content monitoring catch when a deploy removes a redirect or points a CTA at a 404.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the redirect checker free?", a: "Yes. No account needed for spot checks." },
+      { q: "Can it detect redirect loops?", a: "If the chain does not resolve cleanly within the hop limit, you will see the failure instead of a clean final URL." },
+      { q: "Does it check HTTPS redirects?", a: "Yes. HTTP to HTTPS hops appear in the chain with their status codes." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-monitoring",
+  },
+  {
+    slug: "meta-tag-checker",
+    kind: "seo",
+    name: "Meta tag checker",
+    short: "Inspect title, meta description, robots, canonical and social tags on any page.",
+    title: "Free Meta Tag Checker - Title & Description | Watchfront",
+    description:
+      "Free meta tag checker for title, meta description, robots, canonical, Open Graph and Twitter cards. Instant on-page SEO readout.",
+    keywords: [
+      "meta tag checker",
+      "meta description checker",
+      "title tag checker",
+      "open graph checker",
+      "canonical tag checker",
+    ],
+    h1: "Free meta tag checker",
+    intro:
+      "Paste a URL to inspect the title tag, meta description, robots directives, canonical, viewport, Open Graph and Twitter card tags - scored with a plain-English fix list.",
+    placeholder: "example.com/landing",
+    button: "Check meta tags",
+    sections: [
+      {
+        h: "What we read on the page",
+        p: [
+          "Title length, meta description, H1, canonical, meta robots (including accidental noindex), html lang, Open Graph title/description/image, Twitter card, and related on-page hygiene that affects SERPs and social shares.",
+        ],
+      },
+      {
+        h: "Why agencies check meta after every publish",
+        p: [
+          "CMS edits and page builders silently drop descriptions or leave staging noindex on. A 30-second meta tag check before ads resume saves expensive “why did traffic drop?” calls.",
+        ],
+      },
+      {
+        h: "One page here, whole site on a schedule",
+        p: [
+          "This tool audits a single URL. Watchfront’s SEO audit crawls sitemap pages across client sites and re-checks on a schedule so regressions open incidents.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this meta tag checker free?", a: "Yes. Fair-use limits apply. No signup for a single-page check." },
+      { q: "Does it check Open Graph tags?", a: "Yes. OG title, description and image are part of the score." },
+      { q: "Can I audit every page automatically?", a: "Use Watchfront SEO audit in the 3-day trial to crawl and re-score sitemap pages." },
+    ],
+    feature: "seo-audit",
+    product: "website-monitoring-software",
   },
 ];
 

@@ -352,6 +352,549 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "ssl-expiry-still-taking-down-client-sites",
+    nav: "SSL expiry still kills sites",
+    title: "Why SSL Expiry Still Takes Down Client Sites | Watchfront",
+    description:
+      "Auto-renew was supposed to end certificate outages. Here is why SSL expiry still takes down client sites - and the monitoring habit that stops it.",
+    h1: "Auto-renew lied. SSL expiry still takes down client sites.",
+    excerpt:
+      "Let’s Encrypt lasts 90 days. Hosts promise auto-renew. Agencies still wake up to browser warnings. The failure mode is boring - and preventable.",
+    keywords: [
+      "SSL certificate expired",
+      "SSL expiry",
+      "SSL certificate monitoring",
+      "website SSL warning",
+      "lets encrypt failed renew",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "ops",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/checks-stack.jpg",
+      alt: "Illustration of stacked SSL and uptime checks",
+    },
+    product: "ssl-certificate-monitoring",
+    feature: "ssl-domain-monitoring",
+    tool: "ssl-checker",
+    guide: "what-is-ssl-monitoring",
+    relatedSlugs: [
+      "wordpress-care-plan-monitoring-checklist-india",
+      "what-to-put-in-client-uptime-report",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Every year the same Slack screenshot lands in agency channels: Chrome’s red “Your connection is not private.” The client is furious. The host swears auto-renew was on. The junior who “watched SSL” left three months ago.",
+      },
+      {
+        type: "p",
+        text: "Certificate outages are not mysterious. They are operational debt. [SSL certificate monitoring](/ssl-certificate-monitoring) is how you pay it down.",
+      },
+      {
+        type: "h2",
+        text: "Why auto-renew keeps failing",
+      },
+      {
+        type: "ul",
+        items: [
+          "DNS moved and the HTTP-01 challenge cannot reach the host",
+          "Firewall or bot protection blocks the renew path",
+          "www and apex use different certificates; only one renewed",
+          "Billing lapsed on a “free SSL” host add-on",
+          "The renew email goes to a founder who mutes vendor mail",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of those failures move the certificate’s Not After date. Monitoring watches the date. Inboxes watch hope.",
+      },
+      {
+        type: "h2",
+        text: "A boring system that works",
+      },
+      {
+        type: "ul",
+        items: [
+          "Inventory every production hostname - including vanity domains",
+          "Alert at 30 / 14 / 7 days (see [what SSL monitoring is](/guides/what-is-ssl-monitoring))",
+          "Spot-check with a free [SSL checker](/tools/ssl-checker) during onboarding",
+          "Put “days to next expiry” on page one of the [client uptime report](/blog/what-to-put-in-client-uptime-report)",
+        ],
+      },
+      {
+        type: "quote",
+        text: "If your only SSL strategy is “the host handles it,” you are subcontracting trust to a calendar you do not control.",
+      },
+      {
+        type: "h2",
+        text: "Pair SSL with uptime - they are not the same",
+      },
+      {
+        type: "p",
+        text: "A site can answer HTTP while HTTPS is broken, or show a warning interstitial that still “pings” from some checkers. Run [website uptime monitoring](/website-uptime-monitor) and SSL in the same workspace so both open incidents with evidence.",
+      },
+      {
+        type: "p",
+        text: "Certificate theatre is optional. Expiry alerts are not.",
+      },
+    ],
+  },
+  {
+    slug: "seo-regressions-after-wordpress-updates",
+    nav: "SEO after WP updates",
+    title: "SEO Regressions After WordPress Updates | Watchfront",
+    description:
+      "Plugin and theme updates silently break titles, meta and noindex. How agencies catch SEO regressions before traffic and ads tank.",
+    h1: "WordPress updates did not “just” break the layout. They broke SEO.",
+    excerpt:
+      "The site looks fine. Google Search Console does not. Here is the SEO regression pattern agencies keep missing after routine updates.",
+    keywords: [
+      "wordpress seo broken after update",
+      "seo regression",
+      "noindex wordpress",
+      "wordpress title tag missing",
+      "website seo audit",
+    ],
+    readMins: 8,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "stack",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/signal-abstract.jpg",
+      alt: "Abstract illustration of SEO signals across pages",
+    },
+    product: "website-monitoring-software",
+    feature: "seo-audit",
+    tool: "meta-tag-checker",
+    guide: "how-to-choose-website-monitoring-tool",
+    relatedSlugs: [
+      "wordpress-care-plan-monitoring-checklist-india",
+      "agency-monday-site-check-still-misses-broken-forms",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "You updated Yoast, swapped a page-builder section, and closed the ticket. Two weeks later the client asks why the landing page disappeared from ads quality checks. Spoiler: someone left noindex on, or the theme stopped outputting the meta description.",
+      },
+      {
+        type: "p",
+        text: "Uptime was green the whole time. SEO was not. That is why [SEO audits](/features/seo-audit) belong next to uptime on WordPress retainers.",
+      },
+      {
+        type: "h2",
+        text: "Regressions that sneak past a visual glance",
+      },
+      {
+        type: "ul",
+        items: [
+          "Accidental noindex / nofollow left from staging",
+          "Empty or duplicated title tags after a SEO plugin conflict",
+          "Canonical pointing at the wrong host (www vs apex)",
+          "Missing Open Graph tags so WhatsApp shares look broken",
+          "H1 removed when a hero block was “redesigned”",
+        ],
+      },
+      {
+        type: "h2",
+        text: "A 60-second gate before you close the update",
+      },
+      {
+        type: "p",
+        text: "Run a [meta tag checker](/tools/meta-tag-checker) on the money URL. Confirm title, description, robots and canonical. If you sell technical SEO as part of the care plan, schedule a multi-page audit so you are not relying on memory.",
+      },
+      {
+        type: "quote",
+        text: "If you only QA the screenshot, you are QA’ing what humans see - not what Googlebot parses.",
+      },
+      {
+        type: "h2",
+        text: "Put SEO monitoring in the SOW",
+      },
+      {
+        type: "p",
+        text: "Clients who buy ads expect indexability to stay sane. Name it: scheduled on-page checks, alert on noindex, monthly score in the report. Pair with [WordPress website monitoring](/wordpress-website-monitoring) so forms and SSL are covered in the same desk.",
+      },
+      {
+        type: "p",
+        text: "Updates without SEO gates are how quiet months become traffic autopsies.",
+      },
+    ],
+  },
+  {
+    slug: "agencies-lose-retainers-to-silent-form-failures",
+    nav: "Silent form failures",
+    title: "How Agencies Lose Retainers to Silent Form Failures | Watchfront",
+    description:
+      "Silent contact form failures cost agencies retainers. Why homepage uptime lies, how to prove forms work, and what to write into the care plan.",
+    h1: "Homepage is up. Leads are dead. Retainers follow.",
+    excerpt:
+      "The failure mode that ends care plans rarely looks like downtime. It looks like a thank-you page that never loads while everyone swears the site is fine.",
+    keywords: [
+      "broken contact form agency",
+      "contact form monitoring",
+      "silent form failure",
+      "lead form not working",
+      "agency retainer website issues",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "clients",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/form-evidence.jpg",
+      alt: "Illustration of evidence for a broken contact form",
+    },
+    product: "contact-form-monitoring",
+    feature: "form-journey-testing",
+    tool: "website-down-checker",
+    guide: "contact-form-monitoring-for-agencies",
+    relatedSlugs: [
+      "agency-monday-site-check-still-misses-broken-forms",
+      "ssl-expiry-still-taking-down-client-sites",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "When a site is down, clients shout. When a form is down, clients quietly stop getting leads - then stop paying you. Silent failures are how agencies lose retainers without a dramatic outage story.",
+      },
+      {
+        type: "p",
+        text: "A [website down checker](/tools/website-down-checker) will not save you. [Contact form monitoring](/contact-form-monitoring) will.",
+      },
+      {
+        type: "h2",
+        text: "What “silent” actually looks like",
+      },
+      {
+        type: "ul",
+        items: [
+          "Form UI submits; endpoint returns 500",
+          "Success message shows; SMTP never delivers",
+          "Spam plugin starts eating legitimate leads",
+          "Thank-you redirect 404s after a permalink change",
+          "Payment or booking step blocked by a plugin update",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Prove the path, do not admire the homepage",
+      },
+      {
+        type: "p",
+        text: "Record the journey once. Replay it on a schedule. Assert the success state. Keep a screenshot when it fails. That is the difference between “we maintain WordPress” and evidence. Details live in [contact form monitoring for agencies](/guides/contact-form-monitoring-for-agencies).",
+      },
+      {
+        type: "quote",
+        text: "If the check only happens when someone remembers, it is not a deliverable. It is a liability.",
+      },
+      {
+        type: "h2",
+        text: "Say it in the proposal",
+      },
+      {
+        type: "p",
+        text: "Name the forms. Name the frequency. Name the alert channel. Put failures in the monthly report. Clients renew insurance they can see. They cancel vibes.",
+      },
+      {
+        type: "p",
+        text: "Uptime keeps the lights on. Form journeys keep the leads - and the retainer - alive.",
+      },
+    ],
+  },
+  {
+    slug: "ecommerce-checkout-uptime-is-not-enough",
+    nav: "Checkout needs more than uptime",
+    title: "Ecommerce Checkout Monitoring Beyond Uptime | Watchfront",
+    description:
+      "Homepage uptime will not save a broken cart. How agencies monitor ecommerce checkouts, SSL and JS errors without creating fake orders.",
+    h1: "Your store is “up.” The checkout is not. That is how revenue dies.",
+    excerpt:
+      "Agencies still sell uptime as ecommerce protection. Merchants lose money on the path to purchase. Here is the monitoring layer that actually matches the risk.",
+    keywords: [
+      "ecommerce checkout monitoring",
+      "woocommerce uptime not enough",
+      "shopify monitoring agency",
+      "online store monitoring",
+      "checkout broken monitoring",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "ops",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/form-evidence.jpg",
+      alt: "Illustration of catching a broken purchase path",
+    },
+    product: "website-monitoring",
+    feature: "form-journey-testing",
+    guide: "ecommerce-website-monitoring",
+    relatedSlugs: [
+      "agencies-lose-retainers-to-silent-form-failures",
+      "ssl-expiry-still-taking-down-client-sites",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "I have watched agencies celebrate 99.9% uptime while the merchant’s Meta ads poured into a cart that threw a JS error on mobile Chrome. The homepage ping never blinked. Revenue did.",
+      },
+      {
+        type: "p",
+        text: "Ecommerce monitoring is not “is the store up?” It is “can a customer still buy?” Start from the [ecommerce website monitoring checklist](/guides/ecommerce-website-monitoring).",
+      },
+      {
+        type: "h2",
+        text: "What uptime misses on stores",
+      },
+      {
+        type: "ul",
+        items: [
+          "Add-to-cart buttons that no-op after a theme update",
+          "Coupon or shipping calculators returning 500",
+          "SSL warnings on checkout subdomains",
+          "Payment gateway scripts blocked or throwing",
+          "Thank-you / order-received pages 404ing after a permalink change",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Safe journeys on live stores",
+      },
+      {
+        type: "p",
+        text: "Use [form and journey testing](/features/form-journey-testing) up to a safe boundary. Block payment requests by default. Prefer sandbox gateways when you must go further. Never let a monitor place a real paid order.",
+      },
+      {
+        type: "quote",
+        text: "If your monitor can charge a customer’s card, your monitor is the incident.",
+      },
+      {
+        type: "h2",
+        text: "Pair SSL, JS errors and reports",
+      },
+      {
+        type: "p",
+        text: "Certificate warnings kill checkout trust. Real-visitor [JavaScript error monitoring](/javascript-error-monitoring-tool) catches browser-only failures. Put uptime, SSL days and journey pass rates on the monthly report so the retainer looks like insurance, not a mystery fee. For the broader product framing, see [website monitoring for agencies](/website-monitoring).",
+      },
+      {
+        type: "p",
+        text: "Green homepage. Empty cart. That is not monitoring. That is theatre.",
+      },
+    ],
+  },
+  {
+    slug: "synthetic-checks-beat-status-page-theatre",
+    nav: "Synthetics beat status theatre",
+    title: "Why Synthetic Checks Beat Host Status Pages | Watchfront",
+    description:
+      "Host status pages lag and lie by omission. Why agencies need independent synthetic monitoring on every client site.",
+    h1: "Your host’s status page is not monitoring. It is marketing.",
+    excerpt:
+      "Green host dashboards still miss regional DNS, SSL and “200 but form is dead.” Independent synthetics are how agencies stop outsourcing trust.",
+    keywords: [
+      "host status page vs monitoring",
+      "synthetic monitoring agencies",
+      "independent uptime monitoring",
+      "dont trust status page",
+    ],
+    readMins: 6,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "stack",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/signal-abstract.jpg",
+      alt: "Illustration of independent monitoring signals",
+    },
+    product: "synthetic-monitoring",
+    feature: "uptime-monitoring",
+    guide: "synthetic-monitoring-vs-real-user-monitoring",
+    relatedSlugs: [
+      "ssl-expiry-still-taking-down-client-sites",
+      "ecommerce-checkout-uptime-is-not-enough",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "When a client forwards a downtime screenshot, the worst reply is “host status is green.” Host pages measure their narrative. You need [synthetic monitoring](/synthetic-monitoring) that measures the URL the customer hits.",
+      },
+      {
+        type: "h2",
+        text: "What status pages skip",
+      },
+      {
+        type: "ul",
+        items: [
+          "Your specific domain’s DNS or CDN edge",
+          "Certificate warnings that still “ping”",
+          "Application 500s behind a healthy load balancer blurb",
+          "Broken forms and checkout steps",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Independence is the product",
+      },
+      {
+        type: "p",
+        text: "Run checks from outside the host. Confirm failures. Keep evidence. Read [synthetic vs RUM](/guides/synthetic-monitoring-vs-real-user-monitoring) if you are mixing browser errors into the stack.",
+      },
+      {
+        type: "quote",
+        text: "If the only monitor you trust is the vendor’s, you have no monitor.",
+      },
+      {
+        type: "p",
+        text: "Status theatre comforts. Synthetics renew retainers.",
+      },
+    ],
+  },
+  {
+    slug: "price-monitoring-into-the-retainer",
+    nav: "Price monitoring into retainers",
+    title: "How to Price Website Monitoring in Retainers | Watchfront",
+    description:
+      "How agencies price website monitoring inside care plans: line items, tiers, and the conversation that stops under-scoping.",
+    h1: "Price monitoring like insurance — or keep eating outages for free",
+    excerpt:
+      "If monitoring is “included” with no line item, you will under-scope forever. Here is how Indian agencies package and price it.",
+    keywords: [
+      "price website monitoring",
+      "monitoring retainer pricing",
+      "care plan monitoring cost",
+      "agency uptime pricing",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "clients",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/agency-desk.jpg",
+      alt: "Illustration of an agency desk pricing a retainer",
+    },
+    product: "website-monitoring-for-agencies",
+    feature: "client-reports",
+    guide: "how-to-write-monitoring-into-care-plans",
+    relatedSlugs: [
+      "wordpress-care-plan-monitoring-checklist-india",
+      "what-to-put-in-client-uptime-report",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Free monitoring inside a cheap care plan is how agencies burn out. Put a line item. Attach named checks. Show the report. Use [how to write monitoring into care plans](/guides/how-to-write-monitoring-into-care-plans) as the SOW spine.",
+      },
+      {
+        type: "h2",
+        text: "Three tiers that sell",
+      },
+      {
+        type: "ul",
+        items: [
+          "Essential: uptime + SSL on prod URLs",
+          "Growth: + lead form journey + monthly report",
+          "Protect: + SEO audits + JS errors on money pages / ecommerce paths",
+        ],
+      },
+      {
+        type: "h2",
+        text: "The client conversation",
+      },
+      {
+        type: "p",
+        text: "Ask: “When the form dies at 1am, who should know first — us or your customers?” Then show [website monitoring for agencies](/website-monitoring-for-agencies) as the delivery system, not a buzzword.",
+      },
+      {
+        type: "quote",
+        text: "Unpriced monitoring is unpaid emergency labour with better branding.",
+      },
+      {
+        type: "p",
+        text: "Insurance you can invoice. Hope you cannot.",
+      },
+    ],
+  },
+  {
+    slug: "availability-is-not-the-same-as-working",
+    nav: "Available ≠ working",
+    title: "Website Availability Is Not the Same as Working | Watchfront",
+    description:
+      "Availability monitoring keeps URLs reachable. Forms, SSL and checkout still break on green uptime. What agencies must measure next.",
+    h1: "The site is available. The business is not. That gap kills retainers.",
+    excerpt:
+      "HTTP 200 is not a lead. Availability is necessary and wildly insufficient. Here is the stack that closes the gap.",
+    keywords: [
+      "website availability vs uptime",
+      "site up but form broken",
+      "availability monitoring not enough",
+      "website working vs available",
+    ],
+    readMins: 6,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    category: "ops",
+    author: "Watchfront team",
+    authorRole: "Product + support, India",
+    image: {
+      src: "/marketing/form-evidence.jpg",
+      alt: "Illustration of availability vs working checks",
+    },
+    product: "website-availability-monitoring",
+    feature: "form-journey-testing",
+    guide: "best-website-monitoring-tools-for-agencies",
+    relatedSlugs: [
+      "agencies-lose-retainers-to-silent-form-failures",
+      "synthetic-checks-beat-status-page-theatre",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Availability monitoring asks: can we reach the URL? Business monitoring asks: can a customer complete the job? Agencies that only sell the first get fired over the second.",
+      },
+      {
+        type: "p",
+        text: "Start with [website availability monitoring](/website-availability-monitoring), then add journeys. Read the difference between [uptime](/glossary/uptime) and “working” in the glossary if you need shared language with clients.",
+      },
+      {
+        type: "h2",
+        text: "Green availability, red business",
+      },
+      {
+        type: "ul",
+        items: [
+          "Contact form 500s behind a fine homepage",
+          "SSL warning interstitial",
+          "Checkout JS errors on mobile only",
+          "noindex left on the campaign URL",
+        ],
+      },
+      {
+        type: "h2",
+        text: "The minimum stack after availability",
+      },
+      {
+        type: "p",
+        text: "SSL/domain, one form journey, SEO hygiene on money pages, and a report. Criteria live in [best website monitoring tools for agencies](/guides/best-website-monitoring-tools-for-agencies).",
+      },
+      {
+        type: "quote",
+        text: "Availability is the floor. Working is the product.",
+      },
+    ],
+  },
 ];
 
 export const blogBySlug = (s: string) => BLOG_POSTS.find((p) => p.slug === s);

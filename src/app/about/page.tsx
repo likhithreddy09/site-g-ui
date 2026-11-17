@@ -5,9 +5,15 @@ import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "About Watchfront - Website Monitoring Built in India",
-  description: "Watchfront is website monitoring for Indian agencies. We help you spot broken client sites before clients do - with clear evidence, not noise.",
+  description:
+    "About Watchfront: website monitoring software built in India for agencies. Catch downtime, SSL expiry, broken forms and SEO issues before clients do.",
   path: "/about",
-  keywords: ["about Watchfront", "Watchfront India", "website monitoring company"],
+  keywords: [
+    "about Watchfront",
+    "Watchfront India",
+    "website monitoring company",
+    "website monitoring for agencies India",
+  ],
   ogTitle: "About Watchfront - Website Monitoring Built in India",
   ogDescription: "We build website monitoring for Indian agencies who manage many client sites.",
   image: "/about/opengraph-image",

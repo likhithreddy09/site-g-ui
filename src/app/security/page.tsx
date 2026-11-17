@@ -4,9 +4,15 @@ import { SITE } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Security & Data Protection | Watchfront",
-  description: "How we protect secrets, keep live-site tests safe, and lock down workers. Read our practices and how to report a security issue.",
+  description:
+    "Watchfront security practices: encrypted secrets, SSRF-protected workers, safe live-site form tests, and how to report a vulnerability.",
   path: "/security",
-  keywords: ["Watchfront security", "monitoring security", "safe form testing"],
+  keywords: [
+    "Watchfront security",
+    "website monitoring security",
+    "safe form testing",
+    "encrypted monitoring secrets",
+  ],
   ogTitle: "Security & Data Protection | Watchfront",
   ogDescription: "Encrypted secrets, safe live tests, and workers that refuse private network targets.",
   image: "/security/opengraph-image",

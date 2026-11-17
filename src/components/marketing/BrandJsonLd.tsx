@@ -1,8 +1,8 @@
-import { organizationIdLd, websiteLd } from "@/lib/seo";
+import { editorialPersonLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
 
-/** Sitewide Organization + WebSite graph so Google can pick up the brand logo. */
+/** Sitewide Organization + WebSite + editorial Person + primary nav graph. */
 export function BrandJsonLd() {
-  const data = [organizationIdLd, websiteLd];
+  const data = [organizationIdLd, websiteLd, editorialPersonLd, siteNavLd];
   return (
     <script
       type="application/ld+json"

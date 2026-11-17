@@ -6,17 +6,19 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
   title: "Website Monitoring Guides & Checklists | Watchfront",
-  description: "Practical guides on uptime, SSL expiry alerts, contact form monitoring for agencies, website-down checks and monthly maintenance checklists.",
+  description:
+    "Practical guides on uptime, WordPress monitoring, SSL expiry, API checks, broken links, contact forms and how to choose a website monitoring tool.",
   path: "/guides",
   keywords: [
     "website monitoring guide",
-    "uptime monitoring guide",
+    "wordpress uptime monitoring",
+    "how to choose website monitoring tool",
+    "ssl monitoring",
+    "fix broken links",
     "contact form monitoring",
-    "ssl expiry alerts",
-    "website down for everyone or just me",
   ],
   ogTitle: "Website Monitoring Guides & Checklists | Watchfront",
-  ogDescription: "Guides for agencies: form monitoring, SSL alerts, downtime triage and retainer checklists.",
+  ogDescription: "Guides for agencies: WordPress uptime, SSL, APIs, broken links, forms and tool selection.",
   image: "/guides/opengraph-image",
 });
 
@@ -33,8 +35,14 @@ export default function GuidesPage() {
         crumbs={[["Home", "/"], ["Guides", "/guides"]]}
         eyebrow="Guides"
         title="Guides for people who keep websites running"
-        intro="Plain-English, practical guides on uptime, outages, SSL, forms and maintenance - written for agencies and freelancers."
+        intro="Plain-English, practical guides on uptime, outages, SSL, forms and maintenance - written for agencies and freelancers. New to a term? Start in the glossary."
       />
+      <p className="mx-auto -mt-6 mb-10 max-w-6xl px-6 text-sm text-plum-2">
+        <Link href="/glossary" className="link-underline text-plum">
+          Open the website monitoring glossary
+        </Link>
+        {" — uptime, SSL, noindex, synthetic monitoring and more."}
+      </p>
       <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
         {GUIDES.map((g) => (
           <MotionTile key={g.slug}>

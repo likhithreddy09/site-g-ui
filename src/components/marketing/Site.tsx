@@ -4,6 +4,7 @@ import { Logo } from "@/components/Logo";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
 import { BannerAuthCta, FooterAuthLinks, HeaderAuthCtas, MobileAuthLinks } from "@/components/marketing/AuthCtas";
 import { BLOG_POSTS } from "@/lib/blog";
+import { GLOSSARY } from "@/lib/glossary";
 import { GUIDES } from "@/lib/guides";
 import { FEATURES, USE_CASES } from "@/lib/marketing";
 import { PRODUCTS } from "@/lib/products";
@@ -164,10 +165,13 @@ export function SiteFooter() {
     ["Free tools", [["All free tools", "/tools"], ...TOOLS.map((t) => [t.name, `/tools/${t.slug}`] as [string, string])]],
     ["Resources", [
       ["Blog", "/blog"],
-      ...BLOG_POSTS.map((p) => [p.nav, `/blog/${p.slug}`] as [string, string]),
+      ...BLOG_POSTS.slice(0, 3).map((p) => [p.nav, `/blog/${p.slug}`] as [string, string]),
       ["Guides", "/guides"],
-      ...GUIDES.slice(0, 3).map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]),
+      ...GUIDES.slice(0, 4).map((g) => [g.nav, `/guides/${g.slug}`] as [string, string]),
+      ["Glossary", "/glossary"],
+      ...GLOSSARY.slice(0, 4).map((t) => [t.term, `/glossary/${t.slug}`] as [string, string]),
       ["Compare tools", "/compare"],
+      ["RSS feed", "/feed.xml"],
     ]],
     ["Company", [["About", "/about"], ["Contact", "/contact"], ["Security", "/security"]]],
     ["Legal", [

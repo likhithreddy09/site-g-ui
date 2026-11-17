@@ -9,17 +9,18 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Watchfront Blog - Agency Monitoring Resources",
   description:
-    "Practical blog posts for web agencies: care-plan monitoring, broken forms, client uptime reports, and the ops habits that protect retainers.",
+    "Practical blog posts for web agencies: SSL expiry, SEO regressions after WordPress updates, silent form failures, care-plan monitoring and client uptime reports.",
   path: "/blog",
   keywords: [
     "website monitoring blog",
     "agency monitoring resources",
     "wordpress care plan monitoring",
+    "ssl certificate expired",
+    "contact form monitoring",
     "client uptime report",
-    "website monitoring for agencies",
   ],
   ogTitle: "Watchfront Blog - Agency Monitoring Resources",
-  ogDescription: "Practical posts for agencies: care-plan monitoring, broken forms and client uptime reports.",
+  ogDescription: "Agency posts on SSL expiry, SEO regressions, silent form failures, synthetics and retainer pricing.",
   image: "/blog/opengraph-image",
 });
 

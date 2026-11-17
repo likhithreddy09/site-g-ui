@@ -22,9 +22,10 @@ const PRODUCT_VISUAL: Record<string, { hero: { src: string; alt: string }; band?
     hero: { src: "/marketing/checks-stack.jpg", alt: "Illustrated cards for SSL and uptime checks" },
   },
 };
+import { GLOSSARY } from "@/lib/glossary";
 import { featureBySlug, USE_CASES, audience } from "@/lib/marketing";
 import { PRODUCTS, productBySlug } from "@/lib/products";
-import { faqLd, pageMeta, webPageLd } from "@/lib/seo";
+import { breadcrumbLd, faqLd, pageMeta, softwareAppLd, webPageLd } from "@/lib/seo";
 import { guideBySlug } from "@/lib/guides";
 import { toolBySlug } from "@/lib/tools";
 
@@ -70,20 +71,19 @@ export default async function ProductPage({ params }: Props) {
             parentPath: "/features",
           }),
           {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Watchfront",
-            applicationCategory: "BusinessApplication",
-            operatingSystem: "Web",
-            description: p.description,
-            url: `https://www.watchfront.in/${p.slug}`,
-            offers: { "@type": "Offer", price: 0, priceCurrency: "INR", description: "3-day free trial" },
-            featureList: p.bullets.join(". "),
+            ...softwareAppLd({
+              name: `Watchfront — ${p.nav}`,
+              description: p.description,
+              path: `/${p.slug}`,
+            }),
+            featureList: p.bullets,
+            alternateName: p.keywords.slice(0, 3),
           },
+          breadcrumbLd([["Home", "/"], [p.nav, `/${p.slug}`]]),
         ]}
       />
       <PageHero
-        crumbs={[["Home", "/"], ["Features", "/features"], [p.nav, `/${p.slug}`]]}
+        crumbs={[["Home", "/"], [p.nav, `/${p.slug}`]]}
         eyebrow={p.nav}
         title={p.h1}
         intro={p.intro}
@@ -197,6 +197,30 @@ export default async function ProductPage({ params }: Props) {
           </Link>
           .
         </p>
+      </section>
+
+      <section className="mx-auto mt-16 max-w-6xl px-6" aria-labelledby="glossary-terms">
+        <h2 id="glossary-terms" className="text-2xl font-medium tracking-tight text-ink">
+          Key terms
+        </h2>
+        <p className="mt-2 text-[15px] text-plum-2">
+          Plain-English definitions —{" "}
+          <Link href="/glossary" className="link-underline text-plum">
+            full glossary
+          </Link>
+          .
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {GLOSSARY.slice(0, 8).map((t) => (
+            <Link
+              key={t.slug}
+              href={`/glossary/${t.slug}`}
+              className="rounded-full bg-cream px-4 py-2 text-[13px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream"
+            >
+              {t.term}
+            </Link>
+          ))}
+        </div>
       </section>
 
       <FaqList faqs={p.faqs} />

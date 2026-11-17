@@ -20,8 +20,10 @@ const MODULES = [
   ["Uptime & response", "/uptime-monitoring-tool", "1-minute checks with confirmed-outage alerts."],
   ["SSL & domain", "/ssl-certificate-monitoring", "Expiry warnings before browsers scare clients."],
   ["Form journeys", "/contact-form-monitoring", "Real-browser submits that prove leads still work."],
+  ["WordPress care plans", "/wordpress-website-monitoring", "Uptime, SSL, forms and SEO mapped to retainers."],
   ["SEO audit", "/features/seo-audit", "Multi-page scores and a fix list, not just the homepage."],
-  ["JS errors", "/features/javascript-error-monitoring", "Visitor errors grouped with the path they took."],
+  ["JS errors", "/javascript-error-monitoring-tool", "Visitor errors grouped with the path they took."],
+  ["API checks", "/api-monitoring-tool", "Endpoints and integrations the homepage never shows."],
   ["Client reports", "/features/client-reports", "Shareable proof that makes retainers feel earned."],
 ];
 
@@ -37,7 +39,17 @@ const appLd = {
   image: abs("/opengraph-image"),
   inLanguage: "en-IN",
   countriesSupported: "IN",
+  isAccessibleForFree: true,
   featureList: MODULES.map(([t]) => t),
+  offers: {
+    "@type": "Offer",
+    price: 0,
+    priceCurrency: "INR",
+    description: "3-day free trial with every feature",
+    availability: "https://schema.org/InStock",
+    url: abs("/register"),
+  },
+  provider: { "@id": `${SITE.url}/#organization` },
 };
 
 export default function Home() {
@@ -170,10 +182,10 @@ export default function Home() {
 
           <CinemaSection id="free-tools" className="mx-auto mt-24 max-w-6xl px-6 sm:mt-28" intensity={0.9}>
             <Reveal>
-              <h2 id="free-tools-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Free checkers</h2>
-              <p className="mt-3 max-w-xl text-base text-plum-2">One-off checks, no signup — same engines as 24/7 monitoring.</p>
+              <h2 id="free-tools-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Free website checkers</h2>
+              <p className="mt-3 max-w-xl text-base text-plum-2">Down, HTTP status, redirects, SSL, SEO and meta tags — no signup. Same engines as 24/7 monitoring.</p>
             </Reveal>
-            <Stagger className="mt-8 grid gap-4 md:grid-cols-3" stagger={0.1}>
+            <Stagger className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3" stagger={0.1}>
               {TOOLS.map((t) => (
                 <StaggerItem key={t.slug} variant="scale">
                   <Link href={`/tools/${t.slug}`} className="tile-lift group flex h-full flex-col rounded-3xl bg-cream p-6 ring-1 ring-plum/5">
@@ -185,11 +197,17 @@ export default function Home() {
               ))}
             </Stagger>
             <p className="mt-5 text-sm text-plum-2">
+              <Link href="/tools" className="link-underline">All free tools</Link>
+              {" · "}
+              <Link href="/glossary" className="link-underline">Glossary</Link>
+              {" · "}
               <Link href="/guides" className="link-underline">Guides</Link>
               {" · "}
               <Link href="/blog" className="link-underline">Blog</Link>
               {" · "}
               <Link href="/compare" className="link-underline">Compare</Link>
+              {" · "}
+              <Link href="/feed.xml" className="link-underline">RSS</Link>
             </p>
           </CinemaSection>
 

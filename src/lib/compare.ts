@@ -154,6 +154,267 @@ export const COMPARISONS: Comparison[] = [
       { q: "Does Watchfront monitor APIs?", a: "Yes. API monitors check endpoints on a schedule with status and body assertions, alongside website checks." },
     ],
   },
+  {
+    slug: "uptime-com-alternative",
+    competitor: "Uptime.com",
+    title: "Uptime.com Alternative for Agencies | Watchfront",
+    description:
+      "Looking for an Uptime.com alternative? Watchfront adds form journeys, SEO audits, JS errors and agency client reports on top of uptime and SSL.",
+    keywords: ["uptime.com alternative", "uptime com alternative", "uptime.com vs", "best uptime monitoring for agencies"],
+    h1: "An Uptime.com alternative shaped for agency portfolios",
+    intro:
+      "Uptime.com is a capable multi-location uptime platform. Agencies that manage many client WordPress and marketing sites usually need more than probe geography: broken forms, SSL expiry, SEO regressions and a report the client will open. That is Watchfront’s focus.",
+    theyDo: ["Multi-location uptime checks", "Transaction and API monitoring options", "Status pages", "Integrations for ops teams"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: ["You need many global probe locations as the primary buying reason", "You already standardise on Uptime.com across an enterprise", "You do not need agency client grouping or form journeys"],
+    faqs: [
+      {
+        q: "Is Watchfront a full Uptime.com replacement?",
+        a: "For website uptime, SSL and related agency checks, yes. If you specifically need Uptime.com’s enterprise probe network or status-page product, keep that and use Watchfront for client-site workflows.",
+      },
+      {
+        q: "Can I trial Watchfront alongside Uptime.com?",
+        a: "Yes. Start the 3-day free trial, add the same URLs, and compare what each tool catches on forms and SEO.",
+      },
+    ],
+  },
+  {
+    slug: "managewp-alternative",
+    competitor: "ManageWP",
+    title: "ManageWP Alternative for Monitoring | Watchfront",
+    description:
+      "Need a ManageWP alternative focused on monitoring? Watchfront watches uptime, SSL, forms and SEO across client WordPress sites with shareable reports.",
+    keywords: ["managewp alternative", "managewp monitoring alternative", "wordpress monitoring alternative", "manage wp vs"],
+    h1: "A ManageWP alternative when monitoring is the gap",
+    intro:
+      "ManageWP is strong for updates, backups and bulk WordPress management. Many agencies still need deeper runtime monitoring: confirmed downtime, SSL expiry, form journeys and SEO hygiene. Watchfront fills that monitoring layer without replacing your update workflow.",
+    theyDo: ["Bulk WordPress updates and backups", "Client reporting for maintenance work", "Security and performance add-ons", "Central dashboard for many WP sites"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: ["You primarily need bulk updates and backups", "You already run ManageWP for maintenance and only want light uptime", "You do not need real-browser form tests"],
+    faqs: [
+      {
+        q: "Does Watchfront replace ManageWP?",
+        a: "No. Watchfront is monitoring-first. Keep ManageWP (or similar) for updates and backups; use Watchfront for uptime, SSL, forms, SEO and client uptime reports.",
+      },
+      {
+        q: "Can both run on the same WordPress sites?",
+        a: "Yes. Watchfront monitors from the outside and does not conflict with ManageWP’s worker plugin.",
+      },
+    ],
+  },
+  {
+    slug: "godaddy-website-monitoring-alternative",
+    competitor: "GoDaddy Website Monitoring",
+    title: "GoDaddy Website Monitoring Alternative | Watchfront",
+    description:
+      "Outgrown GoDaddy website monitoring? Watchfront gives agencies uptime, SSL, form tests, SEO audits and client reports in one workspace.",
+    keywords: [
+      "godaddy website monitoring alternative",
+      "godaddy uptime monitoring alternative",
+      "godaddy monitoring vs",
+      "website monitoring india",
+    ],
+    h1: "A GoDaddy website monitoring alternative for serious retainers",
+    intro:
+      "GoDaddy’s built-in monitoring is fine as a host add-on. Agencies selling care plans usually need portfolio grouping, form journeys, SSL/domain expiry and reports that look professional. Watchfront is built for that job.",
+    theyDo: ["Basic uptime tied to GoDaddy hosting", "Simple alerts", "Convenience if you already host there", "Host-centric dashboard"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: ["You only host a couple of sites on GoDaddy and want the simplest free add-on", "You do not sell monitoring as a retainer deliverable", "You never need form or SEO checks"],
+    faqs: [
+      {
+        q: "Can Watchfront monitor sites not hosted on GoDaddy?",
+        a: "Yes. Watchfront monitors any public URL - WordPress, Webflow, custom stacks - regardless of host.",
+      },
+      {
+        q: "Why switch from GoDaddy monitoring?",
+        a: "If you manage many client sites across hosts, need form/SEO checks, or want client-ready uptime reports, Watchfront is a better fit.",
+      },
+    ],
+  },
+  {
+    slug: "datadog-alternative-for-websites",
+    competitor: "Datadog",
+    title: "Datadog Alternative for Website Agencies | Watchfront",
+    description:
+      "Need a Datadog alternative for client websites? Watchfront covers uptime, SSL, forms, SEO and reports without enterprise observability complexity.",
+    keywords: ["datadog alternative for websites", "datadog alternative agencies", "datadog vs uptime monitoring", "simple website monitoring"],
+    h1: "A Datadog alternative when you monitor websites, not infrastructure",
+    intro:
+      "Datadog is a powerhouse for infrastructure, APM and logs. If you mainly look after client marketing sites, that suite is usually overkill. Watchfront gives agencies the website checks that matter - without an observability tax.",
+    theyDo: ["Infrastructure and APM", "Logs, traces and metrics at scale", "Synthetic monitoring modules", "Enterprise integrations"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: ["You run product engineering with full observability needs", "You already pay for Datadog across the org", "Website agency workflows are not your problem"],
+    faqs: [
+      {
+        q: "Is Watchfront a Datadog replacement?",
+        a: "Only for website and API monitoring use cases. It is not an infrastructure or APM suite.",
+      },
+      {
+        q: "Who should pick Watchfront over Datadog?",
+        a: "Agencies and freelancers managing client websites who need form journeys, SEO audits and shareable reports.",
+      },
+    ],
+  },
+  {
+    slug: "new-relic-alternative-for-websites",
+    competitor: "New Relic",
+    title: "New Relic Alternative for Website Agencies | Watchfront",
+    description:
+      "Need a New Relic alternative for client websites? Watchfront covers uptime, SSL, forms, SEO and reports without full APM complexity or cost.",
+    keywords: [
+      "new relic alternative for websites",
+      "new relic alternative agencies",
+      "simple website monitoring",
+      "website monitoring vs APM",
+    ],
+    h1: "A New Relic alternative when you need website monitoring, not full APM",
+    intro:
+      "New Relic is an observability platform for applications and infrastructure. Agencies looking after marketing and WordPress sites rarely need that depth - they need uptime, SSL, forms and client reports. Watchfront is built for that narrower, sharper job.",
+    theyDo: ["APM and distributed tracing", "Infrastructure monitoring", "Logs and dashboards at scale", "Synthetic monitoring modules"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You run product engineering with full APM needs",
+      "You already standardise on New Relic company-wide",
+      "Website care-plan workflows are not your problem",
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront a New Relic replacement?",
+        a: "Only for website and light API monitoring. It is not an APM or infrastructure platform.",
+      },
+      {
+        q: "When should an agency pick Watchfront instead?",
+        a: "When the job is client websites, retainers and proof - not instrumenting a SaaS codebase.",
+      },
+    ],
+  },
+  {
+    slug: "monitis-alternative",
+    competitor: "Monitis",
+    title: "Monitis Alternative for Agencies | Watchfront",
+    description:
+      "Looking for a Monitis alternative? Watchfront gives agencies uptime, SSL, form journeys, SEO audits and client-ready reports in one workspace.",
+    keywords: ["monitis alternative", "monitis vs", "website monitoring alternative", "uptime monitoring for agencies"],
+    h1: "A Monitis alternative focused on client website portfolios",
+    intro:
+      "Monitis offers website and infrastructure monitoring for SMBs. If your day job is agency care plans - many client sites, forms, SSL and month-end reports - Watchfront is shaped around that workflow.",
+    theyDo: ["Website and server monitoring", "Transaction checks", "Dashboards for SMB ops", "Alerting integrations"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You need server resource monitoring as the main purchase",
+      "You are an in-house IT team, not an agency",
+      "You do not need client grouping or white-label reports",
+    ],
+    faqs: [
+      {
+        q: "Does Watchfront monitor servers like Monitis?",
+        a: "No. Watchfront monitors websites and APIs from the outside, plus optional real-visitor JS errors.",
+      },
+      {
+        q: "Can I try Watchfront next to Monitis?",
+        a: "Yes. Start the 3-day free trial and compare what each tool catches on forms and SEO.",
+      },
+    ],
+  },
+  {
+    slug: "pagerduty-alternative-for-websites",
+    competitor: "PagerDuty",
+    title: "PagerDuty Alternative for Website Agencies | Watchfront",
+    description:
+      "Need a PagerDuty alternative for client websites? Watchfront detects uptime, SSL and form failures with agency reports — without enterprise on-call complexity.",
+    keywords: [
+      "pagerduty alternative for websites",
+      "pagerduty alternative agencies",
+      "website monitoring vs pagerduty",
+      "simpler than pagerduty",
+    ],
+    h1: "A PagerDuty alternative when you monitor client websites, not on-call rotations",
+    intro:
+      "PagerDuty shines at enterprise incident routing and on-call. Agencies usually need something sharper: know when a client site or form breaks, with evidence and a monthly report. Watchfront is built for that job.",
+    theyDo: ["On-call scheduling and escalations", "Incident response workflows", "Integrations across observability stacks", "Enterprise operations tooling"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You run 24/7 engineering on-call for a product company",
+      "You already standardise on PagerDuty for every alert",
+      "Website care-plan reporting is not your problem",
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront a PagerDuty replacement?",
+        a: "No for enterprise on-call. Yes as the monitoring + alerting layer for agency client websites.",
+      },
+      {
+        q: "Does Watchfront escalate alerts?",
+        a: "Yes — unacknowledged incidents can escalate to extra recipients after a delay, with quiet hours for non-critical noise.",
+      },
+    ],
+  },
+  {
+    slug: "appdynamics-alternative-for-websites",
+    competitor: "AppDynamics",
+    title: "AppDynamics Alternative for Agencies | Watchfront",
+    description:
+      "Looking for an AppDynamics alternative for marketing sites? Watchfront covers uptime, SSL, forms, SEO and reports without full APM overhead.",
+    keywords: [
+      "appdynamics alternative",
+      "appdynamics alternative for websites",
+      "website monitoring vs APM",
+      "simple synthetic monitoring",
+    ],
+    h1: "An AppDynamics alternative for agencies (not full APM)",
+    intro:
+      "AppDynamics is deep application performance monitoring. If you maintain client WordPress and marketing sites, you rarely need that stack — you need synthetic website monitoring, forms, SSL and client proof. That is Watchfront.",
+    theyDo: ["Deep APM and business transactions", "Infrastructure correlation", "Enterprise dashboards", "Application-centric observability"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You instrument large custom applications",
+      "APM is already mandated by IT",
+      "You are not selling website care plans",
+    ],
+    faqs: [
+      {
+        q: "Can Watchfront replace AppDynamics?",
+        a: "Only for website/API synthetic monitoring use cases. It is not an APM platform.",
+      },
+      {
+        q: "Who should choose Watchfront?",
+        a: "Agencies and freelancers who need portfolio monitoring and retainer reports.",
+      },
+    ],
+  },
+  {
+    slug: "solarwinds-alternative-for-websites",
+    competitor: "SolarWinds",
+    title: "SolarWinds Alternative for Website Agencies | Watchfront",
+    description:
+      "Need a SolarWinds alternative for client websites? Watchfront covers uptime, SSL, forms, SEO and reports without enterprise IT complexity.",
+    keywords: [
+      "solarwinds alternative",
+      "solarwinds alternative for websites",
+      "website monitoring vs solarwinds",
+      "simple website monitoring for agencies",
+    ],
+    h1: "A SolarWinds alternative when you monitor websites, not enterprise IT",
+    intro:
+      "SolarWinds is a broad IT management universe. Agencies looking after client marketing sites need a thinner, sharper stack: availability, SSL, forms and retainer reports. Watchfront is built for that lane.",
+    theyDo: ["Network and infrastructure management", "Broad IT operations suites", "Enterprise monitoring modules", "Complex admin surfaces"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You run enterprise IT / network ops",
+      "You already standardise on SolarWinds across the org",
+      "Website care plans are not your product",
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront a SolarWinds replacement?",
+        a: "Only for website/API synthetic monitoring. It is not an IT management suite.",
+      },
+      {
+        q: "Who should pick Watchfront?",
+        a: "Agencies and freelancers who need portfolio website monitoring and client reports.",
+      },
+    ],
+  },
 ];
 
 export const comparisonBySlug = (s: string) => COMPARISONS.find((c) => c.slug === s);

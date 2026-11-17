@@ -1,5 +1,6 @@
 import { BLOG_POSTS } from "./blog";
 import { COMPARISONS } from "./compare";
+import { GLOSSARY } from "./glossary";
 import { GUIDES } from "./guides";
 import { FEATURES, USE_CASES } from "./marketing";
 import { PRODUCTS } from "./products";
@@ -18,7 +19,7 @@ export type SitemapEntry = {
 };
 
 /** Bump when marketing copy changes site-wide; a constant date keeps lastmod trustworthy for crawlers. */
-export const CONTENT_UPDATED = "2026-11-15"; // bumped with long-tail guides + meta pass
+export const CONTENT_UPDATED = "2026-11-17"; // top-S: glossary DefinedTerm graph + 100+ content slugs
 
 /**
  * Single source of truth for public indexable routes.
@@ -69,9 +70,21 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
   ...GUIDES.map((g) => ({ path: `/guides/${g.slug}`, priority: 0.8, changeFrequency: "monthly" as const, seo: g.title, lastmod: g.updated, image: `/guides/${g.slug}/opengraph-image` })),
   { path: "/compare", priority: 0.8, changeFrequency: "monthly", seo: "Comparisons hub", image: "/compare/opengraph-image" },
   ...COMPARISONS.map((c) => ({ path: `/compare/${c.slug}`, priority: 0.8, changeFrequency: "monthly" as const, seo: c.title, image: `/compare/${c.slug}/opengraph-image` })),
+  { path: "/glossary", priority: 0.85, changeFrequency: "weekly", seo: "Monitoring glossary hub", image: "/glossary/opengraph-image" },
+  ...GLOSSARY.map((t) => ({
+    path: `/glossary/${t.slug}`,
+    priority: 0.8,
+    changeFrequency: "monthly" as const,
+    seo: t.title,
+    lastmod: t.updated,
+    image: `/glossary/${t.slug}/opengraph-image`,
+  })),
   { path: "/security", priority: 0.7, changeFrequency: "monthly", seo: "Security / trust", image: "/security/opengraph-image" },
   { path: "/about", priority: 0.55, changeFrequency: "monthly", seo: "About brand", image: "/about/opengraph-image" },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly", seo: "Contact / book call", image: "/contact/opengraph-image" },
+  { path: "/feed.xml", priority: 0.3, changeFrequency: "weekly", seo: "RSS feed for blog + guides + glossary" },
+  { path: "/llms.txt", priority: 0.2, changeFrequency: "weekly", seo: "AI / LLM site summary" },
+  { path: "/llms-full.txt", priority: 0.2, changeFrequency: "weekly", seo: "AI / LLM full URL index" },
   { path: "/privacy", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
   { path: "/terms", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
   { path: "/refund", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },

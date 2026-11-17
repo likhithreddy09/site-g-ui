@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { CtaBand, FaqList, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
 import { GUIDES, guideBySlug } from "@/lib/guides";
 import { featureBySlug } from "@/lib/marketing";
-import { articleLd, faqLd, pageMeta } from "@/lib/seo";
+import { articleLd, breadcrumbLd, faqLd, howToLd, pageMeta } from "@/lib/seo";
 import { toolBySlug } from "@/lib/tools";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -41,6 +41,17 @@ export default async function GuidePage({ params }: Props) {
       <JsonLd data={[
         articleLd({ title: g.h1, description: g.description, path: `/guides/${g.slug}`, published: g.published, updated: g.updated }),
         faqLd(g.faqs),
+        breadcrumbLd([["Home", "/"], ["Guides", "/guides"], [g.nav, `/guides/${g.slug}`]]),
+        howToLd({
+          name: g.h1,
+          description: g.description,
+          path: `/guides/${g.slug}`,
+          totalTime: `PT${g.readMins}M`,
+          steps: g.sections.map((s) => ({
+            name: s.h,
+            text: [s.p?.[0], s.list?.slice(0, 3).join("; ")].filter(Boolean).join(" ") || s.h,
+          })),
+        }),
       ]} />
       <PageHero crumbs={[["Home", "/"], ["Guides", "/guides"], [g.h1, `/guides/${g.slug}`]]} eyebrow={`Guide · ${g.readMins} min read`} title={g.h1} intro={g.intro}>
         <p className="mt-4 text-xs text-plum/55">Updated <time dateTime={g.updated}>{new Date(g.updated).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</time> · Watchfront team</p>

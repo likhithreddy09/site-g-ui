@@ -74,6 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
           path: `/blog/${post.slug}`,
           published: post.published,
           updated: post.updated,
+          keywords: post.keywords,
         })}
       />
 

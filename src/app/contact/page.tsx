@@ -8,11 +8,18 @@ import { SITE, abs } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Contact Watchfront - Sales, Support & Demo Calls",
-  description: "Talk to the Watchfront team about setup, agency portfolios, support or a short demo. Email, phone, or book a call - we reply from India.",
+  description:
+    "Contact Watchfront for website monitoring sales, agency portfolio setup, support or a demo. Email, phone, or book a call - we reply from India.",
   path: "/contact",
-  keywords: ["contact Watchfront", "Watchfront support", "book a demo"],
+  keywords: [
+    "contact Watchfront",
+    "Watchfront support",
+    "website monitoring demo",
+    "agency monitoring sales India",
+    "book a demo",
+  ],
   ogTitle: "Contact Watchfront - Sales, Support & Demo Calls",
-  ogDescription: "Sales, support and billing for Watchfront website monitoring.",
+  ogDescription: "Sales, support and billing for Watchfront website monitoring in India.",
   image: "/contact/opengraph-image",
 });
 

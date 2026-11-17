@@ -30,9 +30,9 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: "website-monitoring",
     nav: "Website monitoring",
-    title: "Website Monitoring Tool for Agencies | Watchfront",
+    title: "Website Monitoring Tool for Agencies in India | Watchfront",
     description:
-      "Website monitoring for agencies: uptime, SSL, forms, SEO and JS errors on every client site - with alerts and reports. Free 3-day trial.",
+      "Best-fit website monitoring tool for Indian agencies: uptime, SSL, forms, SEO and JS errors on every client site - with alerts and reports. Free 3-day trial.",
     h1: "Website monitoring that catches more than downtime",
     intro:
       "A homepage can return 200 while the contact form is dead, the SSL certificate is about to expire, or a plugin update broke the layout. Watchfront is website monitoring software built for agencies looking after many client websites - not a single ping check on one URL.",
@@ -160,7 +160,7 @@ export const PRODUCTS: ProductPage[] = [
     feature: "ssl-domain-monitoring",
     features: ["ssl-domain-monitoring", "uptime-monitoring", "client-reports"],
     tool: "ssl-checker",
-    guide: "ssl-expiry-alerts-for-client-websites",
+    guide: "domain-expiry-monitoring",
     bullets: [
       "Daily certificate chain validation",
       "Days-left and issuer visibility per hostname",
@@ -363,6 +363,565 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "Can I monitor booking or login flows too?",
         a: "Yes. Journey tests support multi-step flows beyond a single contact form.",
+      },
+    ],
+  },
+  {
+    slug: "wordpress-website-monitoring",
+    nav: "WordPress monitoring",
+    title: "WordPress Website Monitoring for Agencies | Watchfront",
+    description:
+      "WordPress website monitoring for agencies: uptime, SSL, plugin-break form tests, SEO regressions and client reports. Free 3-day trial.",
+    h1: "WordPress website monitoring built for care plans",
+    intro:
+      "WordPress sites break quietly after plugin updates, theme edits and host “security” patches. Watchfront WordPress website monitoring watches uptime, certificates, lead forms and on-page SEO so your care plan catches failures before the client’s customers do.",
+    keywords: [
+      "wordpress website monitoring",
+      "wordpress uptime monitoring",
+      "wordpress monitoring tool",
+      "wordpress care plan monitoring",
+      "monitor wordpress sites",
+    ],
+    feature: "form-journey-testing",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "seo-audit", "client-reports"],
+    tool: "website-down-checker",
+    guide: "wordpress-uptime-monitoring",
+    bullets: [
+      "1-minute uptime on every retained WordPress site",
+      "SSL and domain expiry across the portfolio",
+      "Real-browser Contact Form 7 / Gravity Forms journeys",
+      "SEO audits after content or theme changes",
+      "Monthly reports that sell the care plan",
+    ],
+    sections: [
+      {
+        h: "What WordPress monitoring must cover",
+        p: [
+          "A green homepage is not enough. Plugin updates break forms, SMTP stops delivering, SSL auto-renew fails after a DNS move, and a staging noindex sneaks into production. Agencies need checks that match how WordPress actually fails.",
+          "Watchfront groups sites by client, runs those checks on a schedule, and attaches screenshots and status codes when something breaks.",
+        ],
+      },
+      {
+        h: "Fit for Indian WordPress retainers",
+        p: [
+          "Price monitoring into the care-plan SOW, then automate it. Start a 3-day free trial on a real client site and compare what your Monday glance was missing.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Do I need a WordPress plugin for monitoring?",
+        a: "No for uptime, SSL, SEO, content and form journeys. An optional script adds real-visitor JavaScript error monitoring.",
+      },
+      {
+        q: "Can Watchfront test Contact Form 7 and Gravity Forms?",
+        a: "Yes. Journey tests fill and submit the form in a real browser and assert the success state.",
+      },
+      {
+        q: "Is this for WordPress.com or self-hosted?",
+        a: "Self-hosted and most managed WordPress hosts work. Anything publicly reachable over HTTPS can be monitored.",
+      },
+    ],
+  },
+  {
+    slug: "api-monitoring-tool",
+    nav: "API monitoring",
+    title: "API Monitoring Tool for Agencies | Watchfront",
+    description:
+      "API monitoring tool for form handlers, booking engines and CMS endpoints. Assert status and body on a schedule. Free 3-day trial.",
+    h1: "API monitoring tool that catches what the homepage hides",
+    intro:
+      "Homepages stay up while booking APIs, form endpoints and headless CMS routes fail. Watchfront’s API monitoring tool checks the endpoints that make money - on a schedule, with assertions - so agencies find integration failures before clients do.",
+    keywords: [
+      "API monitoring tool",
+      "API monitoring",
+      "endpoint monitoring",
+      "website API monitoring",
+      "Postman monitoring",
+    ],
+    feature: "api-monitoring",
+    features: ["api-monitoring", "uptime-monitoring", "form-journey-testing", "javascript-error-monitoring"],
+    guide: "how-to-monitor-website-apis",
+    bullets: [
+      "Import Postman, OpenAPI, HAR, CSV or paste cURL",
+      "Assert status codes, JSON fields, headers and latency",
+      "Encrypted secret headers for tokens",
+      "Incidents with plain-English failure reasons",
+      "Pairs with uptime and form journeys in one workspace",
+    ],
+    sections: [
+      {
+        h: "Why agencies need API monitoring",
+        p: [
+          "Marketing sites increasingly depend on third-party booking, CRM and payment APIs. When those fail, the homepage still returns 200. Endpoint checks close that blind spot.",
+        ],
+      },
+      {
+        h: "Set up without a full observability suite",
+        p: [
+          "Paste a cURL or import the collection your developer already uses. Watchfront stores tokens encrypted and alerts when the contract breaks - without asking you to run Datadog for a brochure site.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is an API monitoring tool?",
+        a: "Software that repeatedly calls HTTP endpoints, checks the response against rules you define, and alerts when the API misbehaves.",
+      },
+      {
+        q: "Can I import Postman collections?",
+        a: "Yes. Postman v2/v2.1, OpenAPI 3, Swagger 2, HAR and CSV are supported.",
+      },
+      {
+        q: "Is API monitoring included in the free trial?",
+        a: "Yes. The 3-day trial includes every Watchfront feature, including API monitors.",
+      },
+    ],
+  },
+  {
+    slug: "javascript-error-monitoring-tool",
+    nav: "JS error monitoring",
+    title: "JavaScript Error Monitoring Tool | Watchfront",
+    description:
+      "JavaScript error monitoring for client websites. See real-visitor errors with the steps before the break. Free 3-day trial.",
+    h1: "JavaScript error monitoring that shows what visitors hit",
+    intro:
+      "Synthetic checks miss browser-only failures. Watchfront’s JavaScript error monitoring tool captures real-visitor exceptions, groups them by fingerprint, and shows the journey before the break - so agencies fix the bugs clients feel.",
+    keywords: [
+      "javascript error monitoring",
+      "JS error monitoring",
+      "frontend error monitoring",
+      "website javascript errors",
+      "client-side error tracking",
+    ],
+    feature: "javascript-error-monitoring",
+    features: ["javascript-error-monitoring", "form-journey-testing", "uptime-monitoring", "client-reports"],
+    guide: "fix-javascript-errors-on-client-sites",
+    bullets: [
+      "Lightweight script for real-visitor errors",
+      "Grouped fingerprints instead of alert spam",
+      "Steps and console context before the failure",
+      "Works alongside synthetic uptime and journeys",
+      "Evidence you can put in a client update",
+    ],
+    sections: [
+      {
+        h: "Synthetic uptime vs real-browser errors",
+        p: [
+          "A site can pass every outside check and still throw on a specific browser, ad-blocked script, or mobile path. Real-visitor JS monitoring closes that gap without replacing uptime checks.",
+        ],
+      },
+      {
+        h: "Built for agency portfolios",
+        p: [
+          "Turn the script on for retained sites that run heavy themes or third-party tags. Pair with form journeys on the money pages so you catch both silent exceptions and broken submits.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Do I need the script for all monitoring?",
+        a: "No. Uptime, SSL, SEO and journey tests work without it. The script is only for real-visitor JavaScript errors.",
+      },
+      {
+        q: "Will this slow the client site?",
+        a: "The script is small and loads after interactive. It is designed for marketing sites, not heavy APM overhead.",
+      },
+      {
+        q: "Can clients see JS errors?",
+        a: "You control reporting. Share summaries in client reports or keep raw errors internal.",
+      },
+    ],
+  },
+  {
+    slug: "broken-link-checker-tool",
+    nav: "Broken link monitoring",
+    title: "Broken Link Checker & Monitoring | Watchfront",
+    description:
+      "Broken link checker and continuous monitoring for client sites. Catch 404s and dead CTAs before they hurt SEO and trust. Free 3-day trial.",
+    h1: "Broken link checker that keeps watching after the audit",
+    intro:
+      "A one-off broken link crawl is useful. Continuous broken link monitoring is what agencies need after content edits and redesigns. Watchfront finds dead links and missing content on a schedule - and opens incidents when money pages break.",
+    keywords: [
+      "broken link checker",
+      "broken link monitoring",
+      "dead link checker",
+      "404 monitor",
+      "website broken links",
+    ],
+    feature: "visual-regression-testing",
+    features: ["visual-regression-testing", "seo-audit", "uptime-monitoring", "client-reports"],
+    tool: "seo-checker",
+    guide: "fix-broken-links-on-client-websites",
+    bullets: [
+      "Scheduled content and link checks on key pages",
+      "Plain-English reasons for dead links",
+      "Pairs with SEO audits for titles and indexing",
+      "Incidents when important CTAs disappear",
+      "Evidence for client reports after content work",
+    ],
+    sections: [
+      {
+        h: "Why broken links keep coming back",
+        p: [
+          "Agencies publish new landing pages, migrate blogs, and retire old offers. Links rot. A quarterly crawl is not enough when ads point at pages that quietly 404.",
+        ],
+      },
+      {
+        h: "Monitor the pages that make money",
+        p: [
+          "Prioritise campaign URLs, nav CTAs and footer contact links. Watchfront’s content checks watch the words and parts you mark as must-have - not every obscure archive page.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront a free broken link checker?",
+        a: "Use the free SEO checker for on-page hygiene, then schedule content and link monitoring in the trial for continuous coverage.",
+      },
+      {
+        q: "Does it crawl the whole site?",
+        a: "SEO audits crawl sitemap and important links. Content checks focus on the pages and elements you mark as critical.",
+      },
+      {
+        q: "Will dynamic menus cause false alarms?",
+        a: "Common moving UI (cookie banners, chat widgets) is ignored automatically, and you can hide other regions.",
+      },
+    ],
+  },
+  {
+    slug: "website-uptime-monitor",
+    nav: "Uptime monitor",
+    title: "Website Uptime Monitor with Instant Alerts | Watchfront",
+    description:
+      "Website uptime monitor with 1-minute checks, retries and confirmed-outage alerts for agencies. Free 3-day trial.",
+    h1: "Website uptime monitor that confirms before it pages you",
+    intro:
+      "Looking for a website uptime monitor that does not cry wolf? Watchfront checks every minute, confirms consecutive failures, and attaches status codes and timing so the first person who sees the alert can act.",
+    keywords: [
+      "website uptime monitor",
+      "uptime monitor",
+      "best website uptime monitor",
+      "website uptime checker",
+      "online uptime monitor",
+    ],
+    feature: "uptime-monitoring",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "api-monitoring", "client-reports"],
+    tool: "website-down-checker",
+    guide: "what-is-uptime-monitoring",
+    bullets: [
+      "HTTP checks as often as every minute",
+      "Retries and thresholds before incidents",
+      "Email alerts with evidence",
+      "Quiet hours for non-critical sites",
+      "Uptime history for client reports",
+    ],
+    sections: [
+      {
+        h: "Uptime monitor vs free down checker",
+        p: [
+          "A free checker answers “is it down right now?” A website uptime monitor answers “was it down at 2am, for how long, and did we catch it first?”",
+        ],
+      },
+      {
+        h: "Built for multi-client portfolios",
+        p: [
+          "Group sites by client, route alerts to the right person, and export uptime into the monthly report without rebuilding charts in Canva.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is a website uptime monitor?",
+        a: "A service that repeatedly requests your URLs and alerts you when they stop responding correctly - ideally after confirming the failure.",
+      },
+      {
+        q: "How often should an uptime monitor check?",
+        a: "Every 1 minute is a strong default for client marketing sites. Use confirmation rules so one failed probe is not enough.",
+      },
+      {
+        q: "Is Watchfront free to try?",
+        a: "Yes. 3-day free trial with every feature, no card required.",
+      },
+    ],
+  },
+  {
+    slug: "domain-expiry-monitoring",
+    nav: "Domain expiry",
+    title: "Domain Expiry Monitoring & Alerts | Watchfront",
+    description:
+      "Domain expiry monitoring with early alerts across every client domain. Pair with SSL and uptime so renewals never surprise you. Free 3-day trial.",
+    h1: "Domain expiry monitoring that warns before the site vanishes",
+    intro:
+      "When a domain lapses, the website and often email disappear. Watchfront domain expiry monitoring watches registry dates across your client portfolio - and shows unknown honestly when a registry hides the date.",
+    keywords: [
+      "domain expiry monitoring",
+      "domain expiration monitoring",
+      "domain expiry alerts",
+      "monitor domain expiry",
+      "website domain monitoring",
+    ],
+    feature: "ssl-domain-monitoring",
+    features: ["ssl-domain-monitoring", "uptime-monitoring", "client-reports"],
+    tool: "ssl-checker",
+    guide: "domain-expiry-monitoring",
+    bullets: [
+      "Registry expiry checks where dates are published",
+      "Honest unknown when WHOIS/RDAP hides the date",
+      "Pairs with SSL certificate monitoring",
+      "Portfolio view across every client hostname",
+      "Report-ready next-expiry fields",
+    ],
+    sections: [
+      {
+        h: "Domain expiry vs SSL expiry",
+        p: [
+          "Different clocks, same client panic. Certificates can renew while the domain lapses - or the opposite. Monitor both.",
+        ],
+      },
+      {
+        h: "Agency workflow",
+        p: [
+          "Add every production domain once. Route alerts to whoever can renew. Put next expiry on the monthly report so renewals look proactive.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is domain expiry monitoring?",
+        a: "Automated checks of a domain’s registration expiry date with alerts before it lapses.",
+      },
+      {
+        q: "Why do some domains show unknown?",
+        a: "Some registries hide expiry behind privacy. Watchfront shows unknown instead of inventing a date.",
+      },
+      {
+        q: "Does this include DNS monitoring?",
+        a: "Domain expiry is registration lifetime. Uptime checks still catch DNS resolution failures separately.",
+      },
+    ],
+  },
+  {
+    slug: "website-monitoring-for-agencies",
+    nav: "Agencies",
+    title: "Website Monitoring for Agencies | Watchfront",
+    description:
+      "Website monitoring for agencies: portfolio uptime, SSL, form journeys, SEO audits and client reports. Built for Indian retainers. Free 3-day trial.",
+    h1: "Website monitoring for agencies who manage many client sites",
+    intro:
+      "When you look after dozens of client websites, Monday tab-checks are not a strategy. Watchfront is website monitoring for agencies — group sites by client, catch downtime, SSL, broken forms and SEO regressions, then send a report that renews the retainer.",
+    keywords: [
+      "website monitoring for agencies",
+      "agency website monitoring",
+      "monitor client websites",
+      "website monitoring agency tool",
+      "multi client website monitoring",
+    ],
+    feature: "client-reports",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "seo-audit", "client-reports"],
+    tool: "website-down-checker",
+    guide: "website-monitoring-india-agencies",
+    bullets: [
+      "Client grouping and portfolio health",
+      "1-minute uptime with confirmed outages",
+      "SSL and domain expiry across the book",
+      "Real-browser form journeys on lead paths",
+      "Shareable monthly reports clients understand",
+    ],
+    sections: [
+      {
+        h: "Built for retainers, not one product team",
+        p: [
+          "Engineering monitors watch one app. Agencies watch many sites with different hosts, plugins and marketers editing pages. Watchfront matches that chaos with client folders, quiet hours and evidence-backed incidents.",
+        ],
+      },
+      {
+        h: "Sell monitoring as a line item",
+        p: [
+          "Name the checks in the SOW. Price them. Automate them. Then the monthly PDF is proof — not theatre. Start free for 3 days on a real portfolio.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What should agencies monitor?",
+        a: "Uptime on money URLs, SSL/domain expiry, at least one lead form journey, and SEO hygiene on campaign pages — plus a client report.",
+      },
+      {
+        q: "Can clients see their own sites?",
+        a: "Yes. Invite read-only client roles or share report links.",
+      },
+      {
+        q: "Is Watchfront only for India?",
+        a: "It is built and supported for Indian agencies, but any English-speaking agency portfolio can use it.",
+      },
+    ],
+  },
+  {
+    slug: "synthetic-monitoring",
+    nav: "Synthetic monitoring",
+    title: "Synthetic Monitoring for Client Websites | Watchfront",
+    description:
+      "Synthetic monitoring for agencies: scheduled uptime, SSL, browser journeys and API checks that catch failures before customers do. Free 3-day trial.",
+    h1: "Synthetic monitoring that runs when your team is offline",
+    intro:
+      "Synthetic monitoring simulates users on a schedule — pings, certificate checks and real-browser journeys — so overnight and weekend failures do not wait for a Monday glance. Watchfront packages that stack for agency portfolios.",
+    keywords: [
+      "synthetic monitoring",
+      "synthetic website monitoring",
+      "synthetic transaction monitoring",
+      "proactive website monitoring",
+      "synthetic monitoring tool",
+    ],
+    feature: "form-journey-testing",
+    features: ["uptime-monitoring", "form-journey-testing", "api-monitoring", "ssl-domain-monitoring"],
+    guide: "how-to-choose-website-monitoring-tool",
+    bullets: [
+      "External HTTP checks every minute",
+      "Browser journeys for forms and bookings",
+      "API synthetics with assertions",
+      "SSL validity on the same schedule",
+      "Incidents with screenshots and status codes",
+    ],
+    sections: [
+      {
+        h: "Synthetic vs real-user monitoring",
+        p: [
+          "Synthetic coverage does not need traffic. Real-user JS errors need visitors. Agencies should run synthetics 24/7 and add RUM/JS where themes are heavy.",
+        ],
+      },
+      {
+        h: "Keep synthetics safe on production",
+        p: [
+          "Mark test traffic, use unique emails, and block payment steps by default. Synthetic does not mean reckless.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is synthetic monitoring?",
+        a: "Automated checks that simulate users from outside your network on a schedule to detect failures early.",
+      },
+      {
+        q: "Is uptime the same as synthetic monitoring?",
+        a: "Uptime checks are a basic synthetic. Full synthetic stacks also include journeys, APIs and certificate checks.",
+      },
+      {
+        q: "Do I need agents on the server?",
+        a: "No for Watchfront’s core synthetics — they run from the outside.",
+      },
+    ],
+  },
+  {
+    slug: "website-availability-monitoring",
+    nav: "Availability monitoring",
+    title: "Website Availability Monitoring | Watchfront",
+    description:
+      "Website availability monitoring with 1-minute checks, confirmation rules and evidence for agencies. Know when client sites stop responding. Free trial.",
+    h1: "Website availability monitoring that confirms before it alerts",
+    intro:
+      "Availability monitoring answers a simple question: can visitors reach this URL right now? Watchfront checks every minute, confirms consecutive failures, and keeps history for client reports — then layers SSL, forms and SEO on the same desk.",
+    keywords: [
+      "website availability monitoring",
+      "availability monitoring",
+      "website availability checker",
+      "site availability monitoring",
+      "availability monitoring tool",
+    ],
+    feature: "uptime-monitoring",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "api-monitoring", "client-reports"],
+    tool: "website-down-checker",
+    guide: "what-is-uptime-monitoring",
+    bullets: [
+      "External availability checks every minute",
+      "Retries and thresholds cut false positives",
+      "Status codes and timing on every incident",
+      "Availability history for SLA conversations",
+      "Works with SSL, forms and SEO in one workspace",
+    ],
+    sections: [
+      {
+        h: "Availability vs “working”",
+        p: [
+          "A URL can be available (HTTP 200) while the lead form is dead. Pair availability monitoring with journey tests on money paths.",
+        ],
+      },
+      {
+        h: "Prove availability to clients",
+        p: [
+          "Uptime % is availability over time. Put it on page one of the monthly report with incident minutes — not a vanity world map.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is website availability monitoring?",
+        a: "Continuous checks that verify whether a website URL responds successfully from outside your network, with alerts when it does not.",
+      },
+      {
+        q: "Is availability the same as uptime?",
+        a: "Uptime is availability expressed over a period (often as a percentage). Availability monitoring is how you measure it.",
+      },
+      {
+        q: "How fast should availability checks run?",
+        a: "Every 1 minute is a strong default for client marketing sites, with confirmation so one blip is not an incident.",
+      },
+    ],
+  },
+  {
+    slug: "website-health-monitoring",
+    nav: "Health monitoring",
+    title: "Website Health Monitoring for Agencies | Watchfront",
+    description:
+      "Website health monitoring beyond ping: availability, SSL, forms, SEO and JS errors with client reports. Free 3-day trial for agencies.",
+    h1: "Website health monitoring that means more than a green dot",
+    intro:
+      "“Site health” should mean visitors can reach the URL, trust the certificate, complete the form and land on indexable pages. Watchfront website health monitoring bundles those checks for agency portfolios — with evidence and reports.",
+    keywords: [
+      "website health monitoring",
+      "website health check",
+      "site health monitoring",
+      "website health monitoring tool",
+      "website health checker",
+    ],
+    feature: "uptime-monitoring",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "seo-audit", "javascript-error-monitoring", "client-reports"],
+    tool: "seo-checker",
+    guide: "best-website-monitoring-tools-for-agencies",
+    bullets: [
+      "Availability with confirmation rules",
+      "SSL and domain expiry",
+      "Lead-form journey health",
+      "On-page SEO hygiene scores",
+      "Optional real-visitor JS errors",
+      "Health summarized in client reports",
+    ],
+    sections: [
+      {
+        h: "Health is a stack, not a single metric",
+        p: [
+          "A green uptime badge can hide SSL warnings and dead forms. Define health as the checks that protect revenue — then automate them.",
+        ],
+      },
+      {
+        h: "Show health without drama",
+        p: [
+          "Clients want calm proof. Put availability %, SSL days and journey pass rates on page one. Keep deep diagnostics internal until asked.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is website health monitoring?",
+        a: "Ongoing checks that verify a site is reachable, secure, converting on key paths and not silently broken for SEO or browsers.",
+      },
+      {
+        q: "Is a free website health checker enough?",
+        a: "Spot checks help triage. Continuous health monitoring catches overnight and post-update failures.",
+      },
+      {
+        q: "Can agencies white-label health reports?",
+        a: "Yes — share branded reports from Watchfront’s client reporting feature.",
       },
     ],
   },

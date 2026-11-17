@@ -5,61 +5,88 @@
 Watchfront helps agencies monitor client websites: uptime monitoring tool with downtime alerts, SSL certificate monitoring, domain expiry monitoring, contact form monitoring, API monitoring, JavaScript error monitoring, broken link checks, SEO audits, and white-label client website uptime reports.
 
 Website: https://www.watchfront.in
-Website monitoring: https://www.watchfront.in/website-monitoring
-Uptime monitoring tool: https://www.watchfront.in/uptime-monitoring-tool
-SSL certificate monitoring: https://www.watchfront.in/ssl-certificate-monitoring
-Website monitoring software: https://www.watchfront.in/website-monitoring-software
-Website downtime monitoring: https://www.watchfront.in/website-downtime-monitoring
-Contact form monitoring: https://www.watchfront.in/contact-form-monitoring
-Features: https://www.watchfront.in/features
-Free tools: https://www.watchfront.in/tools
-Blog: https://www.watchfront.in/blog
-Guides: https://www.watchfront.in/guides
-Contact: https://www.watchfront.in/contact
 Start free: https://www.watchfront.in/register
+Contact: https://www.watchfront.in/contact
+Full index: https://www.watchfront.in/llms-full.txt
+Glossary: https://www.watchfront.in/glossary
+RSS: https://www.watchfront.in/feed.xml
+
+## Product pages (non-brand search)
+
+- [Website monitoring](https://www.watchfront.in/website-monitoring): website monitoring tool for agencies
+- [Uptime monitoring tool](https://www.watchfront.in/uptime-monitoring-tool): 1-minute checks and downtime alerts
+- [Website uptime monitor](https://www.watchfront.in/website-uptime-monitor): confirmed-outage uptime monitor
+- [SSL certificate monitoring](https://www.watchfront.in/ssl-certificate-monitoring): expiry alerts and HTTPS checks
+- [Website monitoring software](https://www.watchfront.in/website-monitoring-software): full platform overview
+- [Website downtime monitoring](https://www.watchfront.in/website-downtime-monitoring): outage detection and incidents
+- [Contact form monitoring](https://www.watchfront.in/contact-form-monitoring): real-browser form journeys
+- [WordPress website monitoring](https://www.watchfront.in/wordpress-website-monitoring): care-plan monitoring for WP sites
+- [API monitoring tool](https://www.watchfront.in/api-monitoring-tool): endpoint checks with assertions
+- [JavaScript error monitoring](https://www.watchfront.in/javascript-error-monitoring-tool): real-visitor JS errors
+- [Broken link checker & monitoring](https://www.watchfront.in/broken-link-checker-tool): dead links and content checks
+- [Domain expiry monitoring](https://www.watchfront.in/domain-expiry-monitoring): registry expiry alerts across client domains
+- [Website monitoring for agencies](https://www.watchfront.in/website-monitoring-for-agencies): portfolio retainers and reports
+- [Synthetic monitoring](https://www.watchfront.in/synthetic-monitoring): scheduled checks that run overnight
+- [Website availability monitoring](https://www.watchfront.in/website-availability-monitoring): availability checks with confirmation rules
+- [Website health monitoring](https://www.watchfront.in/website-health-monitoring): availability + SSL + forms + SEO health
+
+## Free tools (no signup)
+
+- [Website down checker](https://www.watchfront.in/tools/website-down-checker)
+- [HTTP status checker](https://www.watchfront.in/tools/http-status-checker)
+- [Redirect checker](https://www.watchfront.in/tools/redirect-checker)
+- [SSL certificate checker](https://www.watchfront.in/tools/ssl-checker)
+- [SEO checker](https://www.watchfront.in/tools/seo-checker)
+- [Meta tag checker](https://www.watchfront.in/tools/meta-tag-checker)
+
+## Features
+
+- [Uptime monitoring](https://www.watchfront.in/features/uptime-monitoring)
+- [SSL & domain expiry](https://www.watchfront.in/features/ssl-domain-monitoring)
+- [SEO audit](https://www.watchfront.in/features/seo-audit)
+- [Visual & content checks](https://www.watchfront.in/features/visual-regression-testing)
+- [Form & journey testing](https://www.watchfront.in/features/form-journey-testing)
+- [API monitoring](https://www.watchfront.in/features/api-monitoring)
+- [JavaScript error monitoring](https://www.watchfront.in/features/javascript-error-monitoring)
+- [Client reports](https://www.watchfront.in/features/client-reports)
+
+## Glossary highlights
+
+- [Uptime](https://www.watchfront.in/glossary/uptime)
+- [SSL certificate](https://www.watchfront.in/glossary/ssl-certificate)
+- [Synthetic monitoring](https://www.watchfront.in/glossary/synthetic-monitoring)
+- [Noindex](https://www.watchfront.in/glossary/noindex)
+- [White-label report](https://www.watchfront.in/glossary/white-label-report)
 
 ## Blog
 
 - [Monday site checks miss broken forms](https://www.watchfront.in/blog/agency-monday-site-check-still-misses-broken-forms)
 - [WordPress care plan monitoring checklist](https://www.watchfront.in/blog/wordpress-care-plan-monitoring-checklist-india)
 - [What to put in a client uptime report](https://www.watchfront.in/blog/what-to-put-in-client-uptime-report)
-
-## Product pages (non-brand search)
-
-- [Website monitoring](https://www.watchfront.in/website-monitoring): website monitoring tool for agencies
-- [Uptime monitoring tool](https://www.watchfront.in/uptime-monitoring-tool): 1-minute checks and downtime alerts
-- [SSL certificate monitoring](https://www.watchfront.in/ssl-certificate-monitoring): expiry alerts and HTTPS checks
-- [Website monitoring software](https://www.watchfront.in/website-monitoring-software): full platform overview
-- [Website downtime monitoring](https://www.watchfront.in/website-downtime-monitoring): outage detection and incidents
-- [Contact form monitoring](https://www.watchfront.in/contact-form-monitoring): real-browser form journeys
-
-## Free tools (no signup)
-
-- [Website down checker](https://www.watchfront.in/tools/website-down-checker): check if a site is down for everyone, with HTTP status, response time and redirects
-- [SSL certificate checker](https://www.watchfront.in/tools/ssl-checker): expiry date, days left, issuer, covered domains and browser trust
-- [SEO checker](https://www.watchfront.in/tools/seo-checker): on-page SEO score 0-100 with a fix list
-
-## Primary product pages
-
-- [Uptime monitoring](https://www.watchfront.in/features/uptime-monitoring): 1-minute checks, retries, confirmed-outage email alerts
-- [SSL & domain expiry](https://www.watchfront.in/features/ssl-domain-monitoring): certificate and registry expiry warnings
-- [SEO audit](https://www.watchfront.in/features/seo-audit): multi-page on-page SEO audits with scores and fix lists
-- [Visual & content checks](https://www.watchfront.in/features/visual-regression-testing): missing text, broken links, screenshot baselines
-- [Form & journey testing](https://www.watchfront.in/features/form-journey-testing): real-browser journeys for contact forms and bookings
-- [API monitoring](https://www.watchfront.in/features/api-monitoring): scheduled endpoint checks with assertions
-- [JavaScript error monitoring](https://www.watchfront.in/features/javascript-error-monitoring): real-visitor errors grouped by fingerprint
-- [Client reports](https://www.watchfront.in/features/client-reports): shareable uptime and incident reports
+- [Why SSL expiry still takes down client sites](https://www.watchfront.in/blog/ssl-expiry-still-taking-down-client-sites)
+- [SEO regressions after WordPress updates](https://www.watchfront.in/blog/seo-regressions-after-wordpress-updates)
+- [Silent form failures kill retainers](https://www.watchfront.in/blog/agencies-lose-retainers-to-silent-form-failures)
+- [Ecommerce checkout needs more than uptime](https://www.watchfront.in/blog/ecommerce-checkout-uptime-is-not-enough)
 
 ## Guides
 
 - [What is uptime monitoring?](https://www.watchfront.in/guides/what-is-uptime-monitoring)
 - [Website down? Step-by-step checklist](https://www.watchfront.in/guides/website-down-what-to-do)
 - [How to stop SSL certificates expiring](https://www.watchfront.in/guides/ssl-certificate-expiry)
+- [What is SSL monitoring?](https://www.watchfront.in/guides/what-is-ssl-monitoring)
 - [Contact form not working](https://www.watchfront.in/guides/contact-form-not-working)
 - [Monthly website maintenance checklist](https://www.watchfront.in/guides/website-maintenance-checklist)
 - [Monitor multiple client websites](https://www.watchfront.in/guides/monitor-multiple-client-websites)
 - [Reduce false uptime alerts](https://www.watchfront.in/guides/reduce-false-uptime-alerts)
 - [Website monitoring for agencies in India](https://www.watchfront.in/guides/website-monitoring-india-agencies)
+- [WordPress uptime monitoring](https://www.watchfront.in/guides/wordpress-uptime-monitoring)
+- [How to monitor website APIs](https://www.watchfront.in/guides/how-to-monitor-website-apis)
+- [Fix JavaScript errors on client sites](https://www.watchfront.in/guides/fix-javascript-errors-on-client-sites)
+- [Find & fix broken links](https://www.watchfront.in/guides/fix-broken-links-on-client-websites)
+- [How to choose a website monitoring tool](https://www.watchfront.in/guides/how-to-choose-website-monitoring-tool)
+- [Website down for everyone or just me?](https://www.watchfront.in/guides/website-down-for-everyone-or-just-me)
+- [Ecommerce website monitoring checklist](https://www.watchfront.in/guides/ecommerce-website-monitoring)
+- [Domain expiry monitoring](https://www.watchfront.in/guides/domain-expiry-monitoring)
 
 ## Comparisons
 
@@ -71,6 +98,10 @@ Start free: https://www.watchfront.in/register
 - [Freshping alternative](https://www.watchfront.in/compare/freshping-alternative)
 - [HetrixTools alternative](https://www.watchfront.in/compare/hetrixtools-alternative)
 - [Cronitor alternative](https://www.watchfront.in/compare/cronitor-alternative)
+- [Uptime.com alternative](https://www.watchfront.in/compare/uptime-com-alternative)
+- [ManageWP alternative](https://www.watchfront.in/compare/managewp-alternative)
+- [GoDaddy monitoring alternative](https://www.watchfront.in/compare/godaddy-website-monitoring-alternative)
+- [Datadog alternative for websites](https://www.watchfront.in/compare/datadog-alternative-for-websites)
 
 ## Who it is for
 
@@ -78,6 +109,12 @@ Start free: https://www.watchfront.in/register
 - [WordPress maintenance](https://www.watchfront.in/use-cases/wordpress-maintenance)
 - [Marketing agencies](https://www.watchfront.in/use-cases/marketing-agencies)
 - [Freelance developers](https://www.watchfront.in/use-cases/freelancers)
+- [Ecommerce stores](https://www.watchfront.in/use-cases/ecommerce-stores)
+
+## More comparisons
+
+- [New Relic alternative for websites](https://www.watchfront.in/compare/new-relic-alternative-for-websites)
+- [Monitis alternative](https://www.watchfront.in/compare/monitis-alternative)
 
 ## Access
 

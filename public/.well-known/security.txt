@@ -1,0 +1,6 @@
+Contact: mailto:likhith.reddy@watchfront.in
+Preferred-Languages: en, hi
+Canonical: https://www.watchfront.in/.well-known/security.txt
+Expires: 2027-11-17T00:00:00.000Z
+Policy: https://www.watchfront.in/security
+Hiring: https://www.watchfront.in/contact

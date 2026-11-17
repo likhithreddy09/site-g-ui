@@ -7,12 +7,21 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 export const metadata = pageMeta({
-  title: "Website Monitoring Features: Uptime, SSL, SEO | Watchfront",
-  description: "See what Watchfront checks: uptime, SSL, SEO, forms, APIs, JS errors and client reports - built for agencies looking after many sites.",
+  title: "Website Monitoring Features: Uptime, SSL, Forms, SEO | Watchfront",
+  description:
+    "Full website monitoring feature list for agencies: 1-minute uptime, SSL/domain expiry, form journeys, SEO audits, APIs, JS errors and client reports.",
   path: "/features",
-  keywords: ["website monitoring features", "uptime monitoring", "SSL monitoring", "form monitoring", "SEO audit", "website monitoring tool"],
-  ogTitle: "Website Monitoring Features: Uptime, SSL, SEO | Watchfront",
-  ogDescription: "Uptime, SSL, SEO, forms, APIs, JS errors and client reports - one toolkit for agency portfolios.",
+  keywords: [
+    "website monitoring features",
+    "uptime monitoring",
+    "SSL monitoring",
+    "contact form monitoring",
+    "SEO audit",
+    "API monitoring",
+    "website monitoring tool",
+  ],
+  ogTitle: "Website Monitoring Features: Uptime, SSL, Forms, SEO | Watchfront",
+  ogDescription: "Uptime, SSL, forms, SEO, APIs, JS errors and client reports - one toolkit for agency portfolios.",
   image: "/features/opengraph-image",
 });
 

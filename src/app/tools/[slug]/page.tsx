@@ -6,7 +6,7 @@ import { ToolWidget } from "@/components/marketing/ToolWidget";
 import { GUIDES } from "@/lib/guides";
 import { featureBySlug } from "@/lib/marketing";
 import { productBySlug } from "@/lib/products";
-import { faqLd, pageMeta, webAppLd } from "@/lib/seo";
+import { breadcrumbLd, faqLd, pageMeta, webAppLd } from "@/lib/seo";
 import { TOOLS, toolBySlug } from "@/lib/tools";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,7 +38,17 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <MarketingShell>
-      <JsonLd data={[faqLd(t.faqs), webAppLd({ name: t.name, description: t.description, path: `/tools/${t.slug}` })]} />
+      <JsonLd
+        data={[
+          faqLd(t.faqs),
+          webAppLd({ name: t.name, description: t.description, path: `/tools/${t.slug}` }),
+          breadcrumbLd([
+            ["Home", "/"],
+            ["Free tools", "/tools"],
+            [t.name, `/tools/${t.slug}`],
+          ]),
+        ]}
+      />
       <PageHero crumbs={[["Home", "/"], ["Free tools", "/tools"], [t.name, `/tools/${t.slug}`]]} eyebrow="Free tool" title={t.h1} intro={t.intro}>
         <ToolWidget kind={t.kind} placeholder={t.placeholder} button={t.button} feature={t.feature} product={t.product} />
       </PageHero>
@@ -59,6 +69,14 @@ export default async function ToolPage({ params }: Props) {
       </MotionSection>
 
       <FaqList faqs={t.faqs} />
+
+      <p className="mx-auto mt-10 max-w-3xl px-6 text-sm text-plum-2">
+        New to monitoring jargon?{" "}
+        <Link href="/glossary" className="link-underline text-plum">
+          Read the glossary
+        </Link>{" "}
+        (uptime, SSL, HTTP status codes and more).
+      </p>
 
       <section className="mx-auto mt-20 max-w-6xl px-6" aria-labelledby="more">
         <h2 id="more" className="text-2xl font-medium tracking-tight text-ink">

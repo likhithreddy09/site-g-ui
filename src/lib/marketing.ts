@@ -11,9 +11,9 @@ export type UseCase = {
 export const FEATURES: Feature[] = [
   {
     slug: "uptime-monitoring", name: "Uptime & response time", short: "Know within a minute when a client site goes down - without false alarms.",
-    title: "Uptime Monitoring with 1-Minute Checks | Watchfront",
-    description: "Check client sites as often as every minute. We retry before alerting, so you get real downtime notices - with response times and history included.",
-    keywords: ["uptime monitoring", "website downtime alerts", "monitor client websites", "response time monitoring"],
+    title: "Uptime Monitoring with 1-Minute Checks & Alerts | Watchfront",
+    description: "Website uptime monitoring with 1-minute checks, retries and confirmed-outage alerts for agencies. Response times and history included. Free 3-day trial.",
+    keywords: ["uptime monitoring", "website uptime monitoring", "website downtime alerts", "monitor client websites", "response time monitoring"],
     h1: "Uptime monitoring that only wakes you for real outages",
     intro: "Watchfront is an uptime monitoring tool built for agencies that look after many client sites. We check each website as often as every minute, retry failures before alerting, and open incidents only for real downtime - not a single slow request.",
     steps: [["Add a website", "Paste the address. We start checking it straight away - no code or plugin needed."], ["We retry before alerting", "A failure is confirmed with an automatic retry and a failure threshold you control."], ["Get an incident with evidence", "Status code, response time, error and timeline are attached, and recovery closes it automatically."]],
@@ -27,9 +27,9 @@ export const FEATURES: Feature[] = [
   },
   {
     slug: "seo-audit", name: "SEO audit", short: "Score titles, meta, headings and social tags across sitemap pages - not just the homepage.",
-    title: "Website SEO Audit Tool for Agencies | Watchfront",
-    description: "Crawl sitemap pages and check titles, meta, headings, canonicals and share tags. Get a clear score and a fix list - not just a homepage glance.",
-    keywords: ["SEO audit", "on-page SEO check", "website SEO audit", "meta title checker"],
+    title: "Website SEO Audit Tool - Multi-Page Scores | Watchfront",
+    description: "Multi-page website SEO audit for agencies: titles, meta, headings, canonicals and social tags scored 0-100 with a plain-English fix list. Free trial.",
+    keywords: ["SEO audit", "website SEO audit", "on-page SEO check", "meta title checker", "seo audit tool"],
     h1: "SEO audits that cover the whole site, not just the homepage",
     intro: "A strong homepage can hide thin titles and missing meta on the pages that actually get traffic. Watchfront’s SEO audit crawls the sitemap and internal links, scores each page 0-100, and lists what to fix in plain English.",
     steps: [["We find the pages", "Sitemap.xml plus important internal links - up to dozens of pages per site."], ["Each page is scored", "HTTPS, title, meta description, H1, canonical, robots, viewport, language, Open Graph, Twitter card, image alt text and charset."], ["You get a grade and a list", "Site score, letter grade, and failed or warned items with tips - scheduled daily or run on demand."]],
@@ -183,6 +183,45 @@ export const USE_CASES: UseCase[] = [
     features: ["uptime-monitoring", "ssl-domain-monitoring", "seo-audit", "form-journey-testing", "client-reports"],
     faqs: [{ q: "Is there a free trial?", a: "Yes - 3 days with every feature, no credit card required." }],
   },
+  {
+    slug: "ecommerce-stores",
+    name: "Ecommerce stores",
+    title: "Ecommerce Website Monitoring | Watchfront",
+    description:
+      "Ecommerce website monitoring for agencies: uptime, SSL, checkout and lead journeys, SEO and JS errors so store outages do not burn ad spend.",
+    keywords: [
+      "ecommerce website monitoring",
+      "online store uptime monitoring",
+      "shopify website monitoring",
+      "woocommerce monitoring",
+      "checkout monitoring",
+    ],
+    h1: "Ecommerce website monitoring that watches the path to purchase",
+    intro:
+      "A store can look fine on the homepage while cart, checkout or payment steps are broken. Watchfront monitors uptime, certificates, key journeys and JS errors so agencies protecting ecommerce clients catch revenue-killing failures first.",
+    pains: [
+      "Checkout breaks after a plugin or theme update",
+      "SSL warnings that kill trust at payment",
+      "Campaign traffic hitting a slow or down PDP",
+      "No clear monthly proof for the retainer",
+    ],
+    outcomes: [
+      ["Uptime on money URLs", "Homepage, collection and key product pages checked every minute."],
+      ["Journey coverage", "Watch critical paths (add-to-cart / lead capture) with payment steps blocked by default."],
+      ["Store-ready reports", "Uptime, incidents and SSL days left in a shareable client report."],
+    ],
+    features: ["uptime-monitoring", "form-journey-testing", "ssl-domain-monitoring", "javascript-error-monitoring", "client-reports"],
+    faqs: [
+      {
+        q: "Can Watchfront monitor Shopify and WooCommerce?",
+        a: "Yes. Any public storefront URL can be monitored. Journey tests work on browser-reachable flows; payment requests stay blocked by default.",
+      },
+      {
+        q: "Will journey tests create real orders?",
+        a: "Payment steps are blocked by default. Use safe test modes or stop before paid checkout on live stores.",
+      },
+    ],
+  },
 ];
 
 export const HOME_FAQS: Faq[] = [
@@ -192,6 +231,11 @@ export const HOME_FAQS: Faq[] = [
   { q: "Do I need to install anything?", a: "No. Uptime, SSL, SEO, content, journey and API checks work from the outside. An optional lightweight script adds real-visitor JavaScript error monitoring." },
   { q: "Is there a free trial?", a: "Yes. Every new workspace gets 3 days with every feature, no card required. If you love it, join the waitlist from your dashboard and we'll reach out to keep you going." },
   { q: "Is it safe to test forms on live sites?", a: "Yes. Payment requests are blocked by default, each run uses a unique test email and a test header, and you confirm a form is safe to repeat before it's scheduled." },
+  { q: "What is the best website monitoring tool for agencies?", a: "Look for confirmed uptime, SSL/domain expiry, real-browser form journeys, SEO hygiene checks and client reports - not just a ping. Watchfront is built around that agency checklist." },
+  { q: "Can Watchfront monitor WordPress and ecommerce stores?", a: "Yes. WordPress care-plan sites, marketing landers and ecommerce storefronts (Shopify, WooCommerce and custom) can all be monitored from the outside." },
+  { q: "Does Watchfront replace ManageWP or update tools?", a: "No. Keep your update/backup stack. Watchfront is the runtime monitoring layer for downtime, SSL, forms, SEO and reports." },
+  { q: "What is synthetic monitoring?", a: "Scheduled checks from outside your site — uptime, SSL, form journeys and APIs — that catch failures even when nobody is visiting. See the glossary for a plain-English definition." },
+  { q: "Where can I learn monitoring terms?", a: "The Watchfront glossary explains uptime, downtime, SSL, noindex, TTFB, MTTR and more in plain English." },
 ];
 
 export const featureBySlug = (s: string) => FEATURES.find((f) => f.slug === s);
