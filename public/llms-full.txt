@@ -87,6 +87,7 @@
 - https://www.watchfront.in/guides/synthetic-monitoring-vs-real-user-monitoring
 - https://www.watchfront.in/guides/how-to-write-monitoring-into-care-plans
 - https://www.watchfront.in/guides/best-website-monitoring-tools-for-agencies
+- https://www.watchfront.in/guides/reduce-mean-time-to-detect
 
 ## Blog
 - https://www.watchfront.in/blog/agency-monday-site-check-still-misses-broken-forms

@@ -97,6 +97,7 @@ RSS: https://www.watchfront.in/feed.xml
 - [Website down for everyone or just me?](https://www.watchfront.in/guides/website-down-for-everyone-or-just-me)
 - [Ecommerce website monitoring checklist](https://www.watchfront.in/guides/ecommerce-website-monitoring)
 - [Domain expiry monitoring](https://www.watchfront.in/guides/domain-expiry-monitoring)
+- [Reduce mean time to detect (MTTD)](https://www.watchfront.in/guides/reduce-mean-time-to-detect)
 
 ## Comparisons
 

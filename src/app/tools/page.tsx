@@ -63,9 +63,18 @@ export default function ToolsPage() {
         <h2 className="mt-10 text-2xl font-medium text-ink">When a one-off check is not enough</h2>
         <p className="mt-4">
           A manual check tells you how a site looks right now. Outages, expiring certificates and SEO regressions happen at 3am, after a plugin update or when a client edits a page. Watchfront repeats these checks every minute or every day across all your client sites and alerts you with evidence. Read{" "}
-          <Link href="/guides/what-is-uptime-monitoring" className="link-underline text-plum">what uptime monitoring is</Link>, see the{" "}
+          <Link href="/guides/what-is-uptime-monitoring" className="link-underline text-plum">what uptime monitoring is</Link>, learn how to{" "}
+          <Link href="/guides/reduce-mean-time-to-detect" className="link-underline text-plum">reduce mean time to detect</Link>, see the{" "}
           <Link href="/features" className="link-underline text-plum">full feature list</Link>, or{" "}
           <Link href="/compare" className="link-underline text-plum">compare Watchfront with other monitoring tools</Link>.
+        </p>
+        <h2 className="mt-10 text-2xl font-medium text-ink">Turn a free check into a retainer conversation</h2>
+        <p className="mt-4">
+          Spot-check with these tools, then price risk with the{" "}
+          <Link href="/resources/cost-of-downtime" className="link-underline text-plum">cost of downtime calculator</Link>, scope it with the{" "}
+          <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">monitoring SOW template</Link>, and show the monthly deliverable via the{" "}
+          <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">sample client uptime report</Link>. Continuous coverage lives on the{" "}
+          <Link href="/uptime-monitoring-tool" className="link-underline text-plum">uptime monitoring tool</Link> page.
         </p>
       </section>
       <CtaBand title="Checks once are good. Checks every minute are better." body="Monitor uptime, SSL, SEO and forms continuously - free for 3 days." />

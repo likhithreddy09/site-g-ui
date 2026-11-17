@@ -1220,6 +1220,82 @@ export const GUIDES: Guide[] = [
     ],
     feature: "uptime-monitoring",
   },
+  {
+    slug: "reduce-mean-time-to-detect",
+    nav: "Reduce MTTD",
+    title: "How to Reduce Mean Time to Detect (MTTD) | Watchfront",
+    description:
+      "Lower website outage MTTD for agencies: check intervals, confirmation rules, alert routing and evidence — without drowning in false positives.",
+    h1: "How to reduce mean time to detect (MTTD) on client websites",
+    intro:
+      "Mean time to detect is how long an outage sits unnoticed. For agencies, Monday tab-checks create multi-day MTTD. Here is how to shrink it to minutes without paging the whole team for every blip.",
+    keywords: [
+      "mean time to detect",
+      "reduce MTTD",
+      "how to lower MTTD",
+      "outage detection time",
+      "website monitoring MTTD",
+    ],
+    readMins: 7,
+    published: "2026-11-17",
+    updated: "2026-11-17",
+    tool: "website-down-checker",
+    feature: "uptime-monitoring",
+    sections: [
+      {
+        h: "What MTTD actually measures",
+        p: [
+          "MTTD starts when the failure begins and ends when a human (or automated page) knows. It is not the same as downtime duration or MTTR. If you only notice when the client forwards a screenshot, MTTD is already a business failure.",
+          "Read the plain definition of mean time to detect, then pair it with how Watchfront calculates uptime so your SOW and your PDF agree.",
+        ],
+      },
+      {
+        h: "The four levers that cut MTTD",
+        list: [
+          "Check money URLs every 1–5 minutes (not once a week)",
+          "Confirm with consecutive failures so one blip is not a page — but two or three still wake someone",
+          "Route alerts to a reachable on-call, not a shared inbox nobody opens at night",
+          "Put status code, timing and screenshot in the alert so the first responder can act",
+        ],
+      },
+      {
+        h: "Where agencies waste detection time",
+        list: [
+          "Monitoring only the homepage while checkout or the lead form is down",
+          "Muting alerts after false positives instead of fixing confirmation rules",
+          "No named URLs in the SOW — so nobody knows what “up” means",
+          "Relying on the host status page as the only signal",
+        ],
+      },
+      {
+        h: "Sell the outcome, not the interval",
+        p: [
+          "Clients buy shorter MTTD when they understand downtime cost. Use the cost of downtime calculator as a planning estimate, then show detection minutes collapsing after you enable continuous checks.",
+          "Write the interval and confirmation rules into the monitoring SOW template so the retainer matches the ops reality.",
+        ],
+      },
+      {
+        h: "Minimum stack after availability",
+        p: [
+          "Availability alone misses soft 404s and dead forms. Add SSL days-remaining, one real-browser journey, and SEO hygiene on campaign URLs. That is the agency path from “reachable” to “working.”",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is a good MTTD for marketing sites?",
+        a: "Minutes, not hours. With 1-minute checks and a 2–3 failure confirmation, most agencies land in a few minutes of detection time.",
+      },
+      {
+        q: "Will faster checks create more false alerts?",
+        a: "Only if you page on a single failure. Confirmation rules keep MTTD low and noise manageable.",
+      },
+      {
+        q: "How is MTTD different from MTTR?",
+        a: "MTTD is time to notice. MTTR is time to restore after you start fixing. Evidence in alerts mainly helps MTTR; check frequency mainly helps MTTD.",
+      },
+    ],
+  },
 ];
 
 export const guideBySlug = (s: string) => GUIDES.find((g) => g.slug === s);

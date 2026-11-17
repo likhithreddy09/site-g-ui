@@ -33,6 +33,7 @@ export const TOPIC_CLUSTERS: TopicCluster[] = [
       { href: "/glossary/uptime", label: "What is uptime?", role: "asset" },
       { href: "/glossary/mean-time-to-detect", label: "What is MTTD?", role: "asset" },
       { href: "/guides/what-is-uptime-monitoring", label: "Uptime monitoring guide", role: "asset" },
+      { href: "/guides/reduce-mean-time-to-detect", label: "Reduce MTTD guide", role: "asset" },
       { href: "/guides/reduce-false-uptime-alerts", label: "Cut false alerts", role: "asset" },
     ],
   },
