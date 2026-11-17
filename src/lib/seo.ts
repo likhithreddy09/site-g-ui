@@ -326,6 +326,8 @@ export const SITE_NAV: [string, string][] = [
   ["About", "/about"],
   ["Contact", "/contact"],
   ["Start free", "/register"],
+  ["LLM brief", "/llms.txt"],
+  ["LLM full index", "/llms-full.txt"],
 ];
 
 export const organizationLd = {
@@ -384,6 +386,12 @@ export const organizationLd = {
     "Contact form monitoring",
     "SEO audits",
     "Website monitoring for agencies in India",
+    "WordPress care plan monitoring",
+    "Client uptime reports",
+  ],
+  subjectOf: [
+    { "@type": "WebPage", name: "Watchfront for LLMs", url: abs("/llms.txt") },
+    { "@type": "WebPage", name: "Watchfront URL index for LLMs", url: abs("/llms-full.txt") },
   ],
 };
 

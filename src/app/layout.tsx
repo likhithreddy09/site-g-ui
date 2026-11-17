@@ -106,6 +106,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="alternate" type="application/rss+xml" title={`${SITE.name} resources`} href="/feed.xml" />
+        <link rel="alternate" type="text/plain" title={`${SITE.name} for LLMs`} href="/llms.txt" />
+        <link rel="alternate" type="text/plain" title={`${SITE.name} full URL index for LLMs`} href="/llms-full.txt" />
         <BrandJsonLd />
         {/* Raw <script> tags (not next/script) so Google's detector sees G-2KJ7JC3FP6 in HTML source */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />

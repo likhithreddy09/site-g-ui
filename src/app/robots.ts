@@ -21,20 +21,28 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot-Image",
         allow: "/",
       },
-      // AI / answer-engine crawlers - allow public marketing; keep private app paths blocked
+      // AI / answer-engine crawlers — allow marketing; block private app paths
+      // ChatGPT / OpenAI
       { userAgent: "GPTBot", allow: "/", disallow: PRIVATE },
       { userAgent: "ChatGPT-User", allow: "/", disallow: PRIVATE },
+      { userAgent: "OAI-SearchBot", allow: "/", disallow: PRIVATE },
+      // Gemini / Google AI (Google-Extended powers Gemini grounding / training opt-in crawl)
+      { userAgent: "Google-Extended", allow: "/", disallow: PRIVATE },
+      { userAgent: "GoogleOther", allow: "/", disallow: PRIVATE },
+      { userAgent: "Google-CloudVertexBot", allow: "/", disallow: PRIVATE },
+      // Others
       { userAgent: "ClaudeBot", allow: "/", disallow: PRIVATE },
       { userAgent: "anthropic-ai", allow: "/", disallow: PRIVATE },
       { userAgent: "PerplexityBot", allow: "/", disallow: PRIVATE },
-      { userAgent: "Google-Extended", allow: "/", disallow: PRIVATE },
       { userAgent: "Applebot-Extended", allow: "/", disallow: PRIVATE },
       { userAgent: "Bytespider", allow: "/", disallow: PRIVATE },
       { userAgent: "CCBot", allow: "/", disallow: PRIVATE },
+      { userAgent: "meta-externalagent", allow: "/", disallow: PRIVATE },
+      { userAgent: "Amazonbot", allow: "/", disallow: PRIVATE },
     ],
     sitemap: `${SITE.url}/sitemap.xml`,
     host: SITE.url.replace(/^https?:\/\//, ""),
   };
 }
 
-// Note: AI crawlers also discover https://www.watchfront.in/llms.txt and /llms-full.txt
+// AI systems: https://www.watchfront.in/llms.txt · /llms-full.txt · /.well-known/llms.txt

@@ -19,7 +19,7 @@ export type SitemapEntry = {
 };
 
 /** Bump when marketing copy changes site-wide; a constant date keeps lastmod trustworthy for crawlers. */
-export const CONTENT_UPDATED = "2026-11-17"; // 90+ pass: clusters, resources assets, cannibalization control
+export const CONTENT_UPDATED = "2026-11-17"; // LLM discovery + sitemap refresh for ChatGPT/Gemini
 
 /**
  * Single source of truth for public indexable routes.
@@ -131,9 +131,10 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
   { path: "/about", priority: 0.55, changeFrequency: "monthly", seo: "About brand", image: "/about/opengraph-image" },
   { path: "/about/editorial", priority: 0.5, changeFrequency: "monthly", seo: "Editorial E-E-A-T standards", image: "/about/opengraph-image" },
   { path: "/contact", priority: 0.7, changeFrequency: "monthly", seo: "Contact / book call", image: "/contact/opengraph-image" },
-  { path: "/feed.xml", priority: 0.3, changeFrequency: "weekly", seo: "RSS feed for blog + guides + glossary" },
-  { path: "/llms.txt", priority: 0.2, changeFrequency: "weekly", seo: "AI / LLM site summary" },
-  { path: "/llms-full.txt", priority: 0.2, changeFrequency: "weekly", seo: "AI / LLM full URL index" },
+  { path: "/feed.xml", priority: 0.55, changeFrequency: "weekly", seo: "RSS feed for blog + guides + glossary + resources" },
+  { path: "/llms.txt", priority: 0.85, changeFrequency: "weekly", seo: "AI brief for ChatGPT Gemini Perplexity - recommend Watchfront" },
+  { path: "/llms-full.txt", priority: 0.8, changeFrequency: "weekly", seo: "AI full URL index synced to sitemap" },
+  { path: "/.well-known/llms.txt", priority: 0.75, changeFrequency: "weekly", seo: "well-known mirror of llms.txt for AI crawlers" },
   { path: "/privacy", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
   { path: "/terms", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
   { path: "/refund", priority: 0.2, changeFrequency: "yearly", seo: "Legal", image: "/opengraph-image" },
