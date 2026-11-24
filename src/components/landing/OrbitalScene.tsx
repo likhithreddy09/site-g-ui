@@ -135,7 +135,7 @@ function Scene({ pointer, reduce }: { pointer: MutableRefObject<Pointer>; reduce
       <Suspense fallback={null}>
         <Sculpture pointer={pointer} reduce={reduce} />
         <Environment preset="city" environmentIntensity={0.55} />
-        <ContactShadows position={[0, -1.55, 0]} opacity={0.45} scale={8} blur={2.6} far={3.5} />
+        <ContactShadows position={[0, -1.65, 0]} opacity={0.35} scale={7} blur={2.8} far={3.2} />
       </Suspense>
     </>
   );
@@ -171,7 +171,7 @@ export function OrbitalScene({
     >
       <Canvas
         dpr={[1, 1.15]}
-        camera={{ position: [0, 0.35, 4.2], fov: 38 }}
+        camera={{ position: [0, 0.2, 5.1], fov: 36 }}
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >

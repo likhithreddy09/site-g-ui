@@ -184,77 +184,81 @@ function ChapterPane({
   return (
     <motion.div
       style={{ opacity }}
-      className={`absolute inset-0 z-10 flex items-start md:items-center ${active === index ? "" : "pointer-events-none"}`}
+      className={`absolute inset-0 z-10 ${active === index ? "" : "pointer-events-none"}`}
       aria-hidden={active !== index}
       inert={active === index ? undefined : true}
     >
-      <div className="flex h-full w-full max-w-none flex-col justify-center gap-4 px-5 pb-[calc(30vh+4.5rem)] pt-[4.5rem] min-[400px]:pt-20 sm:px-8 sm:pb-[calc(28vh+4.75rem)] sm:pt-24 md:h-auto md:w-[min(42rem,calc(100%-min(30vw,22rem)-2rem))] md:pb-24 md:pl-[max(1.25rem,calc((100vw-72rem)/2))] md:pr-6 lg:w-[min(48rem,calc(100%-min(28vw,22rem)-2.5rem))] lg:pt-20">
-        <div>
-          <div className="flex items-baseline justify-between gap-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cream/55 sm:text-[11px] sm:tracking-[0.22em]">{chapter.kicker}</p>
-            {chapter.aside ? (
-              <p className="hidden max-w-[12rem] text-right font-mono text-[10px] uppercase tracking-[0.16em] text-cream/40 md:block">
-                {chapter.aside}
-              </p>
+      <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 px-5 pt-[4.5rem] min-[400px]:pt-20 sm:px-8 sm:pt-24 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:items-center md:gap-6 md:pt-16 lg:gap-10 lg:pt-20">
+        <div className="flex flex-col justify-center gap-4 pb-[calc(28vh+4.25rem)] md:pb-20 lg:pb-24">
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cream/55 sm:text-[11px] sm:tracking-[0.22em]">{chapter.kicker}</p>
+              {chapter.aside ? (
+                <p className="hidden max-w-[12rem] text-right font-mono text-[10px] uppercase tracking-[0.16em] text-cream/40 md:block">
+                  {chapter.aside}
+                </p>
+              ) : null}
+            </div>
+            <Heading className="mt-3 max-w-[14ch] text-[clamp(2rem,7.5vw,4.6rem)] font-medium leading-[0.96] tracking-[-0.045em] text-cream sm:mt-5 sm:text-[clamp(2.8rem,4.8vw,4.85rem)] sm:leading-[0.92]">
+              {chapter.lines.map((line, i) => (
+                <span key={line.text} className="block overflow-hidden pb-[0.08em]">
+                  <Word progress={progress} chapter={index} index={i} total={chapter.lines.length} italic={line.italic} live={live}>
+                    {line.text}
+                  </Word>
+                </span>
+              ))}
+            </Heading>
+            {index === 0 ? (
+              <div className="mt-5 flex flex-wrap items-center gap-4 sm:mt-7 sm:gap-6">
+                <CtaPrimaryLink
+                  className="group inline-flex items-center gap-3 text-[15px] font-medium text-cream"
+                  signedInLabel={
+                    <>
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-ink transition duration-300 group-hover:bg-sky">
+                        <ArrowUpRight className="h-5 w-5" />
+                      </span>
+                      Open dashboard
+                    </>
+                  }
+                  guestLabel={
+                    <>
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-ink transition duration-300 group-hover:bg-sky">
+                        <ArrowUpRight className="h-5 w-5" />
+                      </span>
+                      Enter the platform
+                    </>
+                  }
+                />
+                <Link href="#platform" className="text-[14px] text-cream/55 transition hover:text-cream">
+                  See the checks
+                </Link>
+              </div>
+            ) : null}
+            {chapter.href ? (
+              <Link href={chapter.href} className="mt-5 inline-flex items-center gap-2 text-[15px] text-cream/80 transition hover:text-cream sm:mt-7">
+                <span className="link-underline">{chapter.hrefLabel}</span>
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            ) : null}
+            {index === COUNT - 1 ? (
+              <div className="mt-5 sm:mt-7">
+                <CtaPrimaryLink
+                  className="inline-flex items-center gap-3 rounded-full bg-cream px-6 py-3 text-[15px] font-medium text-ink transition hover:bg-sky"
+                  guestLabel="Start monitoring free"
+                  signedInLabel="Open dashboard"
+                />
+              </div>
             ) : null}
           </div>
-          <Heading className="mt-3 text-[clamp(1.9rem,8vw,5.15rem)] font-medium leading-[0.96] tracking-[-0.045em] text-cream sm:mt-5 sm:text-[clamp(2.75rem,5.2vw,5.35rem)] sm:leading-[0.92]">
-            {chapter.lines.map((line, i) => (
-              <span key={line.text} className="block overflow-hidden pb-[0.08em]">
-                <Word progress={progress} chapter={index} index={i} total={chapter.lines.length} italic={line.italic} live={live}>
-                  {line.text}
-                </Word>
-              </span>
-            ))}
-          </Heading>
-          {index === 0 ? (
-            <div className="mt-5 flex flex-wrap items-center gap-4 sm:mt-7 sm:gap-6">
-              <CtaPrimaryLink
-                className="group inline-flex items-center gap-3 text-[15px] font-medium text-cream"
-                signedInLabel={
-                  <>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-ink transition duration-300 group-hover:bg-sky">
-                      <ArrowUpRight className="h-5 w-5" />
-                    </span>
-                    Open dashboard
-                  </>
-                }
-                guestLabel={
-                  <>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-ink transition duration-300 group-hover:bg-sky">
-                      <ArrowUpRight className="h-5 w-5" />
-                    </span>
-                    Enter the platform
-                  </>
-                }
-              />
-              <Link href="#platform" className="text-[14px] text-cream/55 transition hover:text-cream">
-                See the checks
-              </Link>
-            </div>
-          ) : null}
-          {chapter.href ? (
-            <Link href={chapter.href} className="mt-5 inline-flex items-center gap-2 text-[15px] text-cream/80 transition hover:text-cream sm:mt-7">
-              <span className="link-underline">{chapter.hrefLabel}</span>
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          ) : null}
-          {index === COUNT - 1 ? (
-            <div className="mt-5 sm:mt-7">
-              <CtaPrimaryLink
-                className="inline-flex items-center gap-3 rounded-full bg-cream px-6 py-3 text-[15px] font-medium text-ink transition hover:bg-sky"
-                guestLabel="Start monitoring free"
-                signedInLabel="Open dashboard"
-              />
-            </div>
-          ) : null}
+          <div className="hidden max-w-md md:block [@media(max-height:640px)]:hidden">
+            {chapter.note ? <p className="text-sm leading-relaxed text-cream/70 sm:text-[15px]">{chapter.note}</p> : null}
+            {chapter.fig ? (
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cream/40 sm:mt-5">{chapter.fig}</p>
+            ) : null}
+          </div>
         </div>
-        <div className="hidden max-w-md md:block [@media(max-height:640px)]:hidden">
-          {chapter.note ? <p className="text-sm leading-relaxed text-cream/70 sm:text-[15px]">{chapter.note}</p> : null}
-          {chapter.fig ? (
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-cream/40 sm:mt-5">{chapter.fig}</p>
-          ) : null}
-        </div>
+        {/* right column reserved for sculpture on md+; empty spacer keeps grid balance */}
+        <div className="hidden md:block" aria-hidden />
       </div>
     </motion.div>
   );
@@ -292,12 +296,14 @@ export function OrbitalJourney() {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_55%,rgba(155,27,103,0.28),transparent_52%),radial-gradient(ellipse_at_20%_0%,rgba(143,211,244,0.08),transparent_42%),linear-gradient(180deg,#140910_0%,#1c0f18_55%,#120a10_100%)]"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-[3.25rem] z-0 mx-auto h-[26vh] w-[26vh] max-h-44 max-w-44 [mask-image:linear-gradient(180deg,transparent,black_28%)] md:bottom-auto md:left-auto md:right-0 md:top-0 md:mx-0 md:h-full md:w-[min(30vw,22rem)] md:max-h-none md:max-w-none md:[mask-image:linear-gradient(90deg,transparent,black_18%)]"
-      >
-        <div className="absolute inset-x-0 bottom-0 top-[8%] md:inset-y-[12%] md:left-[8%] md:right-[6%]">
-          <OrbitalSculpture stage pointerRef={pointer} />
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 px-5 sm:px-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:gap-6 lg:gap-10">
+          <div className="hidden md:block" />
+          <div className="flex items-end justify-center pb-[3.1rem] md:items-center md:pb-8 md:pt-10">
+            <div className="relative aspect-square w-[min(70vw,16.5rem)] md:w-full md:max-w-[min(100%,30rem)]">
+              <OrbitalSculpture stage pointerRef={pointer} />
+            </div>
+          </div>
         </div>
       </div>
 
