@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Showcase } from "@/components/landing/Showcase";
 import { Reveal, Stagger, StaggerItem } from "@/components/landing/Reveal";
-import { HomeHero } from "@/components/landing/HomeHero";
+import { OrbitalJourney } from "@/components/landing/OrbitalJourney";
 import { SignalMarquee } from "@/components/landing/SignalMarquee";
 import { WowStrip } from "@/components/landing/WowStrip";
 import { ScrollProgress } from "@/components/landing/ScrollProgress";
@@ -12,9 +13,24 @@ import { SmoothScroll } from "@/components/landing/SmoothScroll";
 import { FaqList, JsonLd, SiteFooter, SiteHeader } from "@/components/marketing/Site";
 import { HOME_FAQS, USE_CASES, audience } from "@/lib/marketing";
 import { PRODUCTS } from "@/lib/products";
-import { faqLd, organizationIdLd, siteNavLd, websiteLd } from "@/lib/seo";
+import { faqLd, organizationIdLd, pageMeta, siteNavLd, websiteLd } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
+
+export const metadata: Metadata = pageMeta({
+  title: "Website Monitoring for Agencies in India | Watchfront",
+  description: SITE.description,
+  path: "/",
+  keywords: [
+    "website monitoring",
+    "website monitoring for agencies",
+    "website monitoring India",
+    "uptime monitoring tool",
+    "SSL certificate monitoring",
+    "contact form monitoring",
+  ],
+  ogTitle: "Website Monitoring for Agencies in India | Watchfront",
+});
 
 const MODULES = [
   ["Uptime & response", "/uptime-monitoring-tool", "1-minute checks with confirmed-outage alerts."],
@@ -31,6 +47,7 @@ const appLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: SITE.name,
+  alternateName: ["Watchfront website monitoring", "Watchfront uptime monitoring"],
   url: SITE.url,
   description: SITE.description,
   applicationCategory: "BusinessApplication",
@@ -50,6 +67,10 @@ const appLd = {
     url: abs("/register"),
   },
   provider: { "@id": `${SITE.url}/#organization` },
+  audience: {
+    "@type": "Audience",
+    audienceType: "Digital agencies and freelancers in India",
+  },
 };
 
 export default function Home() {
@@ -61,7 +82,7 @@ export default function Home() {
         <SiteHeader banner={false} tone="ink" />
         <main id="main">
 
-          <HomeHero />
+          <OrbitalJourney />
           <SignalMarquee />
 
           <CinemaSection className="mx-auto max-w-6xl px-4 sm:px-6" intensity={1.15}>
@@ -75,8 +96,8 @@ export default function Home() {
           <CinemaSection id="platform" className="mx-auto mt-24 max-w-6xl px-6 sm:mt-28" intensity={1}>
             <Reveal className="border-l-4 border-teal pl-6" variant="left">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-mauve">Chapter 02 / Platform</p>
-              <h2 className="mt-3 max-w-xl text-3xl font-medium leading-tight tracking-tight text-ink md:text-4xl">One record. Every check.</h2>
-              <p className="mt-4 max-w-xl text-base text-plum-2">Monitoring, tests, incidents, and reports share the same facts.</p>
+              <h2 className="mt-3 max-w-xl text-3xl font-medium leading-tight tracking-tight text-ink md:text-4xl">Website monitoring. One record for every check.</h2>
+              <p className="mt-4 max-w-xl text-base text-plum-2">Uptime, SSL, forms, SEO, and incidents share the same facts — built for agencies managing client sites in India.</p>
               <Link href="/website-monitoring" className="link-underline mt-5 inline-block text-plum">Explore website monitoring <ArrowRight className="inline h-4 w-4" /></Link>
             </Reveal>
             <Stagger className="mt-12 grid gap-x-10 gap-y-1 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>

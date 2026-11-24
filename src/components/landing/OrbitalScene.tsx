@@ -141,26 +141,36 @@ function Scene({ pointer, reduce }: { pointer: MutableRefObject<Pointer>; reduce
   );
 }
 
-export function OrbitalScene({ className = "" }: { className?: string }) {
+export function OrbitalScene({
+  className = "",
+  fill = false,
+  pointerRef,
+}: {
+  className?: string;
+  fill?: boolean;
+  pointerRef?: MutableRefObject<Pointer>;
+}) {
   const reduce = useReducedMotion();
-  const pointer = useRef<Pointer>({ x: 0, y: 0 });
+  const localPointer = useRef<Pointer>({ x: 0, y: 0 });
+  const pointer = pointerRef ?? localPointer;
 
   return (
     <div
-      className={`relative aspect-square w-full ${className}`}
+      className={fill ? `absolute inset-0 ${className}` : `relative aspect-square w-full ${className}`}
       onPointerMove={(e) => {
-        if (reduce) return;
+        if (reduce || pointerRef) return;
         const rect = e.currentTarget.getBoundingClientRect();
         pointer.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         pointer.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       }}
       onPointerLeave={() => {
+        if (pointerRef) return;
         pointer.current.x = 0;
         pointer.current.y = 0;
       }}
     >
       <Canvas
-        dpr={[1, 1.25]}
+        dpr={[1, 1.15]}
         camera={{ position: [0, 0.35, 4.2], fov: 38 }}
         gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}

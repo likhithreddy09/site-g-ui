@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, type ReactNode } from "react";
+import { Component, type MutableRefObject, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { useReducedMotion } from "framer-motion";
 import { useLiteMotion } from "@/lib/motion";
@@ -39,22 +39,53 @@ class OrbitalErrorBoundary extends Component<{ fallback: ReactNode; children: Re
 }
 
 /** Hero orbital — Three.js on desktop; CSS fallback on mobile / WebGL failure. */
-export function OrbitalSculpture({ className = "" }: { className?: string }) {
+export function OrbitalSculpture({
+  className = "",
+  stage = false,
+  pointerRef,
+}: {
+  className?: string;
+  /** Full-bleed stage behind scroll chapters. */
+  stage?: boolean;
+  pointerRef?: MutableRefObject<{ x: number; y: number }>;
+}) {
   const reduce = useReducedMotion();
   const lite = useLiteMotion();
 
   if (reduce || lite) {
-    return <OrbitalFallback className={className} />;
+    if (!stage) return <OrbitalFallback className={className} />;
+    return (
+      <div className="absolute inset-0" aria-hidden>
+        <OrbitalFallback className="absolute left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2" />
+      </div>
+    );
   }
 
   return (
-    <OrbitalErrorBoundary fallback={<OrbitalFallback className={className} />}>
-      <div className={`relative mx-auto w-full max-w-[min(92vw,28rem)] ${className}`} aria-hidden>
-        <div className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(253,185,19,0.2),transparent_55%),radial-gradient(circle_at_60%_70%,rgba(155,27,103,0.28),transparent_60%)] blur-2xl" />
-        <OrbitalScene className="relative z-10" />
-        <div className="pointer-events-none absolute bottom-[4%] left-1/2 h-2.5 w-[40%] -translate-x-1/2 rounded-full bg-gradient-to-b from-cream/20 to-transparent blur-[1px]" />
-        <div className="pointer-events-none absolute bottom-0 left-1/2 h-2 w-[34%] -translate-x-1/2 rounded-[100%] bg-ink/80 ring-1 ring-cream/10" />
-      </div>
+    <OrbitalErrorBoundary
+      fallback={
+        stage ? (
+          <div className="absolute inset-0" aria-hidden>
+            <OrbitalFallback className="absolute left-1/2 top-1/2 w-[88%] -translate-x-1/2 -translate-y-1/2" />
+          </div>
+        ) : (
+          <OrbitalFallback className={className} />
+        )
+      }
+    >
+      {stage ? (
+        <div className="absolute inset-0" aria-hidden>
+          <div className="pointer-events-none absolute inset-[8%] rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(253,185,19,0.18),transparent_55%),radial-gradient(circle_at_60%_70%,rgba(155,27,103,0.28),transparent_62%)] blur-2xl" />
+          <OrbitalScene fill pointerRef={pointerRef} />
+        </div>
+      ) : (
+        <div className={`relative mx-auto w-full max-w-[min(92vw,28rem)] ${className}`} aria-hidden>
+          <div className="pointer-events-none absolute inset-[12%] rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(253,185,19,0.2),transparent_55%),radial-gradient(circle_at_60%_70%,rgba(155,27,103,0.28),transparent_60%)] blur-2xl" />
+          <OrbitalScene className="relative z-10" />
+          <div className="pointer-events-none absolute bottom-[4%] left-1/2 h-2.5 w-[40%] -translate-x-1/2 rounded-full bg-gradient-to-b from-cream/20 to-transparent blur-[1px]" />
+          <div className="pointer-events-none absolute bottom-0 left-1/2 h-2 w-[34%] -translate-x-1/2 rounded-[100%] bg-ink/80 ring-1 ring-cream/10" />
+        </div>
+      )}
     </OrbitalErrorBoundary>
   );
 }

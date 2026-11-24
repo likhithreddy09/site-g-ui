@@ -8,7 +8,7 @@ export const SITE = {
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.watchfront.in").replace(/\/$/, ""),
   tagline: "Website monitoring for agencies in India",
   description:
-    "Website monitoring for Indian agencies: catch downtime, SSL expiry, broken forms, SEO issues and JS errors on client sites — then share clear uptime reports. Free 3-day trial.",
+    "Website monitoring software for Indian agencies: catch downtime, SSL expiry, broken contact forms, SEO issues and JS errors on client sites — then share clear uptime reports. Free 3-day trial.",
   keywords: [
     "website monitoring",
     "website monitoring tool",
