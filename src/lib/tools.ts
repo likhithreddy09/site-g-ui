@@ -26,24 +26,25 @@ export const TOOLS: Tool[] = [
   {
     slug: "website-down-checker",
     kind: "website-status",
-    name: "Website down checker",
-    short: "Is it down for everyone or just you? Check any site's status, response time and redirects.",
-    title: "Is My Website Down? Free Checker (Everyone or Just Me) | Watchfront",
+    name: "Free website down checker",
+    short: "Free — is it down for everyone or just you? Live status, response time and redirects. No signup.",
+    title: "Free Website Down Checker — Is My Site Down? | Watchfront",
     description:
-      "Check if a website is down for everyone or just you. Free instant website down checker with HTTP status, response time and redirects — no signup.",
+      "Free website down checker. See if a site is down for everyone or just you — HTTP status, response time and redirects. Instant, no signup.",
     keywords: [
+      "free website down checker",
       "is my website down",
-      "website down checker",
-      "check if website is down",
+      "website down checker free",
+      "check if website is down free",
       "is the website down for everyone",
       "website down for everyone or just me",
       "is it down right now",
     ],
-    h1: "Is my website down — for everyone, or just me?",
+    h1: "Free website down checker — is it down for everyone?",
     intro:
-      "Enter any URL. We request it from our servers (not your Wi-Fi) and show HTTP status, response time and redirects. If it loads here but not for you, the problem is probably local.",
+      "Free, no signup. Enter any URL. We request it from our servers (not your Wi-Fi) and show HTTP status, response time and redirects. If it loads here but not for you, the problem is probably local.",
     placeholder: "example.com",
-    button: "Check status",
+    button: "Check free",
     sections: [
       {
         h: "How this website down checker works",
@@ -78,13 +79,14 @@ export const TOOLS: Tool[] = [
   {
     slug: "ssl-checker",
     kind: "ssl",
-    name: "SSL certificate checker",
-    short: "See who issued a certificate, when it expires, which domains it covers and whether browsers trust it.",
-    title: "Free SSL Checker - Expiry Date & Days Left | Watchfront",
+    name: "Free SSL checker",
+    short: "Free SSL certificate check — expiry date, days left, issuer, SANs and browser trust. No signup.",
+    title: "Free SSL Checker — Expiry Date & Days Left | Watchfront",
     description:
       "Free SSL checker: certificate expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Instant, no signup.",
     keywords: [
-      "ssl checker",
+      "free ssl checker",
+      "ssl checker free",
       "ssl certificate checker",
       "check ssl certificate expiry",
       "ssl expiry checker",
@@ -92,9 +94,10 @@ export const TOOLS: Tool[] = [
       "https certificate check",
     ],
     h1: "Free SSL checker — expiry date & days left",
-    intro: "Enter a domain to see its SSL/TLS certificate in seconds: issuer, expiry date and days left, the domains it covers, the TLS version negotiated, and whether a standard browser would trust it.",
+    intro:
+      "Free, no signup. Enter a domain to see its SSL/TLS certificate in seconds: issuer, expiry date and days left, the domains it covers, the TLS version negotiated, and whether a standard browser would trust it.",
     placeholder: "example.com",
-    button: "Check SSL",
+    button: "Check SSL free",
     sections: [
       {
         h: "What this SSL checker tests",
@@ -129,15 +132,24 @@ export const TOOLS: Tool[] = [
   {
     slug: "seo-checker",
     kind: "seo",
-    name: "SEO checker",
-    short: "Score any page 0-100 on titles, meta description, headings, canonical, indexing and social tags.",
-    title: "Free SEO Checker - On-Page SEO Audit Tool | Watchfront",
-    description: "Free on-page SEO checker. Score any URL 0-100 on title, meta description, H1, canonical, robots, viewport, Open Graph, Twitter card and image alt text.",
-    keywords: ["free seo checker", "seo checker", "on page seo checker", "meta tag checker", "website seo audit free"],
-    h1: "Free on-page SEO checker",
-    intro: "Paste a URL to get an instant on-page SEO audit: a 0-100 score, a letter grade, and a plain-English list of what to fix - from titles and meta descriptions to canonicals, indexing rules and social share tags.",
+    name: "Free SEO checker",
+    short: "Free on-page SEO audit — score 0–100 on titles, meta, H1, canonical, robots and social tags. No signup.",
+    title: "Free SEO Checker — On-Page Audit Tool | Watchfront",
+    description:
+      "Free SEO checker. Score any URL 0–100 on title, meta description, H1, canonical, robots, viewport, Open Graph, Twitter card and image alt text. No signup.",
+    keywords: [
+      "free seo checker",
+      "seo checker free",
+      "on page seo checker",
+      "free website seo audit",
+      "meta tag checker",
+      "website seo audit free",
+    ],
+    h1: "Free SEO checker — on-page audit in seconds",
+    intro:
+      "Free, no signup. Paste a URL for an instant on-page SEO audit: a 0–100 score, a letter grade, and a plain-English fix list — titles, meta, canonicals, indexing and social tags.",
     placeholder: "example.com/page",
-    button: "Run SEO check",
+    button: "Run free SEO check",
     sections: [
       {
         h: "What the SEO checker looks at",
@@ -171,23 +183,23 @@ export const TOOLS: Tool[] = [
   {
     slug: "http-status-checker",
     kind: "website-status",
-    name: "HTTP status checker",
-    short: "See the live HTTP status code, response time and redirect chain for any URL.",
+    name: "Free HTTP status checker",
+    short: "Free HTTP status code check — live code, response time and redirect chain. No signup.",
     title: "Free HTTP Status Code Checker | Watchfront",
     description:
-      "Free HTTP status checker. Instantly see status code, response time and redirects for any URL - from our servers, not your Wi-Fi.",
+      "Free HTTP status checker. Instantly see status code, response time and redirects for any URL — from our servers, not your Wi-Fi. No signup.",
     keywords: [
-      "http status checker",
-      "http status code checker",
+      "free http status checker",
+      "http status code checker free",
       "check http status",
       "website status code",
       "http response checker",
     ],
     h1: "Free HTTP status code checker",
     intro:
-      "Paste a URL to see the live HTTP status, how long the response took, and every redirect hop - requested from our monitoring servers so local network issues do not confuse the result.",
+      "Free, no signup. Paste a URL to see the live HTTP status, how long the response took, and every redirect hop — from our monitoring servers so local network issues do not confuse the result.",
     placeholder: "example.com/page",
-    button: "Check HTTP status",
+    button: "Check status free",
     sections: [
       {
         h: "What the status codes mean",
@@ -219,23 +231,23 @@ export const TOOLS: Tool[] = [
   {
     slug: "redirect-checker",
     kind: "website-status",
-    name: "Redirect checker",
-    short: "Trace every redirect hop, final URL and status codes for any link.",
-    title: "Free Redirect Checker - Trace URL Redirects | Watchfront",
+    name: "Free redirect checker",
+    short: "Free redirect chain tracer — every hop, final URL and status codes. No signup.",
+    title: "Free Redirect Checker — Trace URL Redirects | Watchfront",
     description:
-      "Free redirect checker. Trace HTTP redirects, final URL and status codes for any link - catch chains, loops and mixed-content hops.",
+      "Free redirect checker. Trace HTTP redirects, final URL and status codes for any link — catch chains, loops and mixed HTTP/HTTPS hops. No signup.",
     keywords: [
-      "redirect checker",
-      "url redirect checker",
+      "free redirect checker",
+      "url redirect checker free",
       "http redirect checker",
-      "check redirects",
+      "check redirects free",
       "redirect chain checker",
     ],
     h1: "Free URL redirect checker",
     intro:
-      "Enter any URL to see the full redirect chain: each status code, each Location hop, and the final URL our servers land on. Useful after migrations, HTTPS cutovers and campaign link changes.",
+      "Free, no signup. Enter any URL to see the full redirect chain: each status code, each Location hop, and the final URL our servers land on. Useful after migrations, HTTPS cutovers and campaign link changes.",
     placeholder: "https://example.com/old-page",
-    button: "Trace redirects",
+    button: "Trace free",
     sections: [
       {
         h: "Why redirect chains hurt",
@@ -267,23 +279,23 @@ export const TOOLS: Tool[] = [
   {
     slug: "meta-tag-checker",
     kind: "seo",
-    name: "Meta tag checker",
-    short: "Inspect title, meta description, robots, canonical and social tags on any page.",
-    title: "Free Meta Tag Checker - Title & Description | Watchfront",
+    name: "Free meta tag checker",
+    short: "Free meta tag check — title, description, robots, canonical, Open Graph and Twitter cards. No signup.",
+    title: "Free Meta Tag Checker — Title & Description | Watchfront",
     description:
-      "Free meta tag checker for title, meta description, robots, canonical, Open Graph and Twitter cards. Instant on-page SEO readout.",
+      "Free meta tag checker for title, meta description, robots, canonical, Open Graph and Twitter cards. Instant on-page SEO readout. No signup.",
     keywords: [
-      "meta tag checker",
-      "meta description checker",
+      "free meta tag checker",
+      "meta description checker free",
       "title tag checker",
-      "open graph checker",
+      "open graph checker free",
       "canonical tag checker",
     ],
     h1: "Free meta tag checker",
     intro:
-      "Paste a URL to inspect the title tag, meta description, robots directives, canonical, viewport, Open Graph and Twitter card tags - scored with a plain-English fix list.",
+      "Free, no signup. Paste a URL to inspect the title tag, meta description, robots directives, canonical, viewport, Open Graph and Twitter card tags — scored with a plain-English fix list.",
     placeholder: "example.com/landing",
-    button: "Check meta tags",
+    button: "Check meta free",
     sections: [
       {
         h: "What we read on the page",
@@ -315,23 +327,24 @@ export const TOOLS: Tool[] = [
   {
     slug: "is-it-down",
     kind: "website-status",
-    name: "Is it down?",
-    short: "Instant “is it down?” check — status code, speed and redirects from outside your network.",
-    title: "Is It Down? Free Website Status Check | Watchfront",
+    name: "Free is-it-down checker",
+    short: "Free “is it down?” check — up or down, HTTP code and speed from outside your network. No signup.",
+    title: "Free Is It Down Checker — Website Up or Down? | Watchfront",
     description:
-      "Is it down? Free website status check. See if any site is up right now with HTTP code, response time and redirect chain — no account.",
+      "Free is it down checker. See if any website is up or down right now with HTTP code, response time and redirects — no account.",
     keywords: [
+      "free is it down",
+      "is it down checker free",
       "is it down",
       "is the site down",
       "website is down",
-      "check website status",
-      "website up or down",
+      "website up or down free",
     ],
-    h1: "Is it down? Check any website right now",
+    h1: "Free is-it-down checker — is the site up?",
     intro:
-      "Paste a URL for a live outside-network check. Use this when someone says “the site is down” and you need a fast, independent answer.",
+      "Free, no signup. Paste a URL for a live outside-network check. Use this when someone says “the site is down” and you need a fast, independent answer.",
     placeholder: "example.com",
-    button: "Check if it’s down",
+    button: "Check free",
     sections: [
       {
         h: "What “is it down?” really means",
@@ -358,23 +371,24 @@ export const TOOLS: Tool[] = [
   {
     slug: "ssl-expiry-checker",
     kind: "ssl",
-    name: "SSL expiry checker",
-    short: "See SSL certificate expiry date and days left before browsers show a warning.",
-    title: "Free SSL Expiry Checker - Certificate Days Left | Watchfront",
+    name: "Free SSL expiry checker",
+    short: "Free SSL expiry check — certificate end date and days left before browser warnings. No signup.",
+    title: "Free SSL Expiry Checker — Days Left on Certificate | Watchfront",
     description:
       "Free SSL expiry checker. See certificate expiration date, days left, issuer and trust for any domain — instant, no signup.",
     keywords: [
-      "ssl expiry checker",
+      "free ssl expiry checker",
+      "ssl expiry checker free",
       "ssl certificate expiry checker",
-      "check ssl expiration date",
+      "check ssl expiration date free",
       "ssl expiry date checker",
       "certificate expiry checker",
     ],
-    h1: "Free SSL expiry checker",
+    h1: "Free SSL expiry checker — days left",
     intro:
-      "Enter a domain to read the live certificate: expiry date, days remaining, issuer, covered hostnames and whether a browser would trust it.",
+      "Free, no signup. Enter a domain to read the live certificate: expiry date, days remaining, issuer, covered hostnames and whether a browser would trust it.",
     placeholder: "example.com",
-    button: "Check SSL expiry",
+    button: "Check expiry free",
     sections: [
       {
         h: "Why people search “SSL expiry checker”",
@@ -400,23 +414,24 @@ export const TOOLS: Tool[] = [
   {
     slug: "website-status-checker",
     kind: "website-status",
-    name: "Website status checker",
-    short: "Live website status: HTTP code, timing and redirects from an external check.",
-    title: "Free Website Status Checker | Watchfront",
+    name: "Free website status checker",
+    short: "Free live website status — HTTP code, timing and redirects from outside your Wi-Fi. No signup.",
+    title: "Free Website Status Checker — Is the Site Up? | Watchfront",
     description:
-      "Free website status checker. Instant HTTP status, response time and redirects for any URL — from our servers, not your Wi-Fi.",
+      "Free website status checker. Instant HTTP status, response time and redirects for any URL — from our servers, not your Wi-Fi. No signup.",
     keywords: [
-      "website status checker",
+      "free website status checker",
+      "website status checker free",
       "website status check",
-      "check website status online",
+      "check website status online free",
       "site status checker",
       "website online checker",
     ],
-    h1: "Free website status checker",
+    h1: "Free website status checker — is the site up?",
     intro:
-      "Paste any public URL to see live status code, speed and redirect hops. Built for the moment someone asks “is the site up?”",
+      "Free, no signup. Paste any public URL to see live status code, speed and redirect hops. Built for the moment someone asks “is the site up?”",
     placeholder: "example.com",
-    button: "Check website status",
+    button: "Check status free",
     sections: [
       {
         h: "Status checker vs uptime monitor",
@@ -437,6 +452,138 @@ export const TOOLS: Tool[] = [
     ],
     feature: "uptime-monitoring",
     product: "website-uptime-monitor",
+  },
+  {
+    slug: "down-for-everyone-or-just-me",
+    kind: "website-status",
+    name: "Free down for everyone or just me",
+    short: "Free — down for everyone, or just you? External check with status and speed. No signup.",
+    title: "Free Down for Everyone or Just Me Checker | Watchfront",
+    description:
+      "Free down for everyone or just me checker. See if a website is down for everyone or only for you — live HTTP status and response time, no signup.",
+    keywords: [
+      "down for everyone or just me",
+      "free down for everyone or just me",
+      "is it down for everyone or just me",
+      "website down for everyone or just me free",
+      "down for me or everyone",
+    ],
+    h1: "Free: down for everyone, or just me?",
+    intro:
+      "Free, no signup. We check the URL from our servers. If it fails here too, it is down for everyone. If it works here but not on your phone or laptop, the problem is local (Wi-Fi, DNS, cache, VPN).",
+    placeholder: "example.com",
+    button: "Check free",
+    sections: [
+      {
+        h: "How to read the free result",
+        p: [
+          "Up here, down for you → fix your network, DNS or browser first. Down here too → check hosting, SSL, DNS at the registrar, or the last deploy. One free check is a snapshot, not a worldwide outage map.",
+        ],
+      },
+      {
+        h: "What people usually search next",
+        p: [
+          "After “down for everyone or just me,” people often search for a free SSL expiry checker, free HTTP status checker, or a free website response time check — all available in this tools hub.",
+        ],
+      },
+      {
+        h: "When free is not enough",
+        p: [
+          "Clients message you after the outage. A free spot check helps triage; continuous uptime monitoring alerts you first.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this down-for-everyone checker free?", a: "Yes. No signup for fair-use spot checks." },
+      { q: "Can one server prove a global outage?", a: "No — it proves the site is reachable or not from our network. That is usually enough to separate “just me” from “the origin is broken.”" },
+      { q: "What if I need alerts next time?", a: "Add the URL to Watchfront uptime monitoring — free for 3 days." },
+    ],
+    feature: "uptime-monitoring",
+    product: "uptime-monitoring-tool",
+  },
+  {
+    slug: "check-if-website-is-up",
+    kind: "website-status",
+    name: "Free check if website is up",
+    short: "Free check if a website is up — live reachability, HTTP code and speed. No signup.",
+    title: "Free Check If Website Is Up | Watchfront",
+    description:
+      "Free check if website is up. Instant live status, HTTP code and response time from our servers — no signup required.",
+    keywords: [
+      "check if website is up free",
+      "free check if website is up",
+      "is website up",
+      "check if site is up",
+      "website up checker free",
+      "is my website up",
+    ],
+    h1: "Free check if a website is up",
+    intro:
+      "Free, no signup. Paste a domain or URL. We hit it from outside your network and tell you if it is up, what status code came back, and how fast it answered.",
+    placeholder: "example.com",
+    button: "Check if it’s up",
+    sections: [
+      {
+        h: "“Is my website up?” in one request",
+        p: [
+          "Browsers hide a lot of detail. A free external check shows the raw HTTP outcome — 200, redirect, 5xx, timeout or DNS failure — so you know whether the origin is answering.",
+        ],
+      },
+      {
+        h: "Up now, down at 2am",
+        p: [
+          "A free check answers this second. Overnight outages still need an uptime monitoring tool with retries and alerts.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is check-if-website-is-up free?", a: "Yes. Fair-use limits keep it fast for everyone." },
+      { q: "Does “up” mean the whole site works?", a: "It means the URL answered. Forms, checkout and login can still be broken — use journey monitoring for that." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-uptime-monitor",
+  },
+  {
+    slug: "website-response-time-checker",
+    kind: "website-status",
+    name: "Free website response time checker",
+    short: "Free website response time / TTFB-style check from our servers. No signup.",
+    title: "Free Website Response Time Checker | Watchfront",
+    description:
+      "Free website response time checker. Measure how fast a URL answers from our servers (status + ms) — instant, no signup.",
+    keywords: [
+      "free website response time checker",
+      "website response time checker free",
+      "check website response time",
+      "website speed checker free",
+      "ttfb checker free",
+      "check website load time",
+    ],
+    h1: "Free website response time checker",
+    intro:
+      "Free, no signup. Enter a URL to see how many milliseconds our servers wait for a response, plus the HTTP status and redirects. Useful when a site “feels slow” and you want an outside number.",
+    placeholder: "example.com",
+    button: "Check response time",
+    sections: [
+      {
+        h: "What this free speed check measures",
+        p: [
+          "It is a server response time for one request — not a full Lighthouse / Core Web Vitals lab run. Slow TTFB-style times still flag hosting, origin, or cold-start problems visitors feel.",
+        ],
+      },
+      {
+        h: "Good vs slow",
+        p: [
+          "Under ~500 ms is usually fine for marketing sites. Sustained multi-second responses hurt conversions and SEO. Pair this free check with continuous uptime monitoring to catch regressions after deploys.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the response time checker free?", a: "Yes. No account for spot checks." },
+      { q: "Is this the same as PageSpeed Insights?", a: "No. This measures server answer time from our network. For LCP/CLS use a lab tool; for “is it up and how fast?” use this." },
+    ],
+    feature: "uptime-monitoring",
+    product: "uptime-monitoring-tool",
   },
 ];
 

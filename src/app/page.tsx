@@ -23,11 +23,11 @@ export const metadata: Metadata = pageMeta({
   path: "/",
   keywords: [
     "website monitoring tool",
-    "website monitoring",
+    "free website down checker",
+    "is my website down",
+    "down for everyone or just me",
+    "free ssl expiry checker",
     "uptime monitoring tool",
-    "website down checker",
-    "SSL certificate monitoring",
-    "contact form monitoring",
     "website monitoring for agencies",
   ],
   ogTitle: "Website Monitoring Tool for Agencies | Watchfront",
@@ -204,14 +204,29 @@ export default function Home() {
 
           <CinemaSection id="free-tools" className="mx-auto mt-24 max-w-6xl px-6 sm:mt-28" intensity={0.9}>
             <Reveal>
-              <h2 id="free-tools-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Free website checkers</h2>
-              <p className="mt-3 max-w-xl text-base text-plum-2">Down, HTTP status, redirects, SSL, SEO and meta tags — no signup. Same engines as 24/7 monitoring.</p>
+              <h2 id="free-tools-title" className="text-3xl font-medium tracking-tight text-ink md:text-4xl">Free tools people actually search</h2>
+              <p className="mt-3 max-w-xl text-base text-plum-2">Is my website down? SSL expiry? Response time? Redirects? SEO? Every checker is free — no signup.</p>
             </Reveal>
             <Stagger className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3" stagger={0.1}>
-              {TOOLS.map((t) => (
+              {(
+                [
+                  "website-down-checker",
+                  "down-for-everyone-or-just-me",
+                  "check-if-website-is-up",
+                  "is-it-down",
+                  "ssl-expiry-checker",
+                  "website-response-time-checker",
+                  "http-status-checker",
+                  "seo-checker",
+                  "redirect-checker",
+                ]
+                  .map((slug) => TOOLS.find((t) => t.slug === slug))
+                  .filter(Boolean) as typeof TOOLS
+              ).map((t) => (
                 <StaggerItem key={t.slug} variant="scale">
                   <Link href={`/tools/${t.slug}`} className="tile-lift group flex h-full flex-col rounded-3xl bg-cream p-6 ring-1 ring-plum/5">
-                    <h3 className="text-lg font-medium text-ink transition group-hover:text-magenta">{t.name}</h3>
+                    <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-magenta">Free</span>
+                    <h3 className="mt-2 text-lg font-medium text-ink transition group-hover:text-magenta">{t.name.replace(/^Free\s+/i, "")}</h3>
                     <p className="mt-2 flex-1 text-[14px] leading-relaxed text-plum-2">{t.short}</p>
                     <span className="mt-5 text-sm text-plum"><span className="link-underline">Try free</span> <ArrowRight className="inline h-4 w-4 transition duration-300 group-hover:translate-x-1" /></span>
                   </Link>
