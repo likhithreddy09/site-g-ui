@@ -9,7 +9,7 @@ import "./globals.css";
 
 const RUM_SRC =
   process.env.NEXT_PUBLIC_WATCHFRONT_SDK_URL ||
-  "https://api.watchfront.in/sdk.js";
+  "https://site-g-backend-production-92ae5cf9.up.railway.app/sdk.js";
 const RUM_SITE_KEY =
   process.env.NEXT_PUBLIC_WATCHFRONT_SITE_KEY || "sg_q_7bXnpS-63hVDdr";
 
