@@ -175,12 +175,13 @@ export const PRODUCTS: ProductPage[] = [
       "SSL certificate monitoring",
       "SSL monitoring",
       "SSL expiry alerts",
+      "ssl expiry checker",
       "SSL certificate expiry monitoring",
       "domain expiry monitoring",
     ],
     feature: "ssl-domain-monitoring",
     features: ["ssl-domain-monitoring", "uptime-monitoring", "client-reports"],
-    tool: "ssl-checker",
+    tool: "ssl-expiry-checker",
     guide: "domain-expiry-monitoring",
     bullets: [
       "Daily certificate chain validation",
@@ -215,6 +216,69 @@ export const PRODUCTS: ProductPage[] = [
       {
         q: "Does Watchfront monitor domain expiry too?",
         a: "Yes. Domain registry expiry is checked where the registry exposes it; if the date is hidden, Watchfront shows unknown instead of inventing a value.",
+      },
+    ],
+  },
+  {
+    slug: "website-monitoring-tool",
+    nav: "Monitoring tool",
+    title: "Website Monitoring Tool - Uptime, SSL, Forms | Watchfront",
+    description:
+      "Website monitoring tool for agencies: 1-minute uptime, SSL expiry, contact-form journeys, SEO checks and client reports. Free 3-day trial, no card.",
+    h1: "Website monitoring tool that checks more than “is it up?”",
+    intro:
+      "People searching for a website monitoring tool usually need downtime alerts plus the failures a ping misses — expired SSL, dead lead forms, broken landing pages. Watchfront is built for that job on agency portfolios.",
+    keywords: [
+      "website monitoring tool",
+      "best website monitoring tool",
+      "website monitoring tools",
+      "website monitor tool",
+      "online website monitoring tool",
+    ],
+    feature: "uptime-monitoring",
+    features: ["uptime-monitoring", "ssl-domain-monitoring", "form-journey-testing", "seo-audit", "client-reports"],
+    tool: "website-down-checker",
+    guide: "how-to-choose-website-monitoring-tool",
+    bullets: [
+      "Uptime checks every minute with confirmation before alerts",
+      "SSL and domain expiry warnings",
+      "Real-browser form / journey tests",
+      "On-page SEO hygiene across money pages",
+      "Shareable client uptime reports",
+      "Free spot-check tools for triage",
+    ],
+    sections: [
+      {
+        h: "What a website monitoring tool should cover",
+        p: [
+          "Availability on a schedule. SSL days-remaining. Proof that lead forms still submit. A history you can put in a retainer PDF. If the tool only pings the homepage, you will still stitch the rest by hand.",
+        ],
+      },
+      {
+        h: "Try before you buy another ping box",
+        p: [
+          "Run the free website down checker for a spot answer, then start a 3-day trial on a real client URL and compare what continuous checks catch overnight.",
+        ],
+      },
+      {
+        h: "Who this page is for",
+        p: [
+          "Agencies, freelancers and marketing teams comparing website monitoring tools — not enterprise APM buyers looking for traces and infra metrics.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is a website monitoring tool?",
+        a: "Software that repeatedly checks whether websites (and often APIs) respond correctly, then alerts you and stores history when they fail.",
+      },
+      {
+        q: "What should I look for in the best website monitoring tool?",
+        a: "Check interval, false-alarm control, SSL/form coverage, multi-site workflows and reports — not just probe-count marketing.",
+      },
+      {
+        q: "Is there a free website monitoring tool?",
+        a: "Use Watchfront’s free checkers for one-off status/SSL/SEO. Continuous portfolio monitoring includes a free 3-day trial of every feature.",
       },
     ],
   },

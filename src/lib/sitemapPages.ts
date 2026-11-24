@@ -35,6 +35,7 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
     // Primaries rank higher; supporting cluster pages stay indexed but crawl-deprioritised.
     const primarySlugs = new Set([
       "website-monitoring-for-agencies",
+      "website-monitoring-tool",
       "website-monitoring-tool-india",
       "uptime-monitoring-tool",
       "ssl-certificate-monitoring",

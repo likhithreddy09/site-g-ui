@@ -5,21 +5,22 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata = pageMeta({
-  title: "Free Website Tools: Down, SSL, SEO, Redirects | Watchfront",
+  title: "Free Website Down, SSL & SEO Checkers | Watchfront Tools",
   description:
-    "Free website tools: down checker, HTTP status, redirect tracer, SSL expiry, SEO and meta tag checkers. Instant results, no signup.",
+    "Free tools people actually search for: is my website down, SSL expiry checker, HTTP status, redirects, meta tags and on-page SEO — instant, no signup.",
   path: "/tools",
   keywords: [
-    "free website tools",
+    "is my website down",
     "website down checker",
+    "ssl expiry checker",
+    "website status checker",
     "http status checker",
     "redirect checker",
-    "ssl checker",
+    "free seo checker",
     "meta tag checker",
-    "seo checker",
   ],
-  ogTitle: "Free Website Tools: Down, SSL, SEO & Redirects | Watchfront",
-  ogDescription: "Free down, HTTP status, redirect, SSL, SEO and meta tag checkers. Instant results, no signup.",
+  ogTitle: "Free Website Down, SSL & SEO Checkers | Watchfront",
+  ogDescription: "Is it down? SSL expiry? Meta tags? Free instant checkers — no signup.",
   image: "/tools/opengraph-image",
 });
 
@@ -35,8 +36,8 @@ export default function ToolsPage() {
       <PageHero
         crumbs={[["Home", "/"], ["Free tools", "/tools"]]}
         eyebrow="Free tools"
-        title="Free website checkers. Instant answers, no signup."
-        intro="Check whether a site is down, trace redirects, read HTTP status, inspect SSL expiry, or audit meta tags and on-page SEO - the same engines that power Watchfront monitoring."
+        title="Free checkers for what people actually Google."
+        intro="Is my website down? SSL expiry? HTTP status, redirects, meta tags, on-page SEO — instant answers from the same engines behind Watchfront monitoring. No signup."
       />
       <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 md:grid-cols-3">
         {TOOLS.map((t) => (

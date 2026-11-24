@@ -28,11 +28,20 @@ export const TOOLS: Tool[] = [
     kind: "website-status",
     name: "Website down checker",
     short: "Is it down for everyone or just you? Check any site's status, response time and redirects.",
-    title: "Is My Website Down? Free Checker (Instant) | Watchfront",
-    description: "Check if a website is down for everyone or just you. Free, instant status check with HTTP code, response time and redirect chain - no signup.",
-    keywords: ["is my website down", "website down checker", "check if website is down", "website status checker", "is it down right now"],
-    h1: "Is my website down? Check it instantly",
-    intro: "Enter any URL and we'll request it from our servers - not your network - and show the HTTP status, response time and every redirect. If it loads here but not for you, the problem is probably local.",
+    title: "Is My Website Down? Free Checker (Everyone or Just Me) | Watchfront",
+    description:
+      "Check if a website is down for everyone or just you. Free instant website down checker with HTTP status, response time and redirects — no signup.",
+    keywords: [
+      "is my website down",
+      "website down checker",
+      "check if website is down",
+      "is the website down for everyone",
+      "website down for everyone or just me",
+      "is it down right now",
+    ],
+    h1: "Is my website down — for everyone, or just me?",
+    intro:
+      "Enter any URL. We request it from our servers (not your Wi-Fi) and show HTTP status, response time and redirects. If it loads here but not for you, the problem is probably local.",
     placeholder: "example.com",
     button: "Check status",
     sections: [
@@ -71,10 +80,18 @@ export const TOOLS: Tool[] = [
     kind: "ssl",
     name: "SSL certificate checker",
     short: "See who issued a certificate, when it expires, which domains it covers and whether browsers trust it.",
-    title: "Free SSL Checker - Expiry, Issuer & Trust | Watchfront",
-    description: "Check any website's SSL certificate: expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Free and instant.",
-    keywords: ["ssl checker", "ssl certificate checker", "check ssl certificate expiry", "ssl expiry checker", "https certificate check"],
-    h1: "Free SSL certificate checker",
+    title: "Free SSL Checker - Expiry Date & Days Left | Watchfront",
+    description:
+      "Free SSL checker: certificate expiry date, days left, issuer, covered domains (SANs), TLS version and browser trust. Instant, no signup.",
+    keywords: [
+      "ssl checker",
+      "ssl certificate checker",
+      "check ssl certificate expiry",
+      "ssl expiry checker",
+      "ssl expiration checker",
+      "https certificate check",
+    ],
+    h1: "Free SSL checker — expiry date & days left",
     intro: "Enter a domain to see its SSL/TLS certificate in seconds: issuer, expiry date and days left, the domains it covers, the TLS version negotiated, and whether a standard browser would trust it.",
     placeholder: "example.com",
     button: "Check SSL",
@@ -294,6 +311,132 @@ export const TOOLS: Tool[] = [
     ],
     feature: "seo-audit",
     product: "website-monitoring-software",
+  },
+  {
+    slug: "is-it-down",
+    kind: "website-status",
+    name: "Is it down?",
+    short: "Instant “is it down?” check — status code, speed and redirects from outside your network.",
+    title: "Is It Down? Free Website Status Check | Watchfront",
+    description:
+      "Is it down? Free website status check. See if any site is up right now with HTTP code, response time and redirect chain — no account.",
+    keywords: [
+      "is it down",
+      "is the site down",
+      "website is down",
+      "check website status",
+      "website up or down",
+    ],
+    h1: "Is it down? Check any website right now",
+    intro:
+      "Paste a URL for a live outside-network check. Use this when someone says “the site is down” and you need a fast, independent answer.",
+    placeholder: "example.com",
+    button: "Check if it’s down",
+    sections: [
+      {
+        h: "What “is it down?” really means",
+        p: [
+          "A site can fail for you (DNS, Wi-Fi, VPN) while the origin is fine — or fail for everyone. An external check separates those cases in seconds.",
+          "If our check succeeds and your browser fails, fix the local side first. If our check fails too, dig into hosting, SSL, DNS or the last deploy.",
+        ],
+      },
+      {
+        h: "From one check to continuous monitoring",
+        p: [
+          "A one-off “is it down?” answer is useful. An uptime monitoring tool alerts you the next time it happens — before a client forwards a screenshot.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this free?", a: "Yes. No signup for fair-use spot checks." },
+      { q: "Is it the same as the website down checker?", a: "Same engine, different search phrasing. Both run an external HTTP check." },
+      { q: "How do I get alerts next time?", a: "Add the URL to Watchfront uptime monitoring — free for 3 days." },
+    ],
+    feature: "uptime-monitoring",
+    product: "uptime-monitoring-tool",
+  },
+  {
+    slug: "ssl-expiry-checker",
+    kind: "ssl",
+    name: "SSL expiry checker",
+    short: "See SSL certificate expiry date and days left before browsers show a warning.",
+    title: "Free SSL Expiry Checker - Certificate Days Left | Watchfront",
+    description:
+      "Free SSL expiry checker. See certificate expiration date, days left, issuer and trust for any domain — instant, no signup.",
+    keywords: [
+      "ssl expiry checker",
+      "ssl certificate expiry checker",
+      "check ssl expiration date",
+      "ssl expiry date checker",
+      "certificate expiry checker",
+    ],
+    h1: "Free SSL expiry checker",
+    intro:
+      "Enter a domain to read the live certificate: expiry date, days remaining, issuer, covered hostnames and whether a browser would trust it.",
+    placeholder: "example.com",
+    button: "Check SSL expiry",
+    sections: [
+      {
+        h: "Why people search “SSL expiry checker”",
+        p: [
+          "Expired certificates cause full-page browser warnings and kill conversions. Auto-renewal fails quietly after DNS or host changes — an external expiry check catches what your laptop may still cache.",
+        ],
+      },
+      {
+        h: "One check vs continuous SSL monitoring",
+        p: [
+          "Use this for a spot check. Then enable SSL certificate monitoring across every client site so you get warned at 30/14/7 days left.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the SSL expiry checker free?", a: "Yes. Fair-use limits apply." },
+      { q: "Does it show days left?", a: "Yes — expiry timestamp and whole days remaining." },
+      { q: "Can I monitor many domains?", a: "Yes in Watchfront — SSL and domain expiry for the whole portfolio." },
+    ],
+    feature: "ssl-domain-monitoring",
+    product: "ssl-certificate-monitoring",
+  },
+  {
+    slug: "website-status-checker",
+    kind: "website-status",
+    name: "Website status checker",
+    short: "Live website status: HTTP code, timing and redirects from an external check.",
+    title: "Free Website Status Checker | Watchfront",
+    description:
+      "Free website status checker. Instant HTTP status, response time and redirects for any URL — from our servers, not your Wi-Fi.",
+    keywords: [
+      "website status checker",
+      "website status check",
+      "check website status online",
+      "site status checker",
+      "website online checker",
+    ],
+    h1: "Free website status checker",
+    intro:
+      "Paste any public URL to see live status code, speed and redirect hops. Built for the moment someone asks “is the site up?”",
+    placeholder: "example.com",
+    button: "Check website status",
+    sections: [
+      {
+        h: "Status checker vs uptime monitor",
+        p: [
+          "A status checker answers once. An uptime monitoring tool answers every minute and pages you when confirmation rules say it is real.",
+        ],
+      },
+      {
+        h: "What agencies use it for",
+        p: [
+          "Triage client “site down” messages in Slack, verify a deploy, or confirm a CDN edge before escalating to the host.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this website status checker free?", a: "Yes — no signup for spot checks." },
+      { q: "Does it work worldwide?", a: "The check runs from our monitoring servers, so it reflects external reachability, not your office network." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-uptime-monitor",
   },
 ];
 

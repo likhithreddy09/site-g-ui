@@ -19,7 +19,7 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["nor
 
 const OG_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${SITE.name} - ${SITE.tagline}` };
 
-const HOME_TITLE = "Website Monitoring for Agencies in India | Watchfront";
+const HOME_TITLE = "Website Monitoring Tool for Agencies | Uptime, SSL, Forms | Watchfront";
 const HOME_DESC = SITE.description;
 
 export const metadata: Metadata = {

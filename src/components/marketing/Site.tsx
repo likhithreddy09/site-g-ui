@@ -102,7 +102,7 @@ export function SiteHeader({ banner = true, tone = "light" }: { banner?: boolean
           <NavMenu
             label="Product"
             items={PRODUCTS.map((p) => ({ href: `/${p.slug}`, name: p.nav }))}
-            all={["Website monitoring overview", "/website-monitoring"]}
+            all={["Website monitoring tool", "/website-monitoring-tool"]}
           />
           <NavMenu label="Features" items={features} all={["All features", "/features"]} />
           <NavMenu label="Use cases" items={cases} all={["All use cases", "/use-cases"]} wide={false} />
@@ -126,6 +126,7 @@ export function SiteHeader({ banner = true, tone = "light" }: { banner?: boolean
               className="absolute right-0 top-full z-50 mt-2 max-h-[min(70vh,28rem)] w-[min(18rem,calc(100vw-2rem))] space-y-0.5 overflow-y-auto rounded-2xl bg-white p-2 text-sm shadow-2xl ring-1 ring-plum/10"
             >
               {[
+                ["Website monitoring tool", "/website-monitoring-tool"],
                 ["Website monitoring", "/website-monitoring"],
                 ["Features", "/features"],
                 ["Use cases", "/use-cases"],

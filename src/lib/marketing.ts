@@ -225,7 +225,7 @@ export const USE_CASES: UseCase[] = [
 ];
 
 export const HOME_FAQS: Faq[] = [
-  { q: "What is Watchfront?", a: "Watchfront is website monitoring software for agencies and freelancers in India. It monitors client website uptime, SSL certificates, domain expiry, SEO hygiene, content, contact forms, APIs and JavaScript errors - then turns failures into incidents with evidence and client-ready uptime reports." },
+  { q: "What is a website monitoring tool — and is Watchfront one?", a: "Yes. Watchfront is a website monitoring tool for agencies: it checks client uptime, SSL expiry, contact forms, SEO hygiene, APIs and JS errors, then opens incidents with evidence and client-ready uptime reports." },
   { q: "How is Watchfront different from UptimeRobot or basic uptime tools?", a: "Basic uptime monitors only ask if the homepage responds. A site can be “up” while its contact form, booking flow or layout is broken. Watchfront adds form and journey testing, visual checks, SEO audits, API monitoring and JS error tracking - with screenshots and logs on every incident." },
   { q: "Is Watchfront built for Indian agencies?", a: "Yes. Support is India-friendly, and workflows are designed for agencies managing many client websites - including client grouping and shareable reports." },
   { q: "Do I need to install anything?", a: "No. Uptime, SSL, SEO, content, journey and API checks work from the outside. An optional lightweight script adds real-visitor JavaScript error monitoring." },

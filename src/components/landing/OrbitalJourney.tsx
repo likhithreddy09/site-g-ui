@@ -24,13 +24,13 @@ const CHAPTERS: {
 }[] = [
   {
     id: "open",
-    kicker: "Website monitoring for agencies in India",
+    kicker: "Website monitoring tool for agencies",
     lines: [
       { text: "Make room" },
       { text: "for" },
       { text: "certainty.", italic: true },
     ],
-    note: "Uptime, SSL, forms, and visitor errors — with evidence you can send before the client asks.",
+    note: "Uptime, SSL expiry, forms, and visitor errors — with evidence you can send before the client asks.",
   },
   {
     id: "signal",

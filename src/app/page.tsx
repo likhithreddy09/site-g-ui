@@ -18,18 +18,19 @@ import { SITE, abs } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata: Metadata = pageMeta({
-  title: "Website Monitoring for Agencies in India | Watchfront",
+  title: "Website Monitoring Tool for Agencies | Uptime, SSL, Forms | Watchfront",
   description: SITE.description,
   path: "/",
   keywords: [
+    "website monitoring tool",
     "website monitoring",
-    "website monitoring for agencies",
-    "website monitoring India",
     "uptime monitoring tool",
+    "website down checker",
     "SSL certificate monitoring",
     "contact form monitoring",
+    "website monitoring for agencies",
   ],
-  ogTitle: "Website Monitoring for Agencies in India | Watchfront",
+  ogTitle: "Website Monitoring Tool for Agencies | Watchfront",
 });
 
 const MODULES = [
@@ -96,9 +97,9 @@ export default function Home() {
           <CinemaSection id="platform" className="mx-auto mt-24 max-w-6xl px-6 sm:mt-28" intensity={1}>
             <Reveal className="border-l-4 border-teal pl-6" variant="left">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-mauve">Chapter 02 / Platform</p>
-              <h2 className="mt-3 max-w-xl text-3xl font-medium leading-tight tracking-tight text-ink md:text-4xl">Website monitoring. One record for every check.</h2>
-              <p className="mt-4 max-w-xl text-base text-plum-2">Uptime, SSL, forms, SEO, and incidents share the same facts — built for agencies managing client sites in India.</p>
-              <Link href="/website-monitoring" className="link-underline mt-5 inline-block text-plum">Explore website monitoring <ArrowRight className="inline h-4 w-4" /></Link>
+              <h2 className="mt-3 max-w-xl text-3xl font-medium leading-tight tracking-tight text-ink md:text-4xl">Website monitoring tool. One record for every check.</h2>
+              <p className="mt-4 max-w-xl text-base text-plum-2">Uptime, SSL expiry, forms, SEO, and incidents share the same facts — built for agencies managing client sites.</p>
+              <Link href="/website-monitoring-tool" className="link-underline mt-5 inline-block text-plum">Explore the website monitoring tool <ArrowRight className="inline h-4 w-4" /></Link>
             </Reveal>
             <Stagger className="mt-12 grid gap-x-10 gap-y-1 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
               {MODULES.map(([t, href, d], i) => (
