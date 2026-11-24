@@ -415,6 +415,106 @@ export const COMPARISONS: Comparison[] = [
       },
     ],
   },
+  {
+    slug: "betteruptime-alternative",
+    competitor: "Better Uptime",
+    title: "Better Uptime Alternative for Agencies | Watchfront",
+    description:
+      "Looking for a Better Uptime alternative? Watchfront adds form journeys, SSL/domain expiry, SEO audits and client reports for agency portfolios.",
+    keywords: [
+      "better uptime alternative",
+      "betteruptime alternative",
+      "better stack uptime alternative",
+      "uptime monitoring for agencies",
+    ],
+    h1: "A Better Uptime alternative built for agency retainers",
+    intro:
+      "Better Uptime is strong at status pages and on-call. Agencies juggling client WordPress and landing pages also need form journeys, SSL warnings and a PDF the client will renew on. Watchfront focuses on that workflow.",
+    theyDo: ["Uptime and heartbeat monitors", "Status pages", "On-call / incident workflows", "Integrations for engineering teams"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You primarily need status pages for your own SaaS",
+      "On-call rotation for engineers is the main pain",
+      "You do not manage many client marketing sites",
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront a Better Uptime replacement?",
+        a: "For website/API synthetic checks and agency reports, yes. For status-page-first SaaS ops, Better Uptime may still fit better.",
+      },
+      {
+        q: "Does Watchfront do status pages?",
+        a: "Shareable client reports and portfolio health are the focus today — not public multi-component status pages.",
+      },
+    ],
+  },
+  {
+    slug: "checkly-alternative",
+    competitor: "Checkly",
+    title: "Checkly Alternative for Agency Websites | Watchfront",
+    description:
+      "Need a Checkly alternative without Playwright scripts for every client site? Watchfront covers uptime, SSL, form journeys and retainer reports for agencies.",
+    keywords: [
+      "checkly alternative",
+      "checkly vs",
+      "synthetic monitoring for agencies",
+      "playwright monitoring alternative",
+    ],
+    h1: "A Checkly alternative when you need agency workflows, not only scripts",
+    intro:
+      "Checkly is excellent when your team writes Playwright checks as code. Many agencies need monitoring that non-engineers can own: forms, SSL, SEO and client PDFs. Watchfront is built for that lane.",
+    theyDo: ["Code-first Playwright / API checks", "CI-friendly synthetic monitoring", "Developer-centric dashboards", "Strong for product engineering teams"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "Your monitoring must live in git as Playwright code",
+      "You have engineers owning every check",
+      "You are monitoring your own product more than client sites",
+    ],
+    faqs: [
+      {
+        q: "Does Watchfront replace Checkly?",
+        a: "For agency portfolio monitoring and reports, often yes. For code-as-checks inside a product eng org, keep Checkly.",
+      },
+      {
+        q: "Can Watchfront test forms without writing scripts?",
+        a: "Yes — journey tests run in a real browser with a guided setup aimed at agencies.",
+      },
+    ],
+  },
+  {
+    slug: "oh-dear-alternative",
+    competitor: "Oh Dear",
+    title: "Oh Dear Alternative for Indian Agencies | Watchfront",
+    description:
+      "Comparing Oh Dear? Watchfront adds agency client grouping, form journeys, SEO audits and India-friendly support on top of uptime and SSL monitoring.",
+    keywords: [
+      "oh dear alternative",
+      "ohdear alternative",
+      "oh dear vs",
+      "website monitoring for agencies india",
+    ],
+    h1: "An Oh Dear alternative tuned for Indian agency retainers",
+    intro:
+      "Oh Dear is a polished uptime and certificate monitor. Watchfront covers those signals and leans harder into agency realities: many clients, broken lead forms, SEO regressions and reports that renew care plans.",
+    theyDo: ["Uptime and mixed checks", "Certificate monitoring", "Clean operator UX", "Broken-link style extras"],
+    weDo: SHARED_WE_DO,
+    pickThemIf: [
+      "You love its UX for a small personal stack",
+      "You do not need client reports or form journeys",
+      "India support hours are not a factor",
+    ],
+    faqs: [
+      {
+        q: "How is Watchfront different from Oh Dear?",
+        a: "Watchfront is organised around client portfolios, form journeys, SEO hygiene and shareable retainer reports — with India-friendly support.",
+      },
+      {
+        q: "Can I migrate from Oh Dear?",
+        a: "Yes. Add the same URLs in a free trial and compare confirmation rules, form tests and reporting.",
+      },
+    ],
+  },
+
 ];
 
 export const comparisonBySlug = (s: string) => COMPARISONS.find((c) => c.slug === s);

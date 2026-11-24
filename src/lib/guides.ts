@@ -1296,6 +1296,150 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "how-to-sell-website-monitoring",
+    nav: "Sell monitoring",
+    title: "How to Sell Website Monitoring to Clients | Watchfront",
+    description:
+      "A practical script for agencies: sell website monitoring as risk reduction and retainer proof — with SOW language, downtime math and a first-month report.",
+    h1: "How to sell website monitoring without sounding like a tool pitch",
+    intro:
+      "Clients do not buy “uptime checks.” They buy fewer surprise calls and a monthly PDF that proves you were watching. Here is a sales path that works for Indian agencies.",
+    keywords: [
+      "how to sell website monitoring",
+      "sell uptime monitoring to clients",
+      "agency monitoring retainer pitch",
+      "website monitoring proposal",
+    ],
+    readMins: 8,
+    published: "2026-11-24",
+    updated: "2026-11-24",
+    feature: "client-reports",
+    sections: [
+      {
+        h: "Lead with the failure clients already fear",
+        p: [
+          "Open with a story they recognise: Meta ads running into a dead form, SSL warning on a Friday wedding site, or a plugin update that blanked checkout. Then show the [cost of downtime calculator](/resources/cost-of-downtime) as a planning estimate — not a fake survey.",
+        ],
+      },
+      {
+        h: "Make the offer concrete in the SOW",
+        list: [
+          "Named URLs (homepage + money path)",
+          "Check interval and confirmation rules",
+          "Who gets alerts and when",
+          "What the monthly report includes",
+          "What is out of scope (server APM, content edits)",
+        ],
+        p: [
+          "Copy language from the [monitoring SOW template](/resources/monitoring-sow-template). Vague “we monitor your site” invites discounts.",
+        ],
+      },
+      {
+        h: "Price against risk, not against UptimeRobot",
+        p: [
+          "If the conversation becomes a feature spreadsheet versus a free ping tool, you already lost. Keep the frame on MTTD and retainer proof. Pair with [how to price monitoring into the retainer](/blog/price-monitoring-into-the-retainer).",
+        ],
+      },
+      {
+        h: "Close with a 30-day evidence loop",
+        p: [
+          "Promise a first report shaped like the [sample client uptime report](/resources/sample-client-uptime-report). That PDF renews the line item more than any demo script.",
+        ],
+      },
+      {
+        h: "Where Watchfront fits the pitch",
+        p: [
+          "Use [website monitoring for agencies](/website-monitoring-for-agencies) as the product page. Offer a 3-day trial on one real client site so the first week produces evidence, not slides.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What if the client already has free uptime?",
+        a: "Agree that ping helps. Then show what ping missed last quarter: forms, SSL, SEO. Sell the gap, not the logo.",
+      },
+      {
+        q: "Should monitoring be a separate SKU?",
+        a: "Often yes as a clear line item inside the care plan. Bundling it invisibly trains clients to undervalue the work.",
+      },
+      {
+        q: "How do I demo without looking salesy?",
+        a: "Open their live form journey and SSL days-remaining. Let the evidence sell.",
+      },
+    ],
+  },
+  {
+    slug: "website-monitoring-checklist-freelancers",
+    nav: "Freelancer checklist",
+    title: "Website Monitoring Checklist for Freelancers | Watchfront",
+    description:
+      "A practical website monitoring checklist for freelancers: which URLs to watch, form journeys, SSL, SEO hygiene and what to put in a client update.",
+    h1: "Website monitoring checklist for freelancers who wear every hat",
+    intro:
+      "If you are the designer, developer and support desk, monitoring has to be light. This checklist covers the minimum that stops clients from finding outages before you do.",
+    keywords: [
+      "website monitoring checklist",
+      "freelancer website monitoring",
+      "monitor client websites checklist",
+      "uptime checklist for freelancers",
+    ],
+    readMins: 6,
+    published: "2026-11-24",
+    updated: "2026-11-24",
+    tool: "website-down-checker",
+    feature: "uptime-monitoring",
+    sections: [
+      {
+        h: "Week-zero setup (15 minutes per site)",
+        list: [
+          "Add homepage + thank-you / checkout URL",
+          "Turn on 1-minute uptime with 2–3 failure confirmation",
+          "Enable SSL + domain expiry",
+          "Add one real-browser form journey if leads matter",
+          "Route alerts to a phone you actually check",
+        ],
+      },
+      {
+        h: "After every plugin or theme update",
+        list: [
+          "Re-run the form journey",
+          "Spot-check title/meta on the campaign landing page",
+          "Confirm HTTPS still redirects",
+        ],
+        p: [
+          "Most silent failures arrive after “small” updates. Pair with the [WordPress uptime monitoring guide](/guides/wordpress-uptime-monitoring).",
+        ],
+      },
+      {
+        h: "Monthly client update (without theatre)",
+        p: [
+          "Send uptime %, incidents with minutes, SSL days-remaining, and one decision. Steal the outline from the [sample client uptime report](/resources/sample-client-uptime-report).",
+        ],
+      },
+      {
+        h: "Free spot-checks vs continuous monitoring",
+        p: [
+          "Use free tools for triage. Keep continuous monitoring for sites that pay a retainer. Start at [website monitoring for freelancers](/use-cases/freelancers) and the [uptime monitoring tool](/uptime-monitoring-tool).",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the absolute minimum to monitor?",
+        a: "Homepage uptime + SSL + the lead form if the site generates leads.",
+      },
+      {
+        q: "How many sites can a solo freelancer handle?",
+        a: "Dozens if alerts are quiet and reports are templated. The bottleneck is process, not tool seats.",
+      },
+      {
+        q: "Do I need probes in every country?",
+        a: "Usually no. Confirmation rules beat map theatre for brochure and lead-gen sites.",
+      },
+    ],
+  },
+
 ];
 
 export const guideBySlug = (s: string) => GUIDES.find((g) => g.slug === s);

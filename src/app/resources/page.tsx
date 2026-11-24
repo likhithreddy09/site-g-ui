@@ -56,6 +56,21 @@ const ASSETS = [
     title: "Comparisons",
     body: "Honest Watchfront vs UptimeRobot, Pingdom, ManageWP and more.",
   },
+  {
+    href: "/blog/best-website-monitoring-tools-india-2026",
+    title: "Best monitoring tools for Indian agencies (2026)",
+    body: "A practical shortlist for retainers — not a US mega-list for SaaS engineering teams.",
+  },
+  {
+    href: "/guides/how-to-sell-website-monitoring",
+    title: "How to sell website monitoring",
+    body: "Pitch risk + SOW + first-month proof so the line item renews.",
+  },
+  {
+    href: "/website-monitoring-tool-india",
+    title: "Website monitoring tool (India)",
+    body: "The India-focused product page for agencies who need IST-friendly monitoring.",
+  },
 ];
 
 export const metadata = pageMeta({

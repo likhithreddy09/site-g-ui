@@ -968,6 +968,76 @@ export const PRODUCTS: ProductPage[] = [
       },
     ],
   },
+  {
+    slug: "website-monitoring-tool-india",
+    nav: "Monitoring tool India",
+    title: "Website Monitoring Tool in India for Agencies | Watchfront",
+    description:
+      "Website monitoring tool built for Indian agencies: 1-minute uptime, SSL/domain expiry, contact-form journeys, SEO hygiene and client reports. Free 3-day trial.",
+    h1: "A website monitoring tool built for agencies in India",
+    intro:
+      "If you manage client sites across India, you need more than a US-centric ping tool. Watchfront watches uptime, SSL, forms and SEO — then turns evidence into retainer-ready reports, with support that overlaps IST.",
+    keywords: [
+      "website monitoring tool india",
+      "website monitoring india",
+      "uptime monitoring tool india",
+      "best website monitoring tool for indian agencies",
+      "agency website monitoring india",
+    ],
+    feature: "uptime-monitoring",
+    features: [
+      "uptime-monitoring",
+      "ssl-domain-monitoring",
+      "form-journey-testing",
+      "seo-audit",
+      "client-reports",
+    ],
+    tool: "website-down-checker",
+    guide: "website-monitoring-india-agencies",
+    bullets: [
+      "1-minute uptime with confirmed-outage alerts",
+      "SSL and domain expiry across the portfolio",
+      "Real-browser contact-form journeys",
+      "Multi-page SEO hygiene checks",
+      "Client grouping and shareable monthly reports",
+      "India-friendly support posture and INR trial",
+    ],
+    sections: [
+      {
+        h: "Why “India” is a product requirement, not a flag",
+        p: [
+          "Agencies here run WordPress care plans, Meta lead forms and clients who message on WhatsApp at 11pm. Monitoring has to be quiet, evidence-heavy and report-ready — not an enterprise NOC console.",
+          "Start with the operating playbook for Indian retainers, then put continuous checks on the money URLs.",
+        ],
+      },
+      {
+        h: "What this tool covers beyond a ping",
+        p: [
+          "Availability is the floor. Watchfront adds SSL days-remaining, form journeys, SEO hygiene and a client PDF so the retainer renews on proof — not theatre.",
+        ],
+      },
+      {
+        h: "How to evaluate in three days",
+        p: [
+          "Add one real client site. Enable the lead form. Compare what your current stack misses. Free spot-checks live under Tools; continuous monitoring starts with the free trial.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is Watchfront only for India?",
+        a: "No — the product works globally. The workflows, support posture and content are tuned for Indian agencies first.",
+      },
+      {
+        q: "Do you support WhatsApp alerts?",
+        a: "Email alerts ship today; WhatsApp notifications are on the roadmap. Confirmation rules matter more than the channel.",
+      },
+      {
+        q: "How is this different from free uptime tools?",
+        a: "Free ping tools answer “is the homepage up?” Watchfront also watches forms, SSL, SEO and produces client reports for retainers.",
+      },
+    ],
+  },
 ];
 
 export const productBySlug = (s: string) => PRODUCTS.find((p) => p.slug === s);

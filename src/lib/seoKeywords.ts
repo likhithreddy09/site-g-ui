@@ -54,6 +54,9 @@ export const KEYWORD_CLUSTERS = {
     "godaddy website monitoring alternative",
     "pagerduty alternative for websites",
     "new relic alternative for websites",
+    "better uptime alternative",
+    "checkly alternative",
+    "oh dear alternative",
   ],
   glossary: [
     "what is uptime",

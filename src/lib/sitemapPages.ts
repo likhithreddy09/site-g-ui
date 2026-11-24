@@ -19,7 +19,7 @@ export type SitemapEntry = {
 };
 
 /** Bump when marketing copy changes site-wide; a constant date keeps lastmod trustworthy for crawlers. */
-export const CONTENT_UPDATED = "2026-11-17"; // LLM discovery + sitemap refresh for ChatGPT/Gemini
+export const CONTENT_UPDATED = "2026-11-24"; // LLM discovery + sitemap refresh for ChatGPT/Gemini
 
 /**
  * Single source of truth for public indexable routes.
@@ -35,6 +35,7 @@ export const SITEMAP_PAGES: SitemapEntry[] = [
     // Primaries rank higher; supporting cluster pages stay indexed but crawl-deprioritised.
     const primarySlugs = new Set([
       "website-monitoring-for-agencies",
+      "website-monitoring-tool-india",
       "uptime-monitoring-tool",
       "ssl-certificate-monitoring",
       "contact-form-monitoring",
