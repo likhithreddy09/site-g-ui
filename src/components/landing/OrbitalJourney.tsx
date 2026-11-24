@@ -24,13 +24,15 @@ const CHAPTERS: {
 }[] = [
   {
     id: "open",
-    kicker: "Website monitoring tool for agencies",
+    kicker: "Free website down checker · no signup",
     lines: [
-      { text: "Make room" },
-      { text: "for" },
-      { text: "certainty.", italic: true },
+      { text: "Is it" },
+      { text: "down —" },
+      { text: "or just you?", italic: true },
     ],
-    note: "Uptime, SSL expiry, forms, and visitor errors — with evidence you can send before the client asks.",
+    note: "Check any site free in seconds. Then monitor uptime, SSL, forms, and errors before the client calls.",
+    href: "/tools/website-down-checker",
+    hrefLabel: "Try the free down checker",
   },
   {
     id: "signal",
@@ -98,13 +100,15 @@ const CHAPTERS: {
   {
     id: "start",
     kicker: "05  /  Start here",
-    aside: "One site is enough.",
+    aside: "No account for a spot check.",
     lines: [
-      { text: "Watch it" },
-      { text: "before" },
-      { text: "they call.", italic: true },
+      { text: "Check free." },
+      { text: "Then" },
+      { text: "watch it.", italic: true },
     ],
-    note: "Start website monitoring free — uptime, SSL, forms, and proof in one place.",
+    note: "Free down / SSL / SEO checkers first. Continuous monitoring when one check is not enough — 3-day trial, no card.",
+    href: "/tools",
+    hrefLabel: "All free tools",
   },
 ];
 
@@ -241,10 +245,16 @@ function ChapterPane({
               </Link>
             ) : null}
             {index === COUNT - 1 ? (
-              <div className="mt-5 sm:mt-7">
-                <CtaPrimaryLink
+              <div className="mt-5 flex flex-wrap items-center gap-4 sm:mt-7">
+                <Link
+                  href="/tools/website-down-checker"
                   className="inline-flex items-center gap-3 rounded-full bg-cream px-6 py-3 text-[15px] font-medium text-ink transition hover:bg-sky"
-                  guestLabel="Start monitoring free"
+                >
+                  Check a site free
+                </Link>
+                <CtaPrimaryLink
+                  className="inline-flex items-center gap-2 text-[15px] text-cream/80 transition hover:text-cream"
+                  guestLabel="Start 3-day trial"
                   signedInLabel="Open dashboard"
                 />
               </div>
