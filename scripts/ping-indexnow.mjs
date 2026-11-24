@@ -16,16 +16,23 @@ const keyLocation = `https://${host}/${key}.txt`;
 const sitemapPath = path.join(root, "public/sitemap.xml");
 let urls = [
   `https://${host}/`,
-  `https://${host}/website-monitoring-for-agencies`,
-  `https://${host}/website-monitoring-tool-india`,
+  `https://${host}/tools`,
+  `https://${host}/tools/website-down-checker`,
+  `https://${host}/tools/down-for-everyone-or-just-me`,
+  `https://${host}/tools/check-if-website-is-up`,
+  `https://${host}/tools/ssl-expiry-checker`,
+  `https://${host}/tools/http-headers-checker`,
+  `https://${host}/tools/security-headers-checker`,
+  `https://${host}/website-monitoring-tool`,
   `https://${host}/uptime-monitoring-tool`,
-  `https://${host}/blog/best-website-monitoring-tools-india-2026`,
-  `https://${host}/blog/whatsapp-alerts-website-downtime-india`,
-  `https://${host}/guides/how-to-sell-website-monitoring`,
-  `https://${host}/guides/website-monitoring-checklist-freelancers`,
-  `https://${host}/compare/betteruptime-alternative`,
-  `https://${host}/compare/checkly-alternative`,
-  `https://${host}/compare/oh-dear-alternative`,
+  `https://${host}/blog`,
+  `https://${host}/blog/is-my-website-down-for-everyone-or-just-me`,
+  `https://${host}/blog/how-to-check-if-website-is-up-right-now`,
+  `https://${host}/blog/free-website-down-checker-no-signup`,
+  `https://${host}/blog/how-to-check-ssl-certificate-expiry`,
+  `https://${host}/blog/security-headers-checklist-for-client-sites`,
+  `https://${host}/blog/open-graph-tags-fix-social-preview`,
+  `https://${host}/blog/noindex-left-on-production`,
 ];
 
 if (fs.existsSync(sitemapPath)) {

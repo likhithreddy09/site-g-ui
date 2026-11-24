@@ -227,7 +227,30 @@ export default async function BlogPostPage({ params }: Props) {
         </section>
       )}
 
-      <CtaBand />
+      {tool ? (
+        <CtaBand
+          title={`Try the free tool: ${tool.name.replace(/^Free\s+/i, "")}`}
+          body="No signup. Instant result from our servers — then start a 3-day monitoring trial if you want alerts overnight."
+        />
+      ) : (
+        <CtaBand title="Check a site free, then monitor it." body="Free down / SSL / SEO checkers — no signup. Full monitoring free for 3 days." />
+      )}
+      {tool ? (
+        <p className="mx-auto -mt-8 mb-16 max-w-6xl px-5 text-center sm:px-6">
+          <Link
+            href={`/tools/${tool.slug}`}
+            className="inline-flex items-center gap-2 rounded-full bg-magenta px-7 py-3.5 text-[15px] font-medium text-cream transition hover:bg-ink"
+          >
+            Open free checker <ArrowRight className="h-4 w-4" />
+          </Link>
+        </p>
+      ) : (
+        <p className="mx-auto -mt-8 mb-16 max-w-6xl px-5 text-center sm:px-6">
+          <Link href="/tools" className="inline-flex items-center gap-2 text-[15px] font-medium text-plum transition hover:text-magenta">
+            Browse all free tools <ArrowRight className="h-4 w-4" />
+          </Link>
+        </p>
+      )}
     </MarketingShell>
   );
 }

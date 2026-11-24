@@ -84,6 +84,18 @@ export default function ToolsPage() {
           <Link href="/tools/seo-checker" className="link-underline text-plum">SEO</Link>
           . Same engines as Watchfront monitoring — one live check each time.
         </p>
+        <h2 className="mt-10 text-2xl font-medium text-ink">Guides that convert a check into a habit</h2>
+        <p className="mt-4">
+          Read{" "}
+          <Link href="/blog/is-my-website-down-for-everyone-or-just-me" className="link-underline text-plum">is it down for everyone or just me?</Link>
+          ,{" "}
+          <Link href="/blog/how-to-check-ssl-certificate-expiry" className="link-underline text-plum">how to check SSL expiry</Link>
+          ,{" "}
+          <Link href="/blog/security-headers-checklist-for-client-sites" className="link-underline text-plum">security headers checklist</Link>
+          , and{" "}
+          <Link href="/blog/website-ping-test-vs-uptime-monitoring" className="link-underline text-plum">ping vs uptime monitoring</Link>
+          — each one ends on a free tool and a trial CTA.
+        </p>
         <h2 className="mt-10 text-2xl font-medium text-ink">When a one-off check is not enough</h2>
         <p className="mt-4">
           A manual check tells you how a site looks right now. Outages, expiring certificates and SEO regressions happen at 3am, after a plugin update or when a client edits a page. Watchfront repeats these checks every minute or every day across all your client sites and alerts you with evidence. Read{" "}

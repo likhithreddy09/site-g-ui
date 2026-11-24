@@ -19,7 +19,7 @@ export type SitemapEntry = {
 };
 
 /** Bump when marketing copy changes site-wide; a constant date keeps lastmod trustworthy for crawlers. */
-export const CONTENT_UPDATED = "2026-11-24"; // LLM discovery + sitemap refresh for ChatGPT/Gemini
+export const CONTENT_UPDATED = "2026-11-25"; // Growth blogs + free-tool conversion push
 
 /**
  * Single source of truth for public indexable routes.

@@ -7,20 +7,20 @@ import { GUIDES } from "@/lib/guides";
 import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Watchfront Blog - Agency Monitoring Resources",
+  title: "Free Website Down, SSL & Monitoring Guides | Watchfront Blog",
   description:
-    "Practical blog posts for web agencies: SSL expiry, SEO regressions after WordPress updates, silent form failures, care-plan monitoring and client uptime reports.",
+    "High-intent guides: is my website down for everyone or just me, check if a site is up, SSL expiry, security headers, Open Graph, noindex — plus free checkers and agency monitoring.",
   path: "/blog",
   keywords: [
+    "is my website down for everyone or just me",
+    "free website down checker",
+    "how to check ssl certificate expiry",
+    "security headers checklist",
     "website monitoring blog",
     "agency monitoring resources",
-    "wordpress care plan monitoring",
-    "ssl certificate expired",
-    "contact form monitoring",
-    "client uptime report",
   ],
-  ogTitle: "Watchfront Blog - Agency Monitoring Resources",
-  ogDescription: "Agency posts on SSL expiry, SEO regressions, silent form failures, synthetics and retainer pricing.",
+  ogTitle: "Free Website Down, SSL & Monitoring Guides | Watchfront Blog",
+  ogDescription: "Guides that open free checkers: down for everyone, SSL expiry, headers, Open Graph, noindex.",
   image: "/blog/opengraph-image",
 });
 
@@ -41,8 +41,8 @@ export default function BlogIndexPage() {
       <PageHero
         crumbs={[["Home", "/"], ["Blog", "/blog"]]}
         eyebrow="Blog & resources"
-        title="Field notes for teams who keep sites alive."
-        intro="Practical posts on monitoring, care plans and client reports — not generic SEO filler."
+        title="Guides people search — then a free checker."
+        intro="Is it down? SSL expiry? Headers? Open Graph? Every post opens a free tool, then a path to continuous monitoring."
       />
 
       <div className="mx-auto mt-2 grid max-w-6xl gap-10 px-5 pb-8 sm:mt-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-14">
