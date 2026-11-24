@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, FaqList, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionSection, PageHero, PageSection } from "@/components/marketing/Site";
 import { DowntimeCostCalculator } from "@/components/marketing/DowntimeCostCalculator";
 import { breadcrumbLd, faqLd, pageMeta, webAppLd } from "@/lib/seo";
 
@@ -61,7 +61,8 @@ export default function CostOfDowntimePage() {
         intro="Translate downtime hours into a rupee/dollar conversation your client understands — then show how monitoring shortens detection."
       />
 
-      <div className="mx-auto max-w-3xl px-6">
+      <PageSection narrow className="!mt-12 sm:!mt-14">
+      <MotionSection>
         <DowntimeCostCalculator />
         <p className="mt-8 text-[15px] leading-relaxed text-plum-2">
           Next: put continuous checks on the money URLs with the{" "}
@@ -74,7 +75,8 @@ export default function CostOfDowntimePage() {
           </Link>
           .
         </p>
-      </div>
+      </MotionSection>
+      </PageSection>
 
       <FaqList faqs={FAQS} />
       <CtaBand title="Estimates persuade. Monitoring proves." body="Start free for 3 days on a real client site." />

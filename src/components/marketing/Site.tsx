@@ -15,8 +15,10 @@ export { JsonLd } from "@/components/marketing/SiteJsonLd";
 export {
   Breadcrumbs,
   PageHero,
+  PageSection,
   SectionHeader,
   VisualBand,
+  LinkRow,
   FaqList,
   CtaBand,
   MotionGrid,
@@ -251,15 +253,15 @@ export function SiteFooter() {
 
 export function MarketingShell({ children, banner = false }: { children: React.ReactNode; banner?: boolean }) {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-cream">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(155,27,103,0.08),transparent_55%),radial-gradient(ellipse_at_90%_20%,rgba(143,211,244,0.12),transparent_45%)]"
-      />
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-plum focus:px-4 focus:py-2 focus:text-cream">Skip to content</a>
+    <div className="relative min-h-screen overflow-x-clip bg-cream text-ink">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-plum focus:px-4 focus:py-2 focus:text-cream">
+        Skip to content
+      </a>
       <ScrollProgress />
       <SiteHeader banner={banner} />
-      <main id="main" className="pb-16 sm:pb-20">{children}</main>
+      <main id="main" className="pb-20 sm:pb-28">
+        {children}
+      </main>
       <SiteFooter />
     </div>
   );

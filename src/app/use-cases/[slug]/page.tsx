@@ -1,4 +1,4 @@
-import { ArrowRight, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
@@ -6,11 +6,13 @@ import {
   CtaBand,
   FaqList,
   JsonLd,
+  LinkRow,
   MarketingShell,
   MotionGrid,
   MotionSection,
   MotionTile,
   PageHero,
+  PageSection,
   SectionHeader,
 } from "@/components/marketing/Site";
 import { USE_CASES, audience, featureBySlug, getUseCase } from "@/lib/marketing";
@@ -76,7 +78,7 @@ export default async function UseCasePage({ params }: Props) {
         intro={u.intro}
         image={heroImage}
       >
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <Link
             href="/register"
             className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition duration-300 hover:-translate-y-0.5 hover:bg-ink"
@@ -89,37 +91,44 @@ export default async function UseCasePage({ params }: Props) {
         </div>
       </PageHero>
 
-      <MotionGrid className="mx-auto mt-12 grid max-w-6xl gap-10 px-5 sm:mt-16 sm:px-6 md:grid-cols-2 md:gap-12" stagger={0.1}>
-        <MotionTile>
-          <SectionHeader title="Sound familiar?" description="The Monday surprises most teams still discover the hard way." />
-          <ul className="mt-6 divide-y divide-plum/10 border-y border-plum/10">
-            {u.pains.map((p) => (
-              <li key={p} className="flex gap-3 py-3.5 text-[15px] text-ink">
-                <X className="mt-0.5 h-5 w-5 shrink-0 text-bad" />
-                <span className="min-w-0">{p}</span>
-              </li>
-            ))}
-          </ul>
-        </MotionTile>
-        <MotionTile>
-          <div className="relative overflow-hidden rounded-[1.5rem] bg-ink p-7 text-cream sm:rounded-[1.75rem] sm:p-9">
-            <SectionHeader dark title="With Watchfront" description="Same portfolio — clearer signal, faster recovery." />
-            <dl className="relative mt-6 space-y-4 border-t border-white/15 pt-5">
-              {u.outcomes.map(([t, d]) => (
-                <div key={t}>
-                  <dt className="font-medium text-sky">{t}</dt>
-                  <dd className="mt-1 text-[14px] leading-relaxed text-cream/75">{d}</dd>
-                </div>
+      <PageSection>
+        <MotionGrid className="grid gap-10 md:grid-cols-2 md:gap-12" stagger={0.1}>
+          <MotionTile>
+            <SectionHeader
+              eyebrow="Pain"
+              title="Sound familiar?"
+              description="The Monday surprises most teams still discover the hard way."
+            />
+            <ul className="mt-6 divide-y divide-plum/10 border-y border-plum/10">
+              {u.pains.map((p) => (
+                <li key={p} className="flex gap-3 py-3.5 text-[15px] text-ink">
+                  <X className="mt-0.5 h-5 w-5 shrink-0 text-bad" />
+                  <span className="min-w-0">{p}</span>
+                </li>
               ))}
-            </dl>
-          </div>
-        </MotionTile>
-      </MotionGrid>
+            </ul>
+          </MotionTile>
+          <MotionTile>
+            <div className="relative h-full overflow-hidden rounded-[1.75rem] bg-ink p-7 text-cream sm:p-9">
+              <SectionHeader dark eyebrow="Outcome" title="With Watchfront" description="Same portfolio — clearer signal, faster recovery." />
+              <dl className="relative mt-6 space-y-4 border-t border-white/15 pt-5">
+                {u.outcomes.map(([t, d]) => (
+                  <div key={t}>
+                    <dt className="font-medium text-sky">{t}</dt>
+                    <dd className="mt-1 text-[14px] leading-relaxed text-cream/75">{d}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </MotionTile>
+        </MotionGrid>
+      </PageSection>
 
-      <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" aria-labelledby="features">
+      <PageSection aria-labelledby="features">
         <MotionSection>
           <SectionHeader
             id="features"
+            eyebrow="Features"
             title={`Features ${audience(u)} use most`}
             description="The checks that stop client calls before they start."
           />
@@ -129,69 +138,57 @@ export default async function UseCasePage({ params }: Props) {
             const Icon = FEATURE_ICONS[f.slug];
             return (
               <MotionTile key={f.slug}>
-                <Link href={`/features/${f.slug}`} className="group flex items-start gap-4 py-5">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="font-medium text-ink transition group-hover:text-magenta">{f.name}</h3>
-                    <p className="mt-1 line-clamp-2 text-[14px] text-plum-2">{f.short}</p>
-                  </div>
-                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-plum transition group-hover:translate-x-1" />
-                </Link>
+                <LinkRow
+                  href={`/features/${f.slug}`}
+                  title={f.name}
+                  body={f.short}
+                  icon={<Icon className="h-5 w-5" />}
+                />
               </MotionTile>
             );
           })}
         </MotionGrid>
-      </section>
+      </PageSection>
 
       <FaqList faqs={u.faqs} />
 
-      <section className="mx-auto mt-16 max-w-3xl px-5 sm:px-6">
-        <h2 className="text-xl font-medium text-ink">Resources for this workflow</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] text-plum-2">
-          <li>
-            <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
-              Website monitoring for agencies
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
-              India agency monitoring playbook
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
-              Monitoring SOW template
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
-              Sample client uptime report
-            </Link>
-          </li>
-          <li>
-            <Link href="/guides/reduce-mean-time-to-detect" className="link-underline text-plum">
-              How to reduce MTTD
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <PageSection narrow>
+        <MotionSection>
+          <SectionHeader eyebrow="Resources" title="Resources for this workflow" />
+          <ul className="mt-6 divide-y divide-plum/10 border-y border-plum/10 text-[15px] text-plum-2">
+            {[
+              ["/website-monitoring-for-agencies", "Website monitoring for agencies"],
+              ["/resources/agency-monitoring-playbook-india", "India agency monitoring playbook"],
+              ["/resources/monitoring-sow-template", "Monitoring SOW template"],
+              ["/resources/sample-client-uptime-report", "Sample client uptime report"],
+              ["/guides/reduce-mean-time-to-detect", "How to reduce MTTD"],
+            ].map(([href, label]) => (
+              <li key={href} className="py-3.5">
+                <Link href={href} className="link-underline text-plum">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </MotionSection>
+      </PageSection>
 
-      <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="up">
-        <SectionHeader title="Also used by" description="Same product, different workflows." />
-        <div className="mt-5 flex flex-wrap gap-2.5">
-          {others.map((o) => (
-            <Link
-              key={o.slug}
-              href={`/use-cases/${o.slug}`}
-              className="group inline-flex items-center gap-2 border-b border-plum/20 pb-0.5 text-[14px] text-plum transition hover:border-magenta hover:text-magenta"
-            >
-              {o.name} <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-            </Link>
-          ))}
-        </div>
-      </MotionSection>
+      <PageSection>
+        <MotionSection variant="up">
+          <SectionHeader eyebrow="More" title="Also used by" description="Same product, different workflows." />
+          <div className="mt-6 flex flex-wrap gap-3">
+            {others.map((o) => (
+              <Link
+                key={o.slug}
+                href={`/use-cases/${o.slug}`}
+                className="rounded-full bg-white px-5 py-2.5 text-[14px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream"
+              >
+                {o.name}
+              </Link>
+            ))}
+          </div>
+        </MotionSection>
+      </PageSection>
 
       <CtaBand />
     </MarketingShell>

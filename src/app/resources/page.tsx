@@ -1,6 +1,13 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { CtaBand, JsonLd, MarketingShell, MotionGrid, MotionTile, PageHero } from "@/components/marketing/Site";
+import {
+  CtaBand,
+  JsonLd,
+  LinkRow,
+  MarketingShell,
+  MotionGrid,
+  MotionTile,
+  PageHero,
+} from "@/components/marketing/Site";
 import { collectionPageLd, pageMeta } from "@/lib/seo";
 
 const ASSETS = [
@@ -81,22 +88,34 @@ export default function ResourcesPage() {
         eyebrow="Resources"
         title="Resources that help you sell and run monitoring"
         intro="Linkable assets for agencies: a sample client report, an India operating playbook, glossary definitions and the guides that back your SOW."
-      />
-      <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
-        {ASSETS.map((a) => (
-          <MotionTile key={a.href}>
-            <Link
-              href={a.href}
-              className="group flex h-full flex-col rounded-[1.75rem] bg-cream p-7 ring-1 ring-plum/8 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl"
-            >
-              <h2 className="text-lg font-medium text-ink group-hover:text-magenta">{a.title}</h2>
-              <p className="mt-2 flex-1 text-[15px] leading-relaxed text-plum-2">{a.body}</p>
-              <span className="mt-6 text-sm text-plum">
-                <span className="link-underline">Open</span> <ArrowRight className="inline h-4 w-4 transition group-hover:translate-x-1" />
-              </span>
-            </Link>
-          </MotionTile>
-        ))}
+      >
+        <p className="text-[14px] text-plum-2">
+          Also see{" "}
+          <Link href="/features" className="link-underline text-plum">
+            features
+          </Link>{" "}
+          and{" "}
+          <Link href="/tools" className="link-underline text-plum">
+            free tools
+          </Link>
+          .
+        </p>
+      </PageHero>
+
+      <MotionGrid className="mx-auto max-w-6xl px-5 sm:px-6" stagger={0.05}>
+        <div className="divide-y divide-plum/10 border-b border-plum/10">
+          {ASSETS.map((a, i) => (
+            <MotionTile key={a.href}>
+              <LinkRow
+                href={a.href}
+                index={String(i + 1).padStart(2, "0")}
+                title={a.title}
+                body={a.body}
+                meta="Open"
+              />
+            </MotionTile>
+          ))}
+        </div>
       </MotionGrid>
       <CtaBand title="Resources teach. Monitoring delivers." body="Put the playbook on a real client site — free for 3 days." />
     </MarketingShell>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, FaqList, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionSection, PageHero, PageSection } from "@/components/marketing/Site";
 import { articleLd, breadcrumbLd, faqLd, howToLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -76,7 +76,9 @@ export default function PlaybookPage() {
         intro="A practical operating system for retainers — stack, SOW, alerts and reporting. Built for Indian agencies juggling WordPress and marketing sites across hosts and time zones."
       />
 
-      <article className="mx-auto max-w-3xl px-6 space-y-12">
+      <PageSection narrow className="!mt-12 sm:!mt-14">
+      <MotionSection>
+      <article className="space-y-12 text-[15px] leading-relaxed text-plum-2">
         <section>
           <h2 className="text-2xl font-medium tracking-tight text-ink">1. The non-negotiable stack</h2>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-[16px] leading-relaxed text-plum-2">
@@ -166,6 +168,8 @@ export default function PlaybookPage() {
           </p>
         </section>
       </article>
+      </MotionSection>
+      </PageSection>
 
       <FaqList faqs={FAQS} />
       <CtaBand title="Run the playbook on a real portfolio." body="Start free for 3 days — every feature, no card." />

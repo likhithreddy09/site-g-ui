@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, FaqList, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionSection, PageHero, PageSection } from "@/components/marketing/Site";
 import { articleLd, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 const FAQS = [
@@ -64,7 +64,9 @@ export default function UptimeMethodologyPage() {
         intro="Definitions first. If your SOW and your report disagree on what “up” means, the PDF is theatre."
       />
 
-      <article className="mx-auto max-w-3xl space-y-10 px-6 text-[15px] leading-relaxed text-plum-2">
+      <PageSection narrow className="!mt-12 sm:!mt-14">
+      <MotionSection>
+      <article className="space-y-10 text-[15px] leading-relaxed text-plum-2">
         <section>
           <h2 className="text-xl font-medium text-ink">1. What a check is</h2>
           <p className="mt-3">
@@ -125,6 +127,8 @@ export default function UptimeMethodologyPage() {
           .
         </p>
       </article>
+      </MotionSection>
+      </PageSection>
 
       <FaqList faqs={FAQS} />
       <CtaBand title="Methodology on paper. Checks in production." body="Start free for 3 days — measure the URLs in your SOW." />

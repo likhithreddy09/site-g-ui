@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
@@ -6,11 +6,13 @@ import {
   CtaBand,
   FaqList,
   JsonLd,
+  LinkRow,
   MarketingShell,
   MotionGrid,
   MotionSection,
   MotionTile,
   PageHero,
+  PageSection,
   SectionHeader,
 } from "@/components/marketing/Site";
 import { TopicClusterNav } from "@/components/marketing/TopicCluster";
@@ -89,7 +91,7 @@ export default async function FeaturePage({ params }: Props) {
         intro={f.intro}
         image={heroImage}
       >
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <Link
             href="/register"
             className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition duration-300 hover:-translate-y-0.5 hover:bg-ink"
@@ -108,63 +110,69 @@ export default async function FeaturePage({ params }: Props) {
         </div>
       </PageHero>
 
-      <MotionSection className="mx-auto max-w-6xl px-5 sm:px-6" variant="up">
-        <div className="flex items-start gap-4">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
-            <Icon className="h-5 w-5" />
-          </span>
-          <SectionHeader
-            id="how"
-            title="How it works"
-            description="Three steps from setup to evidence — no engineering sprint required."
-          />
-        </div>
-        <ol className="mt-8 grid gap-6 border-t border-plum/10 pt-8 sm:grid-cols-3 sm:gap-8">
-          {f.steps.map(([t, d], i) => (
-            <li key={t} className="min-w-0">
-              <span className="font-mono text-sm text-magenta">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="mt-3 text-base font-medium text-ink">{t}</h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-plum-2">{d}</p>
-            </li>
-          ))}
-        </ol>
-      </MotionSection>
-
-      <MotionSection className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" variant="left">
-        <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12">
-          <SectionHeader title="What you get" description={f.short} />
-          <ul className="divide-y divide-plum/10 border-y border-plum/10">
-            {f.benefits.map((b) => (
-              <li key={b} className="flex gap-3 py-4 text-[15px] text-ink">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />
-                <span className="min-w-0">{b}</span>
+      <PageSection>
+        <MotionSection variant="up">
+          <div className="flex items-start gap-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-ink text-sky">
+              <Icon className="h-5 w-5" />
+            </span>
+            <SectionHeader
+              id="how"
+              eyebrow="Method"
+              title="How it works"
+              description="Three steps from setup to evidence — no engineering sprint required."
+            />
+          </div>
+          <ol className="mt-8 grid gap-6 border-t border-plum/10 pt-8 sm:grid-cols-3 sm:gap-8">
+            {f.steps.map(([t, d], i) => (
+              <li key={t} className="min-w-0">
+                <span className="font-mono text-sm text-magenta">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mt-3 text-base font-medium text-ink">{t}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-plum-2">{d}</p>
               </li>
             ))}
-          </ul>
-        </div>
-        {forWho.length > 0 && (
-          <p className="mt-8 text-[14px] text-plum-2">
-            Popular with{" "}
-            {forWho.map((u, i) => (
-              <span key={u.slug}>
-                {i > 0 && (i === forWho.length - 1 ? " and " : ", ")}
-                <Link href={`/use-cases/${u.slug}`} className="link-underline text-plum">
-                  {audience(u)}
-                </Link>
-              </span>
-            ))}
-            .
-          </p>
-        )}
-      </MotionSection>
+          </ol>
+        </MotionSection>
+      </PageSection>
+
+      <PageSection>
+        <MotionSection variant="left">
+          <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12">
+            <SectionHeader eyebrow="Included" title="What you get" description={f.short} />
+            <ul className="divide-y divide-plum/10 border-y border-plum/10">
+              {f.benefits.map((b) => (
+                <li key={b} className="flex gap-3 py-4 text-[15px] text-ink">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />
+                  <span className="min-w-0">{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {forWho.length > 0 ? (
+            <p className="mt-8 text-[14px] text-plum-2">
+              Popular with{" "}
+              {forWho.map((u, i) => (
+                <span key={u.slug}>
+                  {i > 0 && (i === forWho.length - 1 ? " and " : ", ")}
+                  <Link href={`/use-cases/${u.slug}`} className="link-underline text-plum">
+                    {audience(u)}
+                  </Link>
+                </span>
+              ))}
+              .
+            </p>
+          ) : null}
+        </MotionSection>
+      </PageSection>
 
       <FaqList faqs={f.faqs} />
 
-      {related.length > 0 && (
-        <section className="mx-auto mt-16 max-w-6xl px-5 sm:mt-20 sm:px-6" aria-labelledby="related">
+      {related.length > 0 ? (
+        <PageSection aria-labelledby="related">
           <MotionSection>
             <SectionHeader
               id="related"
+              eyebrow="Related"
               title="Works well with"
               description="Pair this check with the rest of your monitoring stack."
             />
@@ -174,65 +182,61 @@ export default async function FeaturePage({ params }: Props) {
               const RIcon = FEATURE_ICONS[r.slug];
               return (
                 <MotionTile key={r.slug}>
-                  <Link
+                  <LinkRow
                     href={`/features/${r.slug}`}
-                    className="group flex items-start gap-4 py-5"
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-sky">
-                      <RIcon className="h-4 w-4" />
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="font-medium text-ink transition group-hover:text-magenta">{r.name}</h3>
-                      <p className="mt-1 line-clamp-2 text-sm text-plum-2">{r.short}</p>
-                    </div>
-                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-plum transition duration-300 group-hover:translate-x-1" />
-                  </Link>
+                    title={r.name}
+                    body={r.short}
+                    icon={<RIcon className="h-5 w-5" />}
+                  />
                 </MotionTile>
               );
             })}
           </MotionGrid>
-        </section>
-      )}
+        </PageSection>
+      ) : null}
 
-      {guides.length > 0 && (
-        <section className="mx-auto mt-20 max-w-6xl px-6 md:mt-24" aria-labelledby="guides">
+      {guides.length > 0 ? (
+        <PageSection aria-labelledby="guides">
           <MotionSection>
             <SectionHeader
               id="guides"
+              eyebrow="Guides"
               title="Related guides"
               description="Short reads that pair with this feature."
             />
           </MotionSection>
-          <MotionGrid className="mt-8 grid gap-4 md:grid-cols-2">
-            {guides.map((g) => (
+          <MotionGrid className="mt-6 divide-y divide-plum/10 border-y border-plum/10" stagger={0.05}>
+            {guides.map((g, i) => (
               <MotionTile key={g.slug}>
-                <Link
+                <LinkRow
                   href={`/guides/${g.slug}`}
-                  className="tile-lift group block rounded-2xl bg-cream p-5 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20"
-                >
-                  <span className="text-xs text-plum/55">{g.readMins} min read</span>
-                  <h3 className="mt-1 font-medium text-ink group-hover:text-magenta">{g.h1}</h3>
-                  <p className="mt-1 line-clamp-2 text-sm text-plum-2">{g.description}</p>
-                </Link>
+                  index={String(i + 1).padStart(2, "0")}
+                  kicker={`${g.readMins} min read`}
+                  title={g.h1}
+                  body={g.description}
+                  meta="Read guide"
+                />
               </MotionTile>
             ))}
           </MotionGrid>
-        </section>
-      )}
+        </PageSection>
+      ) : null}
 
       {cluster ? <TopicClusterNav cluster={cluster} currentPath={`/features/${f.slug}`} /> : null}
 
-      <p className="mx-auto mt-12 max-w-6xl px-6 text-sm text-plum-2">
-        Confused by a term?{" "}
-        <Link href="/glossary" className="link-underline text-plum">
-          Open the monitoring glossary
-        </Link>{" "}
-        — uptime, SSL, synthetic monitoring, noindex and more. Linkable ops assets live in{" "}
-        <Link href="/resources" className="link-underline text-plum">
-          Resources
-        </Link>
-        .
-      </p>
+      <PageSection>
+        <p className="text-sm text-plum-2">
+          Confused by a term?{" "}
+          <Link href="/glossary" className="link-underline text-plum">
+            Open the monitoring glossary
+          </Link>{" "}
+          — uptime, SSL, synthetic monitoring, noindex and more. Linkable ops assets live in{" "}
+          <Link href="/resources" className="link-underline text-plum">
+            Resources
+          </Link>
+          .
+        </p>
+      </PageSection>
 
       <CtaBand title="Try it on your own website." />
     </MarketingShell>

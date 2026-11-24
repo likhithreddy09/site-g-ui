@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, FaqList, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, FaqList, JsonLd, MarketingShell, MotionSection, PageHero, PageSection } from "@/components/marketing/Site";
 import { articleLd, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 
 const FAQS = [
@@ -117,34 +117,38 @@ export default function MonitoringSowTemplatePage() {
         intro="Paste into care plans so “we monitor your site” means named URLs, confirmation rules, alerts and a monthly report — not vibes."
       />
 
-      <div className="mx-auto max-w-3xl space-y-10 px-6">
-        {BLOCKS.map((b) => (
-          <section key={b.h}>
-            <h2 className="text-xl font-medium text-ink">{b.h}</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-plum-2">
-              {b.lines.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
-        ))}
+      <PageSection narrow className="!mt-12 sm:!mt-14">
+        <MotionSection>
+          <div className="space-y-10">
+            {BLOCKS.map((b) => (
+              <section key={b.h}>
+                <h2 className="text-xl font-medium text-ink">{b.h}</h2>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-plum-2">
+                  {b.lines.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </section>
+            ))}
 
-        <p className="text-[15px] leading-relaxed text-plum-2">
-          Pair this SOW with the{" "}
-          <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
-            sample uptime report
-          </Link>
-          , the{" "}
-          <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
-            India agency playbook
-          </Link>
-          , and the primary product page for{" "}
-          <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
-            website monitoring for agencies
-          </Link>
-          .
-        </p>
-      </div>
+            <p className="text-[15px] leading-relaxed text-plum-2">
+              Pair this SOW with the{" "}
+              <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
+                sample uptime report
+              </Link>
+              , the{" "}
+              <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
+                India agency playbook
+              </Link>
+              , and the primary product page for{" "}
+              <Link href="/website-monitoring-for-agencies" className="link-underline text-plum">
+                website monitoring for agencies
+              </Link>
+              .
+            </p>
+          </div>
+        </MotionSection>
+      </PageSection>
 
       <FaqList faqs={FAQS} />
       <CtaBand title="Scope on paper. Checks in production." body="Start free for 3 days — put the SOW URLs on real monitors." />

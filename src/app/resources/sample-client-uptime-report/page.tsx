@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CtaBand, JsonLd, MarketingShell, PageHero } from "@/components/marketing/Site";
+import { CtaBand, JsonLd, MarketingShell, MotionSection, PageHero, PageSection } from "@/components/marketing/Site";
 import { articleLd, breadcrumbLd, pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -86,7 +86,9 @@ export default function SampleReportPage() {
         intro="A practical template — not a screenshot of charts nobody asked for. Use it in proposals, then generate the real thing from Watchfront client reports."
       />
 
-      <article className="mx-auto max-w-3xl px-6">
+      <PageSection narrow className="!mt-12 sm:!mt-14">
+      <MotionSection>
+      <article>
         <div className="rounded-[1.5rem] bg-ink p-6 text-cream sm:p-8">
           <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-sky">Example — Acme Dental · Oct 2026</p>
           <dl className="mt-5 grid gap-4 sm:grid-cols-3">
@@ -132,6 +134,8 @@ export default function SampleReportPage() {
           .
         </p>
       </article>
+      </MotionSection>
+      </PageSection>
       <CtaBand title="Stop rebuilding this in Canva." body="Watchfront turns monitoring into a shareable report — free for 3 days." />
     </MarketingShell>
   );

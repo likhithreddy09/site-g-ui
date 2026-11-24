@@ -1,7 +1,21 @@
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CtaBand, FaqList, JsonLd, MarketingShell, MotionGrid, MotionSection, MotionTile, PageHero, SectionHeader, VisualBand } from "@/components/marketing/Site";
+import { FEATURE_ICONS } from "@/components/marketing/featureIcons";
+import {
+  CtaBand,
+  FaqList,
+  JsonLd,
+  LinkRow,
+  MarketingShell,
+  MotionGrid,
+  MotionSection,
+  MotionTile,
+  PageHero,
+  PageSection,
+  SectionHeader,
+  VisualBand,
+} from "@/components/marketing/Site";
 
 const PRODUCT_VISUAL: Record<string, { hero: { src: string; alt: string }; band?: { src: string; alt: string; caption: string } }> = {
   "website-monitoring": {
@@ -92,7 +106,7 @@ export default async function ProductPage({ params }: Props) {
         intro={p.intro}
         image={visual?.hero}
       >
-        <div className="mt-8 flex flex-wrap items-center gap-5">
+        <div className="flex flex-wrap items-center gap-5">
           <Link href="/register" className="rounded-full bg-plum px-6 py-3 text-[15px] font-medium text-cream transition hover:-translate-y-0.5 hover:bg-ink">
             Start free - 3-day trial
           </Link>
@@ -108,74 +122,77 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </PageHero>
 
-      {visual?.band && (
-        <VisualBand src={visual.band.src} alt={visual.band.alt} caption={visual.band.caption} />
-      )}
+      {visual?.band ? <VisualBand src={visual.band.src} alt={visual.band.alt} caption={visual.band.caption} /> : null}
 
-      <MotionSection className="mx-auto mt-16 max-w-6xl px-6" variant="up">
-        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-12">
-          <SectionHeader
-            title="What you get"
-            description="The checks and evidence that make this product useful from day one."
-          />
-          <ul className="space-y-3">
-            {p.bullets.map((b) => (
-              <li key={b} className="flex gap-3 rounded-2xl bg-cream p-4 text-[15px] text-ink ring-1 ring-plum/8">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />
-                {b}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </MotionSection>
+      <PageSection>
+        <MotionSection variant="up">
+          <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-12">
+            <SectionHeader
+              eyebrow="Included"
+              title="What you get"
+              description="The checks and evidence that make this product useful from day one."
+            />
+            <ul className="divide-y divide-plum/10 border-y border-plum/10">
+              {p.bullets.map((b) => (
+                <li key={b} className="flex gap-3 py-4 text-[15px] text-ink">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-ok" />
+                  <span className="min-w-0">{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </MotionSection>
+      </PageSection>
 
       {p.sections.map((s) => (
-        <MotionSection key={s.h} className="mx-auto mt-16 max-w-3xl px-6 md:mt-20" variant="up">
-          <SectionHeader title={s.h} description={s.p[0]} />
-          {s.p.slice(1).map((para) => (
-            <p key={para.slice(0, 40)} className="mt-4 text-[15px] leading-relaxed text-plum-2">
-              {para}
-            </p>
-          ))}
-        </MotionSection>
+        <PageSection key={s.h} narrow>
+          <MotionSection variant="up">
+            <SectionHeader title={s.h} description={s.p[0]} />
+            {s.p.slice(1).map((para) => (
+              <p key={para.slice(0, 40)} className="mt-4 text-[15px] leading-relaxed text-plum-2">
+                {para}
+              </p>
+            ))}
+          </MotionSection>
+        </PageSection>
       ))}
 
-      <section className="mx-auto mt-20 max-w-6xl px-6 md:mt-24" aria-labelledby="related-features">
+      <PageSection aria-labelledby="related-features">
         <MotionSection>
           <SectionHeader
             id="related-features"
+            eyebrow="Stack"
             title="Related features"
             description="Connect this product to the rest of your monitoring stack."
           />
         </MotionSection>
-        <MotionGrid className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <MotionTile key={f.slug}>
-              <Link
-                href={`/features/${f.slug}`}
-                className="tile-lift group flex h-full flex-col rounded-[1.75rem] bg-cream p-6 ring-1 ring-plum/8 hover:bg-white hover:ring-magenta/20"
-              >
-                <h3 className="font-medium text-ink group-hover:text-magenta">{f.name}</h3>
-                <p className="mt-2 line-clamp-2 flex-1 text-[14px] text-plum-2">{f.short}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm text-plum">
-                  Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </MotionTile>
-          ))}
+        <MotionGrid className="mt-6 divide-y divide-plum/10 border-y border-plum/10" stagger={0.05}>
+          {features.map((f) => {
+            const Icon = FEATURE_ICONS[f.slug];
+            return (
+              <MotionTile key={f.slug}>
+                <LinkRow
+                  href={`/features/${f.slug}`}
+                  title={f.name}
+                  body={f.short}
+                  icon={Icon ? <Icon className="h-5 w-5" /> : undefined}
+                />
+              </MotionTile>
+            );
+          })}
         </MotionGrid>
-      </section>
+      </PageSection>
 
-      <section className="mx-auto mt-16 max-w-6xl px-6 md:mt-20" aria-labelledby="who">
+      <PageSection aria-labelledby="who">
         <MotionSection>
-          <SectionHeader id="who" title="Who this is for" description="Teams that look after more than one website." />
+          <SectionHeader id="who" eyebrow="Audience" title="Who this is for" description="Teams that look after more than one website." />
         </MotionSection>
         <div className="mt-6 flex flex-wrap gap-3">
           {audiences.map((u) => (
             <Link
               key={u.slug}
               href={`/use-cases/${u.slug}`}
-              className="rounded-full bg-cream px-5 py-2.5 text-[14px] text-plum ring-1 ring-plum/10 transition duration-300 hover:bg-ink hover:text-cream hover:ring-ink"
+              className="rounded-full bg-white px-5 py-2.5 text-[14px] text-plum ring-1 ring-plum/10 transition duration-300 hover:bg-ink hover:text-cream hover:ring-ink"
             >
               {audience(u)}
             </Link>
@@ -200,66 +217,57 @@ export default async function ProductPage({ params }: Props) {
           </Link>
           .
         </p>
-      </section>
+      </PageSection>
 
       {cluster ? <TopicClusterNav cluster={cluster} currentPath={`/${p.slug}`} /> : null}
 
-      <section className="mx-auto mt-16 max-w-3xl px-6" aria-labelledby="agency-assets">
-        <h2 id="agency-assets" className="text-2xl font-medium tracking-tight text-ink">
-          Agency assets that support this page
-        </h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] text-plum-2">
-          <li>
-            <Link href="/resources/monitoring-sow-template" className="link-underline text-plum">
-              Monitoring SOW template
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/cost-of-downtime" className="link-underline text-plum">
-              Cost of downtime calculator
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/sample-client-uptime-report" className="link-underline text-plum">
-              Sample client uptime report
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/uptime-measurement-methodology" className="link-underline text-plum">
-              Uptime measurement methodology
-            </Link>
-          </li>
-          <li>
-            <Link href="/resources/agency-monitoring-playbook-india" className="link-underline text-plum">
-              India agency monitoring playbook
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <PageSection narrow aria-labelledby="agency-assets">
+        <MotionSection>
+          <SectionHeader id="agency-assets" eyebrow="Resources" title="Agency assets that support this page" />
+          <ul className="mt-6 divide-y divide-plum/10 border-y border-plum/10 text-[15px] text-plum-2">
+            {[
+              ["/resources/monitoring-sow-template", "Monitoring SOW template"],
+              ["/resources/cost-of-downtime", "Cost of downtime calculator"],
+              ["/resources/sample-client-uptime-report", "Sample client uptime report"],
+              ["/resources/uptime-measurement-methodology", "Uptime measurement methodology"],
+              ["/resources/agency-monitoring-playbook-india", "India agency monitoring playbook"],
+            ].map(([href, label]) => (
+              <li key={href} className="py-3.5">
+                <Link href={href} className="link-underline text-plum">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </MotionSection>
+      </PageSection>
 
-      <section className="mx-auto mt-16 max-w-6xl px-6" aria-labelledby="glossary-terms">
-        <h2 id="glossary-terms" className="text-2xl font-medium tracking-tight text-ink">
-          Key terms
-        </h2>
-        <p className="mt-2 text-[15px] text-plum-2">
-          Plain-English definitions —{" "}
-          <Link href="/glossary" className="link-underline text-plum">
-            full glossary
-          </Link>
-          .
-        </p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {GLOSSARY.slice(0, 8).map((t) => (
-            <Link
-              key={t.slug}
-              href={`/glossary/${t.slug}`}
-              className="rounded-full bg-cream px-4 py-2 text-[13px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream"
-            >
-              {t.term}
+      <PageSection aria-labelledby="glossary-terms">
+        <MotionSection>
+          <SectionHeader
+            id="glossary-terms"
+            eyebrow="Glossary"
+            title="Key terms"
+            description="Plain-English definitions — full glossary linked below."
+          />
+          <div className="mt-6 flex flex-wrap gap-2">
+            {GLOSSARY.slice(0, 8).map((t) => (
+              <Link
+                key={t.slug}
+                href={`/glossary/${t.slug}`}
+                className="rounded-full bg-white px-4 py-2 text-[13px] text-plum ring-1 ring-plum/10 transition hover:bg-ink hover:text-cream"
+              >
+                {t.term}
+              </Link>
+            ))}
+          </div>
+          <p className="mt-5 text-[14px] text-plum-2">
+            <Link href="/glossary" className="link-underline text-plum">
+              Full glossary
             </Link>
-          ))}
-        </div>
-      </section>
+          </p>
+        </MotionSection>
+      </PageSection>
 
       <FaqList faqs={p.faqs} />
       <CtaBand title="Put it on a real client website." body="Free for 3 days. No card. Nothing to install for core checks." />
