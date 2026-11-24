@@ -5,23 +5,24 @@ import { collectionPageLd, pageMeta } from "@/lib/seo";
 import { TOOLS } from "@/lib/tools";
 
 export const metadata = pageMeta({
-  title: "Free Website Tools: Down Checker, SSL, SEO | Watchfront",
+  title: "Free Website Tools: Down, SSL, Headers, SEO | Watchfront",
   description:
-    "Free website tools people search for: is my website down, down for everyone or just me, check if website is up, SSL expiry, response time, redirects, meta tags — no signup.",
+    "Free website tools people search for: is my website down, SSL expiry, HTTP headers, security headers, Open Graph, noindex, HTTPS redirect, ping test — no signup.",
   path: "/tools",
   keywords: [
     "free website down checker",
-    "is my website down free",
     "down for everyone or just me free",
     "check if website is up free",
     "free ssl expiry checker",
-    "free website status checker",
-    "free http status checker",
+    "free http headers checker",
+    "free security headers checker",
+    "free open graph checker",
+    "free noindex checker",
+    "free website ping test",
     "free seo checker",
-    "free redirect checker",
   ],
-  ogTitle: "Free Website Down, SSL & SEO Checkers | Watchfront",
-  ogDescription: "Free is-it-down, SSL expiry, response time, SEO and meta checkers — no signup.",
+  ogTitle: "Free Website Down, SSL, Headers & SEO Checkers | Watchfront",
+  ogDescription: "Free is-it-down, SSL, headers, Open Graph, noindex and ping checkers — no signup.",
   image: "/tools/opengraph-image",
 });
 
@@ -38,7 +39,7 @@ export default function ToolsPage() {
         crumbs={[["Home", "/"], ["Free tools", "/tools"]]}
         eyebrow="Free · no signup"
         title="Free website tools for what people actually search."
-        intro="Is my website down? Down for everyone or just me? Check if a website is up. SSL expiry. Response time. Redirects. Meta tags. SEO. Every checker is free — instant answers, no account."
+        intro="Is my website down? SSL expiry? HTTP headers? Security headers? Open Graph? Noindex? HTTPS / www redirects? Ping test? Response time? Every checker is free — instant, no account."
       />
       <MotionGrid className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 md:grid-cols-3">
         {TOOLS.map((t) => (
@@ -61,15 +62,26 @@ export default function ToolsPage() {
           <Link href="/tools/down-for-everyone-or-just-me" className="link-underline text-plum">down for everyone or just me</Link>
           {" · "}
           <Link href="/tools/check-if-website-is-up" className="link-underline text-plum">check if website is up</Link>
-          . Search “SSL expiry” →{" "}
-          <Link href="/tools/ssl-expiry-checker" className="link-underline text-plum">free SSL expiry checker</Link>
-          . Search “website response time” →{" "}
-          <Link href="/tools/website-response-time-checker" className="link-underline text-plum">free response time checker</Link>
+          . Search “SSL expiry” / “check SSL certificate” →{" "}
+          <Link href="/tools/ssl-expiry-checker" className="link-underline text-plum">SSL expiry</Link>
+          {" · "}
+          <Link href="/tools/check-ssl-certificate" className="link-underline text-plum">check SSL certificate</Link>
+          . Search “HTTP headers” / “security headers” →{" "}
+          <Link href="/tools/http-headers-checker" className="link-underline text-plum">HTTP headers</Link>
+          {" · "}
+          <Link href="/tools/security-headers-checker" className="link-underline text-plum">security headers</Link>
+          . Search “Open Graph” / “noindex” / “canonical” →{" "}
+          <Link href="/tools/open-graph-checker" className="link-underline text-plum">Open Graph</Link>
+          {" · "}
+          <Link href="/tools/noindex-checker" className="link-underline text-plum">noindex</Link>
+          {" · "}
+          <Link href="/tools/canonical-tag-checker" className="link-underline text-plum">canonical</Link>
           . Also free:{" "}
-          <Link href="/tools/http-status-checker" className="link-underline text-plum">HTTP status</Link>,{" "}
-          <Link href="/tools/redirect-checker" className="link-underline text-plum">redirects</Link>,{" "}
-          <Link href="/tools/seo-checker" className="link-underline text-plum">SEO</Link>,{" "}
-          <Link href="/tools/meta-tag-checker" className="link-underline text-plum">meta tags</Link>
+          <Link href="/tools/https-redirect-checker" className="link-underline text-plum">HTTPS redirect</Link>,{" "}
+          <Link href="/tools/www-redirect-checker" className="link-underline text-plum">www redirect</Link>,{" "}
+          <Link href="/tools/website-ping-test" className="link-underline text-plum">ping test</Link>,{" "}
+          <Link href="/tools/website-response-time-checker" className="link-underline text-plum">response time</Link>,{" "}
+          <Link href="/tools/seo-checker" className="link-underline text-plum">SEO</Link>
           . Same engines as Watchfront monitoring — one live check each time.
         </p>
         <h2 className="mt-10 text-2xl font-medium text-ink">When a one-off check is not enough</h2>

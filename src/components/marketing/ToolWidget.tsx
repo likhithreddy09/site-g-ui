@@ -10,6 +10,7 @@ const ENDPOINT: Record<ToolKind, string> = {
   "website-status": "/api/tools/website-status",
   ssl: "/api/tools/ssl",
   seo: "/api/tools/seo",
+  headers: "/api/tools/headers",
 };
 
 function Row({ k, v }: { k: string; v: React.ReactNode }) {
@@ -104,6 +105,37 @@ function SeoResult({ r }: { r: any }) {
   );
 }
 
+function HeadersResult({ r }: { r: any }) {
+  const tone = r.security_score >= 80 ? "ok" : r.security_score >= 50 ? "warn" : "bad";
+  return (
+    <>
+      <Verdict
+        tone={tone}
+        title={`Security headers grade ${r.security_grade} (${r.security_score}/100)`}
+        body={`HTTP ${r.status_code}${r.response_ms != null ? ` · ${Math.round(r.response_ms)} ms` : ""}`}
+      />
+      <ul className="mt-5 space-y-2">
+        {r.security?.map((c: any) => (
+          <li key={c.id} className="flex gap-3 rounded-xl bg-cream/70 p-3 text-sm">
+            {c.present ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-ok" /> : <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-bad" />}
+            <div className="min-w-0">
+              <div className="text-ink"><b className="font-medium">{c.label}</b>{c.present ? " present" : " missing"}</div>
+              {c.value && <div className="mt-0.5 break-all text-xs text-plum/60">{c.value}</div>}
+              {c.tip && !c.present && <div className="mt-1 text-xs text-plum-2">Fix: {c.tip}</div>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <h3 className="mt-6 text-sm font-medium text-ink">All response headers</h3>
+      <dl className="mt-2 max-h-72 overflow-auto rounded-xl bg-cream/70 px-3">
+        {r.headers?.map((h: any) => (
+          <Row key={`${h.name}-${h.value?.slice?.(0, 24) || ""}`} k={h.name} v={h.value} />
+        ))}
+      </dl>
+    </>
+  );
+}
+
 export function ToolWidget({
   kind,
   placeholder,
@@ -163,6 +195,7 @@ export function ToolWidget({
           {kind === "website-status" && <StatusResult r={result} />}
           {kind === "ssl" && <SslResult r={result} />}
           {kind === "seo" && <SeoResult r={result} />}
+          {kind === "headers" && <HeadersResult r={result} />}
           <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-ink p-5 text-cream sm:flex-row sm:items-center">
             <p className="flex-1 text-sm text-cream/80">Want to know the moment this changes? Watchfront monitors it 24/7 and alerts you with evidence.</p>
             <Link href="/register" className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-cream px-5 py-2.5 text-sm font-medium text-ink hover:bg-sky">

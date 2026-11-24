@@ -1,6 +1,6 @@
 import type { Faq } from "./marketing";
 
-export type ToolKind = "website-status" | "ssl" | "seo";
+export type ToolKind = "website-status" | "ssl" | "seo" | "headers";
 
 export type Tool = {
   slug: string;
@@ -584,6 +584,412 @@ export const TOOLS: Tool[] = [
     ],
     feature: "uptime-monitoring",
     product: "uptime-monitoring-tool",
+  },
+  {
+    slug: "http-headers-checker",
+    kind: "headers",
+    name: "Free HTTP headers checker",
+    short: "Free HTTP header check — every response header plus a security-headers grade. No signup.",
+    title: "Free HTTP Headers Checker | Watchfront",
+    description:
+      "Free HTTP headers checker. See every response header, status code and security-header grade for any URL — instant, no signup.",
+    keywords: [
+      "free http headers checker",
+      "http header checker free",
+      "check http headers",
+      "response headers checker",
+      "website headers checker free",
+    ],
+    h1: "Free HTTP headers checker",
+    intro:
+      "Free, no signup. Paste a URL to read the live response headers from our servers, plus a plain-English security-headers grade (HSTS, CSP, XFO and more).",
+    placeholder: "example.com",
+    button: "Check headers free",
+    sections: [
+      {
+        h: "Why people search “HTTP headers checker”",
+        p: [
+          "Headers explain caching, redirects, cookies, server type and security posture. When a CDN or host “looks fine” but browsers behave oddly, the response headers are usually the smoking gun.",
+        ],
+      },
+      {
+        h: "Security headers vs all headers",
+        p: [
+          "We show the full header set and score the common browser security headers. Missing HSTS or CSP is not an outage — but it is how agencies lose trust on a client security review.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the HTTP headers checker free?", a: "Yes. Fair-use limits apply. No signup." },
+      { q: "Do you follow redirects?", a: "Yes — you see the final URL and the headers on the final response." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-monitoring-tool",
+  },
+  {
+    slug: "security-headers-checker",
+    kind: "headers",
+    name: "Free security headers checker",
+    short: "Free security headers grade — HSTS, CSP, XFO, Referrer-Policy and more. No signup.",
+    title: "Free Security Headers Checker — Grade A to F | Watchfront",
+    description:
+      "Free security headers checker. Grade HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy and more for any site — no signup.",
+    keywords: [
+      "free security headers checker",
+      "security headers checker free",
+      "http security headers check",
+      "hsts checker free",
+      "csp checker free",
+    ],
+    h1: "Free security headers checker",
+    intro:
+      "Free, no signup. We fetch the URL and grade the security-related response headers browsers look for — then list every header so you can verify the fix.",
+    placeholder: "example.com",
+    button: "Grade security headers",
+    sections: [
+      {
+        h: "What we grade",
+        p: [
+          "Strict-Transport-Security, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options (or CSP frame-ancestors), Referrer-Policy, Permissions-Policy and Cross-Origin-Opener-Policy when present.",
+        ],
+      },
+      {
+        h: "Not a penetration test",
+        p: [
+          "A free security headers checker is a quick hygiene score, not a full vuln scan. Pair it with continuous monitoring so certificate and uptime failures still page you first.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this security headers checker free?", a: "Yes — no account for spot checks." },
+      { q: "What is a good grade?", a: "B or better usually means the common browser security headers are present. F means almost none are set." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-monitoring-software",
+  },
+  {
+    slug: "open-graph-checker",
+    kind: "seo",
+    name: "Free Open Graph checker",
+    short: "Free Open Graph / social preview check — og:title, description and image. No signup.",
+    title: "Free Open Graph Checker — Social Preview Tags | Watchfront",
+    description:
+      "Free Open Graph checker. See og:title, og:description, og:image and related on-page SEO tags for any URL — instant, no signup.",
+    keywords: [
+      "free open graph checker",
+      "open graph checker free",
+      "og tag checker",
+      "facebook open graph checker",
+      "social preview checker free",
+    ],
+    h1: "Free Open Graph checker",
+    intro:
+      "Free, no signup. Paste a URL to audit Open Graph and related meta tags so WhatsApp, LinkedIn and X previews do not look broken after a redesign.",
+    placeholder: "example.com/landing",
+    button: "Check Open Graph",
+    sections: [
+      {
+        h: "Why OG tags break after publishes",
+        p: [
+          "Page builders and CMS themes drop og:image or leave staging titles. A free Open Graph checker before ads resume is cheaper than explaining a blank share card to a client.",
+        ],
+      },
+      {
+        h: "One page here, many pages on a schedule",
+        p: [
+          "This tool audits one URL. Watchfront SEO audit re-checks sitemap pages so a missing og:image after a deploy opens an incident.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the Open Graph checker free?", a: "Yes." },
+      { q: "Does it refresh Facebook’s cache?", a: "No — it reads what your page currently serves. Use Meta’s debugger separately to purge a cached preview." },
+    ],
+    feature: "seo-audit",
+    product: "website-monitoring",
+  },
+  {
+    slug: "noindex-checker",
+    kind: "seo",
+    name: "Free noindex checker",
+    short: "Free noindex / robots meta check — catch accidental staging noindex on live pages. No signup.",
+    title: "Free Noindex Checker — Robots Meta Tag | Watchfront",
+    description:
+      "Free noindex checker. See if a page has robots noindex (or related meta issues) before it disappears from Google — no signup.",
+    keywords: [
+      "free noindex checker",
+      "noindex checker free",
+      "check if page is noindex",
+      "robots meta checker",
+      "meta robots checker free",
+    ],
+    h1: "Free noindex checker",
+    intro:
+      "Free, no signup. Paste a URL to see whether meta robots (or related on-page rules) tell search engines to skip the page — the classic “staging noindex left on production” failure.",
+    placeholder: "example.com/page",
+    button: "Check noindex",
+    sections: [
+      {
+        h: "Why agencies search this weekly",
+        p: [
+          "A leftover noindex after go-live can wipe organic traffic for days. Spot-check money URLs after every migration, then schedule SEO audits so it cannot sneak back.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the noindex checker free?", a: "Yes." },
+      { q: "Does it read robots.txt?", a: "This free check focuses on on-page meta/SEO signals from the HTML response. Pair with a crawl for full robots.txt coverage." },
+    ],
+    feature: "seo-audit",
+    product: "website-monitoring-software",
+  },
+  {
+    slug: "canonical-tag-checker",
+    kind: "seo",
+    name: "Free canonical tag checker",
+    short: "Free canonical URL check — see the preferred URL search engines should treat as primary. No signup.",
+    title: "Free Canonical Tag Checker | Watchfront",
+    description:
+      "Free canonical tag checker. Inspect the canonical URL and related on-page SEO signals for any page — instant, no signup.",
+    keywords: [
+      "free canonical tag checker",
+      "canonical checker free",
+      "check canonical url",
+      "rel canonical checker",
+      "canonical link checker",
+    ],
+    h1: "Free canonical tag checker",
+    intro:
+      "Free, no signup. Paste a URL to see whether a canonical is set, where it points, and the surrounding on-page SEO hygiene that usually travels with it.",
+    placeholder: "example.com/product",
+    button: "Check canonical",
+    sections: [
+      {
+        h: "When canonicals go wrong",
+        p: [
+          "Self-canonicals are normal. Cross-domain or accidental “point everything at the homepage” canonicals quietly tank rankings. Catch them before the monthly report.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this canonical checker free?", a: "Yes." },
+      { q: "What if there is no canonical?", a: "The audit flags it. Many sites rely on the requested URL; adding an explicit self-canonical is still best practice on money pages." },
+    ],
+    feature: "seo-audit",
+    product: "website-monitoring",
+  },
+  {
+    slug: "https-redirect-checker",
+    kind: "website-status",
+    name: "Free HTTPS redirect checker",
+    short: "Free HTTPS redirect check — see if HTTP forces to HTTPS and how the chain looks. No signup.",
+    title: "Free HTTPS Redirect Checker | Watchfront",
+    description:
+      "Free HTTPS redirect checker. Trace whether a site forces HTTPS and inspect every redirect hop — instant, no signup.",
+    keywords: [
+      "free https redirect checker",
+      "https redirect checker free",
+      "http to https redirect check",
+      "force https checker",
+      "ssl redirect checker",
+    ],
+    h1: "Free HTTPS redirect checker",
+    intro:
+      "Free, no signup. Enter a URL (try http://…) to see the redirect chain and whether visitors land on a secure final URL.",
+    placeholder: "http://example.com",
+    button: "Trace HTTPS redirect",
+    sections: [
+      {
+        h: "HTTP without a redirect is still common",
+        p: [
+          "Hosts forget to force HTTPS after a cert install. Mixed chains and www/apex loops show up here in seconds.",
+        ],
+      },
+      {
+        h: "Certificate vs redirect",
+        p: [
+          "A redirect can look fine while the certificate is days from expiry. Pair this with the free SSL expiry checker.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the HTTPS redirect checker free?", a: "Yes." },
+      { q: "Should I enter http or https?", a: "Try http:// first if you want to prove the force-HTTPS rule exists." },
+    ],
+    feature: "ssl-domain-monitoring",
+    product: "ssl-certificate-monitoring",
+  },
+  {
+    slug: "www-redirect-checker",
+    kind: "website-status",
+    name: "Free www redirect checker",
+    short: "Free www vs non-www redirect check — see which host wins and every hop. No signup.",
+    title: "Free WWW Redirect Checker — Apex vs WWW | Watchfront",
+    description:
+      "Free www redirect checker. Trace apex vs www redirects and status codes for any domain — instant, no signup.",
+    keywords: [
+      "free www redirect checker",
+      "www redirect checker free",
+      "www vs non www checker",
+      "apex redirect checker",
+      "check www redirect",
+    ],
+    h1: "Free www redirect checker",
+    intro:
+      "Free, no signup. Enter example.com or www.example.com to see which host is canonical and how the redirect chain behaves after DNS or CDN changes.",
+    placeholder: "www.example.com",
+    button: "Check www redirect",
+    sections: [
+      {
+        h: "Why www vs apex breaks SEO",
+        p: [
+          "Split signals, duplicate content and cookie domain mismatches all start with a messy www policy. Prove the chain before you tell a client the migration is done.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this free?", a: "Yes — fair-use spot checks, no signup." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-monitoring",
+  },
+  {
+    slug: "website-ping-test",
+    kind: "website-status",
+    name: "Free website ping test",
+    short: "Free website ping-style reachability test — up/down, status and ms from our servers. No signup.",
+    title: "Free Website Ping Test Online | Watchfront",
+    description:
+      "Free website ping test online. Check if a site answers from our servers with HTTP status and response time — no signup.",
+    keywords: [
+      "free website ping test",
+      "website ping test free",
+      "ping website online free",
+      "ping a website",
+      "online ping website tool",
+    ],
+    h1: "Free website ping test",
+    intro:
+      "Free, no signup. “Ping website” searches usually want a quick outside reachability check — we request the URL and return status plus response time (HTTP ping, not ICMP).",
+    placeholder: "example.com",
+    button: "Ping website free",
+    sections: [
+      {
+        h: "HTTP ping vs ICMP ping",
+        p: [
+          "Classic ping uses ICMP and is often blocked. This free tool does what people actually need for websites: can an external HTTP client reach the URL, and how fast?",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the website ping test free?", a: "Yes." },
+      { q: "Is this ICMP?", a: "No — it is an HTTP reachability check, which matches “is the website up?” better than ICMP for public sites." },
+    ],
+    feature: "uptime-monitoring",
+    product: "uptime-monitoring-tool",
+  },
+  {
+    slug: "website-online-checker",
+    kind: "website-status",
+    name: "Free website online checker",
+    short: "Free website online checker — is the site online right now? Status + speed. No signup.",
+    title: "Free Website Online Checker | Watchfront",
+    description:
+      "Free website online checker. See if any website is online right now with HTTP status and response time — no signup.",
+    keywords: [
+      "free website online checker",
+      "website online checker free",
+      "is website online",
+      "check if website is online",
+      "site online checker",
+    ],
+    h1: "Free website online checker",
+    intro:
+      "Free, no signup. Paste a URL when you need a straight answer: is this website online from outside your network?",
+    placeholder: "example.com",
+    button: "Check if online",
+    sections: [
+      {
+        h: "Online ≠ healthy",
+        p: [
+          "Online means the URL answered. Forms, SSL and checkout can still be broken — use the other free checkers, then continuous monitoring for overnight failures.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is this website online checker free?", a: "Yes." },
+    ],
+    feature: "uptime-monitoring",
+    product: "website-uptime-monitor",
+  },
+  {
+    slug: "ssl-certificate-validator",
+    kind: "ssl",
+    name: "Free SSL certificate validator",
+    short: "Free SSL certificate validation — trust, expiry, issuer and hostnames covered. No signup.",
+    title: "Free SSL Certificate Validator | Watchfront",
+    description:
+      "Free SSL certificate validator. Check trust, expiry date, days left, issuer and SANs for any domain — instant, no signup.",
+    keywords: [
+      "free ssl certificate validator",
+      "ssl certificate validator free",
+      "validate ssl certificate online",
+      "ssl cert checker free",
+      "check ssl certificate valid",
+    ],
+    h1: "Free SSL certificate validator",
+    intro:
+      "Free, no signup. Enter a domain to validate the live TLS certificate the same way a browser would — trust, dates, issuer and covered names.",
+    placeholder: "example.com",
+    button: "Validate SSL free",
+    sections: [
+      {
+        h: "Validation failures that look like “the site is down”",
+        p: [
+          "Hostname mismatch, expired certs and broken chains all produce scary browser screens. Validate the cert before you restart the whole host.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is the SSL certificate validator free?", a: "Yes." },
+      { q: "Can I get alerts before expiry?", a: "Yes — Watchfront SSL monitoring warns at 30/14/7 days across client sites." },
+    ],
+    feature: "ssl-domain-monitoring",
+    product: "ssl-certificate-monitoring",
+  },
+  {
+    slug: "check-ssl-certificate",
+    kind: "ssl",
+    name: "Free check SSL certificate",
+    short: "Free check SSL certificate online — expiry, issuer, trust. No signup.",
+    title: "Free Check SSL Certificate Online | Watchfront",
+    description:
+      "Free check SSL certificate online. See expiry, days left, issuer and browser trust for any HTTPS site — no signup.",
+    keywords: [
+      "check ssl certificate free",
+      "free check ssl certificate",
+      "check ssl certificate online",
+      "ssl certificate check free",
+      "how to check ssl certificate",
+    ],
+    h1: "Free check SSL certificate online",
+    intro:
+      "Free, no signup. People search “check SSL certificate” when Chrome screams or a client asks “are we secure?” — paste the domain and read the live cert.",
+    placeholder: "example.com",
+    button: "Check certificate",
+    sections: [
+      {
+        h: "What you’ll see",
+        p: [
+          "Expiry timestamp, days remaining, issuer, subject alternative names, TLS version and whether validation passed.",
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is check SSL certificate free?", a: "Yes." },
+    ],
+    feature: "ssl-domain-monitoring",
+    product: "ssl-certificate-monitoring",
   },
 ];
 

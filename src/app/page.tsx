@@ -213,12 +213,12 @@ export default function Home() {
                   "website-down-checker",
                   "down-for-everyone-or-just-me",
                   "check-if-website-is-up",
-                  "is-it-down",
                   "ssl-expiry-checker",
-                  "website-response-time-checker",
-                  "http-status-checker",
-                  "seo-checker",
-                  "redirect-checker",
+                  "http-headers-checker",
+                  "security-headers-checker",
+                  "open-graph-checker",
+                  "noindex-checker",
+                  "website-ping-test",
                 ]
                   .map((slug) => TOOLS.find((t) => t.slug === slug))
                   .filter(Boolean) as typeof TOOLS
